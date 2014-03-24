@@ -27,4 +27,4 @@ Ao clicar na programação, haverá a programação completa, a princípio agrup
 
 Dentro de cada espaço poderá ser visto todos os eventos
 
-Também haverá opção de busca por horário e por linguagem.
+Também haverá opção de busca por horário, linguagem e nome do artista/atração.
