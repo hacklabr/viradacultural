@@ -1,0 +1,5 @@
+.espaco { background-color: #eee; }
+
+#main-nav { position: fixed; z-index: 1000; top: 0; bottom: 0; width: 55px; padding: 0 15px; background: #000; color: #fff; box-shadow: 0 0 3px 3px rgba(0,0,0,.3); }
+
+#logo { background: url(../img/logo.png) no-repeat center cover; text-indent: -99999px; }
