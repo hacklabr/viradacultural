@@ -8,39 +8,39 @@ Version: 1.0
 /*Main nav*/
 #main-nav { position: fixed; z-index: 1040; top: 0; bottom: 0; left: 0; background: #fff; box-shadow: 0 0 3px 3px rgba(0,0,0,.3); }
 #main-nav>li>a { margin: 0 -15px; }
-.logo { background-repeat: no-repeat; background-position: center; background-size: contain; text-indent: -99999px; }
+.logo { margin-top: 0; background-repeat: no-repeat; background-position: center; background-size: contain; text-indent: -99999px; }
 .logo a { display: block; }
 #logo-virada { height: 100px; background-image: url(img/logo.png); }
 #logo-smc { position: absolute; left: 0; bottom: 15px; width: 100%; height: 80px; background-image: url(img/brasao.png); }
 
 /*Spaces nav*/
 #spaces-nav { background-color: #ddd; box-shadow: 0 0 2px 2px rgba(0,0,0,.2); }
-#spaces-nav>div { border-right: 1px solid #999; }
-
+#spaces-nav>div { text-align: center; border-right: 1px solid #999; }
+#spaces-nav .pagination { margin: 8px 0 0; }
 /*Hour grid*/
 .hour-grid { margin-top: -40px; text-align: right; line-height: 80px; font-size: 36px; font-weight: bold; color: #ddd; }
 
 
 /*Container*/
-body.view-programacao .container-fluid { padding-top: 80px; }
+body.view-programacao #program-grid { padding-top: 51px; }
 .space { box-shadow: -1px 0 0 #ccc inset; }
 body.view-programacao .hour { height: 480px; background-image: url(img/hour-grid.png); background-repeat: repeat-x; }
-.event { position: relative; padding: 10px 15px; overflow: hidden; box-shadow: 0 -1px 0 #ccc inset; background-color: #ddd; }
-.event footer {  }
-.event h3 { display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; padding: 15px; background-color: #666; color: #fff; }
+.event { position: relative; margin-bottom: 10px; padding: 10px 15px; overflow: hidden; box-shadow: 0 -1px 0 #ccc inset; background-color: #ddd; }
+.event h3 { display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: 0; padding: 15px; background-color: #666; color: #fff; font-size: 18px; }
 .event:hover h3 { display: block; }
+.dur-60 { height: 470px; max-height: 470px; }
+.dur-50	{ height: 390px; max-height: 390px; }
+.dur-40	{ height: 310px; max-height: 310px; }
+.dur-30	{ height: 230px; max-height: 230px; }
+.dur-20	{ height: 150px; max-height: 150px; }
+.dur-10	{ height: 70px; max-height: 70px; }
 .photo { height: 90px; margin-bottom: 10px; background-color: #ccc; }
-.dur-60 { margin-bottom: 10px; height: 470px; max-height: 470px; }
-.dur-50	{ margin-bottom: 10px; height: 390px; max-height: 390px; }
-.dur-40	{ margin-bottom: 10px; height: 310px; max-height: 310px; }
-.dur-30	{ margin-bottom: 10px; height: 230px; max-height: 230px; }
-.dur-20	{ margin-bottom: 10px; height: 150px; max-height: 150px; }
-.dur-10	{ margin-bottom: 10px; height: 70px; max-height: 70px; }
 .event h1 { margin-top: 0; }
 .dur-60 h1 { font-size: 28px; line-height: 32px; }
 .dur-50 h1 { font-size: 24px; line-height: 30px; }
 .dur-40 h1, .dur-30 h1, .dur-20 h1 { font-size: 20px; line-height: 24px; }
-.dur-10 h1 { font-size: 14px; line-height: 16px; }
+.dur-10 h1 { font-size: 14px; line-height: 20px; }
 .dur-40 p { font-size: 12px; }
-.glyphicon-heart { position: absolute; top: initial; bottom: 0; right: 0; padding: 3px; font-size: 20px; background-color: #ccc; }
-.break { background-image: url(img/break.png); background-repeat: repeat; }
+.glyphicon-star { position: absolute; top: initial; bottom: 0; right: 0; padding: 3px; font-size: 20px; background-color: #ccc; }
+.empty { background-image: url(img/empty.png); background-repeat: repeat; }
+.perm .space { height: 50px; padding-bottom: 10px; padding-top: 10px; text-align: center; }
