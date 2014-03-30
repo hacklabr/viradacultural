@@ -8,6 +8,7 @@ include dirname(__FILE__).'/includes/congelado-functions.php';
 include dirname(__FILE__).'/includes/html.class.php';
 include dirname(__FILE__).'/includes/utils.class.php';
 include dirname(__FILE__).'/includes/form.class.php';
+include dirname(__FILE__).'/includes/hacklab_post2home/hacklab_post2home.php';
 
 
 add_action( 'after_setup_theme', 'viradacultural_setup' );
@@ -73,6 +74,7 @@ function viradacultural_addJS() {
     wp_enqueue_script('jquery');
     wp_enqueue_script('bootstrap', get_stylesheet_directory_uri().'/js/bootstrap.min.js', 'jquery');
     wp_enqueue_script('less', get_stylesheet_directory_uri().'/js/less-1.7.0.min.js');
+    wp_enqueue_script('viradacultural', get_stylesheet_directory_uri().'/js/viradacultural.js','jquery');
     wp_localize_script('congelado', 'vars', array(
         'ajaxurl' => admin_url('admin-ajax.php')
     ));
@@ -82,7 +84,7 @@ function viradacultural_addJS() {
 add_action( 'init', 'viradacultural_custom_menus' );
 function viradacultural_custom_menus() {
     register_nav_menus( array(
-        'main' => __('Menu name', 'viradacultural'),
+        'main' => 'Principal',
     ) );
 }
 

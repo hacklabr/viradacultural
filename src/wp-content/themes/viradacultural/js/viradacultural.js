@@ -4,4 +4,6 @@ $(document).ready(function(){
 
 	$('.collapse').collapse();
 
+	$('#front-page-carousel').carousel();
+
 })(jQuery);

@@ -35,11 +35,10 @@
         ?></title>
 
         <link rel="profile" href="http://gmpg.org/xfn/11" />
-        <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-        <!-- Bootstrap -->
-        <link href="<?php bloginfo( 'stylesheet_directory' ) ?>/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />        
         <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
-        <link rel="stylesheet/less" type="text/css" href="<?php bloginfo( 'stylesheet_directory' ) ?>/main.less" />        
+        <!-- Bootstrap -->
+        <link rel="stylesheet/less" type="text/css" href="<?php bloginfo( 'stylesheet_directory' ) ?>/less/main.less" />        
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -51,20 +50,13 @@
     </head>
 
     <body <?php body_class(); ?>>
-
-        <header id="main-header">
-            <div id="branding" class="wrap clearfix">
-                <h1 class="col-12"><span><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?></a></span></h1>
-                <p id="description" class="col-12"><?php bloginfo( 'description' ); ?></p>			
-            </div>
-            <!-- .wrap -->
+        <header id="main-header" <?php if (is_page_template('programacao')): ?>class="col-md-1"<?php else: ?>class="col-md-2"<?php endif; ?>>
+            <h1 id="logo-virada" class="logo"><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
+            <time>17-18 de maio de 2014</time>
             <nav id="main-nav">
-                <div class="wrap clearfix">
-                    <?php wp_nav_menu( array( 'theme_location' => 'main', 'container' => '', 'menu_id' => 'main-menu', 'menu_class' => 'clearfix', 'fallback_cb' =>'') ); ?>
-                    <div><a href="<?php bloginfo('rss_url'); ?>" title="RSS Feed">rss</a></div>
-                </div>
-            <!-- .wrap -->
+                <?php wp_nav_menu( array( 'theme_location' => 'main', 'container' => 'nav', 'container_id' => 'main-nav', 'menu_id' => 'main-menu', 'menu_class' => 'nav', 'fallback_cb' =>'', 'depth' => '1',) ); ?>
             </nav>
             <!-- #main-nav -->
+            <h2 id="logo-smc" class="logo"><a href="http://www.prefeitura.sp.gov.br/">Secretaria Municipal de Cultural de São Paulo</a></h2>
         </header>
         <!-- #main-header -->
