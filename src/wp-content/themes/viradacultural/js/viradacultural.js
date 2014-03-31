@@ -1,9 +1,12 @@
-$(document).ready(function(){
+(function($){
+	$(document).ready(function(){
 
-	$('.btn-sm span').tooltip();
+		$('.btn-sm span').tooltip();
 
-	$('.collapse').collapse();
+		$('.collapse').collapse();
 
-	$('#front-page-carousel').carousel();
+		$('#front-page-carousel .item:first, .carousel-indicators li:first').addClass('active');
+		$('#front-page-carousel').carousel();
 
+	})
 })(jQuery);

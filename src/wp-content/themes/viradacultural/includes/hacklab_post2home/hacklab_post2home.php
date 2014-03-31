@@ -29,7 +29,6 @@ function hacklab_post2home_JS() {
 	wp_localize_script('hacklab_post2home', 'hacklab', array('ajaxurl' => admin_url('admin-ajax.php') ));
 }
 
-
 //********* FIM SELECIONA DESTAQUES DA HOME *****************//
 
 add_action('wp_ajax_destaque_add', 'hacklab_post2home_add');

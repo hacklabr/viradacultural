@@ -8,14 +8,15 @@
 				<?php if ($homefeatures->have_posts()) : ?>
 					<!-- Indicators -->
 					<ol class="carousel-indicators">
-						<li data-target="#front-page-carousel" data-slide-to="0" class="active"></li>
-						<li data-target="#front-page-carousel" data-slide-to="1"></li>
+						<?php for ($i=0; $i < $homefeatures->found_posts; $i++) { ?>
+							<li data-target="#front-page-carousel" data-slide-to="<?php echo $i; ?>"></li>
+						<?php } ?>
 					</ol>
 
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner">
 						<?php while ($homefeatures->have_posts()) : $homefeatures->the_post(); ?>
-							<div class="item active">
+							<div class="item">
 								<?php if ( has_post_thumbnail() ) : ?> 
 									<?php the_post_thumbnail('large', 'true'); ?>				 
 								<?php endif; ?>
@@ -63,4 +64,3 @@
 	<!-- .row -->         
 </div>
 <!-- .container-fluid -->
-<?php html::part('countdown'); ?>

@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 <div class="container-fluid">
     <div class="row">
-        <section id="main-section" class="col-md-5 col-md-offset-2">
+        <section id="main-section" class="col-md-10 col-md-offset-2">
             <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
                 <?php html::part('loop'); ?>
                 <?php endwhile; ?>
@@ -23,7 +23,6 @@
     <!-- .row -->         
 </div>
 <!-- .container-fluid -->
-<?php html::part('countdown'); ?>
 
 
 
