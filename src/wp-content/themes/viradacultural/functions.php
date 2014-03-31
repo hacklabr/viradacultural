@@ -224,3 +224,50 @@ function custom_login_headerurl($url) {
 
 }
 add_filter ('login_headerurl', 'custom_login_headerurl');
+
+
+
+// post type imprensa
+
+add_action( 'init', 'register_cpt_imprensa' );
+
+function register_cpt_imprensa() {
+
+    $labels = array( 
+        'name' => _x( 'Imprensa', 'imprensa' ),
+        'singular_name' => _x( 'Release', 'imprensa' ),
+        'menu_name' => __( 'Imprensa', 'imprensa' ),
+        'add_new' => __( 'Adicionar Release', 'imprensa' ),
+        'add_new_item' => __( 'Adicionar novo Release', 'imprensa' ),
+        'edit_item' => __( 'Editar Release', 'imprensa' ),
+        'new_item' => __( 'Novo Release', 'imprensa' ),
+        'view_item' => __( 'Ver Release', 'imprensa' ),
+        'search_items' => __( 'Procurar Release', 'imprensa' ),
+        'not_found' => __( 'Nenhum Release Encontrado', 'imprensa' ),
+        'not_found_in_trash' => __( 'Nenhum Release na Lixeira', 'imprensa' ),
+        'parent_item_colon' => ''
+    );
+
+    $args = array( 
+        'labels' => $labels,
+        'hierarchical' => false,
+        
+        'supports' => array( 'title', 'editor' ),
+        
+        'public' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'menu_position' => 5,
+        
+        'show_in_nav_menus' => false,
+        'publicly_queryable' => true,
+        'exclude_from_search' => false,
+        'has_archive' => true,
+        'query_var' => true,
+        'can_export' => true,
+        'rewrite' => true,
+        'capability_type' => 'post'
+    );
+
+    register_post_type( 'imprensa', $args );
+}
