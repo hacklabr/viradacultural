@@ -64,3 +64,4 @@
 	<!-- .row -->         
 </div>
 <!-- .container-fluid -->
+<?php html::part('countdown'); ?>

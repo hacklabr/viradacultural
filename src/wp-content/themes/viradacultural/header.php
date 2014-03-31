@@ -60,6 +60,3 @@
             <h2 id="logo-smc" class="logo"><a href="http://www.prefeitura.sp.gov.br/">Secretaria Municipal de Cultural de São Paulo</a></h2>
         </header>
         <!-- #main-header -->
-        <div id="countdown" class="navbar navbar-fixed-top">
-            <time class="col-md-10 col-md-offset-2">17-18 de maio de 2014</time>
-        </div>
