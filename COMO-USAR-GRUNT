@@ -1,0 +1,22 @@
+Instale na sua máquina:
+
+sudo add-apt-repository -y ppa:chris-lea/node.js
+sudo apt-get update
+sudo apt-get install nodejs
+sudo npm install -g grunt-cli
+cd ~/devel/viradacultural
+npm install
+
+== depois que estiver instalado ==
+
+Para compilar, na raíz do repositorio digite
+
+$grunt less
+
+Se quiser você pode deixar isso rodando e ele vai compilando automaticamente toda vez que você alterar o .less
+
+digite apenas:
+
+$grunt
+
+e deixe rodando...
