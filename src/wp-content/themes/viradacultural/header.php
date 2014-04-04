@@ -51,7 +51,7 @@
     </head>
 
     <body <?php body_class(); ?>>
-        <header id="main-header" <?php if (is_page_template('tpl-programacao.php')): ?>class="col-md-1"<?php else: ?>class="col-md-2"<?php endif; ?>>
+        <header id="main-header" <?php if (get_query_var('virada_tpl')): ?>class="col-md-1"<?php else: ?>class="col-md-2"<?php endif; ?>>
             <h1 id="logo-virada" class="logo"><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
             <p class="assinatura"><span>A</span> <span>cidade</span> <span>em</span> <span>festa!</span></p>
             <nav id="main-nav">

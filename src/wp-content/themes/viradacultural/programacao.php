@@ -1,9 +1,3 @@
-<?php
-/*
-Template Name: programacao
-*/
-?>
-
 <?php get_header(); ?>
 <nav id="programacao-navbar" class="navbar navbar-fixed-top">
 	teste
