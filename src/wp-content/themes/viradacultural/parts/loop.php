@@ -4,7 +4,7 @@ $has_thumb = has_post_thumbnail();
 <article id="post-<?php the_ID(); ?>" <?php post_class('clearfix grid-post' . ( $has_thumb ? ' has-thumbnail' : '' ));?>>
 	<?php if ( $has_thumb ) { the_post_thumbnail('thumbnail'); } ?>	 
 	<div class="post-content">
-		<? print apply_filters( 'taxonomy-images-list-the-terms', '', array(
+		<?php print apply_filters( 'taxonomy-images-list-the-terms', '', array(
 	    'after'        => '</div>',
 	    'after_image'  => '',
 	    'before'       => '<div class="category-icon">',
