@@ -1,0 +1,27 @@
+{
+  "name": "viradacultural",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-less": "~0.8.0",
+    "grunt-contrib-watch": "~0.5.3"
+  },
+  "description": "viradacultural ==============",
+  "main": "Gruntfile.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hacklabr/viradacultural.git"
+  },
+  "author": "Hacklab",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hacklabr/viradacultural/issues"
+  },
+  "homepage": "https://github.com/hacklabr/viradacultural"
+}
