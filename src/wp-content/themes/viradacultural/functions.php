@@ -224,3 +224,24 @@ function custom_login_headerurl($url) {
 
 }
 add_filter ('login_headerurl', 'custom_login_headerurl');
+
+
+
+function virada_the_post_type_icon($post_type = null) {
+    
+    if (is_null($post_type)) {
+        $post_type = get_post_type();
+    }
+    
+    if ($post_type != 'post' && $post_type != 'noticias')
+        return;
+        
+    $icon_name = $post_type == 'post' ? 'blog-icon-2x.png' : 'noticias-icon-2x.png';
+    
+    echo '<div class="category-icon">';
+    html::image($icon_name, $post_type);
+    echo '</div>';
+    
+    
+}
+
