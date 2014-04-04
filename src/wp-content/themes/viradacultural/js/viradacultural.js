@@ -9,6 +9,14 @@
 		$('#front-page-carousel').carousel();
         
         // MENU ANIMATION
+        $("#main-header li.has-children").hover(
+            function() {
+                $("#main-header").removeClass().addClass("col-md-1");
+            },
+            function() {
+                $("#main-header").removeClass().addClass("col-md-2");
+            }
+        )
         
 	})
 })(jQuery);

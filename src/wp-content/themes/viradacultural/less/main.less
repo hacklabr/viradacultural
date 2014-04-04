@@ -125,14 +125,17 @@ img {
 -------------------------------------------------------------- */
 #main-header {
 	.fixed-bars();
-	left: 0;
 	border-right: 1px solid @body-bg;
+	left: 0;
+  .transition(width linear .3s);
 	&.col-md-1 {
 		#main-menu>li>a {
-		.text-hide();
 		background-position: center;
 		height: 48px;
 		}
+    #main-menu>li>a>span {
+      .text-hide();
+    }
 		.assinatura {
 			display: none;
 		}
@@ -190,7 +193,7 @@ img {
     ul.children {
       background-color: @rosa;
       bottom: 0;
-      left: -16.66666667%;
+      left: -8.33333333%;
       position: fixed;
       top: 0;
       width: 16.66666667%;
@@ -203,10 +206,10 @@ img {
         }
       }
     }
-    &:hover {
+    &.has-children:hover {
       box-shadow: 6px 0 0 @roxo inset;
       ul.children {
-        left: 16.66666667%;
+        left: 8.33333333%;
         visibility: visible;
       }
     }
@@ -250,6 +253,7 @@ img {
 #brand {
   background-color: @gray-lighter;
   box-shadow: 6px 0 0 @rosa inset;
+  height: 166px;
   margin: 0 -15px;
   padding: 15px;
   position: relative;
@@ -270,7 +274,7 @@ img {
   margin: 0;
   padding: 0;
   z-index: 30;
-  .text-hide();
+  // .text-hide();
   a { 
     display: block;
     height: inherit;
