@@ -141,15 +141,17 @@ img {
 -------------------------------------------------------------- */
 #main-header {
 	.fixed-bars();
-	left: 0;
-	box-shadow: 6px 0 0 @rosa inset;
 	border-right: 1px solid @body-bg;
+	left: 0;
+  .transition(width linear .3s);
 	&.col-md-1 {
 		#main-menu>li>a {
-		.text-hide();
 		background-position: center;
 		height: 48px;
 		}
+    #main-menu>li>a>span {
+      .text-hide();
+    }
 		.assinatura {
 			display: none;
 		}
@@ -174,26 +176,69 @@ img {
 }
 
 #main-menu {
-	>li {
-		margin: 0 -15px;
-		border-bottom: 1px solid @body-bg;
-		&:first-child {
-			border-top: 1px solid @body-bg;
-		}
-		>a {
-			.secondary-font();
-			padding: 0 0 0 75px;
-			line-height: 48px;
-			background-position: 30px center;
-			background-repeat: no-repeat;
-			&:hover,
-		    &:focus {
-		        background-color: @rosa;
-		        color: @amarelo;
-		        box-shadow: 6px 0 0 @roxo inset;
-		    }
-		}
-	}
+  >li {
+    box-shadow: 6px 0 0 @rosa inset;
+    margin: 0 -15px;
+    z-index: 15;
+    &:first-child {
+      a {
+        border-top: 1px solid @body-bg;
+        &:hover {
+          border-color: @rosa;
+        }
+      }
+    }
+    >a {
+      background-color: @gray-lighter;
+      background-position: 30px center;
+      background-repeat: no-repeat;
+      border-bottom: 1px solid @body-bg;
+      line-height: 48px;
+      margin-left: 6px;
+      padding: 0 0 0 75px;
+      position: relative;
+      z-index: 30;
+      .secondary-font();
+      &:hover,
+      &:focus {
+        background-color: @rosa;
+        border-color: @rosa;
+        color: @amarelo;
+      }
+    }
+    ul.children {
+      background-color: @rosa;
+      bottom: 0;
+      left: -8.33333333%;
+      position: fixed;
+      top: 0;
+      width: 16.66666667%;
+      z-index: 1;
+      .transition(left linear .3s);
+      li {
+        a {
+          border: none;
+          color: white;
+        }
+      }
+    }
+    &.has-children:hover {
+      box-shadow: 6px 0 0 @roxo inset;
+      ul.children {
+        left: 8.33333333%;
+        visibility: visible;
+      }
+    }
+    &.whitespace {
+      span {
+        background-color: @gray-lighter;
+        box-shadow: 6px 0 0 @rosa inset;
+        display: block;
+        height: 3000px;
+        width: 100%;
+      }
+    }
+  }
 	
 	.a-virada {
 		.img-retina("http://localhost/viradacultural/wp-content/themes/viradacultural/img/virada-icon-1x.png", "http://localhost/viradacultural/wp-content/themes/viradacultural/img/virada-icon-2x.png", 27px, 25px);
@@ -219,36 +264,47 @@ img {
 	.minha-virada {
 		.img-retina("http://localhost/viradacultural/wp-content/themes/viradacultural/img/minha-virada-icon-1x.png", "http://localhost/viradacultural/wp-content/themes/viradacultural/img/minha-virada-icon-2x.png", 27px, 25px);
 	}
-	
+}
+
+#brand {
+  background-color: @gray-lighter;
+  box-shadow: 6px 0 0 @rosa inset;
+  height: 166px;
+  margin: 0 -15px;
+  padding: 15px;
+  position: relative;
+  z-index: 20;
+  #logo-virada {
+    background-image: url(http://localhost/viradacultural/wp-content/themes/viradacultural/img/logo.png);
+    background-position: top center;
+    height: 100px;
+    &:hover {
+      background-image: url(http://localhost/viradacultural/wp-content/themes/viradacultural/img/logo-roxo.png);
+    }
+  }
 }
 
 .logo { 
-	background-repeat: no-repeat;  
-	background-size: contain; 
-	.text-hide();
-	a { 
-		display: block;
-		height: inherit;
-	}
-}
-
-#logo-virada { 
-	height: 100px;
-	background-image: url(http://localhost/viradacultural/wp-content/themes/viradacultural/img/logo.png);
-	background-position: top center;
-	&:hover {
-		background-image: url(http://localhost/viradacultural/wp-content/themes/viradacultural/img/logo-roxo.png);
-	}
+  background-repeat: no-repeat;
+  background-size: contain; 
+  margin: 0;
+  padding: 0;
+  z-index: 30;
+  // .text-hide();
+  a { 
+    display: block;
+    height: inherit;
+  }
 }
 
 #logo-smc {
-	position: absolute;
-	left: 0; 
-	bottom: 15px; 
-	width: 100%; 
-	height: 80px; 
 	background-image: url(http://localhost/viradacultural/wp-content/themes/viradacultural/img/brasao.png);
 	background-position: bottom center;
+	bottom: 15px; 
+	height: 80px; 
+	left: 0; 
+	position: absolute;
+	width: 100%; 
 }
 
 /* =Main footer
