@@ -1,6 +1,10 @@
 <?php get_header(); ?>
 <nav id="programacao-navbar" class="navbar navbar-fixed-top">
-	teste
+	<div class="col-md-offset-1 col-md-11">
+		<form class="navbar-form" role="search">
+			<input type="text" class="form-control" placeholder="Palco 1">					
+		</form>
+	</div>
 </nav>
 <div class="container-fluid">
 	<div class="row">

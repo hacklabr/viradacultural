@@ -4,7 +4,7 @@ $has_thumb = has_post_thumbnail();
 <article id="post-<?php the_ID(); ?>" <?php post_class('clearfix grid-post' . ( $has_thumb ? ' has-thumbnail' : '' ));?>>
 	<?php if ( $has_thumb ) { the_post_thumbnail('thumbnail'); } ?>	 
 	<div class="post-content">
-		<? virada_the_post_type_icon();?>
+		<php? virada_the_post_type_icon();?>
 		<header>
 			<p>
 				<!--<a class="comments-number" href="<?php comments_link(); ?>"title="comentários"><?php comments_number('0','1','%');?></a>
