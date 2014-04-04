@@ -3,12 +3,14 @@
 
 add_action('manage_posts_custom_column', 'hacklab_post2home_select', 10, 2);
 add_filter('manage_posts_columns','hacklab_post2home_add_column');
+add_action('manage_noticias_posts_custom_column', 'hacklab_post2home_select', 10, 2);
+#add_filter('manage_noticias_posts_columns','hacklab_post2home_add_column');
 add_action('load-edit.php', 'hacklab_post2home_JS');
 add_action('load-edit-pages.php', 'hacklab_post2home_JS');
 
 function hacklab_post2home_add_column($defaults){
     global $post_type;
-    if ('post' == $post_type)
+    if ('post' == $post_type || 'noticias' == $post_type)
         $defaults['destaques'] = 'Destaque';
     return $defaults;
 }
@@ -45,5 +47,19 @@ function hacklab_post2home_remove() {
     echo 'ok';
     die;
 }
+
+add_action('pre_get_posts', function($wp_query) {
+
+    if (!$wp_query->is_main_query())
+        return $wp_query;
+    
+    if (is_front_page()) {
+        global $wpdb;
+        $wp_query->query_vars['post__not_in'] = $wpdb->get_col("SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_home' AND meta_value = 1");
+    
+    }
+
+});
+
 
 ?>

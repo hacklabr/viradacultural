@@ -224,3 +224,68 @@ function custom_login_headerurl($url) {
 
 }
 add_filter ('login_headerurl', 'custom_login_headerurl');
+
+
+
+function virada_the_post_type_icon($post_type = null) {
+    
+    if (is_null($post_type)) {
+        $post_type = get_post_type();
+    }
+    
+    if ($post_type != 'post' && $post_type != 'noticias')
+        return;
+        
+    $icon_name = $post_type == 'post' ? 'blog-icon-2x.png' : 'noticias-icon-2x.png';
+    
+    echo '<div class="category-icon">';
+    html::image($icon_name, $post_type);
+    echo '</div>';
+    
+    
+}
+
+// REWRITE RULES //
+add_filter('query_vars', 'virada_custom_query_vars');
+add_filter('rewrite_rules_array', 'virada_custom_url_rewrites', 10, 1);
+add_action('template_redirect', 'virada_template_redirect_intercept');
+
+function virada_custom_query_vars($public_query_vars) {
+    $public_query_vars[] = "virada_tpl";
+    $public_query_vars[] = "virada_object";
+    $public_query_vars[] = "minhavirada";
+
+    return $public_query_vars;
+}
+
+// REDIRECIONAMENTOS
+function virada_custom_url_rewrites($rules) {
+    
+    //var_dump($rules); die;
+    $new_rules = array( 
+        "programacao/?$" => "index.php?virada_tpl=programacao",
+        "programacao/atracoes/?$" => "index.php?virada_tpl=programacao-atracoes",
+        "programacao/atracoes/([^/]+)/?$" => 'index.php?virada_tpl=programacao-atracoes-single&virada_object=$matches[1]',
+        //"programacao/locais/?$" => "index.php?virada_tpl=programacao",
+        "programacao/locais/([^/]+)/?$" => 'index.php?virada_tpl=programacao-locais-single&virada_object=$matches[1]',
+        "minha-virada/?$" => 'index.php?minhavirada=1&virada_tpl=programacao-locais-single',
+        "minha-virada/([^/]+)/?$" => 'index.php?minhavirada=1&virada_tpl=programacao-locais-single&virada_object=$matches[1]',
+    );
+
+    return $new_rules + $rules;
+}
+
+function virada_template_redirect_intercept() {
+    global $wp_query;
+
+    if ( $wp_query->get('virada_tpl') ) {
+
+        if (file_exists( TEMPLATEPATH . '/' . $wp_query->get('virada_tpl') . '.php' )) {
+            include( TEMPLATEPATH . '/' . $wp_query->get('virada_tpl') . '.php' );
+            exit;
+        }
+
+    }
+}
+
+

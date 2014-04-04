@@ -2,7 +2,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<section id="main-section" class="col-md-8 col-md-offset-2">
-		<?php $homefeatures = new WP_Query( 'posts_per_page=-1&meta_key=_home&meta_value=1&ignore_sticky_posts=1' ); ?>
+		<?php $homefeatures = new WP_Query( 'posts_per_page=-1&meta_key=_home&meta_value=1&ignore_sticky_posts=1&post_type=any' ); ?>
 
 			<div id="front-page-carousel" class="carousel slide" data-ride="carousel">
 				<?php if ($homefeatures->have_posts()) : ?>
