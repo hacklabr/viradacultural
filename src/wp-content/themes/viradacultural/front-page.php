@@ -39,29 +39,26 @@
 				<?php endif; ?> 
 			</div>
 			<?php wp_reset_postdata(); ?>
-
-			<?php if ( have_posts()) : while ( have_posts()) : the_post(); ?>			
-				<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix');?>>	  
-					<header>                       
-						<h1><a href="<?php the_permalink();?>" title="<?php the_title_attribute();?>"><?php the_title();?></a></h1>
-						<p><?php edit_post_link( __( 'Edit', 'viradacultural' ), '', '' ); ?></p>				
-					</header>
-					<div class="post-content clearfix">
-						<?php the_content(); ?>
-						<?php wp_link_pages( array( 'before' => '<nav class="page-link">' . __( 'Pages:', 'viradacultural' ), 'after' => '</nav>' ) ); ?>	
-					</div>
-					<!-- .post-content -->
-				</article>
-				<!-- .page -->
-			<?php endwhile; ?>				
-			<?php else : ?>
-			   <p><?php _e('No results found.', 'viradacultural'); ?></p>              
-			<?php endif; ?>
+			<div class="row">
+			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+                <?php html::part('loop'); ?>
+                <?php endwhile; ?>
+                <?php if ($wp_query->max_num_pages > 1) : ?>
+                    <nav id="posts-nav" class="clearfix">
+                        <div class="alignleft"><?php next_posts_link(__('&laquo; Previous posts', 'viradacultural')); ?></div>
+                        <div class="alignright"><?php previous_posts_link(__('Next posts &raquo;', 'viradacultural')); ?></div>
+                    </nav>
+                    <!-- #posts-nav -->
+                <?php endif; ?>					
+            <?php else : ?>
+                <p><?php _e('No results found.', 'viradacultural'); ?></p>              
+            <?php endif; ?>
+           	</div>			
 		</section>
 		<!-- #main-section -->
 		<?php get_footer(); ?>
 	</div>
-	<!-- .row -->         
-</div>
+	<!-- .row -->
+	</div>
 <!-- .container-fluid -->
 <?php html::part('countdown'); ?>

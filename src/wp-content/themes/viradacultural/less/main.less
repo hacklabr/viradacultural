@@ -6,7 +6,20 @@
 @verde: #00a68a; /*0, 166, 138*/
 @roxo: #893494; /*137, 52, 148*/
 
+@gray-darker:            lighten(#000, 13.5%); // #222
+@gray-dark:              lighten(#000, 20%);   // #333
+@gray:                   lighten(#000, 80%);   // #ccc
+@gray-light:             lighten(#000, 87%);   // #dedede
+@gray-lighter:           lighten(#000, 95%);   // #f2f2f2
+
+@brand-primary:         @rosa;
+
+@body-bg: @gray-light;
 @link-color: @rosa;
+@link-hover-color: @roxo;
+a:hover {
+	text-decoration: none;
+}
 
 
 /*Typography*/
@@ -65,14 +78,15 @@
 }
 
 @font-size-base:          16px;
-@font-family-sans-serif:  "Museo", Helvetica, Arial, sans-serif;
+
+@font-family-sans-serif:  "Museo", Helvetica, Arial, sans-serif; 
 @font-family-secondary:   "Museo Sans", Verdana, sans-serif;
 @line-height-base: 		  1.5;
 
 @icon-font-path:          "http://localhost/viradacultural/wp-content/themes/viradacultural/fonts/";
 
-@headings-font-family:    "Museo", Helvetica, Arial, sans-serif;
-@headings-font-weight:    bold;
+@headings-font-family:    @font-family-sans-serif;
+@headings-font-weight:    normal;
 
 .secondary-font(){
 	font-family: @font-family-secondary;
@@ -80,21 +94,31 @@
 	text-transform: uppercase;
 }
 
+@shadow: 0 0 3px 3px rgba(0,0,0,.3);
+
+.alignright {
+	float: right;
+}
+
+.alignleft {
+	float: left;
+}
+
+img {
+	.img-responsive();
+}
 
 
-@shadow: 0 0 3px 3px rgba(0,0,0,.3); 
-
-
+/* =Grid
+-------------------------------------------------------------- */
 
 .fixed-bars(){
 	position: fixed;
 	z-index: 1040;
 	top: 0;
 	bottom: 0;
+	background-color: @gray-lighter;
 }
-
-
-
 
 
 /* =Main header
@@ -102,32 +126,84 @@
 #main-header {
 	.fixed-bars();
 	left: 0;
-	background-color: @roxo;
-	text-align: center;
-	time {
-		display: block;
-		color: @amarelo;
-		border-top: 2px solid @amarelo;
-		border-bottom: 2px solid @amarelo;
-		margin-bottom: 20px;
-		padding: 10px 0;
-		.secondary-font();
+	box-shadow: 6px 0 0 @rosa inset;
+	border-right: 1px solid @body-bg;
+	&.col-md-1 {
+		#main-menu>li>a {
+		.text-hide();
+		background-position: center;
+		height: 48px;
+		}
+		.assinatura {
+			display: none;
+		}
+	}
+	.assinatura {
+		text-align: center;
+		text-transform: uppercase;
+		font-weight: bolder;
+		span:first-child {
+			color: @amarelo;
+		}
+		span:nth-child(2) {
+			color: @verde;
+		}
+		span:nth-child(3) {
+			color: @roxo;
+		}
+		span:last-child {
+			color: @rosa;
+		}
 	}
 }
 
 #main-menu {
-	a {
-		color: @amarelo;
-		.secondary-font();
-		&:hover,
-	    &:focus {
-	        background-color: @amarelo;
-	        color: @rosa;
-	    }
-	}
-	>li>a { 
+	>li {
 		margin: 0 -15px;
+		border-bottom: 1px solid @body-bg;
+		&:first-child {
+			border-top: 1px solid @body-bg;
+		}
+		>a {
+			.secondary-font();
+			padding: 0 0 0 75px;
+			line-height: 48px;
+			background-position: 30px center;
+			background-repeat: no-repeat;
+			&:hover,
+		    &:focus {
+		        background-color: @rosa;
+		        color: @amarelo;
+		        box-shadow: 6px 0 0 @roxo inset;
+		    }
+		}
 	}
+	
+	.a-virada {
+		.img-retina("http://localhost/viradacultural/wp-content/themes/viradacultural/img/virada-icon-1x.png", "http://localhost/viradacultural/wp-content/themes/viradacultural/img/virada-icon-2x.png", 27px, 25px);
+	}
+	.anos-10 {
+		.img-retina("http://localhost/viradacultural/wp-content/themes/viradacultural/img/10-icon-1x.png", "http://localhost/viradacultural/wp-content/themes/viradacultural/img/10-icon-2x.png", 27px, 25px);
+	}
+	.programacao {
+		.img-retina("http://localhost/viradacultural/wp-content/themes/viradacultural/img/programacao-icon-1x.png", "http://localhost/viradacultural/wp-content/themes/viradacultural/img/programacao-icon-2x.png", 27px, 25px);
+	}
+	.noticias {
+		.img-retina("http://localhost/viradacultural/wp-content/themes/viradacultural/img/noticias-icon-1x.png", "http://localhost/viradacultural/wp-content/themes/viradacultural/img/noticias-icon-2x.png", 27px, 25px);
+	}
+	.blog {
+		.img-retina("http://localhost/viradacultural/wp-content/themes/viradacultural/img/blog-icon-1x.png", "http://localhost/viradacultural/wp-content/themes/viradacultural/img/blog-icon-2x.png", 27px, 25px);
+	}
+	.imprensa {
+		.img-retina("http://localhost/viradacultural/wp-content/themes/viradacultural/img/imprensa-icon-1x.png", "http://localhost/viradacultural/wp-content/themes/viradacultural/img/imprensa-icon-2x.png", 27px, 25px);
+	}
+	.nas-redes {
+		.img-retina("http://localhost/viradacultural/wp-content/themes/viradacultural/img/nas-redes-icon-1x.png", "http://localhost/viradacultural/wp-content/themes/viradacultural/img/nas-redes-icon-2x.png", 27px, 25px);
+	}
+	.minha-virada {
+		.img-retina("http://localhost/viradacultural/wp-content/themes/viradacultural/img/minha-virada-icon-1x.png", "http://localhost/viradacultural/wp-content/themes/viradacultural/img/minha-virada-icon-2x.png", 27px, 25px);
+	}
+	
 }
 
 .logo { 
@@ -144,6 +220,9 @@
 	height: 100px;
 	background-image: url(http://localhost/viradacultural/wp-content/themes/viradacultural/img/logo.png);
 	background-position: top center;
+	&:hover {
+		background-image: url(http://localhost/viradacultural/wp-content/themes/viradacultural/img/logo-roxo.png);
+	}
 }
 
 #logo-smc {
@@ -156,10 +235,295 @@
 	background-position: bottom center;
 }
 
+/* =Main footer
+-------------------------------------------------------------- */
+#main-footer {
+	background: @gray;
+	padding: 24px;
+}
+
+
 /* =Countdown
 -------------------------------------------------------------- */
 #countdown {
 	.fixed-bars();
+	border-left: 1px solid @body-bg;
 	right: 0;
-	background-color: @rosa;
+	padding-top: 24px;
+	color: #ccc;
+	text-align: center;
+	text-transform: uppercase;
+	font-family: @font-family-secondary;
+	font-size: 14px;
+	> div:first-child {
+		font-size: 22px;
+		line-height: 48px;
+		margin-bottom: 30px;
+	}
+	> div:nth-child(2n+1){
+		margin-bottom: 30px;
+	}
+
+	.circle {
+		border-radius: 36px;
+		margin: 0 auto;
+		width: 72px;
+		height: 72px;
+		line-height: 64px;
+		border: 6px solid #ccc;
+		font-family: @font-family-sans-serif;
+		font-size: 30px;
+		font-weight: bold;
+		&:nth-child(2) {
+			border-top-color: @rosa;
+			color: @rosa;
+		}
+		&:nth-child(4) {
+			border-bottom-color: @amarelo;
+			color: @amarelo;
+		}
+		&:nth-child(6) {
+			border-left-color: @roxo;
+			color: @roxo;
+		}
+	}
+
+	footer {
+	 position: absolute;
+	 left: 0;
+	 bottom: 24px;
+	 padding: 0 15px;
+	 width: 100%;
+		
+		time {
+			font-family: @font-family-sans-serif;
+			font-weight: bolder;
+			display: block;
+			width: 60%;
+			margin: 0 auto;
+			div:first-child {
+				font-size: 30px;
+				color: @roxo;
+				border-bottom: 4px solid @amarelo;
+			}
+			div:nth-child(2) {
+				font-size: 33px;
+				color: @verde;
+				border-bottom: 4px solid @amarelo;
+			}
+			div:last-child {
+				font-size: 36px;
+				color: @rosa;
+			}
+		}
+		.icon {
+			font-size: 24px;
+			color: #ccc;
+			&:hover {
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+/* =Carousel
+-------------------------------------------------------------- */
+@carousel-indicator-border-color: @gray-lighter;
+@carousel-indicator-active-bg: @rosa;
+
+/* =Front-page Carousel
+-------------------------------------------------------------- */
+#front-page-carousel {
+	margin: 0 -15px;
+	border: 1px solid @body-bg;
+	border-top: none;
+	.carousel-control {
+		display: none;
+	}
+	.carousel-caption {
+		text-shadow: none;
+		background: @rosa;
+		bottom: 72px;
+		left: 40%;
+		right: 0;
+		text-align: right;
+		padding: 24px;
+		h1 {
+			margin: 0;
+			font-size: 32px;
+			a {
+				color: @amarelo;
+			}
+		}
+		&:hover {
+			background: @roxo;
+		}
+	}
+	.carousel-indicators {
+		left: initial;
+		right: 24px;
+		width: auto;
+		li {
+			background-color: @gray;
+			border: none;
+			&.active{
+				 background-color: @rosa;
+			}
+		}
+	}
+}
+
+
+/* =Post
+-------------------------------------------------------------- */
+.post {
+	header p, footer {
+			.secondary-font();
+			color: @verde;
+		}
+}
+
+.grid-post {	
+	float: left;
+	width: 25%;
+	height: 360px;
+	overflow: hidden;
+	background-color: @gray-lighter;
+	border: 1px solid @body-bg;
+	.post-content {
+		position: relative;
+		padding: 24px 15px;
+		h1 {
+			font-size: 20px;
+			margin: 0;
+		}
+		header p {
+			margin-top: 24px;
+		}
+		.category-icon {
+			background: @rosa;
+			border-radius: 18px;
+			height: 36px;
+			width: 36px;
+			margin: 0 auto;
+			text-align: center;
+			line-height: 36px;
+			img {
+				width: 24px;
+				display: inline;
+			}
+		}
+		.post-entry {
+			display: none;
+		}
+	}
+	&:hover {
+		background-color: #fff;
+	}
+	&.has-thumbnail {
+		.post-content {
+			padding-top: 0;
+		}
+		.category-icon {
+			margin-top: -18px;
+		}
+	}
+}
+
+/* =Programação
+-------------------------------------------------------------- */
+
+body.page-template-tpl-programacao-php {
+	margin-top: 50px;
+}
+
+#programacao-navbar {
+	background-color: #fff;
+}
+
+@panel-bg:                    transparent;
+@panel-body-padding:          0;
+@panel-border-radius:         0;
+
+@panel-default-text:          @rosa;
+
+#main-section.panel-group {
+	padding: 0;
+	.panel {
+		border: none;
+		.panel-heading a {
+			color: @rosa;
+		}
+		.panel-collapse {
+			position: relative;
+			.program-nav {
+				position: absolute;
+				z-index: 1000;
+				display: none;
+				top: 0;
+				bottom: 0;
+				width: 50px;
+				background-color: rgba(0, 166, 138, .5);
+				&.program-nav-left {
+					left: 0;
+				}
+				&.program-nav-right {
+					right: 0;
+				}
+				.icon {
+					color: @amarelo;
+					font-size: 32px;
+				}
+			}
+			&:hover {
+				.program-nav {
+					display: block;
+				}
+			}
+		}
+	}
+	.event {
+		float: left;
+		position: relative;
+		width: 18%;
+		height: 168px;
+		border: 1px solid @gray-light;
+		background-color: @gray-lighter;
+		.event-content {
+			background-color: @rosa;
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			height: 54px;
+			padding: 15px;
+			a {
+				color: @amarelo;
+			}
+			h1 {
+				display: none;
+				margin: 0;
+				font-size: 20px;				
+			}
+			footer {
+				position: absolute;
+				left: 15px;
+				right: 15px;
+				bottom: 15px;
+				time {
+					.secondary-font();
+				}
+				color: @amarelo;
+			}
+
+		}		
+		&:hover {
+			.event-content {
+				height: 168px;
+				background-color: @roxo;
+				h1 {
+					display: block;
+				}
+			}
+		}
+	}
 }

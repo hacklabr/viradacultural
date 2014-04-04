@@ -1,12 +1,11 @@
 <?php get_header(); ?>
-	
-    <div class="wrap clearfix">
-		<?php get_sidebar(); ?>
-		<section id="main-section" class="col-8">			
+<div class="container-fluid">
+	<div class="row">
+		<section id="main-section" class="col-md-8 col-md-offset-2">
 			<?php if ( have_posts()) : while ( have_posts()) : the_post(); ?>			
 				<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix');?>>	  
 					<header>                       
-						<h1><a href="<?php the_permalink();?>" title="<?php the_title_attribute();?>"><?php the_title();?></a></h1>
+						<h1><<?php the_title();?></h1>
 						<p><?php edit_post_link( __( 'Edit', 'viradacultural' ), '', '' ); ?></p>				
 					</header>
 					<div class="post-content clearfix">
@@ -21,9 +20,10 @@
 			   <p><?php _e('No results found.', 'viradacultural'); ?></p>              
 			<?php endif; ?>
 		</section>
-		<!-- #main-section -->	          
-    </div>
-    <!-- .wrap --> 
-    
-    
-<?php get_footer(); ?>
+		<!-- #main-section -->
+		<?php get_footer(); ?>
+	</div>
+	<!-- .row -->         
+</div>
+<!-- .container-fluid -->
+<?php html::part('countdown'); ?>

@@ -39,14 +39,15 @@ class imprensa {
             'public' => true,
             'rewrite' => array('slug' => 'imprensa'),
             'capability_type' => 'post',
-            'hierarchical' => true,
+            'hierarchical' => false,
             'map_meta_cap ' => true,
             'menu_position' => 6,
             'has_archive' => true, //se precisar de arquivo
             'supports' => array(
                 'title',
                 'editor',
-                'page-attributes'
+                'excerpt',
+                'thumbnail',
             ),
                 //'taxonomies' => array('taxonomia')
                 )
