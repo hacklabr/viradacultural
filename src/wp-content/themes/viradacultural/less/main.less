@@ -646,7 +646,25 @@ body.programacao {
 			}
 		}
 	}
-	.event {
+    .event {
+        .event-content {
+            h1 {
+                margin: 0;
+                font-size: 20px;                
+            }
+            
+            footer {
+                time {
+                    .secondary-font();
+                }
+            }
+
+        }
+        
+
+    }
+	.event-grid {
+
 		float: left;
 		position: relative;
 		width: 18%;
@@ -654,40 +672,67 @@ body.programacao {
 		border: 1px solid @gray-light;
 		background-color: @gray-lighter;
 		.event-content {
-			background-color: @rosa;
 			position: absolute;
 			bottom: 0;
 			width: 100%;
 			height: 54px;
-			padding: 15px;
-			a {
-				color: @amarelo;
-			}
+            padding: 15px;
+            background-color: @rosa;
 			h1 {
-				display: none;
-				margin: 0;
-				font-size: 20px;				
+				display: none;				
 			}
+            a {
+                color: @amarelo;
+            }
 			footer {
 				position: absolute;
 				left: 15px;
 				right: 15px;
 				bottom: 15px;
-				time {
-					.secondary-font();
-				}
-				color: @amarelo;
+                color: @amarelo;				
 			}
 
 		}		
 		&:hover {
 			.event-content {
 				height: 168px;
-				background-color: @roxo;
+                background-color: @roxo;
 				h1 {
 					display: block;
 				}
 			}
 		}
 	}
+    .event-list {
+        border-bottom: 1px solid @gray-lighter;
+        background: #fff;
+        padding: 15px;
+        img {
+            float: left;
+            width: 10%;
+        }
+        .event-content {
+            width: 90%;
+            float: left;
+            h1 {
+                float: left;
+                width: 60%;
+                padding-left: 15px;
+            }
+            footer {
+                float: right;
+                width: 30%;
+                color: @verde;
+                border-left: 1px solid @gray-light;
+                padding-left: 15px;
+                .icon_star {
+                    color: @amarelo;
+                }
+            }
+        }
+        &:hover {
+            background: #fff;
+        }
+        
+    }
 }

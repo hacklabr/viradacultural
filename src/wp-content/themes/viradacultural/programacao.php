@@ -52,9 +52,9 @@
 					<div class="program-nav program-nav-left"><span class="icon arrow_carrot-left"></span></div>
 					<div class="program-nav program-nav-right"><span class="icon arrow_carrot-right"></span></div>
 					<div class="panel-body">
-						<article class="event">
+						<article class="event event-grid clearfix">
 							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
-							<div class="event-content">
+							<div class="event-content clearfix">
 								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
 								<footer class="clearfix">
 									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
@@ -62,9 +62,9 @@
 								</footer>
 							</div>
 						</article>
-						<article class="event">
+						<article class="event event-grid clearfix">
 							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
-							<div class="event-content">
+							<div class="event-content clearfix">
 								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
 								<footer class="clearfix">
 									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
@@ -72,9 +72,9 @@
 								</footer>
 							</div>
 						</article>
-						<article class="event">
+						<article class="event event-grid clearfix">
 							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
-							<div class="event-content">
+							<div class="event-content clearfix">
 								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
 								<footer class="clearfix">
 									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
@@ -82,9 +82,9 @@
 								</footer>
 							</div>
 						</article>
-						<article class="event">
+						<article class="event event-grid clearfix">
 							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
-							<div class="event-content">
+							<div class="event-content clearfix">
 								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
 								<footer class="clearfix">
 									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
@@ -92,9 +92,9 @@
 								</footer>
 							</div>
 						</article>
-						<article class="event">
+						<article class="event event-grid clearfix">
 							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
-							<div class="event-content">
+							<div class="event-content clearfix">
 								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
 								<footer class="clearfix">
 									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
@@ -117,9 +117,9 @@
 				</div>
 				<div id="collapseTwo" class="panel-collapse collapse">
 					<div class="panel-body">
-						<article class="event">
+						<article class="event event-list clearfix">
 							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
-							<div class="event-content">
+							<div class="event-content clearfix">
 								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
 								<footer class="clearfix">
 									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
@@ -127,9 +127,9 @@
 								</footer>
 							</div>
 						</article>
-						<article class="event">
+						<article class="event event-list clearfix">
 							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
-							<div class="event-content">
+							<div class="event-content clearfix">
 								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
 								<footer class="clearfix">
 									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
@@ -137,9 +137,9 @@
 								</footer>
 							</div>
 						</article>
-						<article class="event">
+						<article class="event event-list clearfix">
 							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
-							<div class="event-content">
+							<div class="event-content clearfix">
 								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
 								<footer class="clearfix">
 									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
@@ -147,9 +147,9 @@
 								</footer>
 							</div>
 						</article>
-						<article class="event">
+						<article class="event event-list clearfix">
 							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
-							<div class="event-content">
+							<div class="event-content clearfix">
 								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
 								<footer class="clearfix">
 									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
@@ -157,9 +157,9 @@
 								</footer>
 							</div>
 						</article>
-						<article class="event">
+						<article class="event event-list clearfix">
 							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
-							<div class="event-content">
+							<div class="event-content clearfix">
 								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
 								<footer class="clearfix">
 									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
