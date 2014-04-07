@@ -63,9 +63,15 @@
 	        <div class="programacao-navbar-item">
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal"><span class="icon icon_pin"></span> Filtrar Locais</button>
 			</div>
+			<?php 
+				$pdf = get_theme_option('pdf-programacao');
+				if ($pdf):
+			?>
+
 	        <div class="programacao-navbar-item">
-				<button type="button" class="btn btn-primary"><span class="icon icon_download"></span> Baixar PDF</button>
-			</div>						
+				<a href="<?php echo $pdf; ?>" role="button" class="btn btn-primary"><span class="icon icon_download"></span> Baixar PDF</a>
+			</div>
+			<?php endif; ?>					
 			
 		</div>
 	</div>
