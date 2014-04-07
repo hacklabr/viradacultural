@@ -239,7 +239,7 @@ function virada_the_post_type_icon($post_type = null) {
         
     $icon_name = $post_type == 'post' ? 'blog-icon-2x.png' : 'noticias-icon-2x.png';
     
-    echo '<div class="category-icon">';
+    echo '<div class="post-type-icon">';
     html::image($icon_name, $post_type);
     echo '</div>';
     
