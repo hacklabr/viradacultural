@@ -9,7 +9,7 @@
 <html id="ie8" <?php language_attributes(); ?>>
 <![endif]-->
 <!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
-<html <?php language_attributes(); ?>>
+<html <?php language_attributes(); ?> ng-app="virada">
 <!--<![endif]-->
     <head>
         <meta charset="<?php bloginfo( 'charset' ); ?>" />
@@ -47,8 +47,21 @@
         <![endif]-->
 
         <?php wp_head(); ?>
+
+
+        <script>
+        var GlobalConfiguration = {
+            templateURL: '<?php bloginfo("template_url"); ?>'
+        };
+        </script>
+
+
+        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/lunr.js" ></script>
+        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angular.js" ></script>
+        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/virada.js" ></script>
+
     </head>
-    <body <?php if (get_query_var('virada_tpl')): ?> class="programacao" <?php else: ?><?php body_class(); ?><?php endif; ?>>
+    <body <?php if (get_query_var('virada_tpl')): ?> class="programacao" <?php else: ?><?php body_class(); ?><?php endif; ?> ng-controller="main">
 
         <!-- Facebook code -->
         <div id="fb-root"></div>

@@ -2,12 +2,12 @@
 	<div>
 		Faltam
 	</div>
-	<div class="circle">{{days}}</div>
+	<div class="circle">{days}</div>
 	<div>dias</div>
-	<div class="circle">{{hours}}</div>
+	<div class="circle">{hours}</div>
 	<div>horas</div>
-	<div class="circle">{{minutes}}</div>
-	<div>min{{debug}}</div>
+	<div class="circle">{minutes}</div>
+	<div>min{debug}</div>
 	<footer>
 		<time>
 			<div>17-18</div>
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		var result = template;
 		data.debug = '<br> <small style="font:10px courier;">e '+data.seconds + ' segundos até <br> ' + moment(targetDateMomentArray).format('MMM Do YYYY, H:mm:ss')+'</small>';
 		for(key in data){
-			result = result.replace('{{'+key+'}}', data[key]);
+			result = result.replace('{'+key+'}', data[key]);
 		}
 		el.innerHTML = result;
 	}
