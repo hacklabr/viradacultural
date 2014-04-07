@@ -15,9 +15,15 @@
 			<div>2014</div>
 		</time>
 		<div class="rede-sociais">
-			<a class="icon social_facebook_circle" href="#"></a>
-			<a class="icon social_twitter_circle" href="#"></a>
-			<a class="icon social_googleplus_circle" href="#"></a>
+			
+            <?php $redes = get_theme_option('social_networks'); $redesbuttons = array('facebook', 'twitter', 'googleplus'); ?>
+            
+            <?php foreach ($redesbuttons as $button): ?>
+                <?php if (isset($redes[$button]) && $redes[$button]): ?>
+                    <a class="icon social_<?php echo $button; ?>_circle" href="<?php echo $redes[$button]; ?>" target="_blank"></a>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            
 
 		</div>
 	</footer>
