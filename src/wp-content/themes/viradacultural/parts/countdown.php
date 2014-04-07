@@ -1,13 +1,13 @@
-<div id="countdown" class="col-md-2">
+<div id="countdown" style="visibility:hidden" class="col-md-2">
 	<div>
 		Faltam
 	</div>
-	<div class="circle">44</div>
+	<div class="circle">{{days}}</div>
 	<div>dias</div>
-	<div class="circle">02</div>
+	<div class="circle">{{hours}}</div>
 	<div>horas</div>
-	<div class="circle">30</div>
-	<div>min</div>
+	<div class="circle">{{minutes}}</div>
+	<div>min{{debug}}</div>
 	<footer>
 		<time>
 			<div>17-18</div>
@@ -15,30 +15,23 @@
 			<div>2014</div>
 		</time>
 		<div class="rede-sociais">
-			
+
             <?php $redes = get_theme_option('social_networks'); $redesbuttons = array('facebook', 'twitter', 'googleplus'); ?>
-            
+
             <?php foreach ($redesbuttons as $button): ?>
                 <?php if (isset($redes[$button]) && $redes[$button]): ?>
                     <a class="icon social_<?php echo $button; ?>_circle" href="<?php echo $redes[$button]; ?>" target="_blank"></a>
                 <?php endif; ?>
             <?php endforeach; ?>
-            
+
 
 		</div>
 	</footer>
 </div>
 <!-- #countdown -->
 
-
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js" type="text/javascript"></script>
-
 <script>
-//Source: http://permalightnyc.com/experiments/countdown
-
-
-
-
 //when DOM is ready, fire!
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -64,10 +57,9 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 
 
-
-
-
 	function countdown (targetDateMomentArray) {
+		//See: http://permalightnyc.com/experiments/countdown
+
 	  	var now = moment(), // get the current moment
 	    // May 28, 2013 @ 12:00AM
 	    then = moment(targetDateMomentArray),
@@ -117,9 +109,5 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	}
 });
-
-
-
-
 
 </script>
