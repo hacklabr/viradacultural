@@ -1,5 +1,5 @@
 @import "bootstrap.less";
-
+@import "timepicker.less";
 
 /*Colors*/
 @rosa: #ee2c72; /*238, 44, 114*/
@@ -7,8 +7,8 @@
 @verde: #00a68a; /*0, 166, 138*/
 @roxo: #893494; /*137, 52, 148*/
 
-@gray-darker:            lighten(#000, 13.5%); // #222
-@gray-dark:              lighten(#000, 20%);   // #333
+@gray-darker:            lighten(#000, 20%); // #333
+@gray-dark:              lighten(#000, 60%);   // #999
 @gray:                   lighten(#000, 80%);   // #ccc
 @gray-light:             lighten(#000, 87%);   // #dedede
 @gray-lighter:           lighten(#000, 95%);   // #f2f2f2
@@ -80,11 +80,19 @@ a:hover {
 
 @font-size-base:          16px;
 
+@font-size-h1:            floor((@font-size-base * 2.25)); // ~36px
+@font-size-h2:            floor((@font-size-base * 2)); // ~32px
+@font-size-h3:            ceil((@font-size-base * 1.5)); // ~24px
+@font-size-h4:            ceil((@font-size-base * 1.25)); // ~20px
+@font-size-h5:            @font-size-base;
+@font-size-h6:            ceil((@font-size-base * 0.75)); // ~12px
+
+
 @font-family-sans-serif:  "Museo", Helvetica, Arial, sans-serif; 
 @font-family-secondary:   "Museo Sans", Verdana, sans-serif;
 @line-height-base: 		  1.5;
 
-@icon-font-path:          "http://localhost/viradacultural/wp-content/themes/viradacultural/fonts/";
+@icon-font-path:          "fonts/";
 
 @headings-font-family:    @font-family-sans-serif;
 @headings-font-weight:    normal;
@@ -95,8 +103,13 @@ a:hover {
 	text-transform: uppercase;
 }
 
-@shadow: 0 0 3px 3px rgba(0,0,0,.3);
+@border-radius-base:        3px;
+@border-radius-large:       4px;
+@border-radius-small:       2px;
 
+
+/* =WordPress
+-------------------------------------------------------------- */
 .alignright {
 	float: right;
 }
@@ -105,6 +118,9 @@ a:hover {
 	float: left;
 }
 
+
+/* =Virada utilities
+-------------------------------------------------------------- */
 img {
 	.img-responsive();
 }
@@ -113,17 +129,61 @@ img {
 -------------------------------------------------------------- */
 @input-bg:                       @gray-lighter;
 @input-color:                    @gray-dark;
-@input-border-radius:            @border-radius-base;
 @input-color-placeholder:        @gray;
 
 .form-control {
     border: none;
     box-shadow: none;
+    height: 36px;
+    font-family: @font-family-secondary;
     &:focus {
         box-shadow: none;
     }
 }
 
+.input-group-addon {
+    border: none;
+    .icon {
+        color: @rosa;
+    }
+}
+
+/* =Buttons
+-------------------------------------------------------------- */
+.btn {
+    border: none;
+    font-family: @font-family-secondary;
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 1.7143;
+    .icon {
+        font-size: 16px;
+    }
+    &:hover, &:active, &.active {
+        background-color: @gray-lighter;
+        box-shadow: none;
+    }
+}
+
+@btn-default-color:              @rosa;
+@btn-default-bg:                 @gray-light;
+
+@btn-primary-color:              @amarelo;
+.btn-primary {
+    &:hover {
+        background-color: @roxo;
+    }
+
+}
+
+@btn-secondary-color:            @gray;
+.btn-secondary {
+    .button-variant(@btn-secondary-color; @btn-default-bg; @btn-default-border);
+    &:hover, &:active, &.active, &:focus {
+        color: @gray-dark;
+    }
+
+}
 
 
 /* =Grid
@@ -242,28 +302,28 @@ img {
   }
 	
 	.a-virada {
-		.img-retina("http://localhost/viradacultural/wp-content/themes/viradacultural/img/virada-icon-1x.png", "http://localhost/viradacultural/wp-content/themes/viradacultural/img/virada-icon-2x.png", 27px, 25px);
+		.img-retina("img/virada-icon-1x.png", "img/virada-icon-2x.png", 27px, 25px);
 	}
 	.anos-10 {
-		.img-retina("http://localhost/viradacultural/wp-content/themes/viradacultural/img/10-icon-1x.png", "http://localhost/viradacultural/wp-content/themes/viradacultural/img/10-icon-2x.png", 27px, 25px);
+		.img-retina("img/10-icon-1x.png", "img/10-icon-2x.png", 27px, 25px);
 	}
 	.programacao {
-		.img-retina("http://localhost/viradacultural/wp-content/themes/viradacultural/img/programacao-icon-1x.png", "http://localhost/viradacultural/wp-content/themes/viradacultural/img/programacao-icon-2x.png", 27px, 25px);
+		.img-retina("img/programacao-icon-1x.png", "img/programacao-icon-2x.png", 27px, 25px);
 	}
 	.noticias {
-		.img-retina("http://localhost/viradacultural/wp-content/themes/viradacultural/img/noticias-icon-1x.png", "http://localhost/viradacultural/wp-content/themes/viradacultural/img/noticias-icon-2x.png", 27px, 25px);
+		.img-retina("img/noticias-icon-1x.png", "img/noticias-icon-2x.png", 27px, 25px);
 	}
 	.blog {
-		.img-retina("http://localhost/viradacultural/wp-content/themes/viradacultural/img/blog-icon-1x.png", "http://localhost/viradacultural/wp-content/themes/viradacultural/img/blog-icon-2x.png", 27px, 25px);
+		.img-retina("img/blog-icon-1x.png", "img/blog-icon-2x.png", 27px, 25px);
 	}
 	.imprensa {
-		.img-retina("http://localhost/viradacultural/wp-content/themes/viradacultural/img/imprensa-icon-1x.png", "http://localhost/viradacultural/wp-content/themes/viradacultural/img/imprensa-icon-2x.png", 27px, 25px);
+		.img-retina("img/imprensa-icon-1x.png", "img/imprensa-icon-2x.png", 27px, 25px);
 	}
 	.nas-redes {
-		.img-retina("http://localhost/viradacultural/wp-content/themes/viradacultural/img/nas-redes-icon-1x.png", "http://localhost/viradacultural/wp-content/themes/viradacultural/img/nas-redes-icon-2x.png", 27px, 25px);
+		.img-retina("img/nas-redes-icon-1x.png", "img/nas-redes-icon-2x.png", 27px, 25px);
 	}
 	.minha-virada {
-		.img-retina("http://localhost/viradacultural/wp-content/themes/viradacultural/img/minha-virada-icon-1x.png", "http://localhost/viradacultural/wp-content/themes/viradacultural/img/minha-virada-icon-2x.png", 27px, 25px);
+		.img-retina("img/minha-virada-icon-1x.png", "img/minha-virada-icon-2x.png", 27px, 25px);
 	}
 }
 
@@ -276,11 +336,11 @@ img {
   position: relative;
   z-index: 20;
   #logo-virada {
-    background-image: url(http://localhost/viradacultural/wp-content/themes/viradacultural/img/logo.png);
+    background-image: url(img/logo-roxo.png);
     background-position: top center;
     height: 100px;
     &:hover {
-      background-image: url(http://localhost/viradacultural/wp-content/themes/viradacultural/img/logo-roxo.png);
+      background-image: url(img/logo.png);
     }
   }
 }
@@ -299,7 +359,7 @@ img {
 }
 
 #logo-smc {
-	background-image: url(http://localhost/viradacultural/wp-content/themes/viradacultural/img/brasao.png);
+	background-image: url(img/brasao.png);
 	background-position: bottom center;
 	bottom: 15px; 
 	height: 80px; 
@@ -512,6 +572,37 @@ body.programacao {
 
 #programacao-navbar {
 	background-color: #fff;
+    font-family: @font-family-secondary;
+    h1 {
+        float: left;
+        margin: 0;
+        font-size: 24px;
+        line-height: 50px;
+    }
+    .navbar-text {
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: 36px;
+    }
+    .bootstrap-timepicker {
+        width: 108px;
+        float: left;
+    }
+    #programacao-search {
+        width: 285px;
+    }
+    #view-btn-group {
+        float: right;
+        margin-right: -15px;
+        padding: 6px 15px;
+        background-color: @gray-lighter;
+    }
+    .programacao-navbar-item {
+        float: right;
+        margin: 6px 0;
+        padding: 0 15px;
+        border-left: 2px solid @gray-lighter;
+    }
 }
 
 @panel-bg:                    transparent;
