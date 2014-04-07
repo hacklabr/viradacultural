@@ -88,7 +88,7 @@ a:hover {
 @font-size-h6:            ceil((@font-size-base * 0.75)); // ~12px
 
 
-@font-family-sans-serif:  "Museo", Helvetica, Arial, sans-serif; 
+@font-family-sans-serif:  "Museo", Helvetica, Arial, sans-serif;
 @font-family-secondary:   "Museo Sans", Verdana, sans-serif;
 @line-height-base: 		  1.5;
 
@@ -300,7 +300,7 @@ img {
       }
     }
   }
-	
+
 	.a-virada {
 		.img-retina("img/virada-icon-1x.png", "img/virada-icon-2x.png", 27px, 25px);
 	}
@@ -345,14 +345,14 @@ img {
   }
 }
 
-.logo { 
+.logo {
   background-repeat: no-repeat;
-  background-size: contain; 
+  background-size: contain;
   margin: 0;
   padding: 0;
   z-index: 30;
   // .text-hide();
-  a { 
+  a {
     display: block;
     height: inherit;
   }
@@ -361,11 +361,11 @@ img {
 #logo-smc {
 	background-image: url(img/brasao.png);
 	background-position: bottom center;
-	bottom: 15px; 
-	height: 80px; 
-	left: 0; 
+	bottom: 15px;
+	height: 80px;
+	left: 0;
 	position: absolute;
-	width: 100%; 
+	width: 100%;
 }
 
 /* =Main footer
@@ -427,7 +427,7 @@ img {
 	 bottom: 24px;
 	 padding: 0 15px;
 	 width: 100%;
-		
+
 		time {
 			font-family: @font-family-sans-serif;
 			font-weight: bolder;
@@ -516,7 +516,7 @@ img {
 		}
 }
 
-.grid-post {	
+.grid-post {
 	float: left;
 	width: 25%;
 	height: 360px;
@@ -650,9 +650,9 @@ body.programacao {
         .event-content {
             h1 {
                 margin: 0;
-                font-size: 20px;                
+                font-size: 20px;
             }
-            
+
             footer {
                 time {
                     .secondary-font();
@@ -660,7 +660,7 @@ body.programacao {
             }
 
         }
-        
+
 
     }
 	.event-grid {
@@ -679,7 +679,7 @@ body.programacao {
             padding: 15px;
             background-color: @rosa;
 			h1 {
-				display: none;				
+				display: none;
 			}
             a {
                 color: @amarelo;
@@ -689,10 +689,10 @@ body.programacao {
 				left: 15px;
 				right: 15px;
 				bottom: 15px;
-                color: @amarelo;				
+                color: @amarelo;
 			}
 
-		}		
+		}
 		&:hover {
 			.event-content {
 				height: 168px;
@@ -733,6 +733,8 @@ body.programacao {
         &:hover {
             background: #fff;
         }
-        
+
     }
 }
+
+@import "pages.less";
