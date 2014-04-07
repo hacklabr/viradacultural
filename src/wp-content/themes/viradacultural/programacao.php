@@ -38,8 +38,8 @@
 		<div class="col-md-offset-1">
 			<h1>Programação</h1>
 			<div id="view-btn-group" class="btn-group">
-				<button type="button" class="btn btn-secondary active"><span class="icon icon_grid-2x2"></span></button>
-				<button type="button" class="btn btn-secondary"><span class="icon icon_menu-square_alt"></span></button>
+				<button id="grid-view" type="button" class="btn btn-secondary active"><span class="icon icon_grid-2x2"></span></button>
+				<button id="list-view" type="button" class="btn btn-secondary"><span class="icon icon_menu-square_alt"></span></button>
 			</div>
 			<form id="programacao-search" class="programacao-navbar-item" role="search">
 				<div class="input-group">
@@ -150,6 +150,8 @@
 					</a>
 				</div>
 				<div id="collapseTwo" class="panel-collapse collapse">
+					<div class="program-nav program-nav-left"><span class="icon arrow_carrot-left"></span></div>
+					<div class="program-nav program-nav-right"><span class="icon arrow_carrot-right"></span></div>
 					<div class="panel-body">
 						<article class="event event-list clearfix">
 							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
