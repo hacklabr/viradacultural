@@ -58,8 +58,6 @@ function theme_options_page_callback_function() {
 
             <div class="span-20 ">
 
-    <?php //////////// Edite a partir daqui //////////  ?>
-
                 <h3>Redes Sociais</h3>
                 <p>Insira os links (com http) para as páginas da Virada nas Redes Sociais</p>
                 <div class="span-6 last">
@@ -75,10 +73,22 @@ function theme_options_page_callback_function() {
                     <input type="text" id="googleplus" class="text" name="theme_options[social_networks][googleplus]" value="<?php echo htmlspecialchars($options['social_networks']['googleplus']); ?>" style="width: 80%"/>
                     <br/><br/>
 
-    <?php ///// Edite daqui pra cima ////  ?>
-
 
                 </div>
+                
+                <h3>PDF da Programação</h3>
+                <p>Coloque o link (com http) para o arquivo PDF da Programação que estará disponível para download a partir da página da Programação</p>
+                <p>Para fazer upload de um arquivo, visite a seção <a href="<?php echo admin_url('media-new.php'); ?>">Mídia</a> aqui no admin.</p>
+                <div class="span-6 last">
+
+
+                    <label for="pdf-programacao"><strong>Link para PDF da programação</strong></label><br/>
+                    <input type="text" id="pdf-programacao" class="text" name="theme_options[pdf-programacao]" value="<?php echo htmlspecialchars($options['pdf-programacao']); ?>" style="width: 80%"/>
+                    
+
+                </div>
+                
+                
             </div>
 
             <p class="textright clear prepend-top">
