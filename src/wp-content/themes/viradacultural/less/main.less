@@ -7,7 +7,7 @@
 @verde: #00a68a; /*0, 166, 138*/
 @roxo: #893494; /*137, 52, 148*/
 
-@gray-darker:            lighten(#000, 20%); // #333
+@gray-darker:            lighten(#000, 20%);   // #333
 @gray-dark:              lighten(#000, 60%);   // #999
 @gray:                   lighten(#000, 80%);   // #ccc
 @gray-light:             lighten(#000, 87%);   // #dedede
@@ -22,6 +22,9 @@ a:hover {
 	text-decoration: none;
 }
 
+.navbar {
+    border: none;
+}
 
 /*Typography*/
 
@@ -107,6 +110,9 @@ a:hover {
 @border-radius-large:       4px;
 @border-radius-small:       2px;
 
+@component-active-color: @amarelo;
+@list-group-link-color: @rosa;
+
 
 /* =WordPress
 -------------------------------------------------------------- */
@@ -158,6 +164,7 @@ img {
     line-height: 1.7143;
     .icon {
         font-size: 16px;
+        vertical-align: middle;
     }
     &:hover, &:active, &.active {
         background-color: @gray-lighter;
@@ -183,6 +190,10 @@ img {
         color: @gray-dark;
     }
 
+}
+
+.dropdown-menu {
+    border: none;
 }
 
 
@@ -567,17 +578,18 @@ img {
 -------------------------------------------------------------- */
 
 body.programacao {
-	margin-top: 50px;
+	margin-top: 76px;
 }
+
 
 #programacao-navbar {
 	background-color: #fff;
     font-family: @font-family-secondary;
     h1 {
         float: left;
-        margin: 0;
+        margin: 20px 0;
         font-size: 24px;
-        line-height: 50px;
+        line-height: 36px;
     }
     .navbar-text {
         margin-top: 0;
@@ -587,6 +599,9 @@ body.programacao {
     .bootstrap-timepicker {
         width: 108px;
         float: left;
+        .input-group-addon {
+            background: @gray-light;
+        }
     }
     #programacao-search {
         width: 285px;
@@ -594,29 +609,39 @@ body.programacao {
     #view-btn-group {
         float: right;
         margin-right: -15px;
-        padding: 6px 15px;
+        padding: 20px 15px;
         background-color: @gray-lighter;
     }
     .programacao-navbar-item {
         float: right;
-        margin: 6px 0;
+        margin: 20px 0;
         padding: 0 15px;
         border-left: 2px solid @gray-lighter;
     }
+}
+
+.bootstrap-timepicker-widget.dropdown-menu {
+    z-index: @zindex-navbar-fixed;
 }
 
 @panel-bg:                    transparent;
 @panel-body-padding:          0;
 @panel-border-radius:         0;
 
-@panel-default-text:          @rosa;
+@panel-default-text:          @gray-darker;
+
+@panel-default-heading-bg:    @gray-lighter;
 
 #main-section.panel-group {
+    margin-top: 6px;
 	padding: 0;
 	.panel {
 		border: none;
 		.panel-heading a {
 			color: @rosa;
+            >.icon {
+                color: @gray-dark;
+            }
 		}
 		.panel-collapse {
 			position: relative;
@@ -627,6 +652,7 @@ body.programacao {
 				top: 0;
 				bottom: 0;
 				width: 50px;
+                line-height: 168px;
 				background-color: rgba(0, 166, 138, .5);
 				&.program-nav-left {
 					left: 0;
@@ -636,7 +662,8 @@ body.programacao {
 				}
 				.icon {
 					color: @amarelo;
-					font-size: 32px;
+					font-size: 56px;
+                    vertical-align: middle;
 				}
 			}
 			&:hover {
@@ -734,5 +761,13 @@ body.programacao {
             background: #fff;
         }
         
+    }
+}
+#map-modal {
+    .list-group {
+        width: 25%;
+        float: left;
+        max-height: 400px;
+        overflow: auto;
     }
 }
