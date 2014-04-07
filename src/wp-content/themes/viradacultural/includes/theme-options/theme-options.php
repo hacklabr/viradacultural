@@ -60,19 +60,19 @@ function theme_options_page_callback_function() {
 
     <?php //////////// Edite a partir daqui //////////  ?>
 
-                <h3><?php _e("Social Networks", 'viradacultural'); ?></h3>
-
+                <h3>Redes Sociais</h3>
+                <p>Insira os links (com http) para as páginas da Virada nas Redes Sociais</p>
                 <div class="span-6 last">
 
 
-                    <label for="wellcome_title"><strong><?php _e("Facebook", "viradacultural"); ?></strong></label><br/>
-                    <input type="text" id="wellcome_title" class="text" name="theme_options[social_networks][facebook]" value="<?php echo htmlspecialchars($options['social_networks']['facebook']); ?>" style="width: 80%"/>
+                    <label for="facebook"><strong><?php _e("Facebook", "viradacultural"); ?></strong></label><br/>
+                    <input type="text" id="facebook" class="text" name="theme_options[social_networks][facebook]" value="<?php echo htmlspecialchars($options['social_networks']['facebook']); ?>" style="width: 80%"/>
                     <br/><br/>
-                    <label for="wellcome_title"><strong><?php _e("Twitter", "viradacultural"); ?></strong></label><br/>
-                    <input type="text" id="wellcome_title" class="text" name="theme_options[social_networks][twitter]" value="<?php echo htmlspecialchars($options['social_networks']['facebook']); ?>" style="width: 80%"/>
+                    <label for="twitter"><strong><?php _e("Twitter", "viradacultural"); ?></strong></label><br/>
+                    <input type="text" id="twitter" class="text" name="theme_options[social_networks][twitter]" value="<?php echo htmlspecialchars($options['social_networks']['facebook']); ?>" style="width: 80%"/>
                     <br/><br/>
-                    <label for="wellcome_title"><strong><?php _e("RSS", "viradacultural"); ?></strong></label><br/>
-                    <input type="text" id="wellcome_title" class="text" name="theme_options[rss]" value="<?php echo htmlspecialchars($options['rss']); ?>" style="width: 80%"/>
+                    <label for="googleplus"><strong><?php _e("Google +", "viradacultural"); ?></strong></label><br/>
+                    <input type="text" id="googleplus" class="text" name="theme_options[social_networks][googleplus]" value="<?php echo htmlspecialchars($options['social_networks']['googleplus']); ?>" style="width: 80%"/>
                     <br/><br/>
 
     <?php ///// Edite daqui pra cima ////  ?>
