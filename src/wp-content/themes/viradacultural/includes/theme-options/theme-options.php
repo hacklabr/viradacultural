@@ -5,9 +5,11 @@ function get_theme_default_options() {
     // Coloquei aqui o nome e o valor padrão de cada opção que você criar
 
     return array(
-        'wellcome_title' => 'Benvindo!',
-        'wellcome_video' => 'youtube.com/video',
-        'itsnoon_creative_currency' => 0
+        'social_networks' => array(
+            'facebook' => 'http://facebook.com/viradacultura',
+            'twitter' => 'http://twitter.com/viradacultural',
+            'googleplus' => 'http://googleplus.com/viradacultural',
+        )
     );
 }
 
