@@ -89,7 +89,7 @@
                     $noticias_id = get_cat_ID( 'Notícias' );
                     $noticias_link = get_category_link( $noticias_id );
                     $blog_id = get_cat_ID( 'Blog' );
-                    $blog_link = get_category_link( $blog_id );
+                    $blog_link = function_exists('get_the_posts_home_url') ? get_the_posts_home_url() : get_category_link( $blog_id );
                 ?>
                 <ul id="main-menu" class="nav">
                     <li class="has-children">
