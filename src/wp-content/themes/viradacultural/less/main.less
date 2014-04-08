@@ -25,7 +25,7 @@ a:hover {
 	text-decoration: none;
 }
 
-body.single, body.page {
+body.single, body.page, body.programacao-single {
     background: #fff;
 }
 
@@ -136,9 +136,9 @@ body.single, body.page {
 
 /* =Virada utilities
 -------------------------------------------------------------- */
-// img {
-//   .img-responsive();
-// }
+img, body:not(.page-template-page-dez-anos-php) article.page img {
+   .img-responsive();
+}
 
 /* =Form
 -------------------------------------------------------------- */
@@ -223,7 +223,8 @@ body.single, body.page {
 #main-header {
 	.fixed-bars();
 	left: 0;
-  .transition(width linear .3s);
+    .transition(width linear .3s);
+    .box-shadow(0 0 6px 0 rgba(0,0,0,.3));
 	&.col-md-1 {
 		#main-menu>li>a {
 		background-position: center;
@@ -399,6 +400,7 @@ body.single, body.page {
 -------------------------------------------------------------- */
 #countdown {
 	.fixed-bars();
+    .box-shadow(0 0 6px 0 rgba(0,0,0,.3));
 	right: 0;
 	padding-top: 24px;
 	color: #ccc;
@@ -527,7 +529,7 @@ body.single, body.page {
 
 /* =Post
 -------------------------------------------------------------- */
-.post, .noticias, .imprensa, .page {
+.post, .noticias, .imprensa, .page, .event-single {
 	header p, footer {
 			.secondary-font();
 			color: @verde;
@@ -540,7 +542,8 @@ body.single, body.page {
 	height: 360px;
 	overflow: hidden;
 	background-color: @gray-lighter;
-	border: 1px solid @body-bg;
+	border-right: 1px solid @body-bg;
+    border-bottom: 1px solid @body-bg;
 	.post-content {
 		position: relative;
 		padding: 24px 15px;
@@ -703,7 +706,7 @@ body.programacao {
 		position: relative;
 		width: 18%;
 		height: 168px;
-		border: 1px solid @gray-light;
+		border-right: 1px solid @body-bg;
 		background-color: @gray-lighter;
 		.event-content {
 			position: absolute;
@@ -712,8 +715,13 @@ body.programacao {
 			height: 54px;
             padding: 15px;
             background-color: @rosa;
+            .transition(height linear .3s);
 			h1 {
 				display: none;
+                a {
+                    color: @roxo;
+                    .transition(color linear .3s); 
+                }
 			}
             a {
                 color: @amarelo;
@@ -733,13 +741,17 @@ body.programacao {
                 background-color: @roxo;
 				h1 {
 					display: block;
+                    a {
+                        color: @amarelo;
+                    }
+
 				}
 			}
 		}
 	}
     .event-list {
-        border-bottom: 1px solid @gray-lighter;
-        background: #fff;
+        border-bottom: 1px solid @body-bg;
+        background: #f5f5f5;
         padding: 15px;
         img {
             float: left;
@@ -777,5 +789,22 @@ body.programacao {
         float: left;
         max-height: 400px;
         overflow: auto;
+    }
+}
+
+.event-single {
+    width: 80%;
+    margin: 0 auto 48px;
+    .servico {
+        background: @gray-lighter;
+        border-radius: @border-radius-base;
+        font-family: @font-family-secondary;
+        padding: 24px;
+        margin-bottom: 24px;
+        color: @gray-dark;
+        p > span {
+            color: @verde;
+        }
+        
     }
 }
