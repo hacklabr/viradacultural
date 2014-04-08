@@ -129,7 +129,7 @@
                     <?php } ?>
                     <div class="share-buttons alignright">
                         <div class="facebook">
-                            <div class="fb-share-button" data-href="#" data-type="button_count"></div>
+                            <div class="fb-share-button" data-href="<?php the_permalink(); ?>" data-type="button_count"></div>
                         </div>
                         <div class="twitter">
                             <a href="https://twitter.com/share" class="twitter-share-button" data-via="virada" data-lang="pt">Tweetar</a>

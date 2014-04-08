@@ -7,7 +7,7 @@
 	<div class="circle">{hours}</div>
 	<div>horas</div>
 	<div class="circle">{minutes}</div>
-	<div>min{debug}</div>
+	<div>min<span style="display: none;">{debug}</span></div>
 	<footer>
 		<time>
 			<div>17-18</div>
