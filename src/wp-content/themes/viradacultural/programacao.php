@@ -43,12 +43,12 @@
 			</div>
 			<form id="programacao-search" class="programacao-navbar-item" role="search">
 				<div class="input-group">
-		            <input type="text" class="form-control" placeholder="Digite uma palavra-chave">
+		            <input type="text" class="form-control" placeholder="Digite uma palavra-chave" ng-model='searchText' ng-change='unaccentSearchText = unaccent(searchText)'>
 		            <span class="input-group-btn">
 						<button class="btn btn-primary" type="button"><span class="icon icon_search"></span></button>
 					</span>
-		        </div>								
-			</form>			
+		        </div>
+			</form>
 			<form class="clearfix programacao-navbar-item" role="time-filter">
 				<div class="input-group bootstrap-timepicker">
 		            <input id="timepicker-start" type="text" class="form-control timepicker-field" data-minute-step="5" data-show-meridian="false">
@@ -63,16 +63,14 @@
 	        <div class="programacao-navbar-item">
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal"><span class="icon icon_pin"></span> Filtrar Locais</button>
 			</div>
-			<?php 
+			<?php
 				$pdf = get_theme_option('pdf-programacao');
 				if ($pdf):
 			?>
-
 	        <div class="programacao-navbar-item">
 				<a href="<?php echo $pdf; ?>" role="button" class="btn btn-primary"><span class="icon icon_download"></span> Baixar PDF</a>
 			</div>
-			<?php endif; ?>					
-			
+			<?php endif; ?>
 		</div>
 	</div>
 </nav>
@@ -92,57 +90,18 @@
 					<div class="program-nav program-nav-left"><span class="icon arrow_carrot-left"></span></div>
 					<div class="program-nav program-nav-right"><span class="icon arrow_carrot-right"></span></div>
 					<div class="panel-body">
-						<article class="event event-grid clearfix">
-							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
+
+						<article class="event event-grid clearfix" ng-repeat="s in filteredSpaces | filter:unaccentSearchText">
+							<img ng-src="{{s.space()['@files:avatar.avatarBig'].url || '../wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg'}}"/>
 							<div class="event-content clearfix">
-								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
+								<h1><a href="#">{{s.space().name}}</a></h1>
 								<footer class="clearfix">
 									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
 									<a class="alignright icon icon_star" href="#"></a>
 								</footer>
 							</div>
 						</article>
-						<article class="event event-grid clearfix">
-							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
-							<div class="event-content clearfix">
-								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
-								<footer class="clearfix">
-									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
-									<a class="alignright icon icon_star" href="#"></a>
-								</footer>
-							</div>
-						</article>
-						<article class="event event-grid clearfix">
-							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
-							<div class="event-content clearfix">
-								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
-								<footer class="clearfix">
-									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
-									<a class="alignright icon icon_star" href="#"></a>
-								</footer>
-							</div>
-						</article>
-						<article class="event event-grid clearfix">
-							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
-							<div class="event-content clearfix">
-								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
-								<footer class="clearfix">
-									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
-									<a class="alignright icon icon_star" href="#"></a>
-								</footer>
-							</div>
-						</article>
-						<article class="event event-grid clearfix">
-							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
-							<div class="event-content clearfix">
-								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
-								<footer class="clearfix">
-									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
-									<a class="alignright icon icon_star" href="#"></a>
-								</footer>
-							</div>
-						</article>
-						
+
 					</div>
 				</div>
 			</div>
@@ -159,57 +118,18 @@
 					<div class="program-nav program-nav-left"><span class="icon arrow_carrot-left"></span></div>
 					<div class="program-nav program-nav-right"><span class="icon arrow_carrot-right"></span></div>
 					<div class="panel-body">
-						<article class="event event-grid clearfix">
-							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
+
+						<article class="event event-grid clearfix" ng-repeat="s in filteredSpaces | filter:unaccentSearchText">
+							<img ng-src="{{s.space()['@files:avatar.avatarBig'].url || '../wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg'}}"/>
 							<div class="event-content clearfix">
-								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
+								<h1><a href="#">{{s.space().name}}</a></h1>
 								<footer class="clearfix">
 									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
 									<a class="alignright icon icon_star" href="#"></a>
 								</footer>
 							</div>
 						</article>
-						<article class="event event-grid clearfix">
-							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
-							<div class="event-content clearfix">
-								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
-								<footer class="clearfix">
-									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
-									<a class="alignright icon icon_star" href="#"></a>
-								</footer>
-							</div>
-						</article>
-						<article class="event event-grid clearfix">
-							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
-							<div class="event-content clearfix">
-								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
-								<footer class="clearfix">
-									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
-									<a class="alignright icon icon_star" href="#"></a>
-								</footer>
-							</div>
-						</article>
-						<article class="event event-grid clearfix">
-							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
-							<div class="event-content clearfix">
-								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
-								<footer class="clearfix">
-									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
-									<a class="alignright icon icon_star" href="#"></a>
-								</footer>
-							</div>
-						</article>
-						<article class="event event-grid clearfix">
-							<img src="http://localhost/viradacultural/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg">
-							<div class="event-content clearfix">
-								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
-								<footer class="clearfix">
-									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
-									<a class="alignright icon icon_star" href="#"></a>
-								</footer>
-							</div>
-						</article>
-						
+
 					</div>
 				</div>
 			</div>
@@ -217,6 +137,6 @@
 		<!-- #main-section -->
 		<?php get_footer(); ?>
 	</div>
-	<!-- .row -->         
+	<!-- .row -->
 </div>
 <!-- .container-fluid -->
