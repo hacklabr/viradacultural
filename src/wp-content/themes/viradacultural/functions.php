@@ -1,8 +1,4 @@
-<?php 
-/*
- * IMPORTANTE
- * substituir todos os viradacultural pelo slug do projeto
- */
+<?php
 
 include dirname(__FILE__).'/includes/congelado-functions.php';
 include dirname(__FILE__).'/includes/html.class.php';
