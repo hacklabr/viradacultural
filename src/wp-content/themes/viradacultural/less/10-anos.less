@@ -1,0 +1,100 @@
+.ScrollSceneIndicators { z-index: 10 !important; }
+
+/* = 10 Anos Virada
+-------------------------------------------------------------- */
+#main-section.virada-10-anos {
+  margin-top: 57px;
+  position: relative;
+  article.parent {
+    section.block {
+      background-color: transparent !important;
+      .centered {
+        background-color: rgba(255,255,255,1);
+        padding: 0;
+        position: static !important;
+      }
+    }
+  }
+  article {
+    position: relative;
+    header {
+      background-color: @rosa;
+      color: white;
+      display: inline-block;
+      padding: 18px 36px;
+      position: absolute;
+      top: 0;
+      h1 {
+        color: white !important;
+        line-height: 1;
+        margin: 0;
+        padding: 0;
+      }
+    }
+    figure {
+      img {
+        left: 0;
+        position: fixed;
+        top: 0;
+        z-index: -1;
+        .transition(opacity linear .2s);
+      }
+    }
+    section {
+      background-color: rgba(0,0,0,0.7);
+      bottom: 0;
+      color: @gray-darker;
+      left: 0;
+      overflow: hidden;
+      padding: 18px 18px 63px 18px;
+      position: absolute;
+      right: 0;
+      p {
+        max-height: 100px;
+        margin-bottom: 0;
+        overflow: hidden;
+        position: relative;
+      }
+    }
+    button {
+      bottom: 18px;
+      position: absolute;
+      right: 18px;
+    }
+  }
+}
+
+.bgwidth {
+  height: auto !important;
+  width: 100% !important;
+}
+.bgheight {
+  height: 100% !important;
+  width: auto !important;
+}
+
+.trigger {
+  background-color: red;
+  height: 1px;
+  margin-bottom: 1px;
+  min-height: 1px;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+
+// centering elements vertically
+.block {
+  text-align: center;
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em;
+  }
+  .centered {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
