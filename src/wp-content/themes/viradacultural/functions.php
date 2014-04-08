@@ -193,4 +193,16 @@ function virada_template_redirect_intercept() {
     }
 }
 
-
+add_filter('body_class', function($classes) {
+    
+    $tpl = get_query_var('virada_tpl');
+    
+    if ($tpl) {
+        $classes[] = 'programacao';
+        if ($tpl == 'programacao-locais-single' || $tpl == 'programacao-atracoes-single') 
+            $classes[] = 'programacao-single';
+    }
+    
+    return $classes;
+    
+});
