@@ -1,15 +1,15 @@
 (function($){
-	$(document).ready(function(){
+    $(document).ready(function(){
 
-		$('.btn-sm span').tooltip();
+        $('.btn-sm span').tooltip();
 
-		$('.collapse').collapse();
+        $('.collapse').collapse();
 
         $('.timepicker-field').timepicker();
 
-		$('#front-page-carousel .item:first, .carousel-indicators li:first').addClass('active');
+        $('#front-page-carousel .item:first, .carousel-indicators li:first').addClass('active');
 
-		$('#front-page-carousel').carousel();
+        $('#front-page-carousel').carousel();
         
         // MENU ANIMATION
         $("#main-header li.has-children").hover(
@@ -37,5 +37,5 @@
                 $("#grid-view").removeClass("active");
             }
         )
-	})
+    })
 })(jQuery);
