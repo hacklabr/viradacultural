@@ -24,6 +24,10 @@ a:hover {
 	text-decoration: none;
 }
 
+body.single, body.page {
+    background: #fff;
+}
+
 .navbar {
     border: none;
     .box-shadow(0 1px 1px rgba(0,0,0,.05));
@@ -217,7 +221,6 @@ img {
 -------------------------------------------------------------- */
 #main-header {
 	.fixed-bars();
-	border-right: 1px solid @body-bg;
 	left: 0;
   .transition(width linear .3s);
 	&.col-md-1 {
@@ -395,7 +398,6 @@ img {
 -------------------------------------------------------------- */
 #countdown {
 	.fixed-bars();
-	border-left: 1px solid @body-bg;
 	right: 0;
 	padding-top: 24px;
 	color: #ccc;
