@@ -20,6 +20,5 @@
                 $("#main-header").removeClass().addClass("col-md-2");
             }
         )
-        
 	})
 })(jQuery);
