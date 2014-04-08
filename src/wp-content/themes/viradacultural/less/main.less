@@ -2,6 +2,7 @@
 @import "timepicker.less";
 @import "pages.less";
 @import "10-anos.less";
+@import "wp.less";
 
 /*Colors*/
 @rosa: #ee2c72; /*238, 44, 114*/
@@ -257,47 +258,57 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
 }
 
 #main-menu {
-  >li {
+  list-style: none;
+  margin: 0 -15px;
+  padding: 0;
+  li {
     box-shadow: 6px 0 0 @rosa inset;
-    margin: 0 -15px;
-    z-index: 15;
-    &:first-child {
-      a {
-        border-top: 1px solid @body-bg;
-        &:hover {
-          border-color: @rosa;
-        }
-      }
+    height: 48px;
+    line-height: 48px;
+    margin: 0;
+    padding: 0 0 0 6px;
+    position: relative;
+    &:hover {
+      box-shadow: 6px 0 0 @roxo inset;
     }
-    >a {
+    a {
       background-color: @gray-lighter;
       background-position: 30px center;
       background-repeat: no-repeat;
       border-bottom: 1px solid @body-bg;
-      line-height: 48px;
-      margin-left: 6px;
+      box-shadow: -6px 0 0 @rosa;
+      display: block;
+      height: 48px;
       padding: 0 0 0 75px;
       position: relative;
+      white-space: nowrap;
       z-index: 30;
-      .secondary-font();
-      &:hover,
-      &:focus {
+      &:hover {
         background-color: @rosa;
         border-color: @rosa;
+        box-shadow: -6px 0 0 @roxo;
         color: @amarelo;
       }
     }
     ul.children {
       background-color: @rosa;
       bottom: 0;
-      left: -8.33333333%;
+      left: -10%;
+      list-style: none;
+      margin: 0;
+      padding: 0;
       position: fixed;
       top: 0;
       width: 16.66666667%;
       z-index: 1;
       .transition(left linear .3s);
       li {
+        box-shadow: none;
+        line-height: 1;
+        margin: 0;
+        padding: 0;
         a {
+          background-color: transparent;
           border: none;
           color: white;
         }
@@ -311,12 +322,20 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
       }
     }
     &.whitespace {
+      box-shadow: 6px 0 0 @rosa inset;
+      overflow: hidden;
+      position: relative;
+      height: 3000px;
       span {
         background-color: @gray-lighter;
-        box-shadow: 6px 0 0 @rosa inset;
         display: block;
         height: 3000px;
+        position: relative;
         width: 100%;
+        z-index: 15;
+      }
+      &:hover {
+        box-shadow: 6px 0 0 @rosa inset;
       }
     }
   }
@@ -584,6 +603,11 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
 	}
 }
 
+#posts-nav {
+	width: 80%;
+	margin: 0 auto 40px;
+}
+
 /* =Programação
 -------------------------------------------------------------- */
 
@@ -593,6 +617,7 @@ body.programacao {
 
 
 #programacao-navbar {
+	min-height: 76px;
 	background-color: #fff;
     font-family: @font-family-secondary;
     h1 {

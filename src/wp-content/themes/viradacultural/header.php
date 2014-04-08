@@ -60,13 +60,17 @@
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angular.js" ></script>
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/virada.js" ></script>
 
+        <script src="<?php bloginfo( 'template_url' ) ?>/js/moment.min.js"></script>
+        <script src="<?php bloginfo( 'template_url' ) ?>/js/countdown.min.js"></script>
+        <script src="<?php bloginfo( 'template_url' ) ?>/js/moment-countdown.min.js"></script>
+
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/_dependent/greensock/TweenMax.min.js" type="text/javascript"></script>
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/jquery.scrollmagic.js" type="text/javascript"></script>
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/jquery.scrollmagic.debug.js" type="text/javascript" charset="utf-8"></script>
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/_mobile/iscroll.js" type="text/javascript" charset="utf-8"></script>
 
     </head>
-    <body <?php if (get_query_var('virada_tpl')): ?> class="programacao" <?php else: ?><?php body_class(); ?><?php endif; ?> ng-controller="main">
+    <body <?php body_class(); ?> ng-controller="main">
 
         <!-- Facebook code -->
         <div id="fb-root"></div>
@@ -101,7 +105,17 @@
                         </ul>
                     </li>
                     <li><a class="anos-10" href="<?php bloginfo( 'url' ); ?>/10-anos" title="10 anos"><span>10 anos</span></a></li>
-                    <li><a class="programacao" href="<?php bloginfo( 'url' ); ?>/programacao" title="Programação"><span>Programação</span></a></li>
+                    <li class="has-children">
+                        <a class="programacao" href="<?php bloginfo( 'url' ); ?>/programacao" title="Programação"><span>Programação</span></a>
+                        <ul class="children">
+                            <li><a>Teste 1</a></li>
+                            <li><a>Teste 2</a></li>
+                            <li><a>Teste 3</a></li>
+                            <li><a>Teste 1</a></li>
+                            <li><a>Teste 2</a></li>
+                            <li><a>Teste 3</a></li>
+                        </ul>
+                    </li>
                     <li><a class="noticias" href="<?php echo get_post_type_archive_link( 'noticias' ); ?>" title="Notícias"><span>Notícias</span></a></li>
                     <li><a class="blog" href="<?php echo esc_url( $blog_link ); ?>" title="Blog"><span>Blog</span></a></li>
                     <li><a class="imprensa" href="<?php echo get_post_type_archive_link( 'imprensa' ); ?>" title="Imprensa"><span>Imprensa</span></a></li>
@@ -116,50 +130,4 @@
         </header>
         <!-- #main-header -->
 
-        <?php if (is_page() || is_single()) { ?>
-        <nav id="programacao-navbar" class="navbar navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="col-md-8 col-md-offset-2">
-                    <?php if ('noticias' == get_post_type()) { ?>
-                        <h1>Notícias</h1>
-                    <?php } else if ('imprensa' == get_post_type()) { ?>
-                        <h1>Imprensa</h1>
-                    <?php } else if (is_single()) { ?>
-                        <h1>Blog</h1>
-                    <?php } ?>
-                    <div class="share-buttons alignright">
-                        <div class="facebook">
-                            <div class="fb-share-button" data-href="<?php the_permalink(); ?>" data-type="button_count"></div>
-                        </div>
-                        <div class="twitter">
-                            <a href="https://twitter.com/share" class="twitter-share-button" data-via="virada" data-lang="pt">Tweetar</a>
-                            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-                        </div>
-                        <div class="g-plus">
-                            <!-- Place this tag where you want the share button to render. -->
-                            <div class="g-plus" data-action="share" data-annotation="bubble"></div>
-                            <!-- Place this tag after the last share tag. -->
-                            <script type="text/javascript">
-                              window.___gcfg = {lang: 'pt-BR'};
-
-                              (function() {
-                                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-                                po.src = 'https://apis.google.com/js/platform.js';
-                                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-                              })();
-                            </script>
-                        </div>
-                    </div><!-- .share-buttons -->
-                </div>
-            </div>
-        </nav>
-        <?php } ?> <!-- if is_page || is_single -->
-        <?php if (is_search()) { ?>
-        <nav id="programacao-navbar" class="navbar navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="col-md-8 col-md-offset-2">
-                    <h1>Resultados de busca para: <?php echo get_search_query(); ?></h1>
-                </div>
-            </div>
-        </nav>
-        <?php } ?> <!-- if is_page || is_single -->
+        <?php html::part('top-navbar'); ?>
