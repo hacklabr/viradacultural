@@ -67,9 +67,9 @@
 				$pdf = get_theme_option('pdf-programacao');
 				if ($pdf):
 			?>
-	        <div class="programacao-navbar-item">
-				<a href="<?php echo $pdf; ?>" role="button" class="btn btn-primary"><span class="icon icon_download"></span> Baixar PDF</a>
-			</div>
+		        <div class="programacao-navbar-item">
+					<a href="<?php echo $pdf; ?>" role="button" class="btn btn-primary"><span class="icon icon_download"></span> Baixar PDF</a>
+				</div>
 			<?php endif; ?>
 		</div>
 	</div>
@@ -77,52 +77,24 @@
 <div class="container-fluid">
 	<div class="row">
 		<section id="main-section" class="panel-group col-md-11 col-md-offset-1">
-			<div class="panel panel-default">
+			<div class="panel panel-default" ng-repeat="s in filteredSpaces | filter:unaccentSearchText">
 				<div class="panel-heading clearfix">
 					<h4 class="alignleft panel-title">
-						<a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="#">Espaço 1</a>
+						<a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="#">{{s.space().name}}</a>
 					</h4>
-					<a class="alignright" data-toggle="collapse" data-parent="#main-section" href="#collapseOne">
+					<a class="alignright" data-toggle="collapse" data-parent="#main-section" href="#space-{{s.space().id}}">
 						<span class="icon arrow_carrot-down_alt2"></span>
 					</a>
 				</div>
-				<div id="collapseOne" class="panel-collapse collapse">
+				<div id="space-{{s.space().id}}" class="panel-collapse collapse">
 					<div class="program-nav program-nav-left"><span class="icon arrow_carrot-left"></span></div>
 					<div class="program-nav program-nav-right"><span class="icon arrow_carrot-right"></span></div>
 					<div class="panel-body">
 
-						<article class="event event-grid clearfix" ng-repeat="s in filteredSpaces | filter:unaccentSearchText">
-							<img ng-src="{{s.space()['@files:avatar.avatarBig'].url || '../wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg'}}"/>
+						<article class="event event-grid clearfix">
+							<img src="../wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
 							<div class="event-content clearfix">
-								<h1><a href="#">{{s.space().name}}</a></h1>
-								<footer class="clearfix">
-									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
-									<a class="alignright icon icon_star" href="#"></a>
-								</footer>
-							</div>
-						</article>
-
-					</div>
-				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading clearfix">
-					<h4 class="alignleft panel-title">
-						<a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="#">Espaço 2</a>
-					</h4>
-					<a class="alignright" data-toggle="collapse" data-parent="#main-section" href="#collapseTwo">
-						<span class="icon arrow_carrot-down_alt2"></span>
-					</a>
-				</div>
-				<div id="collapseTwo" class="panel-collapse collapse">
-					<div class="program-nav program-nav-left"><span class="icon arrow_carrot-left"></span></div>
-					<div class="program-nav program-nav-right"><span class="icon arrow_carrot-right"></span></div>
-					<div class="panel-body">
-
-						<article class="event event-grid clearfix" ng-repeat="s in filteredSpaces | filter:unaccentSearchText">
-							<img ng-src="{{s.space()['@files:avatar.avatarBig'].url || '../wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg'}}"/>
-							<div class="event-content clearfix">
-								<h1><a href="#">{{s.space().name}}</a></h1>
+								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
 								<footer class="clearfix">
 									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
 									<a class="alignright icon icon_star" href="#"></a>

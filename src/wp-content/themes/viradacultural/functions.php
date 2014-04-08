@@ -27,35 +27,6 @@ function viradacultural_setup() {
 
     // AUTOMATIC FEED LINKS
     add_theme_support('automatic-feed-links');
-
-    // CUSTOM IMAGE HEADER
-    define('HEADER_TEXTCOLOR', '000000');
-    define('HEADER_IMAGE_WIDTH', 980); 
-    define('HEADER_IMAGE_HEIGHT', 176);
-
-    add_theme_support(
-        'custom-header', 
-        array('wp-head-callback' => 'viradacultural_custom_header', 'admin-head-callback' => 'viradacultural_admin_custom_header')
-    );
-
-    register_default_headers( array(
-        'Mundo' => array(
-            'url' => '%s/img/headers/image001.jpg',
-            'thumbnail_url' => '%s/img/headers/image001-thumbnail.jpg',
-        ),
-        'Árvores' => array(
-            'url' => '%s/img/headers/image002.jpg',
-            'thumbnail_url' => '%s/img/headers/image002-thumbnail.jpg',
-            'description' => 'barco'
-        ),
-        'Caminho' => array(
-            'url' => '%s/img/headers/image003.jpg',
-            'thumbnail_url' => '%s/img/headers/image003-thumbnail.jpg',
-        ),
-    ) );
-
-    // CUSTOM BACKGROUND
-    add_theme_support('custom-background');
 }
 
 
@@ -116,69 +87,6 @@ function viradacultural_auto_excerpt_more( $more ) {
     return '...<br /><a class="more-link" href="'. get_permalink($post->ID) . '">' . __('Continue reading &raquo;', 'viradacultural') . '</a>';
 }
 
-// SETUP
-if (!function_exists('viradacultural_custom_header')) :
-
-    function viradacultural_custom_header() {
-        ?><style type="text/css">
-            #branding {
-                background: url(<?php header_image(); ?>);
-            }
-                
-            #branding, #branding a, #branding a:hover {
-                color: #<?php header_textcolor(); ?> !important;
-            }
-            #branding a:hover {
-                text-decoration: none; 
-            }
-            #description { 
-                filter: alpha(opacity=60);
-                opacity: 0.6;
-            }
-        
-        </style><?php
-
-    }
-
-endif;
-
-if (!function_exists('viradacultural_admin_custom_header')) :
-
-    function viradacultural_admin_custom_header() {
-        ?><style type="text/css">
-        
-           #headimg {
-                padding:55px 10px;
-                width: 960px !important;
-                height: 66px !important;
-                min-height: 66px !important;
-            }
-        
-            #headimg h1 {
-                font-size:36px;
-                line-height:44px;
-                font-weight:normal !important;
-                margin: 0px;
-                margin: 0 10px;            
-            }
-        
-            #headimg h1 a {
-                text-decoration: none !important;
-            }
-        
-            #headimg #desc { 
-                font-style: italic; 
-                font-size: 16px; 
-                margin: 0 10px;
-                filter: alpha(opacity=60);
-                opacity: 0.6;
-            }
-
-        </style><?php
-    }
-
-endif;
-
 // COMMENTS
 if (!function_exists('viradacultural_comment')):
 
@@ -210,7 +118,7 @@ endif;
 function custom_login_logo() {
 	echo '
         <style type="text/css">
-	        .login h1 a { background-image: url('. html::getImageUrl('logo.png') .'); background-size: auto; }
+	        .login h1 a { background-image: url('. html::getImageUrl('logo.png') .'); background-size: contain; }
         </style>';
 }
 add_action('login_head', 'custom_login_logo');
