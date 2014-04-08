@@ -549,53 +549,56 @@ body.single, body.page {
 		}
 }
 
-.grid-post {
-	float: left;
-	width: 25%;
-	height: 360px;
-	overflow: hidden;
-	background-color: @gray-lighter;
-	border: 1px solid @body-bg;
-	.post-content {
-		position: relative;
-		padding: 24px 15px;
-		h1 {
-			font-size: 20px;
-			margin: 0;
-		}
-		header p {
-			margin-top: 24px;
-		}
-		.post-type-icon {
-			background: @rosa;
-			border-radius: 18px;
-			height: 36px;
-			width: 36px;
-			margin: 0 auto;
-			text-align: center;
-			line-height: 36px;
-			img {
-				width: 24px;
-				display: inline;
+.page, .single, .archive {
+	#main-section {
+		.grid-post {
+			float: left;
+			width: 25%;
+			height: 360px;
+			overflow: hidden;
+			background-color: @gray-lighter;
+			border: 1px solid @body-bg;
+			.post-content {
+				position: relative;
+				padding: 24px 15px;
+				h1 {
+					font-size: 20px;
+					margin: 0;
+				}
+				header p {
+					margin-top: 24px;
+				}
+				.post-type-icon {
+					background: @rosa;
+					border-radius: 18px;
+					height: 36px;
+					width: 36px;
+					margin: 0 auto;
+					text-align: center;
+					line-height: 36px;
+					img {
+						width: 24px;
+						display: inline;
+					}
+				}
+				.post-entry {
+					display: none;
+				}
 			}
-		}
-		.post-entry {
-			display: none;
-		}
-	}
-	&:hover {
-		background-color: #fff;
-	}
-	&.has-thumbnail {
-		.post-content {
-			padding-top: 0;
-		}
-		.post-type-icon {
-			margin-top: -18px;
+			&:hover {
+				background-color: #fff;
+			}
+			&.has-thumbnail {
+				.post-content {
+					padding-top: 0;
+				}
+				.post-type-icon {
+					margin-top: -18px;
+				}
+			}
 		}
 	}
 }
-
 /* =Programação
 -------------------------------------------------------------- */
 
@@ -605,6 +608,7 @@ body.programacao {
 
 
 #programacao-navbar {
+	min-height: 76px;
 	background-color: #fff;
     font-family: @font-family-secondary;
     h1 {
