@@ -73,7 +73,7 @@
       bottom: 0;
       color: @gray-darker;
       overflow: hidden;
-      padding: 18px 18px 63px 18px;
+      padding: 18px 72px 18px 36px;
       position: absolute;
       right: 0;
       top: 0;
@@ -81,6 +81,24 @@
   }
 }
 
+#years-nav {
+  bottom: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  .year {
+    background-color: @roxo;
+    color: @amarelo;
+    display: block;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 1px;
+    padding: 16px 6px;
+  }
+}
+ 
+
+// responsive background images
 .bgwidth {
   height: auto !important;
   width: 100% !important;
@@ -90,6 +108,7 @@
   width: auto !important;
 }
 
+// animations triggers markers
 .trigger {
   background-color: red;
   height: 1px;
