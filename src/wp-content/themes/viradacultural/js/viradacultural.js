@@ -12,14 +12,15 @@
         $('#front-page-carousel').carousel();
         
         // MENU ANIMATION
-        $("#main-header li.has-children").hover(
-            function() {
-                $("#main-header").removeClass().addClass("col-md-1");
-            },
-            function() {
-                $("#main-header").removeClass().addClass("col-md-2");
-            }
-        );
+        // $("#main-header li.has-children").hover(
+        //     function() {
+        //         $("#main-header").removeClass().addClass("col-md-1");
+        //     },
+        //     function() {
+        //         $("#main-header").removeClass().addClass("col-md-2");
+        //     }
+        // );
+        
         // TOGGLE VIEW
         $("#grid-view").click(
             function() {
@@ -37,5 +38,7 @@
                 $("#grid-view").removeClass("active");
             }
         )
+
+        $(".page-template-page-dez-anos-php > #main-header").removeClass().addClass("col-md-1");
     })
 })(jQuery);

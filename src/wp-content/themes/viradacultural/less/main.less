@@ -2,6 +2,7 @@
 @import "timepicker.less";
 @import "pages.less";
 @import "10-anos.less";
+@import "wp.less";
 
 /*Colors*/
 @rosa: #ee2c72; /*238, 44, 114*/
@@ -274,6 +275,7 @@ body.single, body.page {
       background-position: 30px center;
       background-repeat: no-repeat;
       border-bottom: 1px solid @body-bg;
+      box-shadow: -6px 0 0 @rosa;
       display: block;
       height: 48px;
       padding: 0 0 0 75px;
@@ -283,13 +285,14 @@ body.single, body.page {
       &:hover {
         background-color: @rosa;
         border-color: @rosa;
+        box-shadow: -6px 0 0 @roxo;
         color: @amarelo;
       }
     }
     ul.children {
       background-color: @rosa;
       bottom: 0;
-      left: -100%;
+      left: -10%;
       list-style: none;
       margin: 0;
       padding: 0;
