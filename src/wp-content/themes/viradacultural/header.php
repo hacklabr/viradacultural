@@ -105,7 +105,17 @@
                         </ul>
                     </li>
                     <li><a class="anos-10" href="<?php bloginfo( 'url' ); ?>/10-anos" title="10 anos"><span>10 anos</span></a></li>
-                    <li><a class="programacao" href="<?php bloginfo( 'url' ); ?>/programacao" title="Programação"><span>Programação</span></a></li>
+                    <li class="has-children">
+                        <a class="programacao" href="<?php bloginfo( 'url' ); ?>/programacao" title="Programação"><span>Programação</span></a>
+                        <ul class="children">
+                            <li><a>Teste 1</a></li>
+                            <li><a>Teste 2</a></li>
+                            <li><a>Teste 3</a></li>
+                            <li><a>Teste 1</a></li>
+                            <li><a>Teste 2</a></li>
+                            <li><a>Teste 3</a></li>
+                        </ul>
+                    </li>
                     <li><a class="noticias" href="<?php echo get_post_type_archive_link( 'noticias' ); ?>" title="Notícias"><span>Notícias</span></a></li>
                     <li><a class="blog" href="<?php echo esc_url( $blog_link ); ?>" title="Blog"><span>Blog</span></a></li>
                     <li><a class="imprensa" href="<?php echo get_post_type_archive_link( 'imprensa' ); ?>" title="Imprensa"><span>Imprensa</span></a></li>

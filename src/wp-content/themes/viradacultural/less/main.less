@@ -266,7 +266,6 @@ body.single, body.page {
     margin: 0;
     padding: 0 0 0 6px;
     position: relative;
-    z-index: 15;
     &:hover {
       box-shadow: 6px 0 0 @roxo inset;
     }
@@ -290,7 +289,7 @@ body.single, body.page {
     ul.children {
       background-color: @rosa;
       bottom: 0;
-      left: -8.33333333%;
+      left: -100%;
       list-style: none;
       margin: 0;
       padding: 0;
@@ -327,7 +326,9 @@ body.single, body.page {
         background-color: @gray-lighter;
         display: block;
         height: 3000px;
+        position: relative;
         width: 100%;
+        z-index: 15;
       }
       &:hover {
         box-shadow: 6px 0 0 @rosa inset;
