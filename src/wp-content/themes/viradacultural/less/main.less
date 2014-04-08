@@ -1,5 +1,6 @@
 @import "bootstrap.less";
 @import "timepicker.less";
+@import "pages.less";
 
 /*Colors*/
 @rosa: #ee2c72; /*238, 44, 114*/
@@ -7,7 +8,7 @@
 @verde: #00a68a; /*0, 166, 138*/
 @roxo: #893494; /*137, 52, 148*/
 
-@gray-darker:            lighten(#000, 20%); // #333
+@gray-darker:            lighten(#000, 20%);   // #333
 @gray-dark:              lighten(#000, 60%);   // #999
 @gray:                   lighten(#000, 80%);   // #ccc
 @gray-light:             lighten(#000, 87%);   // #dedede
@@ -16,12 +17,18 @@
 @brand-primary:         @rosa;
 
 @body-bg: @gray-light;
+@text-color:            @gray-darker;
 @link-color: @rosa;
 @link-hover-color: @roxo;
 a:hover {
 	text-decoration: none;
 }
 
+.navbar {
+    border: none;
+    .box-shadow(0 1px 1px rgba(0,0,0,.05));
+    color: @gray-dark;
+}
 
 /*Typography*/
 
@@ -88,7 +95,7 @@ a:hover {
 @font-size-h6:            ceil((@font-size-base * 0.75)); // ~12px
 
 
-@font-family-sans-serif:  "Museo", Helvetica, Arial, sans-serif; 
+@font-family-sans-serif:  "Museo", Helvetica, Arial, sans-serif;
 @font-family-secondary:   "Museo Sans", Verdana, sans-serif;
 @line-height-base: 		  1.5;
 
@@ -106,6 +113,9 @@ a:hover {
 @border-radius-base:        3px;
 @border-radius-large:       4px;
 @border-radius-small:       2px;
+
+@component-active-color: @amarelo;
+@list-group-link-color: @rosa;
 
 
 /* =WordPress
@@ -158,6 +168,7 @@ img {
     line-height: 1.7143;
     .icon {
         font-size: 16px;
+        vertical-align: middle;
     }
     &:hover, &:active, &.active {
         background-color: @gray-lighter;
@@ -183,6 +194,10 @@ img {
         color: @gray-dark;
     }
 
+}
+
+.dropdown-menu {
+    border: none;
 }
 
 
@@ -300,7 +315,7 @@ img {
       }
     }
   }
-	
+
 	.a-virada {
 		.img-retina("img/virada-icon-1x.png", "img/virada-icon-2x.png", 27px, 25px);
 	}
@@ -345,14 +360,14 @@ img {
   }
 }
 
-.logo { 
+.logo {
   background-repeat: no-repeat;
-  background-size: contain; 
+  background-size: contain;
   margin: 0;
   padding: 0;
   z-index: 30;
   // .text-hide();
-  a { 
+  a {
     display: block;
     height: inherit;
   }
@@ -361,11 +376,11 @@ img {
 #logo-smc {
 	background-image: url(img/brasao.png);
 	background-position: bottom center;
-	bottom: 15px; 
-	height: 80px; 
-	left: 0; 
+	bottom: 15px;
+	height: 80px;
+	left: 0;
 	position: absolute;
-	width: 100%; 
+	width: 100%;
 }
 
 /* =Main footer
@@ -427,7 +442,7 @@ img {
 	 bottom: 24px;
 	 padding: 0 15px;
 	 width: 100%;
-		
+
 		time {
 			font-family: @font-family-sans-serif;
 			font-weight: bolder;
@@ -509,14 +524,14 @@ img {
 
 /* =Post
 -------------------------------------------------------------- */
-.post {
+.post, .noticias {
 	header p, footer {
 			.secondary-font();
 			color: @verde;
 		}
 }
 
-.grid-post {	
+.grid-post {
 	float: left;
 	width: 25%;
 	height: 360px;
@@ -533,7 +548,7 @@ img {
 		header p {
 			margin-top: 24px;
 		}
-		.category-icon {
+		.post-type-icon {
 			background: @rosa;
 			border-radius: 18px;
 			height: 36px;
@@ -557,7 +572,7 @@ img {
 		.post-content {
 			padding-top: 0;
 		}
-		.category-icon {
+		.post-type-icon {
 			margin-top: -18px;
 		}
 	}
@@ -567,17 +582,18 @@ img {
 -------------------------------------------------------------- */
 
 body.programacao {
-	margin-top: 50px;
+	margin-top: 76px;
 }
+
 
 #programacao-navbar {
 	background-color: #fff;
     font-family: @font-family-secondary;
     h1 {
         float: left;
-        margin: 0;
+        margin: 20px 0;
         font-size: 24px;
-        line-height: 50px;
+        line-height: 36px;
     }
     .navbar-text {
         margin-top: 0;
@@ -587,6 +603,9 @@ body.programacao {
     .bootstrap-timepicker {
         width: 108px;
         float: left;
+        .input-group-addon {
+            background: @gray-light;
+        }
     }
     #programacao-search {
         width: 285px;
@@ -594,29 +613,39 @@ body.programacao {
     #view-btn-group {
         float: right;
         margin-right: -15px;
-        padding: 6px 15px;
+        padding: 20px 15px;
         background-color: @gray-lighter;
     }
     .programacao-navbar-item {
         float: right;
-        margin: 6px 0;
+        margin: 20px 0;
         padding: 0 15px;
         border-left: 2px solid @gray-lighter;
     }
+}
+
+.bootstrap-timepicker-widget.dropdown-menu {
+    z-index: @zindex-navbar-fixed;
 }
 
 @panel-bg:                    transparent;
 @panel-body-padding:          0;
 @panel-border-radius:         0;
 
-@panel-default-text:          @rosa;
+@panel-default-text:          @gray-darker;
+
+@panel-default-heading-bg:    @gray-lighter;
 
 #main-section.panel-group {
+    margin-top: 6px;
 	padding: 0;
 	.panel {
 		border: none;
 		.panel-heading a {
 			color: @rosa;
+            >.icon {
+                color: @gray-dark;
+            }
 		}
 		.panel-collapse {
 			position: relative;
@@ -627,6 +656,7 @@ body.programacao {
 				top: 0;
 				bottom: 0;
 				width: 50px;
+                line-height: 168px;
 				background-color: rgba(0, 166, 138, .5);
 				&.program-nav-left {
 					left: 0;
@@ -636,7 +666,8 @@ body.programacao {
 				}
 				.icon {
 					color: @amarelo;
-					font-size: 32px;
+					font-size: 56px;
+                    vertical-align: middle;
 				}
 			}
 			&:hover {
@@ -650,9 +681,9 @@ body.programacao {
         .event-content {
             h1 {
                 margin: 0;
-                font-size: 20px;                
+                font-size: 20px;
             }
-            
+
             footer {
                 time {
                     .secondary-font();
@@ -660,7 +691,7 @@ body.programacao {
             }
 
         }
-        
+
 
     }
 	.event-grid {
@@ -679,7 +710,7 @@ body.programacao {
             padding: 15px;
             background-color: @rosa;
 			h1 {
-				display: none;				
+				display: none;
 			}
             a {
                 color: @amarelo;
@@ -689,10 +720,10 @@ body.programacao {
 				left: 15px;
 				right: 15px;
 				bottom: 15px;
-                color: @amarelo;				
+                color: @amarelo;
 			}
 
-		}		
+		}
 		&:hover {
 			.event-content {
 				height: 168px;
@@ -733,7 +764,16 @@ body.programacao {
         &:hover {
             background: #fff;
         }
-        
+
+    }
+}
+
+#map-modal {
+    .list-group {
+        width: 25%;
+        float: left;
+        max-height: 400px;
+        overflow: auto;
     }
 }
 

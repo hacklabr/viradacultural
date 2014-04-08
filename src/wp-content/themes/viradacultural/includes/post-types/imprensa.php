@@ -1,6 +1,6 @@
 <?php
 
-// Dê um Find Replace (CASE SENSITIVE!) em imprensa pelo nome do seu post type 
+// Dê um Find Replace (CASE SENSITIVE!) em imprensa pelo nome do seu post type
 
 class imprensa {
 
@@ -8,7 +8,7 @@ class imprensa {
     const MENU_NAME = 'Release';
 
     /**
-     * alug do post type: deve conter somente minúscula 
+     * alug do post type: deve conter somente minúscula
      * @var string
      */
     protected static $post_type;
@@ -76,11 +76,11 @@ class imprensa {
     static function on_save($post_id) {
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
             return $post_id;
-        
+
         global $post;
-        
+
         if ($post->post_type == self::$post_type) {
-            // faça algo com o post 
+            // faça algo com o post
         }
     }
 }
