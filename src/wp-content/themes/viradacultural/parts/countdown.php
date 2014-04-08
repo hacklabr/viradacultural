@@ -7,7 +7,7 @@
 	<div class="circle">{hours}</div>
 	<div>horas</div>
 	<div class="circle">{minutes}</div>
-	<div>min<span style="display: none;">{debug}</span></div>
+	<div>min<span id="countdown-info">{info}</span></div>
 	<footer>
 		<time>
 			<div>17-18</div>
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		if(!template)
 			template = el.innerHTML;
 		var result = template;
-		data.debug = '<br> <small style="font:10px courier;">e '+data.seconds + ' segundos até <br> ' + moment(targetDateMomentArray).format('MMM Do YYYY, H:mm:ss')+'</small>';
+		data.info = (!showInfo) ? '' : '<br> <small style="font:10px courier;">e '+data.seconds + ' segundos até <br> ' + moment(targetDateMomentArray).format('MMM Do YYYY, H:mm:ss')+'</small>';
 		for(key in data){
 			result = result.replace('{'+key+'}', data[key]);
 		}
@@ -108,6 +108,17 @@ document.addEventListener("DOMContentLoaded", function() {
 		};
 
 	}
+
+        var i = document.querySelector('#countdown-info');
+        var showInfo = false;
+        i.style.display = 'none';
+        document.addEventListener('keyup', function(e){
+            if(e.ctrlKey && e.keyCode == 32){
+                showInfo = !showInfo;
+                i.style.display = (i.style.display == 'none') ? 'block' : 'none';
+            }
+        });
+
 });
 
 </script>
