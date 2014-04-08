@@ -42,7 +42,7 @@
   }
   article.children {
     border-top: 1px solid @rosa;
-    margin-bottom: 4px !important;
+    margin-bottom: 0 !important;
     position: relative;
     width: 100% !important;
     header {
@@ -89,11 +89,15 @@
   .year {
     background-color: @roxo;
     color: @amarelo;
+    cursor: pointer;
     display: block;
     font-weight: bold;
     line-height: 1;
     margin-bottom: 1px;
     padding: 16px 6px;
+    &:hover {
+      background-color: @verde;
+    }
   }
 }
  

@@ -52,7 +52,7 @@ Template Name: 10 anos
         <nav id="years-nav" class="block">
             <div class="centered">
                 <?php if( $children->have_posts() ) : while( $children->have_posts() ) : $children->the_post(); ?>
-                    <span class="year"><?php the_title(); ?></span>
+                    <a href="#post-<?php the_ID(); ?>"><span class="year"><?php the_title(); ?></span></a>
                 <?php endwhile; endif; ?>
             </div>
         </nav>
