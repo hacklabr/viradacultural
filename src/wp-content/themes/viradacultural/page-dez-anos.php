@@ -7,7 +7,7 @@ Template Name: 10 anos
 <?php get_header(); ?>
 <div class="container-fluid">
     <div class="row">
-        <section id="main-section" class="col-md-offset-2 virada-10-anos">
+        <section id="main-section" class="col-md-offset-1 virada-10-anos">
             <?php if ( have_posts()) : while ( have_posts()) : the_post(); ?>
                 <article id="post-<?php the_ID(); ?>" <?php post_class('row parent');?>>
                     <header>
@@ -35,9 +35,9 @@ Template Name: 10 anos
                         <figure>
                             <?php the_post_thumbnail("full", array("class" => "background-image")); ?>
                         </figure>
-                        <section class="col-md-3 col-md-offset-9 clearfix">
+                        <section class="col-md-4 col-md-offset-8 clearfix">
                             <?php the_content(); ?>
-                            <p class="textcenter"><button class="btn btn-large btn-success">Baixar programação</button></p>
+                            <p><button class="btn btn-large btn-success">Baixar programação</button></p>
                         </section>
                     </article>
                 
@@ -49,6 +49,13 @@ Template Name: 10 anos
             <?php endif; ?>
         </section>
         <!-- #main-section -->
+        <nav id="years-nav" class="block">
+            <div class="centered">
+                <?php if( $children->have_posts() ) : while( $children->have_posts() ) : $children->the_post(); ?>
+                    <span class="year"><?php the_title(); ?></span>
+                <?php endwhile; endif; ?>
+            </div>
+        </nav>
     </div>
     <?php get_footer(); ?>
 </div>
