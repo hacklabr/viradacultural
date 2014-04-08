@@ -80,7 +80,7 @@
 			<div class="panel panel-default" ng-repeat="s in filteredSpaces | filter:unaccentSearchText">
 				<div class="panel-heading clearfix">
 					<h4 class="alignleft panel-title">
-						<a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="#">{{s.space().name}}</a>
+						<a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="<?php bloginfo( 'url' ); ?>/programacao/locais/slug-do-local">{{s.space().name}}</a>
 					</h4>
 					<a class="alignright" data-toggle="collapse" data-parent="#main-section" href="#space-{{s.space().id}}">
 						<span class="icon arrow_carrot-down_alt2"></span>
@@ -90,18 +90,16 @@
 					<div class="program-nav program-nav-left"><span class="icon arrow_carrot-left"></span></div>
 					<div class="program-nav program-nav-right"><span class="icon arrow_carrot-right"></span></div>
 					<div class="panel-body">
-
 						<article class="event event-grid clearfix">
 							<img src="../wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
 							<div class="event-content clearfix">
-								<h1><a href="#">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
+								<h1><a href="<?php bloginfo( 'url' ); ?>/programacao/atracoes/slug-da-atracao">Título do evento que pode ser bem comprido e cair em quatro linhas</a></h1>
 								<footer class="clearfix">
 									<span class="alignleft"><span class="icon icon_clock"></span> <time>00h00</time></span>
 									<a class="alignright icon icon_star" href="#"></a>
 								</footer>
 							</div>
 						</article>
-
 					</div>
 				</div>
 			</div>

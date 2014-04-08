@@ -70,7 +70,7 @@
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/_mobile/iscroll.js" type="text/javascript" charset="utf-8"></script>
 
     </head>
-    <body <?php if (get_query_var('virada_tpl')): ?> class="programacao" <?php else: ?><?php body_class(); ?><?php endif; ?> ng-controller="main">
+    <body <?php body_class(); ?> ng-controller="main">
 
         <!-- Facebook code -->
         <div id="fb-root"></div>
