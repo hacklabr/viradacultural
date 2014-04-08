@@ -6,53 +6,53 @@ Template Name: 10 anos
 
 <?php get_header(); ?>
 <div class="container-fluid">
-    <section id="main-section" class="col-md-offset-2 virada-10-anos">
-        <?php if ( have_posts()) : while ( have_posts()) : the_post(); ?>
-            <article id="post-<?php the_ID(); ?>" <?php post_class('row parent');?>>
-                <header>
-                    <h1><?php the_title();?></h1>
-                </header>
-                <figure>
-                    <?php if ( has_post_thumbnail() ) the_post_thumbnail("full", array("class" => "background-image")); ?>
-                </figure>
-                <section class="block col-md-8 col-md-offset-2">
-                    <div class="centered">
-                        <?php the_content(); ?>
-                        <p><?php edit_post_link( __( 'Edit', 'viradacultural' ), '', '' ); ?></p>
-                    </div>
-                </section>
-            </article>
-
-            <?php
-                $children = new WP_Query( array( 'post_parent' => $post->ID, 'post_type' => 'page', 'orderby' => 'menu_order', 'order' => 'ASC', 'nopaging' => true));
-                if( $children->have_posts() ) : while( $children->have_posts() ) : $children->the_post();
-            ?>
-                <article id="post-<?php the_ID(); ?>" <?php post_class('row children');?>>
+    <div class="row">
+        <section id="main-section" class="col-md-offset-2 virada-10-anos">
+            <?php if ( have_posts()) : while ( have_posts()) : the_post(); ?>
+                <article id="post-<?php the_ID(); ?>" <?php post_class('row parent');?>>
                     <header>
-                        <h1><?php the_title(); ?></h1>
+                        <h1><?php the_title();?></h1>
                     </header>
                     <figure>
-                        <?php the_post_thumbnail("full", array("class" => "background-image")); ?>
+                        <?php if ( has_post_thumbnail() ) the_post_thumbnail("full", array("class" => "background-image")); ?>
                     </figure>
-                    <section class="post-content clearfix">
-                        <?php the_content(); ?>
+                    <section class="block col-md-8 col-md-offset-2">
+                        <div class="centered">
+                            <?php the_content(); ?>
+                            <p><?php edit_post_link( __( 'Edit', 'viradacultural' ), '', '' ); ?></p>
+                        </div>
                     </section>
-                    <button class="btn btn-large btn-success">Baixar programação</button>
                 </article>
+
+                <?php
+                    $children = new WP_Query( array( 'post_parent' => $post->ID, 'post_type' => 'page', 'orderby' => 'menu_order', 'order' => 'ASC', 'nopaging' => true));
+                    if( $children->have_posts() ) : while( $children->have_posts() ) : $children->the_post();
+                ?>
+                    <article id="post-<?php the_ID(); ?>" <?php post_class('row children');?>>
+                        <header>
+                            <h1><?php the_title(); ?></h1>
+                        </header>
+                        <figure>
+                            <?php the_post_thumbnail("full", array("class" => "background-image")); ?>
+                        </figure>
+                        <section class="col-md-3 col-md-offset-9 clearfix">
+                            <?php the_content(); ?>
+                            <p class="textcenter"><button class="btn btn-large btn-success">Baixar programação</button></p>
+                        </section>
+                    </article>
                 
-            <?php endwhile; endif; ?>
-            <!-- .page -->
-        <?php endwhile; ?>
-        <?php else : ?>
-           <p><?php _e('No results found.', 'viradacultural'); ?></p>
-        <?php endif; ?>
-    </section>
-    <!-- #main-section -->
+                <?php endwhile; endif; ?>
+                <!-- .page -->
+            <?php endwhile; ?>
+            <?php else : ?>
+               <p><?php _e('No results found.', 'viradacultural'); ?></p>
+            <?php endif; ?>
+        </section>
+        <!-- #main-section -->
+    </div>
     <?php get_footer(); ?>
 </div>
 <!-- .container-fluid -->
-<?php // html::part('countdown'); ?>
-
 
 <script type="text/javascript" charset="utf-8">
 (function($){
