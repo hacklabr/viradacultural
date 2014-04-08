@@ -157,7 +157,7 @@ function the_posts_home_url() {
 
 function get_the_posts_home_url() {
     if (class_exists('Better_Front_Page_UI'))
-        return home_url( get_option( Better_Front_Page_UI::$option_name ) );
+        return home_url( Better_Front_Page_UI::get_option() );
     else
         return false;
 }
