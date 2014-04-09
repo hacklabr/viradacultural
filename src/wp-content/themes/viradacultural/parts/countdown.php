@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
             el.dataset.bgcolor= '#ccc';
             el.dataset.step = '0.5';
             el.dataset.displayinput = false;
+            //el.dataset.rotation = 'anticlockwise';
             jQuery(el).knob();
             el.insertAdjacentHTML('beforebegin', '<div class="countdown-text  circle '+el.dataset.displayfield+'" data-displayfield="'+el.dataset.displayfield+'">&nbsp;</div>');
         });

@@ -20,8 +20,8 @@
         //         $("#main-header").removeClass().addClass("col-md-2");
         //     }
         // );
-        
 
-        $(".page-template-page-dez-anos-php > #main-header").removeClass().addClass("col-md-1");
+        $(".page-template-page-dez-anos-php > #main-header").removeClass().addClass("minified");
+
     })
 })(jQuery);
