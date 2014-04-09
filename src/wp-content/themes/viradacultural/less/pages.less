@@ -1,30 +1,46 @@
-.share-buttons {
-	margin-top: 3rem;
-	div {
-		float: left;
-		margin-left: 1rem;
-		&.facebook {
-			.fb-share-button {
-				height: 20px;
-				&>span {
-					vertical-align: top !important;
+#programacao-navbar {
+	.share-buttons {
+    // float: right;
+		margin-top: 20px;
+
+		div {
+      // float: left;
+			margin-left: 1rem;
+			&.facebook {
+				.fb-share-button {
+					height: 20px;
+					&>span {
+						vertical-align: top !important;
+					}
+				}
+			}
+			&.twitter {
+				iframe {
+					width: 86px !important;
 				}
 			}
 		}
-		&.twitter {
-			iframe {
-				width: 86px !important;
-			}
-		}
+	}
+
+  // #pages-search {
+  //     width: 285px;
+  // }
+
+	.pages-navbar-item {
+	    float: right;
+	    margin: 20px 0;
+	    padding: 0 0 0 15px;
 	}
 }
+
+
 
 .page, .single, .archive {
 	#main-section {
 		margin-top: 75px;
 	}
 }
-.page, .single {		
+.page, .single {
 	article {
 		width: 80%;
 		margin: 0 auto 48px;

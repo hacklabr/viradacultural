@@ -1,5 +1,5 @@
-<?php 
-define('API_URL', "http://192.168.0.145:8000/api/");
+<?php
+define('API_URL', "http://192.168.0.51:8000/api/");
 define('PROJECT_ID', 15);
 
 $get_spaces_url= API_URL . "space/find?@select=id,name,shortDescription,location&@files=(avatar,gallery):url&type=EQ(501)&@order=name";
@@ -31,12 +31,9 @@ foreach($occurrences as $occ){
 	$rule = $occ->rule;
 	$e = $events_by_id[$occ->eventId];
 	$e->spaceId = $rule->spaceId;
-	$e->startsAt = $rule->startsAt;
+        $e->startsAt = $rule->startsAt;
 	$e->startsOn = $rule->startsOn;
 }
 
-file_put_contents('events.js', json_encode($events));
-file_put_contents('spaces.js', json_encode($spaces));
-
-
-print_r(json_decode(json_encode($events)));
+file_put_contents('events.json', json_encode($events));
+file_put_contents('spaces.json', json_encode($spaces));

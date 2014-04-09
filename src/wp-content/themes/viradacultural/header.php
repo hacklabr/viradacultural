@@ -66,26 +66,16 @@
 
         <script src="<?php bloginfo( 'template_url' ) ?>/js/jquery.knob.js"></script>
 
+        <script src="<?php bloginfo( 'template_url' ) ?>/js/rrssb.js"></script>
+
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/_dependent/greensock/TweenMax.min.js" type="text/javascript"></script>
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/jquery.scrollmagic.js" type="text/javascript"></script>
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/jquery.scrollmagic.debug.js" type="text/javascript" charset="utf-8"></script>
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/_mobile/iscroll.js" type="text/javascript" charset="utf-8"></script>
-
     </head>
     <body <?php body_class(); ?> ng-controller="main">
 
-        <!-- Facebook code -->
-        <div id="fb-root"></div>
-        <script>(function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=248328698638549";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
-        <!-- Facebook code -->
-
-        <header id="main-header" <?php if (get_query_var('virada_tpl')): ?>class="col-md-1"<?php else: ?>class="col-md-2"<?php endif; ?>>
+        <header id="main-header" <?php if (get_query_var('virada_tpl')): ?>class="minified"<?php endif; ?>>
             <div id="brand">
                 <h1 id="logo-virada" class="logo"><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><span class="sr-only"><?php bloginfo( 'name' ); ?></span></a></h1>
                 <p class="assinatura sr-only"><span>A</span> <span>cidade</span> <span>em</span> <span>festa!</span></p>
