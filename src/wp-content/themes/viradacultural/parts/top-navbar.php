@@ -1,5 +1,5 @@
 
-        <?php if (is_page() || is_single() || is_archive()) { ?>
+        <?php if (is_page() || is_single() || is_archive() || (is_home() && !is_front_page())) { ?>
         <nav id="programacao-navbar" class="navbar navbar-fixed-top">
             <div class="container-fluid">
                 <div class="col-md-8 col-md-offset-2">
@@ -10,7 +10,7 @@
                         <h1>Imprensa</h1>
                     <?php } else if (is_category()) { ?>
                         <h1><?php single_cat_title(); ?></h1>
-                    <?php } else if (is_single()) { ?>
+                    <?php } else if (is_single() || is_home()) { ?>
                         <h1>Blog</h1>
                     <?php } ?>
 
