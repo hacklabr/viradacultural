@@ -437,28 +437,33 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
 	}
 
 	.circle {
-		border-radius: 36px;
-		margin: 0 auto;
-		width: 72px;
-		height: 72px;
+		/*border-radius: 36px;*/
+		/*margin: 0 auto;*/
+		/*width: 72px;*/
+		/*height: 72px;*/
 		line-height: 64px;
-		border: 6px solid #ccc;
+		/*border: 6px solid #ccc;*/
 		font-family: @font-family-sans-serif;
 		font-size: 30px;
 		font-weight: bold;
-		&:nth-child(2) {
+		&.days {
 			border-top-color: @rosa;
 			color: @rosa;
 		}
-		&:nth-child(4) {
+		&.hours {
 			border-bottom-color: @amarelo;
 			color: @amarelo;
 		}
-		&:nth-child(6) {
+		&.minutes {
 			border-left-color: @roxo;
 			color: @roxo;
 		}
 	}
+
+        .countdown-text{
+            margin-top: -72px;
+            margin-bottom: 6px;
+        }
 
 	footer {
 	 position: absolute;

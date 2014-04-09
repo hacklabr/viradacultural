@@ -64,6 +64,8 @@
         <script src="<?php bloginfo( 'template_url' ) ?>/js/countdown.min.js"></script>
         <script src="<?php bloginfo( 'template_url' ) ?>/js/moment-countdown.min.js"></script>
 
+        <script src="<?php bloginfo( 'template_url' ) ?>/js/jquery.knob.js"></script>
+
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/_dependent/greensock/TweenMax.min.js" type="text/javascript"></script>
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/jquery.scrollmagic.js" type="text/javascript"></script>
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/jquery.scrollmagic.debug.js" type="text/javascript" charset="utf-8"></script>
