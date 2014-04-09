@@ -223,44 +223,57 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
 /* =Main header
 -------------------------------------------------------------- */
 #main-header {
-	.fixed-bars();
-	left: 0;
-    .transition(width linear .3s);
-    .box-shadow(0 0 6px 0 rgba(0,0,0,.3));
-	&.col-md-1 {
-		#main-menu>li>a {
-		background-position: center;
-		height: 48px;
-		}
+  left: 0;
+  width: 237px;
+
+  .box-shadow(0 0 6px 0 rgba(0,0,0,.3));
+  .fixed-bars();
+  .transition(width linear .3s);
+
+  .assinatura {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bolder;
+    span:first-child {
+      color: @amarelo;
+    }
+    span:nth-child(2) {
+      color: @verde;
+    }
+    span:nth-child(3) {
+      color: @roxo;
+    }
+    span:last-child {
+      color: @rosa;
+    }
+  }
+
+  &.minified {
+    width: 137px;
+    #main-menu>li>a {
+      background-position: center;
+      height: 48px;
+    }
     #main-menu>li>a>span {
       .text-hide();
     }
-		.assinatura {
-			display: none;
-		}
-	}
-	.assinatura {
-		text-align: center;
-		text-transform: uppercase;
-		font-weight: bolder;
-		span:first-child {
-			color: @amarelo;
-		}
-		span:nth-child(2) {
-			color: @verde;
-		}
-		span:nth-child(3) {
-			color: @roxo;
-		}
-		span:last-child {
-			color: @rosa;
-		}
-	}
+    #main-menu>li.has-children:hover {
+      .box-shadow(6px 0 0 @roxo inset);
+      ul.children {
+        left: 137px;
+        visibility: visible;
+      }
+    }
+
+    .assinatura {
+      display: none;
+    }
+  }
 }
 
 #main-menu {
   list-style: none;
-  margin: 0 -15px;
+  margin: 0;
   padding: 0;
   li {
     .box-shadow(6px 0 0 @rosa inset);
@@ -301,7 +314,7 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
       padding: 0;
       position: fixed;
       top: 0;
-      width: 200px;
+      width: 237px;
       z-index: 1;
       .transition(left linear .3s);
       li {
@@ -312,6 +325,7 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
         a {
           background-color: transparent;
           border: none;
+          .box-shadow(none);
           color: white;
         }
       }
@@ -319,7 +333,7 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
     &.has-children:hover {
       .box-shadow(6px 0 0 @roxo inset);
       ul.children {
-        left: 8.33333333%;
+        left: 237px;
         visibility: visible;
       }
     }
@@ -337,42 +351,42 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
         z-index: 15;
       }
       &:hover {
-        .box-shadow(6px 0 0 @rosa inset);
+        .box-shadow(6px 0 0 @roxo inset);
       }
     }
   }
 
-	.a-virada {
-		.img-retina("img/virada-icon-1x.png", "img/virada-icon-2x.png", 27px, 25px);
-	}
-	.anos-10 {
-		.img-retina("img/10-icon-1x.png", "img/10-icon-2x.png", 27px, 25px);
-	}
-	.programacao {
-		.img-retina("img/programacao-icon-1x.png", "img/programacao-icon-2x.png", 27px, 25px);
-	}
-	.noticias {
-		.img-retina("img/noticias-icon-1x.png", "img/noticias-icon-2x.png", 27px, 25px);
-	}
-	.blog {
-		.img-retina("img/blog-icon-1x.png", "img/blog-icon-2x.png", 27px, 25px);
-	}
-	.imprensa {
-		.img-retina("img/imprensa-icon-1x.png", "img/imprensa-icon-2x.png", 27px, 25px);
-	}
-	.nas-redes {
-		.img-retina("img/nas-redes-icon-1x.png", "img/nas-redes-icon-2x.png", 27px, 25px);
-	}
-	.minha-virada {
-		.img-retina("img/minha-virada-icon-1x.png", "img/minha-virada-icon-2x.png", 27px, 25px);
-	}
+  .a-virada {
+    .img-retina("img/virada-icon-1x.png", "img/virada-icon-2x.png", 27px, 25px);
+  }
+  .anos-10 {
+    .img-retina("img/10-icon-1x.png", "img/10-icon-2x.png", 27px, 25px);
+  }
+  .programacao {
+    .img-retina("img/programacao-icon-1x.png", "img/programacao-icon-2x.png", 27px, 25px);
+  }
+  .noticias {
+    .img-retina("img/noticias-icon-1x.png", "img/noticias-icon-2x.png", 27px, 25px);
+  }
+  .blog {
+    .img-retina("img/blog-icon-1x.png", "img/blog-icon-2x.png", 27px, 25px);
+  }
+  .imprensa {
+    .img-retina("img/imprensa-icon-1x.png", "img/imprensa-icon-2x.png", 27px, 25px);
+  }
+  .nas-redes {
+    .img-retina("img/nas-redes-icon-1x.png", "img/nas-redes-icon-2x.png", 27px, 25px);
+  }
+  .minha-virada {
+    .img-retina("img/minha-virada-icon-1x.png", "img/minha-virada-icon-2x.png", 27px, 25px);
+  }
 }
 
 #brand {
   background-color: @gray-lighter;
   .box-shadow(6px 0 0 @rosa inset);
   height: 166px;
-  margin: 0 -15px;
+  margin: 0;
   padding: 15px;
   position: relative;
   z-index: 20;

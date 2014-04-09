@@ -88,7 +88,7 @@
             <!-- Facebook code -->
         <?php } ?>
 
-        <header id="main-header" <?php if (get_query_var('virada_tpl')): ?>class="col-md-1"<?php else: ?>class="col-md-2"<?php endif; ?>>
+        <header id="main-header" <?php if (get_query_var('virada_tpl')): ?>class="minified"<?php endif; ?>>
             <div id="brand">
                 <h1 id="logo-virada" class="logo"><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><span class="sr-only"><?php bloginfo( 'name' ); ?></span></a></h1>
                 <p class="assinatura sr-only"><span>A</span> <span>cidade</span> <span>em</span> <span>festa!</span></p>
