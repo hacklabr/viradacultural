@@ -262,21 +262,21 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
   margin: 0 -15px;
   padding: 0;
   li {
-    box-shadow: 6px 0 0 @rosa inset;
+    .box-shadow(6px 0 0 @rosa inset);
     height: 48px;
     line-height: 48px;
     margin: 0;
     padding: 0 0 0 6px;
     position: relative;
     &:hover {
-      box-shadow: 6px 0 0 @roxo inset;
+      .box-shadow(6px 0 0 @rosa inset);
     }
     a {
       background-color: @gray-lighter;
       background-position: 30px center;
       background-repeat: no-repeat;
       border-bottom: 1px solid @body-bg;
-      box-shadow: -6px 0 0 @rosa;
+      .box-shadow(-6px 0 0 @rosa);
       display: block;
       height: 48px;
       padding: 0 0 0 75px;
@@ -287,7 +287,7 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
       &:hover {
         background-color: @rosa;
         border-color: @rosa;
-        box-shadow: -6px 0 0 @roxo;
+        .box-shadow(-6px 0 0 @roxo);
         color: @amarelo;
       }
     }
@@ -316,14 +316,14 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
       }
     }
     &.has-children:hover {
-      box-shadow: 6px 0 0 @roxo inset;
+      .box-shadow(6px 0 0 @roxo inset);
       ul.children {
         left: 8.33333333%;
         visibility: visible;
       }
     }
     &.whitespace {
-      box-shadow: 6px 0 0 @rosa inset;
+      .box-shadow(6px 0 0 @rosa inset);
       overflow: hidden;
       position: relative;
       height: 3000px;
@@ -336,7 +336,7 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
         z-index: 15;
       }
       &:hover {
-        box-shadow: 6px 0 0 @rosa inset;
+        .box-shadow(6px 0 0 @rosa inset);
       }
     }
   }
@@ -369,7 +369,7 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
 
 #brand {
   background-color: @gray-lighter;
-  box-shadow: 6px 0 0 @rosa inset;
+  .box-shadow(6px 0 0 @rosa inset);
   height: 166px;
   margin: 0 -15px;
   padding: 15px;
