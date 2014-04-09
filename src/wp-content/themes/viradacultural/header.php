@@ -66,11 +66,12 @@
 
         <script src="<?php bloginfo( 'template_url' ) ?>/js/jquery.knob.js"></script>
 
+        <script src="<?php bloginfo( 'template_url' ) ?>/js/rrssb.js"></script>
+
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/_dependent/greensock/TweenMax.min.js" type="text/javascript"></script>
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/jquery.scrollmagic.js" type="text/javascript"></script>
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/jquery.scrollmagic.debug.js" type="text/javascript" charset="utf-8"></script>
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/_mobile/iscroll.js" type="text/javascript" charset="utf-8"></script>
-
     </head>
     <body <?php body_class(); ?> ng-controller="main">
 
