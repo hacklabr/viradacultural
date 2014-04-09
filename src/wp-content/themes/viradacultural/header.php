@@ -74,16 +74,18 @@
     </head>
     <body <?php body_class(); ?> ng-controller="main">
 
-        <!-- Facebook code -->
-        <div id="fb-root"></div>
-        <script>(function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=248328698638549";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
-        <!-- Facebook code -->
+        <?php if (is_page() || is_single()) { ?>
+            <!-- Facebook code -->
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=248328698638549";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+            <!-- Facebook code -->
+        <?php } ?>
 
         <header id="main-header" <?php if (get_query_var('virada_tpl')): ?>class="col-md-1"<?php else: ?>class="col-md-2"<?php endif; ?>>
             <div id="brand">
