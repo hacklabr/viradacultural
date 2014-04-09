@@ -9,7 +9,8 @@ function get_theme_default_options() {
             'facebook' => 'http://facebook.com/viradacultura',
             'twitter' => 'http://twitter.com/viradacultural',
             'googleplus' => 'http://googleplus.com/viradacultural',
-        )
+        ),
+        'hashtag' => 'viradacultural'
     );
 }
 
@@ -86,6 +87,17 @@ function theme_options_page_callback_function() {
 
                     <label for="pdf-programacao"><strong>Link para PDF da programação</strong></label><br/>
                     <input type="text" id="pdf-programacao" class="text" name="theme_options[pdf-programacao]" value="<?php echo htmlspecialchars($options['pdf-programacao']); ?>" style="width: 80%"/>
+                    
+
+                </div>
+                
+                <h3>Hashtag</h3>
+                <p>Hashtag que será agreagada do twitter e instagram na página "Nas Redes"</p>
+                <div class="span-6 last">
+
+
+                    <label for="hashtag"><strong>#</strong></label><br/>
+                    <input type="text" id="hashtag" class="text" name="theme_options[hashtag]" value="<?php echo htmlspecialchars($options['hashtag']); ?>" style="width: 80%"/>
                     
 
                 </div>
