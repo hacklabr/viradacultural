@@ -2,6 +2,9 @@
 /*
 Template Name: Nas redes
 */
+
+
+include('includes/agrega-twitter-instagram.php');
 ?>
 
 <?php get_header(); ?>
