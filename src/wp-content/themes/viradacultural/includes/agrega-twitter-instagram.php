@@ -127,14 +127,14 @@ function virada_get_social_feeds() {
 	foreach($tweets->statuses as $tweet) {
 		
 		// check if post exists
-		$exists = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(ID) FROM $wpdb->posts WHERE post_type = 'instagram_cpt' AND post_title = %s", $tweet->id));
+		$exists = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(ID) FROM $wpdb->posts WHERE post_type = 'twitter_cpt' AND post_title = %s", $tweet->id));
 		
 		if ($exists)
 			continue;
 		
 		$post = array(
 			'post_content'   => virada_twitterify($tweet->text),
-			'post_title'     => $item['id'],
+			'post_title'     => $tweet->id,
 			'post_status'    => 'publish',
 			'post_type'      => 'twitter_cpt',
 			//'post_author'    => [ <user ID> ] // The user ID number of the author. Default is the current user ID.
