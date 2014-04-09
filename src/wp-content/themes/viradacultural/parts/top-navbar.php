@@ -1,9 +1,9 @@
-
         <?php if (is_page() || is_single() || is_archive() || (is_home() && !is_front_page())) { ?>
         <nav id="programacao-navbar" class="navbar navbar-fixed-top">
             <div class="container-fluid">
                 <div class="col-md-8 col-md-offset-2">
 
+                    <?php // títulos ?>
                     <?php if ('noticias' == get_post_type() || is_post_type_archive('noticias')) { ?>
                         <h1>Notícias</h1>
                     <?php } else if ('imprensa' == get_post_type() || is_post_type_archive('imprensa')) { ?>
@@ -14,9 +14,19 @@
                         <h1>Blog</h1>
                     <?php } ?>
 
-                    <?php if (is_page() || is_single()) { ?>
+                    <?php // search form ?>
+                    <form id="pages-search" class="pages-navbar-item" role="search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Digite uma palavra-chave" ng-model='searchText' ng-change='unaccentSearchText = unaccent(searchText)'>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button"><span class="icon icon_search"></span></button>
+                            </span>
+                        </div>
+                    </form>
 
-                        <div class="share-buttons alignright">
+                    <?php // share buttons ?>
+                    <?php if (is_page() || is_single()) { ?>
+                        <div class="share-buttons">
                             <div class="facebook">
                                 <div class="fb-share-button" data-href="<?php the_permalink(); ?>" data-type="button_count"></div>
                             </div>
@@ -38,12 +48,14 @@
                                   })();
                                 </script>
                             </div>
-                        </div><!-- .share-buttons -->
+                        </div>
                     <?php } ?>
+
                 </div>
             </div>
         </nav>
         <?php } ?>
+
         <?php if (is_search()) { ?>
         <nav id="programacao-navbar" class="navbar navbar-fixed-top">
             <div class="container-fluid">
