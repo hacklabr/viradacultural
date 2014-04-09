@@ -2,7 +2,7 @@
   "name": "viradacultural",
   "version": "0.1.0",
   "devDependencies": {
-    "grunt": "~0.4.1",
+    "grunt": "^0.4.4",
     "grunt-contrib-less": "~0.8.0",
     "grunt-contrib-watch": "~0.5.3"
   },
