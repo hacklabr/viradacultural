@@ -6,6 +6,7 @@ include dirname(__FILE__).'/includes/utils.class.php';
 include dirname(__FILE__).'/includes/form.class.php';
 include dirname(__FILE__).'/includes/hacklab_post2home/hacklab_post2home.php';
 include dirname(__FILE__).'/includes/mapasculturais2post/mapasculturais2post.php';
+include dirname(__FILE__).'/includes/agrega-twitter-instagram.php';
 
 
 add_action( 'after_setup_theme', 'viradacultural_setup' );
@@ -138,10 +139,18 @@ function virada_the_post_type_icon($post_type = null) {
         $post_type = get_post_type();
     }
     
-    if ($post_type != 'post' && $post_type != 'noticias')
+    if ($post_type != 'post' && $post_type != 'noticias'  && $post_type != 'instagram_cpt'  && $post_type != 'twitter_cpt')
         return;
         
-    $icon_name = $post_type == 'post' ? 'blog-icon-2x.png' : 'noticias-icon-2x.png';
+    
+    if ($post_type == 'post')
+		$icon_name = 'blog-icon-2x.png';
+	elseif ($post_type == 'noticias')
+		$icon_name = 'noticias-icon-2x.png';
+	elseif ($post_type == 'instagram_cpt')
+		$icon_name = 'instagram-icon-2x.png';
+	elseif ($post_type == 'twitter_cpt')
+		$icon_name = 'twitter-icon-2x.png';
     
     echo '<div class="post-type-icon">';
     html::image($icon_name, $post_type);
