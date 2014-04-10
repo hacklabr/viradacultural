@@ -32,12 +32,10 @@ app.controller('evento', function($scope, $http, $location, $timeout, DataServic
     var eventId = parseInt($location.$$hash);
 
     $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
-        console.log(data);
         data.some(function(e){
             if(e.id == eventId){
                 $scope.event = e;
                 DataService.getSpaces().then(function(response){
-                    console.log(data);
                     response.data.some(function(e){
                         if(e.id == $scope.event.spaceId){
                             $scope.space = e;
@@ -62,7 +60,6 @@ app.controller('espaco', function($scope, $http, $location, $timeout, DataServic
 
     $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
 
-        console.log(data);
         data.forEach(function(e){
             if(e.spaceId == spaceId){
                 $scope.spaceEvents.push(e);
@@ -71,7 +68,6 @@ app.controller('espaco', function($scope, $http, $location, $timeout, DataServic
     });
 
     DataService.getSpaces().then(function(response){
-        console.log(data);
         response.data.some(function(e){
             if(e.id == spaceId){
                 $scope.space = e;
