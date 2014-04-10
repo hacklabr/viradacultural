@@ -8,6 +8,11 @@ query_posts(array(
 	'posts_per_page' => 80,
 	'paged' => $paged
 ));
+
+add_action('wp_print_scripts', function () {
+    wp_enqueue_script('nasredes', get_stylesheet_directory_uri().'/js/nasredes.js','jquery');
+});
+
 ?>
 
 <?php get_header(); ?>
