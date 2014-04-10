@@ -8,10 +8,10 @@
                 <?php if ($wp_query->max_num_pages > 1) : ?>
                     <nav id="posts-nav" class="clearfix">
                         <div class="alignleft">
-                            <?php next_posts_link('<span class="icon arrow_triangle-left"></span><span class="label">Posts anteriores</span>'); ?>
+                            <?php next_posts_link('<span class="icon  arrow_carrot-left"></span><span class="label">Posts anteriores</span>'); ?>
                         </div>
                         <div class="alignright">
-                            <?php previous_posts_link('<span class="icon arrow_triangle-right"></span><span class="label">Próximos posts</span>'); ?>
+                            <?php previous_posts_link('<span class="icon arrow_carrot-right"></span><span class="label">Próximos posts</span>'); ?>
                         </div>
                     </nav>
                     <!-- #posts-nav -->
