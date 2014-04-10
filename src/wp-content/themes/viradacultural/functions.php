@@ -49,6 +49,7 @@ function viradacultural_addJS() {
         'ajaxurl' => admin_url('admin-ajax.php'),
     ));
     wp_localize_script('jquery', 'GlobalConfiguration', array(
+        'baseURL' => get_bloginfo("url"),
         'templateURL' => get_bloginfo("template_url"),
         'pdfURL' => get_theme_option('pdf-programacao'),
 
@@ -185,9 +186,9 @@ function virada_custom_url_rewrites($rules) {
     $new_rules = array(
         "programacao/?$" => "index.php?virada_tpl=programacao",
         "programacao/atracoes/?$" => "index.php?virada_tpl=programacao-atracoes",
-        "programacao/atracoes/([^/]+)/?$" => 'index.php?virada_tpl=programacao-atracoes-single&virada_object=$matches[1]',
+        "programacao/atracao/?$" => 'index.php?virada_tpl=programacao-atracoes-single',
         //"programacao/locais/?$" => "index.php?virada_tpl=programacao",
-        "programacao/locais/([^/]+)/?$" => 'index.php?virada_tpl=programacao-locais-single&virada_object=$matches[1]',
+        "programacao/local/?$" => 'index.php?virada_tpl=programacao-locais-single',
         "minha-virada/?$" => 'index.php?minhavirada=1&virada_tpl=programacao-locais-single',
         "minha-virada/([^/]+)/?$" => 'index.php?minhavirada=1&virada_tpl=programacao-locais-single&virada_object=$matches[1]',
     );
@@ -201,6 +202,7 @@ function virada_template_redirect_intercept() {
     if ( $wp_query->get('virada_tpl') ) {
 
         if (file_exists( TEMPLATEPATH . '/' . $wp_query->get('virada_tpl') . '.php' )) {
+            define('VIRADA_TEMPLATE', true);
             include( TEMPLATEPATH . '/' . $wp_query->get('virada_tpl') . '.php' );
             exit;
         }

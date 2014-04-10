@@ -3,7 +3,7 @@ define('API_URL', "http://192.168.0.51:8000/api/");
 define('PROJECT_ID', 15);
 
 $get_spaces_url= API_URL . "space/find?@select=id,name,shortDescription,location&@files=(avatar,gallery):url&type=EQ(501)&@order=name";
-$get_events_url= API_URL . "event/find?@select=id,name,shortDescription&@files=(avatar,gallery):url&project=EQ(@Project:" . PROJECT_ID . ")";
+$get_events_url= API_URL . "event/find?@select=id,name,shortDescription,description,classificacaoEtaria,terms&@files=(avatar,gallery):url&project=EQ(@Project:" . PROJECT_ID . ")";
 
 echo "\nbaixando eventos $get_events_url\n\n";
 $events_json = file_get_contents($get_events_url);

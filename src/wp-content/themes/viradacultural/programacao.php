@@ -1,8 +1,9 @@
 <?php get_header(); ?>
+<div ng-controller='programacao'>
 <div id="map-modal" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="myLargeModalLabel" aria-hidden="true"
      ng-controller="SpacesFilter" modal-shown="redrawMap()">
-     
+
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -34,7 +35,7 @@
                                 closeClick="hideSpaceInfo(space)">
                             <h3>{{space.name}}</h3>
                             <p>{{space.shortDescription}}</p>
-                            <p><a href="#">mais info</a></p>
+                            <p><a href="{{spaceUrl(space.id)}}" target="_blank">mais info</a></p>
                         </window>
                     </marker>
                 </div>
@@ -96,7 +97,7 @@
 
                 <div class="panel-heading clearfix">
                     <h4 class="alignleft panel-title">
-                        <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{conf.templateURL}}/programacao/locais/slug-do-local">{{space.name}}</a>
+                        <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{spaceUrl(space.id)}}">{{space.name}}</a>
                     </h4>
                     <a class="alignright" data-toggle="collapse" data-parent="#main-section" href="#space-{{space.id}}">
                         <span class="icon arrow_carrot-down_alt2"></span>
@@ -107,9 +108,9 @@
                     <div class="program-nav program-nav-right" ng-show='viewMode === "grid"'><span class="icon arrow_carrot-right"></span></div>
                     <div class="panel-body">
                         <article class="event clearfix" ng-repeat="event in space.events" ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
-                            <img src="../wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
+                                <img src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
                             <div class="event-content clearfix">
-                                <h1><a href="{{conf.templateURL}}/programacao/atracoes/slug-da-atracao">{{event.name}}</a></h1>
+                                    <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
                                 <footer class="clearfix">
                                     <span class="alignleft"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
                                     <a class="alignright icon icon_star_alt" href="#"></a>
@@ -125,4 +126,5 @@
     <!-- .row -->
 </div>
 <!-- .container-fluid -->
+</div>
 <?php get_footer(); ?>

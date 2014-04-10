@@ -28,7 +28,7 @@
         top: 0;
         width: initial;
         z-index: -1;
-        .transition(opacity linear .2s);
+        .transition(opacity linear .1s);
       }
     }
   }
@@ -73,65 +73,67 @@
     }
   }
 
-  #years-nav {
-    bottom: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-    .year {
-      background-color: @roxo;
-      color: @amarelo;
-      cursor: pointer;
-      display: block;
-      font-weight: bold;
-      line-height: 1;
-      margin-bottom: 1px;
-      padding: 16px 6px;
-      &:hover {
-        background-color: @verde;
-      }
-    }
-  }
+}
 
-  // responsive background images
-  .bgwidth {
-    height: auto !important;
-    width: 100% !important;
-  }
-  .bgheight {
-    height: 100% !important;
-    width: auto !important;
-  }
-
-  // animations triggers markers
-  .trigger {
-    background-color: red;
-    height: 1px;
+#years-nav {
+  bottom: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  .year {
+    background-color: @roxo;
+    color: @amarelo;
+    cursor: pointer;
+    display: block;
+    font-weight: bold;
+    line-height: 1;
     margin-bottom: 1px;
-    min-height: 1px;
-    position: absolute;
-    top: 0;
-    z-index: 1;
-  }
-
-  // centering elements vertically
-  .block {
-    text-align: center;
-    &:before {
-      content: '';
-      display: inline-block;
-      height: 100%;
-      vertical-align: middle;
-      margin-right: -0.25em;
+    padding: 16px 6px;
+    &:hover {
+      background-color: @verde;
     }
-    .centered {
-      display: inline-block;
-      vertical-align: middle;
-    }
-  }
-
-  .textcenter {
-    text-align: center !important;
   }
 }
+
+// responsive background images
+.bgwidth {
+  height: auto !important;
+  width: 100% !important;
+}
+.bgheight {
+  height: 100% !important;
+  width: auto !important;
+}
+
+// animations triggers markers
+.trigger {
+  background-color: red;
+  height: 1px;
+  margin-bottom: 1px;
+  min-height: 1px;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+
+// centering elements vertically
+.block {
+  text-align: center;
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em;
+  }
+  .centered {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.textcenter {
+  text-align: center !important;
+}
+
 
