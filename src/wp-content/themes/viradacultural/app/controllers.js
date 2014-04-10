@@ -1,6 +1,7 @@
 (function(){
 
     var app = angular.module('virada');
+    var conf = GlobalConfiguration;
 
     app.controller('SpacesFilter',[ '$scope', 'DataService',
         function SpacesFilterCtrl($scope, DataService) {
@@ -15,15 +16,20 @@
 
             $scope.icons = {
                 'default': 'http://mt.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png',
-                'selected': 'http://mt.googleapis.com/vt/icon/name=icons/spotlight/spotlight-poi.png'
+                'selected': 'http://mt.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png'
             }
 
             $scope.spaces = [];
-            DataService.search('qualquer-coisa')
+            DataService.getSpaces()
                 .then(function(result){
                     $scope.spaces = result.data;
                 });
 
+            $scope.countSelected = function(){
+                return $scope.spaces.filter(function(space){
+                    return space.selected === true;
+                }).length;
+            };
 
             $scope.redrawMap = function(){
                 var gmap = $scope.map.control.getGMap()
@@ -41,7 +47,11 @@
 
             $scope.toggleSelectSpace = function(space) {
                 space.selected = !space.selected;
-            }
+            };
+            
+            $scope.deselectAll = function(){
+                $scope.spaces.forEach(function(s){ s.selected = false; });
+            };
         }
     ]);
 
