@@ -1,14 +1,15 @@
 (function(){
 
     var app = angular.module('virada');
+    var conf = GlobalConfiguration;
 
-    app.service('DataService',[ '$http',
+    app.service('DataService',['$http',
         function DataService($http) {
             var DataService = {};
 
-            DataService.search = function() {
-                // TODO: terminar de implmentar quando houver um webservice
-                return $http.get('/wp-content/themes/viradacultural/app/spaces.json');
+            var spacesDefer = $http.get(conf.templateURL+'/app/spaces.json');
+            DataService.getSpaces = function() {
+                return spacesDefer;
             };
 
             return DataService;

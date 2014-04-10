@@ -6,14 +6,16 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon_close"></span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        ng-click="$parent.filters.spaces = $parent.filters.spaces && countSelected() > 0"><span class="icon icon_close"></span></button>
                 <h4 class="modal-title" id="myModalLabel">Mapa da Virada</h4>
             </div>
             <div class="modal-body clearfix">
                 <div class="list-group">
                     <a href="#" class="list-group-item"
+                       ng-class="{active: space.selected}"
                        ng-repeat="space in spaces"
-                       ng-click="selectSpace(space)">{{space.name}}</a>
+                       ng-click="toggleSelectSpace(space)">{{space.name}}</a>
                 </div>
                 <div class="mapa google-map"
                         center="map.center"
@@ -24,6 +26,7 @@
 
                     <marker ng-repeat="space in spaces"
                             coords="space.location"
+                            icon="space.selected ? icons.selected : icons.default"
                             click="showSpaceInfo(space)">
 
                         <window show="space.showInfo"
@@ -36,9 +39,15 @@
                     </marker>
                 </div>
             </div>
+
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Ver programação</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                        ng-click="$parent.filters.spaces=false">Cancelar</button>
+
+                <button type="button" class="btn btn-default" ng-click="deselectAll()">Limpar seleção</button>
+
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        ng-click="$parent.filters.spaces = countSelected() > 0">Ver programação</button>
             </div>
         </div>
     </div>
@@ -71,7 +80,7 @@
                 </div>
             </form>
             <div class="programacao-navbar-item">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal"><span class="icon icon_pin"></span> Filtrar Locais</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="icon icon_pin"></span> Filtrar Locais</button>
             </div>
             <div class="programacao-navbar-item" ng-if="conf.pdfURL">
                 <a href="{{conf.pdfURL}}" role="button" class="btn btn-primary"><span class="icon icon_download"></span> Baixar PDF</a>
@@ -82,10 +91,12 @@
 <div class="container-fluid">
     <div class="row">
         <section id="main-section" class="panel-group col-md-11 col-md-offset-1">
-            <div class="panel panel-default" ng-repeat="space in searchResult">
+            <div class="panel panel-default" ng-repeat="space in searchResult"
+                 ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+
                 <div class="panel-heading clearfix">
                     <h4 class="alignleft panel-title">
-                        <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{conf.templateURL}}/programacao/locais/slug-do-local">{{space.name}}</a>
+                        <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{conf.templateURL}}/programacao/locais/slug-do-local">{{space.name}}</a>{{space.selected}}
                     </h4>
                     <a class="alignright" data-toggle="collapse" data-parent="#main-section" href="#space-{{space.id}}">
                         <span class="icon arrow_carrot-down_alt2"></span>
