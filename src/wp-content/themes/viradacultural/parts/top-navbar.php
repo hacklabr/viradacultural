@@ -1,5 +1,5 @@
         <?php if (is_page() || is_single() || is_archive() || (is_home() && !is_front_page())) { ?>
-        <nav id="programacao-navbar" class="navbar navbar-fixed-top">
+        <nav id="site-navbar" class="virada-navbar navbar navbar-fixed-top">
             <div class="container-fluid">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="row">
