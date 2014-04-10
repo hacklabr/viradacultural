@@ -13,7 +13,7 @@
                 <div class="list-group">
                     <a href="#" class="list-group-item"
                        ng-repeat="space in spaces"
-                       ng-click="selectPlace()">{{space.name}}</a>
+                       ng-click="selectSpace(space)">{{space.name}}</a>
                 </div>
                 <div class="mapa google-map"
                         center="map.center"
@@ -23,7 +23,17 @@
                         refresh="true">
 
                     <marker ng-repeat="space in spaces"
-                        coords="space.location">
+                            coords="space.location"
+                            click="showSpaceInfo(space)">
+
+                        <window show="space.showInfo"
+                                isIconVisibleOnClick="true"
+                                closeClick="hideSpaceInfo(space)">
+                            <h3>{{space.name}}</h3>
+                            <p>{{space.shortDescription}}</p>
+                            <p><a href="#">mais info</a></p>
+                        </window>
+                    </marker>
                 </div>
             </div>
             <div class="modal-footer">

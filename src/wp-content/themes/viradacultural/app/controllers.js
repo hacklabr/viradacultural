@@ -6,11 +6,11 @@
         function SpacesFilterCtrl($scope, DataService) {
             $scope.map = {
                 center: {
-                    latitude: 45,
-                    longitude: -73
+                    latitude: -23.524001004591987,
+                    longitude: -46.669245947265615
                 },
                 control: {},
-                zoom: 8
+                zoom: 14
             };
 
             $scope.spaces = [];
@@ -19,10 +19,19 @@
                     $scope.spaces = result.data;
                 });
 
+
             $scope.redrawMap = function(){
                 var gmap = $scope.map.control.getGMap()
                 google.maps.event.trigger(gmap, 'resize')
             };
+
+            $scope.showSpaceInfo = function(space) {
+                $scope.spaces.forEach(function(s){ s.showInfo = false; });
+                space.showInfo = true;
+            }
+            $scope.hideSpaceInfo = function(space) {
+                space.showInfo = false;
+            }
         }
     ]);
 
