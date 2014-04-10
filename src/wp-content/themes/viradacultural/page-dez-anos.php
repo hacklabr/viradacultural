@@ -10,18 +10,26 @@ Template Name: 10 anos
         <section id="main-section" class="col-md-offset-1 virada-10-anos">
             <?php if ( have_posts()) : while ( have_posts()) : the_post(); ?>
                 <article id="post-<?php the_ID(); ?>" <?php post_class('row parent');?>>
+
                     <header>
-                        <h1><?php the_title();?></h1>
+                        <div class="block">
+                            <div class="centered textcenter">
+                                <?php html::image("logo-roxo-1024.png", "", array("class" => "img-responsive")); ?>
+                            </div>
+                        </div>
                     </header>
+                    
+                    <section>
+                        <div class="block">
+                            <div class="centered textcenter" style="width: 90%;">
+                                <div class="content col-md-8 col-md-offset-2"><?php the_content(); ?></div>
+                            </div>
+                        </div>
+                    </section>
+                    
                     <figure>
                         <?php if ( has_post_thumbnail() ) the_post_thumbnail("full", array("class" => "background-image")); ?>
                     </figure>
-                    <section class="block col-md-8 col-md-offset-2">
-                        <div class="centered">
-                            <?php the_content(); ?>
-                            <p><?php edit_post_link( __( 'Edit', 'viradacultural' ), '', '' ); ?></p>
-                        </div>
-                    </section>
                 </article>
 
                 <?php
@@ -68,8 +76,10 @@ Template Name: 10 anos
             $bg              = $("figure > img"),
             aspectRatio      = $bg.width() / $bg.height();
 
-        $("#main-section > article").height(theWindow.height() - 55);
-        $("#main-section > article.parent > .block").height(theWindow.height() - 100);
+        $("#main-section > article").height(theWindow.height() - 76);
+        $("#main-section > article.parent").height(theWindow.height() * 2);
+        $("#main-section > article.parent .block").height(theWindow.height() - 76);
+        $("#main-section > article.parent .block > .centered > img").css({height: theWindow.height() - 152, width: "auto"});
 
         function resizeBg() {
             if ( (theWindow.width() / theWindow.height()) < aspectRatio ) {
@@ -100,12 +110,12 @@ Template Name: 10 anos
         for (var i = 0; i < $("article").size(); i++) {
             if (i == 0) {
                 tweens[i] = TweenMax.fromTo("#parallax-image-"+i, 0.5, { "opacity": 1 }, { "opacity": 1 } )
-                scenes[i] = new ScrollScene({triggerElement: "#trigger-"+i, duration: 0, offset: -(theWindow.height() - 50) }).setTween(tweens[i]).addTo(controller);
+                scenes[i] = new ScrollScene({triggerElement: "#trigger-"+i, duration: 0, offset: theWindow.height() }).setTween(tweens[i]).addTo(controller);
             } else {
                 tweens[i] = TweenMax.fromTo("#parallax-image-"+i, 0.5, { "opacity": 0, "visibility": "hidden" }, { "opacity": 1, "visibility": "visible" } )
-                scenes[i] = new ScrollScene({triggerElement: "#trigger-"+i, duration: 0, offset: (theWindow.height() - 55) * i }).setTween(tweens[i]).addTo(controller);
+                scenes[i] = new ScrollScene({triggerElement: "#trigger-"+i, duration: 0, offset: (theWindow.height() - 76) * i }).setTween(tweens[i]).addTo(controller);
             }
-            // scenes[i].addIndicators();
+            scenes[i].addIndicators();
         }
     })
 })(jQuery);
