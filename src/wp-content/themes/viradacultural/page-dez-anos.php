@@ -77,7 +77,7 @@ Template Name: 10 anos
             aspectRatio      = $bg.width() / $bg.height();
 
         $("#main-section > article").height(theWindow.height() - 76);
-        $("#main-section > article.parent").height(theWindow.height() * 2);
+        $("#main-section > article.parent").height(theWindow.height() * 1.8);
         $("#main-section > article.parent .block").height(theWindow.height() - 76);
         $("#main-section > article.parent .block > .centered > img").css({height: theWindow.height() - 152, width: "auto"});
 
@@ -94,29 +94,26 @@ Template Name: 10 anos
         }
         theWindow.resize(resizeBg).trigger("resize");
 
-        $("article > figure > img").each(function(index) {
-            $(this).attr("id", "parallax-image-"+index);
-            index++;
-        })
-
-        for (var i = 0; i < $("article").size(); i++) {
-            $("#main-section").append("<div id='trigger-"+i+"' class='trigger'></div>");
-        }
-
-        var controller = new ScrollMagic();
-        
-        var scenes = [];
-        var tweens = [];
-        for (var i = 0; i < $("article").size(); i++) {
-            if (i == 0) {
-                tweens[i] = TweenMax.fromTo("#parallax-image-"+i, 0.5, { "opacity": 1 }, { "opacity": 1 } )
-                scenes[i] = new ScrollScene({triggerElement: "#trigger-"+i, duration: 0, offset: theWindow.height() }).setTween(tweens[i]).addTo(controller);
-            } else {
-                tweens[i] = TweenMax.fromTo("#parallax-image-"+i, 0.5, { "opacity": 0, "visibility": "hidden" }, { "opacity": 1, "visibility": "visible" } )
-                scenes[i] = new ScrollScene({triggerElement: "#trigger-"+i, duration: 0, offset: (theWindow.height() - 76) * i }).setTween(tweens[i]).addTo(controller);
-            }
-            scenes[i].addIndicators();
-        }
+        // $("article > figure > img").each(function(index) {
+        //     $(this).attr("id", "parallax-image-"+index);
+        //     index++;
+        // })
+        // for (var i = 0; i < $("article").size(); i++) {
+        //     $("#main-section").append("<div id='trigger-"+i+"' class='trigger'></div>");
+        // }
+        // var controller = new ScrollMagic();
+        // var scenes = [];
+        // var tweens = [];
+        // for (var i = 0; i < $("article").size(); i++) {
+        //     if (i == 0) {
+        //         tweens[i] = TweenMax.fromTo("#parallax-image-"+i, 0.5, { "opacity": 1 }, { "opacity": 1 } )
+        //         scenes[i] = new ScrollScene({triggerElement: "#trigger-"+i, duration: 0, offset: theWindow.height() }).setTween(tweens[i]).addTo(controller);
+        //     } else {
+        //         tweens[i] = TweenMax.fromTo("#parallax-image-"+i, 0.5, { "opacity": 0, "visibility": "hidden" }, { "opacity": 1, "visibility": "visible" } )
+        //         scenes[i] = new ScrollScene({triggerElement: "#trigger-"+i, duration: 0, offset: (theWindow.height() - 76) * i }).setTween(tweens[i]).addTo(controller);
+        //     }
+        //     scenes[i].addIndicators();
+        // }
     })
 })(jQuery);
 </script>
