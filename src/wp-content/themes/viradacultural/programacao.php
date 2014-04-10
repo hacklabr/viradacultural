@@ -54,7 +54,7 @@
 <nav id="programacao-navbar" class="navbar navbar-fixed-top">
     <div class="container-fluid">
         <div class="col-md-offset-1">
-            <h1>Programação {{filters.spaces}}</h1>
+            <h1>Programação</h1>
             <div id="view-btn-group" class="btn-group">
                 <button id="grid-view" type="button" class="btn btn-secondary" ng-class='{"active": viewMode === "grid"}' ng-click="viewMode = 'grid'"><span class="icon icon_grid-2x2"></span></button>
                 <button id="list-view" type="button" class="btn btn-secondary" ng-class='{"active": viewMode === "list"}' ng-click="viewMode = 'list'"><span class="icon icon_menu-square_alt"></span></button>
