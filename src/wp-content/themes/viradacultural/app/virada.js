@@ -1,6 +1,6 @@
 var app = angular.module('virada', ['google-maps']);
 
-app.controller('main', function($scope, $http, $location, $timeout){
+app.controller('main', function($scope, $http, $location, $timeout, DataService){
     $scope.events = null;
     $scope.spaces = null;
 
@@ -15,6 +15,9 @@ app.controller('main', function($scope, $http, $location, $timeout){
 
     $scope.conf = GlobalConfiguration;
 
+    $scope.filters = {
+        'spaces': false
+    };
 
     /**
      *
@@ -39,7 +42,8 @@ app.controller('main', function($scope, $http, $location, $timeout){
     };
 
 
-    $http.get($scope.conf.templateURL+'/app/spaces.json').success(function(data){
+    DataService.getSpaces().then(function(response){
+        var data = response.data;
         $scope.spaces = data;
         $scope.spacesById = {};
 
@@ -166,6 +170,7 @@ app.controller('main', function($scope, $http, $location, $timeout){
 
             spaces.forEach(function(e){
                 var space = angular.copy(e);
+                space.isSelected = function(){ return e.selected; };
                 space.events = [];
                 $scope.searchResult.push(space);
                 searchResultBySpaceId[space.id] = space;
@@ -174,8 +179,6 @@ app.controller('main', function($scope, $http, $location, $timeout){
             events.forEach(function(event){
                 searchResultBySpaceId[event.spaceId].events.push(event);
             });
-
-
 
         },10);
     };

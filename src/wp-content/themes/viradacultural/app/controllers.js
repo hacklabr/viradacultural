@@ -1,6 +1,7 @@
 (function(){
 
     var app = angular.module('virada');
+    var conf = GlobalConfiguration;
 
     app.controller('SpacesFilter',[ '$scope', 'DataService',
         function SpacesFilterCtrl($scope, DataService) {
@@ -19,11 +20,10 @@
             }
 
             $scope.spaces = [];
-            DataService.search('qualquer-coisa')
+            DataService.getSpaces()
                 .then(function(result){
                     $scope.spaces = result.data;
                 });
-
 
             $scope.redrawMap = function(){
                 var gmap = $scope.map.control.getGMap()
@@ -41,7 +41,11 @@
 
             $scope.toggleSelectSpace = function(space) {
                 space.selected = !space.selected;
-            }
+            };
+            
+            $scope.deselectAll = function(){
+                $scope.spaces.forEach(function(s){ s.selected = false; });
+            };
         }
     ]);
 

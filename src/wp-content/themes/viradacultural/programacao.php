@@ -38,9 +38,15 @@
                     </marker>
                 </div>
             </div>
+
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Ver programação</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                        ng-click="$parent.filters.spaces=false">Cancelar</button>
+
+                <button type="button" class="btn btn-default" ng-click="deselectAll()">Limpar seleção</button>
+
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        ng-click="$parent.filters.spaces=true">Ver programação</button>
             </div>
         </div>
     </div>
@@ -48,7 +54,7 @@
 <nav id="programacao-navbar" class="navbar navbar-fixed-top">
     <div class="container-fluid">
         <div class="col-md-offset-1">
-            <h1>Programação</h1>
+            <h1>Programação {{filters.spaces}}</h1>
             <div id="view-btn-group" class="btn-group">
                 <button id="grid-view" type="button" class="btn btn-secondary" ng-class='{"active": viewMode === "grid"}' ng-click="viewMode = 'grid'"><span class="icon icon_grid-2x2"></span></button>
                 <button id="list-view" type="button" class="btn btn-secondary" ng-class='{"active": viewMode === "list"}' ng-click="viewMode = 'list'"><span class="icon icon_menu-square_alt"></span></button>
@@ -84,10 +90,12 @@
 <div class="container-fluid">
     <div class="row">
         <section id="main-section" class="panel-group col-md-11 col-md-offset-1">
-            <div class="panel panel-default" ng-repeat="space in searchResult">
+            <div class="panel panel-default" ng-repeat="space in searchResult"
+                 ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+
                 <div class="panel-heading clearfix">
                     <h4 class="alignleft panel-title">
-                        <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{conf.templateURL}}/programacao/locais/slug-do-local">{{space.name}}</a>
+                        <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{conf.templateURL}}/programacao/locais/slug-do-local">{{space.name}}</a>{{space.selected}}
                     </h4>
                     <a class="alignright" data-toggle="collapse" data-parent="#main-section" href="#space-{{space.id}}">
                         <span class="icon arrow_carrot-down_alt2"></span>
