@@ -6,6 +6,13 @@ app.controller('main', function($scope, $http, $location, $timeout){
 
     $scope.viewMode = 'grid';
     $scope.searchText = '';
+
+    $scope.startsAt = '18:00';
+    $scope.endsAt = '18:00';
+
+    $scope.conf = GlobalConfiguration;
+
+
     /**
      *
      * @param {type} s
@@ -29,7 +36,7 @@ app.controller('main', function($scope, $http, $location, $timeout){
     };
 
 
-    $http.get(GlobalConfiguration.templateURL+'/app/spaces.json').success(function(data){
+    $http.get($scope.conf.templateURL+'/app/spaces.json').success(function(data){
         $scope.spaces = data;
         $scope.spacesById = {};
 
@@ -45,7 +52,7 @@ app.controller('main', function($scope, $http, $location, $timeout){
         $scope.populateEntities();
     });
 
-    $http.get(GlobalConfiguration.templateURL+'/app/events.json').success(function(data){
+    $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
         $scope.events = data;
         $scope.eventsById = {};
 
@@ -54,6 +61,7 @@ app.controller('main', function($scope, $http, $location, $timeout){
 
             return {
                 text: $scope.unaccent(e.name + e.shortDescription),
+                startsAt : e.startsAt,
                 getEntity: function (){ return e; }
             };
         });
@@ -66,6 +74,46 @@ app.controller('main', function($scope, $http, $location, $timeout){
 
     });
 
+    $scope.changeStartsAt = function (){
+        var start = parseInt($scope.startsAt.replace(':', ''));
+        var end = parseInt($scope.endsAt.replace(':', ''));
+        if(start < 1800 && start > 1700){
+            $scope.startsAt = '17:00';
+            $scope.endsAt = '18:00';
+        }else if(start < 1800 && end < start + 100){
+            var startSplit = $scope.startsAt.split(':');
+            startSplit[0]++;
+            $scope.endsAt = startSplit.join(':');
+        }
+
+        $scope.populateEntities();
+    };
+
+    $scope.changeEndsAt = function (){
+        var start = parseInt($scope.startsAt.replace(':', ''));
+        var end = parseInt($scope.endsAt.replace(':', ''));
+
+        console.log(getTime($scope.endsAt) - getTime($scope.startsAt));
+        if(start < 1800 && start > 1700){
+            $scope.startsAt = '17:00';
+            $scope.endsAt = '18:00';
+        }else if(getTime($scope.endsAt) - getTime($scope.startsAt) <= 100){
+            var endSplit = $scope.endsAt.split(':');
+            endSplit[0] = endSplit[0] == 0 ? '23' : endSplit[0]-1;
+
+            $scope.startsAt = endSplit.join(':');
+        }
+
+        $scope.populateEntities();
+    };
+
+    function getTime(time){
+        var t = parseInt(time.replace(':', ''));
+        if(t < 1800)
+            return t + 20000;
+        else
+            return t + 10000;
+    }
 
     $scope.searchResult = [];
 
@@ -79,12 +127,17 @@ app.controller('main', function($scope, $http, $location, $timeout){
         $scope.searchTimeout = $timeout(function(){
             var searchResultBySpaceId = {};
             var txt = $scope.unaccent($scope.searchText);
+            var searchStartsAt = getTime($scope.startsAt);
+            var searchEndsAt = $scope.endsAt === '18:00' ? getTime('17:59') : getTime($scope.endsAt);
+
             var events = [];
             var spaces = [];
+
             $scope.searchResult = [];
 
             $scope.eventIndex.forEach(function(event){
-                if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0))
+                if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0)
+                && getTime(event.startsAt) <= searchEndsAt  &&  getTime(event.startsAt) >= searchStartsAt)
                     events.push(event.getEntity());
             });
 

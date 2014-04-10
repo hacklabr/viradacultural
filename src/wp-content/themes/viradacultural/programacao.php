@@ -51,26 +51,21 @@
             </form>
             <form class="clearfix programacao-navbar-item" role="time-filter">
                 <div class="input-group bootstrap-timepicker">
-                    <input id="timepicker-start" type="text" class="form-control timepicker-field" data-minute-step="5" data-show-meridian="false">
+                    <input id="timepicker-start" type="text" class="form-control timepicker-field" data-minute-step="5" data-show-meridian="false" ng-model="startsAt" ng-change="changeStartsAt()">
                     <span class="input-group-addon"><span class="icon icon_clock"></span></span>
                 </div>
                 <span class="navbar-left navbar-text"> às </span>
                 <div class="input-group bootstrap-timepicker">
-                    <input id="timepicker-end" type="text" class="form-control timepicker-field" data-minute-step="5" data-show-meridian="false">
+                    <input id="timepicker-end" type="text" class="form-control timepicker-field" data-minute-step="5" data-show-meridian="false" ng-model="endsAt" ng-change="changeEndsAt()">
                     <span class="input-group-addon"><span class="icon icon_clock"></span></span>
                 </div>
             </form>
             <div class="programacao-navbar-item">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal"><span class="icon icon_pin"></span> Filtrar Locais</button>
             </div>
-            <?php
-            $pdf = get_theme_option('pdf-programacao');
-            if ($pdf):
-                ?>
-                <div class="programacao-navbar-item">
-                    <a href="<?php echo $pdf; ?>" role="button" class="btn btn-primary"><span class="icon icon_download"></span> Baixar PDF</a>
-                </div>
-            <?php endif; ?>
+            <div class="programacao-navbar-item" ng-if="conf.pdfURL">
+                <a href="{{conf.pdfURL}}" role="button" class="btn btn-primary"><span class="icon icon_download"></span> Baixar PDF</a>
+            </div>
         </div>
     </div>
 </nav>
@@ -80,7 +75,7 @@
             <div class="panel panel-default" ng-repeat="space in searchResult">
                 <div class="panel-heading clearfix">
                     <h4 class="alignleft panel-title">
-                        <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="<?php bloginfo('url'); ?>/programacao/locais/slug-do-local">{{space.name}}</a>
+                        <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{conf.templateURL}}/programacao/locais/slug-do-local">{{space.name}}</a>
                     </h4>
                     <a class="alignright" data-toggle="collapse" data-parent="#main-section" href="#space-{{space.id}}">
                         <span class="icon arrow_carrot-down_alt2"></span>
@@ -90,10 +85,10 @@
                     <div class="program-nav program-nav-left" ng-show='viewMode === "grid"'><span class="icon arrow_carrot-left"></span></div>
                     <div class="program-nav program-nav-right" ng-show='viewMode === "grid"'><span class="icon arrow_carrot-right"></span></div>
                     <div class="panel-body">
-                        <article class="event clearfix" ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}" ng-repeat="event in space.events">
+                        <article class="event clearfix" ng-repeat="event in space.events" ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
                             <img src="../wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
                             <div class="event-content clearfix">
-                                <h1><a href="<?php bloginfo('url'); ?>/programacao/atracoes/slug-da-atracao">{{event.name}}</a></h1>
+                                <h1><a href="{{conf.templateURL}}/programacao/atracoes/slug-da-atracao">{{event.name}}</a></h1>
                                 <footer class="clearfix">
                                     <span class="alignleft"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
                                     <a class="alignright icon icon_star" href="#"></a>
@@ -105,8 +100,8 @@
             </div>
         </section>
         <!-- #main-section -->
-        <?php get_footer(); ?>
     </div>
     <!-- .row -->
 </div>
 <!-- .container-fluid -->
+<?php get_footer(); ?>
