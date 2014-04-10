@@ -1,4 +1,4 @@
-var app = angular.module('virada', []);
+var app = angular.module('virada', ['google-maps']);
 
 app.controller('main', function($scope, $http, $location, $timeout){
     $scope.events = null;
