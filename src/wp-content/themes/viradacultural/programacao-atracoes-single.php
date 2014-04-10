@@ -25,6 +25,7 @@ $atracao = get_query_var('virada_object');
                 <div class="servico">
                     <p>
                         <span>Local:</span> <a href="#">Nome do Espaço</a><br>
+                        <span>Endereço:</span> Rua dos Bobos, 0<br>
                         <span>Data:</span> 17/05/2014<br>
                         <span>Horário:</span> 00:00<br>
                         <span>Linguagem:</span> música<br>
