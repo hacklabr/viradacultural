@@ -1,6 +1,31 @@
 var app = angular.module('virada', ['google-maps']);
 
-app.controller('main', function($scope, $http, $location, $timeout){
+app.controller('main', function($scope){
+    $scope.conf = GlobalConfiguration;
+
+    $scope.brDate = function(date){
+        return moment(date).format('YYYY/')
+    };
+
+    $scope.eventUrl = function(eventId){
+        return $scope.conf.baseURL + '/programacao/atracao/##' + eventId;
+    };
+});
+
+app.controller('evento', function($scope, $http, $location, $timeout){
+    var id = parseInt($location.$$hash);
+    $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
+        data.some(function(e){
+            if(e.id == id){
+                $scope.event = e;
+                return true;
+            }
+        });
+        console.log($scope.event);
+    });
+});
+
+app.controller('programacao', function($scope, $http, $location, $timeout){
     $scope.events = null;
     $scope.spaces = null;
 
@@ -12,9 +37,6 @@ app.controller('main', function($scope, $http, $location, $timeout){
 
     $scope.startsAt = '18:00';
     $scope.endsAt = '18:00';
-
-    $scope.conf = GlobalConfiguration;
-
 
     /**
      *
@@ -84,11 +106,6 @@ app.controller('main', function($scope, $http, $location, $timeout){
 
 
         $scope.populateEntities();
-    });
-
-    $scope.$on('$locationChangeSuccess', function(){
-
-
     });
 
     $scope.changeStartsAt = function (){
