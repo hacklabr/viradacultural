@@ -18,14 +18,16 @@ $events_by_id = array();
 foreach(json_decode($events_json) as $e){
 	$events[] = $e;
 	$events_by_id[$e->id] = $e;
-	$event_ids[] = "@Event:" . $e->id;
+	$event_ids[] = $e->id;
 }
 
 $event_ids = implode(',',$event_ids);
 
-$occurrences_json = file_get_contents(API_URL . "eventOccurrence/find?@select=id,eventId,rule&event=IN($event_ids)");
+$occurrences_json = file_get_contents(API_URL . "eventOccurrence/find?@select=id,eventId,rule&event=IN($event_ids)&@order=_startsAt");
 
 $occurrences = json_decode($occurrences_json);
+
+$result_events = array();
 
 foreach($occurrences as $occ){
 	$rule = $occ->rule;
@@ -33,7 +35,8 @@ foreach($occurrences as $occ){
 	$e->spaceId = $rule->spaceId;
         $e->startsAt = $rule->startsAt;
 	$e->startsOn = $rule->startsOn;
+        $result_events[] = $e;
 }
 
-file_put_contents('events.json', json_encode($events));
+file_put_contents('events.json', json_encode($result_events));
 file_put_contents('spaces.json', json_encode($spaces));

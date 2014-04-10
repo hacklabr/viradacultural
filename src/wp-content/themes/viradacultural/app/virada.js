@@ -4,6 +4,9 @@ app.controller('main', function($scope, $http, $location, $timeout){
     $scope.events = null;
     $scope.spaces = null;
 
+    $scope.eventIndex = null;
+    $scope.eventIndexByName = null;
+
     $scope.viewMode = 'grid';
     $scope.searchText = '';
 
@@ -53,18 +56,32 @@ app.controller('main', function($scope, $http, $location, $timeout){
     });
 
     $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
-        $scope.events = data;
         $scope.eventsById = {};
+
+        $scope.events = data;
 
         $scope.eventIndex = data.map(function(e,i){
             $scope.eventsById[e.id] = e;
 
             return {
                 text: $scope.unaccent(e.name + e.shortDescription),
-                startsAt : e.startsAt,
+                startsAt : getTime(e.startsAt),
                 getEntity: function (){ return e; }
             };
+
+
         });
+
+        $scope.eventIndexByName = $scope.eventIndex.slice().sort(function(a,b){
+            if(a.text > b.text)
+                return 1;
+            else if(a.text < b.text)
+                return -1;
+            else
+                return 0;
+        });
+
+
 
         $scope.populateEntities();
     });
@@ -93,7 +110,6 @@ app.controller('main', function($scope, $http, $location, $timeout){
         var start = parseInt($scope.startsAt.replace(':', ''));
         var end = parseInt($scope.endsAt.replace(':', ''));
 
-        console.log(getTime($scope.endsAt) - getTime($scope.startsAt));
         if(start < 1800 && start > 1700){
             $scope.startsAt = '17:00';
             $scope.endsAt = '18:00';
@@ -124,6 +140,7 @@ app.controller('main', function($scope, $http, $location, $timeout){
         if($scope.searchTimeout)
             $timeout.cancel($scope.searchTimeout);
 
+
         $scope.searchTimeout = $timeout(function(){
             var searchResultBySpaceId = {};
             var txt = $scope.unaccent($scope.searchText);
@@ -137,7 +154,7 @@ app.controller('main', function($scope, $http, $location, $timeout){
 
             $scope.eventIndex.forEach(function(event){
                 if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0)
-                && getTime(event.startsAt) <= searchEndsAt  &&  getTime(event.startsAt) >= searchStartsAt)
+                && event.startsAt <= searchEndsAt  &&  event.startsAt >= searchStartsAt)
                     events.push(event.getEntity());
             });
 
@@ -157,6 +174,9 @@ app.controller('main', function($scope, $http, $location, $timeout){
             events.forEach(function(event){
                 searchResultBySpaceId[event.spaceId].events.push(event);
             });
-        },500);
+
+
+
+        },10);
     };
 });
