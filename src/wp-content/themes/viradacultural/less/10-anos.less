@@ -5,49 +5,34 @@
 #main-section.virada-10-anos {
   position: relative;
 
-  img {
-    height: initial !important;
-    max-height: initial !important;
-    max-width: initial !important;
-    width: initial !important;
-  }
-
   article.parent {
     margin-bottom: 0 !important;
     position: relative;
     width: 100% !important;
     header {
-      background-color: @rosa;
-      color: white;
-      display: inline-block;
-      padding: 18px 36px;
-      position: absolute;
-      top: 0;
-      h1 {
-        color: white !important;
-        line-height: 1;
-        margin: 0;
-        padding: 0;
+      background-color: @verde;
+    }
+    section {
+      .content {
+        background-color: white;
+        padding: 18px 18px 0 18px;
       }
     }
     figure {
       img {
+        height: initial;
         left: 0;
+        max-height: initial;
+        max-width: initial;
         position: fixed;
         top: 0;
+        width: initial;
         z-index: -1;
         .transition(opacity linear .2s);
       }
     }
-    section.block {
-      div.centered {
-        background-color: rgba(255,255,255,1);
-        color: @gray-darker;
-        padding: 18px;
-        width: 90%;
-      }
-    }
   }
+
   article.children {
     border-top: 1px solid @rosa;
     margin-bottom: 0 !important;
