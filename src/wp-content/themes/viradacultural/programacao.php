@@ -46,7 +46,7 @@
                 <button type="button" class="btn btn-default" ng-click="deselectAll()">Limpar seleção</button>
 
                 <button type="button" class="btn btn-primary" data-dismiss="modal"
-                        ng-click="$parent.filters.spaces=true">Ver programação</button>
+                        ng-click="$parent.filters.spaces = countSelected() > 0">Ver programação</button>
             </div>
         </div>
     </div>
@@ -79,7 +79,7 @@
                 </div>
             </form>
             <div class="programacao-navbar-item">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal"><span class="icon icon_pin"></span> Filtrar Locais</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="icon icon_pin"></span> Filtrar Locais</button>
             </div>
             <div class="programacao-navbar-item" ng-if="conf.pdfURL">
                 <a href="{{conf.pdfURL}}" role="button" class="btn btn-primary"><span class="icon icon_download"></span> Baixar PDF</a>
