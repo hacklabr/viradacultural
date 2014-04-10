@@ -22,7 +22,7 @@ $atracao = get_query_var('virada_object');
                 <div class="servico">
                     <p>
                         <span>Local:</span> <a href="#">Nome do Espaço</a><br>
-                        <span>Endereço:</span> Rua dos Bobos, 0<br>
+                        <span>Endereço:</span> {{event.endereco}}<br>
                         <span>Data:</span> {{brDate(event.startsOn)}}<br>
                         <span>Horário:</span> {{event.startsAt}}<br>
                         <span>Linguagem:</span> @TODO: LINGUAGEM <br>

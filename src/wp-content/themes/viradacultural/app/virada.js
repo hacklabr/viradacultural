@@ -10,18 +10,30 @@ app.controller('main', function($scope){
     $scope.eventUrl = function(eventId){
         return $scope.conf.baseURL + '/programacao/atracao/##' + eventId;
     };
+
+    $scope.spaceUrl = function(spaceId){
+        return $scope.conf.baseURL + '/programacao/local/##' + spaceId;
+    };
 });
 
 app.controller('evento', function($scope, $http, $location, $timeout){
-    var id = parseInt($location.$$hash);
+    var eventId = parseInt($location.$$hash);
     $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
+        data.some(function(e){
+            if(e.id == eventId){
+                $scope.event = e;
+                return true;
+            }
+        });
+    });
+
+    $http.get($scope.conf.templateURL+'/app/spaces.json').success(function(data){
         data.some(function(e){
             if(e.id == id){
                 $scope.event = e;
                 return true;
             }
         });
-        console.log($scope.event);
     });
 });
 
