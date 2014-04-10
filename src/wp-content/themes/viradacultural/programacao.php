@@ -43,7 +43,7 @@
         </div>
     </div>
 </div>
-<nav id="programacao-navbar" class="navbar navbar-fixed-top">
+<nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top">
     <div class="container-fluid">
         <div class="col-md-offset-1">
             <h1>Programação</h1>
