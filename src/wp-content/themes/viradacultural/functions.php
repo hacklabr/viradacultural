@@ -36,16 +36,22 @@ function remove_admin_bar(){
 }
 add_filter( 'show_admin_bar' , 'remove_admin_bar');
 
+
 // JS
 add_action('wp_print_scripts', 'viradacultural_addJS');
 function viradacultural_addJS() {
-    if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); 
+    if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' );
     wp_enqueue_script('jquery');
     wp_enqueue_script('bootstrap', get_stylesheet_directory_uri().'/js/bootstrap.min.js', 'jquery');
     wp_enqueue_script('bootstrap-timepicker', get_stylesheet_directory_uri().'/js/bootstrap-timepicker.min.js', 'jquery');
     wp_enqueue_script('viradacultural', get_stylesheet_directory_uri().'/js/viradacultural.js','jquery');
     wp_localize_script('congelado', 'vars', array(
-        'ajaxurl' => admin_url('admin-ajax.php')
+        'ajaxurl' => admin_url('admin-ajax.php'),
+    ));
+    wp_localize_script('jquery', 'GlobalConfiguration', array(
+        'templateURL' => get_bloginfo("template_url"),
+        'pdfURL' => get_theme_option('pdf-programacao'),
+
     ));
 }
 
@@ -59,7 +65,7 @@ function viradacultural_custom_menus() {
 
 // SIDEBARS
 if(function_exists('register_sidebar')) {
-    // sidebar 
+    // sidebar
     register_sidebar( array(
         'name' =>  'Sidebar',
         'description' => __('Sidebar', 'viradacultural'),
@@ -92,8 +98,8 @@ if (!function_exists('viradacultural_comment')):
         ?>
         <li <?php comment_class("clearfix"); ?> id="comment-<?php comment_ID(); ?>">
             <p class="comment-meta alignright bottom">
-                <?php comment_reply_link(array('depth' => $depth, 'max_depth' => $args['max_depth'])) ?> <?php edit_comment_link( __('Edit', 'viradacultural'), '| ', ''); ?>          
-            </p>    
+                <?php comment_reply_link(array('depth' => $depth, 'max_depth' => $args['max_depth'])) ?> <?php edit_comment_link( __('Edit', 'viradacultural'), '| ', ''); ?>
+            </p>
             <p class="comment-meta bottom">
                 <?php printf( __('By %s on %s at %s.', 'viradacultural'), get_comment_author_link(), get_comment_date(), get_comment_time()); ?>
                 <?php if($comment->comment_approved == '0') : ?><br/><em><?php _e('Your comment is awaiting moderation.', 'viradacultural'); ?></em><?php endif; ?>
@@ -106,7 +112,7 @@ if (!function_exists('viradacultural_comment')):
         <?php
     }
 
-endif; 
+endif;
 
 
 
@@ -134,15 +140,15 @@ add_filter ('login_headerurl', 'custom_login_headerurl');
 
 
 function virada_the_post_type_icon($post_type = null) {
-    
+
     if (is_null($post_type)) {
         $post_type = get_post_type();
     }
-    
+
     if ($post_type != 'post' && $post_type != 'noticias'  && $post_type != 'instagram_cpt'  && $post_type != 'twitter_cpt')
         return;
-        
-    
+
+
     if ($post_type == 'post')
 		$icon_name = 'blog-icon-2x.png';
 	elseif ($post_type == 'noticias')
@@ -151,12 +157,12 @@ function virada_the_post_type_icon($post_type = null) {
 		$icon_name = 'instagram-icon-2x.png';
 	elseif ($post_type == 'twitter_cpt')
 		$icon_name = 'twitter-icon-2x.png';
-    
+
     echo '<div class="post-type-icon">';
     html::image($icon_name, $post_type);
     echo '</div>';
-    
-    
+
+
 }
 
 // REWRITE RULES //
@@ -174,9 +180,9 @@ function virada_custom_query_vars($public_query_vars) {
 
 // REDIRECIONAMENTOS
 function virada_custom_url_rewrites($rules) {
-    
+
     //var_dump($rules); die;
-    $new_rules = array( 
+    $new_rules = array(
         "programacao/?$" => "index.php?virada_tpl=programacao",
         "programacao/atracoes/?$" => "index.php?virada_tpl=programacao-atracoes",
         "programacao/atracoes/([^/]+)/?$" => 'index.php?virada_tpl=programacao-atracoes-single&virada_object=$matches[1]',
@@ -203,15 +209,15 @@ function virada_template_redirect_intercept() {
 }
 
 add_filter('body_class', function($classes) {
-    
+
     $tpl = get_query_var('virada_tpl');
-    
+
     if ($tpl) {
         $classes[] = 'programacao';
-        if ($tpl == 'programacao-locais-single' || $tpl == 'programacao-atracoes-single') 
+        if ($tpl == 'programacao-locais-single' || $tpl == 'programacao-atracoes-single')
             $classes[] = 'programacao-single';
     }
-    
+
     return $classes;
-    
+
 });

@@ -48,14 +48,6 @@
 
         <?php wp_head(); ?>
 
-
-        <script>
-        var GlobalConfiguration = {
-            templateURL: '<?php bloginfo("template_url"); ?>'
-        };
-        </script>
-
-
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/lunr.js" ></script>
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angular.js" ></script>
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/virada.js" ></script>
