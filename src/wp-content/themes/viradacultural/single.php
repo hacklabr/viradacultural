@@ -8,16 +8,18 @@
 
 			<?php endwhile; ?>
 
-
-					<nav id="posts-nav" class="clearfix">
-						<div class="alignleft"><?php previous_post_link('%link', __('&laquo; Previous post', 'viradacultural')); ?></div>
-						<div class="alignright"><?php next_post_link('%link', __('Next post &raquo;', 'viradacultural')); ?></div>
-					</nav>
-					<!-- #posts-nav -->
-
+				<nav id="posts-nav" class="clearfix">
+					<div class="alignleft">
+						<?php previous_post_link('%link', '<span class="icon arrow_triangle-left"></span><span class="label">Post anterior</span>'); ?>
+					</div>
+					<div class="alignright">
+						<?php next_post_link('%link', '<span class="icon arrow_triangle-right"></span><span class="label">Próximo post</span>'); ?>
+					</div>
+				</nav>
+				<!-- #posts-nav -->
 
 			<?php else : ?>
-			   <p><?php _e('No results found.', 'viradacultural'); ?></p>
+				<p><?php _e('No results found.', 'viradacultural'); ?></p>
 			<?php endif; ?>
 		</section>
 		<!-- #main-section -->

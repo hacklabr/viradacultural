@@ -37,12 +37,46 @@
 
 .page, .single, .archive {
 	#main-section {
-		margin-top: 75px;
+		margin-top: 76px;
 	}
 }
 .page, .single {
 	article {
-		width: 80%;
+		width: 70%;
 		margin: 0 auto 48px;
+	}
+}
+
+.blog, .archive {
+	#posts-nav {
+		clear: both;
+		width: 100%;
+		padding-top: 40px;
+		overflow: hidden;
+	}
+}
+
+#posts-nav {
+	width: 80%;
+	margin: 0 auto 40px;
+
+	a {
+		display: block;
+		width: 40px;
+		height: 40px;
+	}
+
+	.icon {
+		display: block;
+		width: 40px;
+		height: 40px;
+		font-size: 39px;
+		background-color: @rosa;
+		color: #fff;
+		border-radius: 2px;
+	}
+
+	.label {
+		.sr-only;
 	}
 }

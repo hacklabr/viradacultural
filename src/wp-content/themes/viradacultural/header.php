@@ -48,14 +48,8 @@
 
         <?php wp_head(); ?>
 
-
-        <script>
-        var GlobalConfiguration = {
-            templateURL: '<?php bloginfo("template_url"); ?>'
-        };
-        </script>
-
         <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/lunr.js" ></script>
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angular.js" ></script>
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/underscore-min.js" ></script>
