@@ -1,7 +1,7 @@
 <?php
 $atracao = get_query_var('virada_object');
 ?>
-<?php get_header(); ?>
+<?php get_header(); ?> asd
 <nav id="programacao-navbar" class="navbar navbar-fixed-top">
     <div class="container-fluid" >
         <div class="col-md-8 col-md-offset-2"><h1>Atrações</h1></div>
@@ -21,8 +21,8 @@ $atracao = get_query_var('virada_object');
                 <!-- .post-content -->
                 <div class="servico">
                     <p>
-                        <span>Local:</span> <a href="#">Nome do Espaço</a><br>
-                        <span>Endereço:</span> {{event.endereco}}<br>
+                        <span>Local:</span> <a href="{{spaceUrl(space.id)}}">{{space.name}}</a><br>
+                        <span>Endereço:</span> {{space.endereco}}<br>
                         <span>Data:</span> {{brDate(event.startsOn)}}<br>
                         <span>Horário:</span> {{event.startsAt}}<br>
                         <span>Linguagem:</span> @TODO: LINGUAGEM <br>

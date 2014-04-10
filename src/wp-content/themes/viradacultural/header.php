@@ -65,6 +65,7 @@
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/jquery.animascroll.js" ></script>
 
         <script src="<?php bloginfo( 'template_url' ) ?>/js/moment.min.js"></script>
+        <script src="<?php bloginfo( 'template_url' ) ?>/js/moment.lang.pt-br.js"></script>
         <script src="<?php bloginfo( 'template_url' ) ?>/js/countdown.min.js"></script>
         <script src="<?php bloginfo( 'template_url' ) ?>/js/moment-countdown.min.js"></script>
 

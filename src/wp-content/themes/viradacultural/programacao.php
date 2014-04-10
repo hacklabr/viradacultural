@@ -35,7 +35,7 @@
                                 closeClick="hideSpaceInfo(space)">
                             <h3>{{space.name}}</h3>
                             <p>{{space.shortDescription}}</p>
-                            <p><a href="#">mais info</a></p>
+                            <p><a href="{{spaceUrl(space.id)}}" target="_blank">mais info</a></p>
                         </window>
                     </marker>
                 </div>
