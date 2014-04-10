@@ -16,7 +16,7 @@
 
             $scope.icons = {
                 'default': 'http://mt.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png',
-                'selected': 'http://mt.googleapis.com/vt/icon/name=icons/spotlight/spotlight-poi.png'
+                'selected': 'http://mt.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png'
             }
 
             $scope.spaces = [];
