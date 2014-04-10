@@ -6,7 +6,8 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="icon icon_close"></span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        ng-click="$parent.filters.spaces = $parent.filters.spaces && countSelected() > 0"><span class="icon icon_close"></span></button>
                 <h4 class="modal-title" id="myModalLabel">Mapa da Virada</h4>
             </div>
             <div class="modal-body clearfix">
@@ -46,12 +47,12 @@
                 <button type="button" class="btn btn-default" ng-click="deselectAll()">Limpar seleção</button>
 
                 <button type="button" class="btn btn-primary" data-dismiss="modal"
-                        ng-click="$parent.filters.spaces=true">Ver programação</button>
+                        ng-click="$parent.filters.spaces = countSelected() > 0">Ver programação</button>
             </div>
         </div>
     </div>
 </div>
-<nav id="programacao-navbar" class="navbar navbar-fixed-top">
+<nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top">
     <div class="container-fluid">
         <div class="col-md-offset-1">
             <h1>Programação</h1>
@@ -79,7 +80,7 @@
                 </div>
             </form>
             <div class="programacao-navbar-item">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal"><span class="icon icon_pin"></span> Filtrar Locais</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="icon icon_pin"></span> Filtrar Locais</button>
             </div>
             <div class="programacao-navbar-item" ng-if="conf.pdfURL">
                 <a href="{{conf.pdfURL}}" role="button" class="btn btn-primary"><span class="icon icon_download"></span> Baixar PDF</a>
@@ -95,7 +96,7 @@
 
                 <div class="panel-heading clearfix">
                     <h4 class="alignleft panel-title">
-                        <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{conf.templateURL}}/programacao/locais/slug-do-local">{{space.name}}</a>{{space.selected}}
+                        <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{conf.templateURL}}/programacao/locais/slug-do-local">{{space.name}}</a>
                     </h4>
                     <a class="alignright" data-toggle="collapse" data-parent="#main-section" href="#space-{{space.id}}">
                         <span class="icon arrow_carrot-down_alt2"></span>

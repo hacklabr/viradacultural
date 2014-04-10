@@ -25,6 +25,12 @@
                     $scope.spaces = result.data;
                 });
 
+            $scope.countSelected = function(){
+                return $scope.spaces.filter(function(space){
+                    return space.selected === true;
+                }).length;
+            };
+
             $scope.redrawMap = function(){
                 var gmap = $scope.map.control.getGMap()
                 google.maps.event.trigger(gmap, 'resize')
