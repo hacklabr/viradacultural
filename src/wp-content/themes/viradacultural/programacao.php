@@ -1,5 +1,8 @@
 <?php get_header(); ?>
-<div id="map-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div id="map-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true"
+     ng-controller="SpacesFilter" modal-shown="redrawMap()">
+     
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,22 +11,19 @@
             </div>
             <div class="modal-body clearfix">
                 <div class="list-group">
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item active">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item active">Espaço1</a>
-                    <a href="#" class="list-group-item active">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
+                    <a href="#" class="list-group-item"
+                       ng-repeat="space in spaces"
+                       ng-click="selectPlace()">{{space.name}}</a>
                 </div>
-                <div class="mapa">
+                <div class="mapa google-map"
+                        center="map.center"
+                        control="map.control"
+                        zoom="map.zoom"
+                        draggable="true"
+                        refresh="true">
+
+                    <marker ng-repeat="space in spaces"
+                        coords="space.location">
                 </div>
             </div>
             <div class="modal-footer">

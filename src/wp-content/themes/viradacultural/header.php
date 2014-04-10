@@ -48,9 +48,16 @@
 
         <?php wp_head(); ?>
 
+        <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/lunr.js" ></script>
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angular.js" ></script>
+        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/underscore-min.js" ></script>
+        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angular-google-maps.js" ></script>
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/virada.js" ></script>
+        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/directives.js" ></script>
+        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/controllers.js" ></script>
+        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/services.js" ></script>
 
         <script src="<?php bloginfo( 'template_url' ) ?>/js/moment.min.js"></script>
         <script src="<?php bloginfo( 'template_url' ) ?>/js/countdown.min.js"></script>
