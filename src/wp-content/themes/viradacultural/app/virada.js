@@ -1,10 +1,18 @@
+
+document.addEventListener('keyup', function(e){
+    if(e.ctrlKey && e.keyCode == 32){
+       jQuery('.panel-collapse').collapse('show');
+    }
+});
+
+
 var app = angular.module('virada', ['google-maps']);
 
 app.controller('main', function($scope){
     $scope.conf = GlobalConfiguration;
 
     $scope.brDate = function(date){
-        return moment(date).format('YYYY/')
+        return moment(date).format('dddd[,] DD [de] MMMM [de] YYYY');
     };
 
     $scope.eventUrl = function(eventId){
@@ -16,26 +24,64 @@ app.controller('main', function($scope){
     };
 });
 
-app.controller('evento', function($scope, $http, $location, $timeout){
+app.controller('evento', function($scope, $http, $location, $timeout, DataService){
+
+    $scope.event = null;
+    $scope.space = null;
+
     var eventId = parseInt($location.$$hash);
+
     $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
+        console.log(data);
         data.some(function(e){
             if(e.id == eventId){
                 $scope.event = e;
+                DataService.getSpaces().then(function(response){
+                    console.log(data);
+                    response.data.some(function(e){
+                        if(e.id == $scope.event.spaceId){
+                            $scope.space = e;
+                            return true;
+                        }
+                    });
+                });
                 return true;
             }
         });
     });
 
-    $http.get($scope.conf.templateURL+'/app/spaces.json').success(function(data){
-        data.some(function(e){
-            if(e.id == id){
-                $scope.event = e;
+
+});
+
+app.controller('espaco', function($scope, $http, $location, $timeout, DataService){
+
+    $scope.space = null;
+    $scope.spaceEvents = [];
+
+    var spaceId = parseInt($location.$$hash);
+
+    $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
+
+        console.log(data);
+        data.forEach(function(e){
+            if(e.spaceId == spaceId){
+                $scope.spaceEvents.push(e);
+            }
+        });
+    });
+
+    DataService.getSpaces().then(function(response){
+        console.log(data);
+        response.data.some(function(e){
+            if(e.id == spaceId){
+                $scope.space = e;
                 return true;
             }
         });
     });
+
 });
+
 
 app.controller('programacao', function($scope, $http, $location, $timeout, DataService){
     $scope.events = null;
