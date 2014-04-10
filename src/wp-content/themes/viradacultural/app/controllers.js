@@ -13,6 +13,11 @@
                 zoom: 14
             };
 
+            $scope.icons = {
+                'default': 'http://mt.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png',
+                'selected': 'http://mt.googleapis.com/vt/icon/name=icons/spotlight/spotlight-poi.png'
+            }
+
             $scope.spaces = [];
             DataService.search('qualquer-coisa')
                 .then(function(result){
@@ -28,9 +33,14 @@
             $scope.showSpaceInfo = function(space) {
                 $scope.spaces.forEach(function(s){ s.showInfo = false; });
                 space.showInfo = true;
-            }
+            };
+
             $scope.hideSpaceInfo = function(space) {
                 space.showInfo = false;
+            };
+
+            $scope.toggleSelectSpace = function(space) {
+                space.selected = !space.selected;
             }
         }
     ]);

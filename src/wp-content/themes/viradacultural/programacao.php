@@ -12,8 +12,9 @@
             <div class="modal-body clearfix">
                 <div class="list-group">
                     <a href="#" class="list-group-item"
+                       ng-class="{active: space.selected}"
                        ng-repeat="space in spaces"
-                       ng-click="selectSpace(space)">{{space.name}}</a>
+                       ng-click="toggleSelectSpace(space)">{{space.name}}</a>
                 </div>
                 <div class="mapa google-map"
                         center="map.center"
@@ -24,6 +25,7 @@
 
                     <marker ng-repeat="space in spaces"
                             coords="space.location"
+                            icon="space.selected ? icons.selected : icons.default"
                             click="showSpaceInfo(space)">
 
                         <window show="space.showInfo"
