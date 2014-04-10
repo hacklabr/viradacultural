@@ -202,6 +202,7 @@ function virada_template_redirect_intercept() {
     if ( $wp_query->get('virada_tpl') ) {
 
         if (file_exists( TEMPLATEPATH . '/' . $wp_query->get('virada_tpl') . '.php' )) {
+            define('VIRADA_TEMPLATE', true);
             include( TEMPLATEPATH . '/' . $wp_query->get('virada_tpl') . '.php' );
             exit;
         }
