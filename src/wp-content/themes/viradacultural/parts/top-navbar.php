@@ -17,7 +17,7 @@
                         </div>
 
                         <?php // share buttons ?>
-                        <?php if (is_page() || is_single()) { ?>
+
                         <div class="share-buttons col-md-7">
                             <ul class="rrssb-buttons clearfix">
                                 <li class="email">
@@ -83,7 +83,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <?php } ?>
+
 
                         <?php // search form ?>
                         <form id="pages-search" class="pages-navbar-item col-md-3" role="search">

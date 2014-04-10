@@ -1,6 +1,6 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class('clearfix');?>>	  
 	<header>                       
-		<h1><a href="<?php the_permalink();?>" title="<?php the_title_attribute();?>"><?php the_title();?></a></h1>					
+		<h1><?php the_title();?></h1>					
 		<p>
 			<a class="comments-number" href="<?php comments_link(); ?>"title="comentários"><?php comments_number('0','1','%');?></a>
 			<?php _e('By', 'viradacultural'); ?> <?php the_author_posts_link(); ?> <?php _e('on', 'viradacultural'); ?> 

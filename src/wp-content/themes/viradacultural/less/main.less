@@ -606,51 +606,50 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
 
 /* =Post
 -------------------------------------------------------------- */
-.post, .noticias, .imprensa, .page, .event-single {
+.post, .noticias, .imprensa, .page, .event-single, .twitter_cpt, .instagram_cpt {
     header p, footer {
             .secondary-font();
             color: @verde;
         }
-    header h1 { text-align: center; }
+    header { text-align: center; }
 }
 
 .grid-post {
     float: left;
     width: 25%;
-    height: 360px;
+    height: 312px;
     overflow: hidden;
+    text-align: center;
     background-color: @gray-lighter;
     border-right: 1px solid @body-bg;
     border-bottom: 1px solid @body-bg;
+    .transition(background linear .3s);
     .post-content {
         position: relative;
         padding: 24px 15px;
         h1 {
-            font-size: 20px;
+            font-size: @font-size-base;
+            line-height: 1.5;
             margin: 0;
         }
-        header p {
-            margin-top: 24px;
-        }
-        .post-type-icon {
-            background: @rosa;
-            border-radius: 18px;
-            height: 36px;
-            width: 36px;
-            margin: 0 auto;
-            text-align: center;
-            line-height: 36px;
-            img {
-                width: 24px;
-                display: inline;
-            }
-        }
-        .post-entry {
-            display: none;
-        }
     }
-    &:hover {
-        background-color: #fff;
+    .post-type-icon {
+        position: relative;
+        background: @rosa;
+        border-radius: 18px;
+        height: 36px;
+        width: 36px;
+        margin: 0 auto 12px;
+        text-align: center;
+        line-height: 36px;
+        img {
+            width: 24px;
+            display: inline;
+        }
+        .icon {
+            color: @amarelo;
+            vertical-align: middle;
+        }
     }
     &.has-thumbnail {
         .post-content {
@@ -658,6 +657,36 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
         }
         .post-type-icon {
             margin-top: -18px;
+        }
+    }
+    &.instagram_cpt{
+        p {
+            margin: 0;
+        }
+        .post-type-icon {
+            margin-top: -18px;
+        }
+        footer {
+            padding: 0 15px;
+        }
+    }
+    .post-img {
+        position: relative;
+        border-bottom: 3px solid @roxo;
+        .post-img-cover {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0,0,0,.3);
+            .transition(all linear .3s);
+        }
+    }
+    &:hover {
+        background-color: #fff;
+        .post-img-cover {
+            background-color: rgba(0,0,0,0);
         }
     }
 }
