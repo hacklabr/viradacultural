@@ -56,6 +56,35 @@ class EasyAjax {
         echo json_encode($result);
         die;
     }
+    
+    static function get_nasredes_novidades() {
+		
+		$last_id = $_POST['last_id'];
+		global $wpdb;
+		$result = array();
+		$newPosts = $wpdb->get_col( $wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE post_type IN ('twitter_cpt', 'instagram_cpt') AND post_status = 'publish' AND ID > %d", $last_id));
+		header('Content-Type: application/json');
+		echo json_encode($newPosts);
+		die;
+	
+	}
+	
+	static function get_nasredes_post() {
+		
+		$post_id = $_POST['post_id'];
+		
+		$query = new WP_Query(array(
+			'post_type' => array('instagram_cpt', 'twitter_cpt'),
+			'p' => $post_id
+		));
+		
+		$query->the_post();
+		
+		html::part('loop-redes');
+		
+		die;
+		
+	}
 }
 
 EasyAjax::init();

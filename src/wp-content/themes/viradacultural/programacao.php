@@ -1,5 +1,8 @@
 <?php get_header(); ?>
-<div id="map-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div id="map-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true"
+     ng-controller="SpacesFilter" modal-shown="redrawMap()">
+     
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,27 +11,42 @@
             </div>
             <div class="modal-body clearfix">
                 <div class="list-group">
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item active">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item active">Espaço1</a>
-                    <a href="#" class="list-group-item active">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
+                    <a href="#" class="list-group-item"
+                       ng-class="{active: space.selected}"
+                       ng-repeat="space in spaces"
+                       ng-click="toggleSelectSpace(space)">{{space.name}}</a>
                 </div>
-                <div class="mapa">
+                <div class="mapa google-map"
+                        center="map.center"
+                        control="map.control"
+                        zoom="map.zoom"
+                        draggable="true"
+                        refresh="true">
+
+                    <marker ng-repeat="space in spaces"
+                            coords="space.location"
+                            icon="space.selected ? icons.selected : icons.default"
+                            click="showSpaceInfo(space)">
+
+                        <window show="space.showInfo"
+                                isIconVisibleOnClick="true"
+                                closeClick="hideSpaceInfo(space)">
+                            <h3>{{space.name}}</h3>
+                            <p>{{space.shortDescription}}</p>
+                            <p><a href="#">mais info</a></p>
+                        </window>
+                    </marker>
                 </div>
             </div>
+
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Ver programação</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                        ng-click="$parent.filters.spaces=false">Cancelar</button>
+
+                <button type="button" class="btn btn-default" ng-click="deselectAll()">Limpar seleção</button>
+
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        ng-click="$parent.filters.spaces=true">Ver programação</button>
             </div>
         </div>
     </div>
@@ -72,10 +90,12 @@
 <div class="container-fluid">
     <div class="row">
         <section id="main-section" class="panel-group col-md-11 col-md-offset-1">
-            <div class="panel panel-default" ng-repeat="space in searchResult">
+            <div class="panel panel-default" ng-repeat="space in searchResult"
+                 ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+
                 <div class="panel-heading clearfix">
                     <h4 class="alignleft panel-title">
-                        <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{conf.templateURL}}/programacao/locais/slug-do-local">{{space.name}}</a>
+                        <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{conf.templateURL}}/programacao/locais/slug-do-local">{{space.name}}</a>{{space.selected}}
                     </h4>
                     <a class="alignright" data-toggle="collapse" data-parent="#main-section" href="#space-{{space.id}}">
                         <span class="icon arrow_carrot-down_alt2"></span>

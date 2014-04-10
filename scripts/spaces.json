@@ -1,1 +1,128 @@
-[{"id":244,"name":"Cine Olido | Sess\u00e3o Trash do Comodoro","shortDescription":"","location":{"latitude":"-23.5405402962432","longitude":"-46.6427470743656"}},{"id":240,"name":"Coreto Rua Antonio Prado - Bolsa","shortDescription":null,"location":{"latitude":"0","longitude":"0"}},{"id":233,"name":"Largo do Arouche","shortDescription":"","location":{"latitude":"-23.5409678","longitude":"-46.6465449"}},{"id":242,"name":"Largo S\u00e3o Bento","shortDescription":null,"location":{"latitude":"0","longitude":"0"}},{"id":243,"name":"Largo S\u00e3o Bento 2","shortDescription":"","location":{"latitude":"-23.5442905","longitude":"-46.6340327"}},{"id":232,"name":"Libero Badar\u00f3 x Av. S\u00e3o Jo\u00e3o","shortDescription":"","location":{"latitude":"-23.5450155808488","longitude":"-46.6354347020388"}},{"id":234,"name":"Mercado Municipal de S\u00e3o Paulo","shortDescription":"","location":{"latitude":"-23.5415238883354","longitude":"-46.6293360292912"}},{"id":236,"name":"P\u00e1tio do Col\u00e9gio | Palco Vanzolini","shortDescription":"","location":{"latitude":"-23.5477793618565","longitude":"-46.6326834261417"}},{"id":238,"name":"Pista Largo S\u00e3o Francisco | Noite Viva","shortDescription":"","location":{"latitude":"-23.5496226","longitude":"-46.6366708"}},{"id":239,"name":"Pista Major Sert\u00f3rio","shortDescription":"","location":{"latitude":"-23.5454385119565","longitude":"-46.6445481777191"}},{"id":241,"name":"Pra\u00e7a das Artes","shortDescription":"","location":{"latitude":"-23.5445221","longitude":"-46.6374247"}},{"id":231,"name":"Pra\u00e7a Pedro Lessa","shortDescription":"","location":{"latitude":"-23.542221","longitude":"-46.6357084"}},{"id":237,"name":"Rio Branco | A Rua \u00e9 Show","shortDescription":"","location":{"latitude":"-23.5356123891184","longitude":"-46.643041446805"}},{"id":235,"name":"Theatro Municipal","shortDescription":"","location":{"latitude":"-23.5452614711932","longitude":"-46.6386426240206"}}]
+[
+    {
+        "id": 244,
+        "location": {
+            "latitude": "-23.5405402962432",
+            "longitude": "-46.6427470743656"
+        },
+        "name": "Cine Olido | Sess\u00e3o Trash do Comodoro",
+        "shortDescription": ""
+    },
+    {
+        "id": 240,
+        "location": {
+            "latitude": "0",
+            "longitude": "0"
+        },
+        "name": "Coreto Rua Antonio Prado - Bolsa",
+        "shortDescription": null
+    },
+    {
+        "id": 233,
+        "location": {
+            "latitude": "-23.5409678",
+            "longitude": "-46.6465449"
+        },
+        "name": "Largo do Arouche",
+        "shortDescription": ""
+    },
+    {
+        "id": 242,
+        "location": {
+            "latitude": "0",
+            "longitude": "0"
+        },
+        "name": "Largo S\u00e3o Bento",
+        "shortDescription": null
+    },
+    {
+        "id": 243,
+        "location": {
+            "latitude": "-23.5442905",
+            "longitude": "-46.6340327"
+        },
+        "name": "Largo S\u00e3o Bento 2",
+        "shortDescription": ""
+    },
+    {
+        "id": 232,
+        "location": {
+            "latitude": "-23.5450155808488",
+            "longitude": "-46.6354347020388"
+        },
+        "name": "Libero Badar\u00f3 x Av. S\u00e3o Jo\u00e3o",
+        "shortDescription": ""
+    },
+    {
+        "id": 234,
+        "location": {
+            "latitude": "-23.5415238883354",
+            "longitude": "-46.6293360292912"
+        },
+        "name": "Mercado Municipal de S\u00e3o Paulo",
+        "shortDescription": ""
+    },
+    {
+        "id": 236,
+        "location": {
+            "latitude": "-23.5477793618565",
+            "longitude": "-46.6326834261417"
+        },
+        "name": "P\u00e1tio do Col\u00e9gio | Palco Vanzolini",
+        "shortDescription": ""
+    },
+    {
+        "id": 238,
+        "location": {
+            "latitude": "-23.5496226",
+            "longitude": "-46.6366708"
+        },
+        "name": "Pista Largo S\u00e3o Francisco | Noite Viva",
+        "shortDescription": ""
+    },
+    {
+        "id": 239,
+        "location": {
+            "latitude": "-23.5454385119565",
+            "longitude": "-46.6445481777191"
+        },
+        "name": "Pista Major Sert\u00f3rio",
+        "shortDescription": ""
+    },
+    {
+        "id": 241,
+        "location": {
+            "latitude": "-23.5445221",
+            "longitude": "-46.6374247"
+        },
+        "name": "Pra\u00e7a das Artes",
+        "shortDescription": ""
+    },
+    {
+        "id": 231,
+        "location": {
+            "latitude": "-23.542221",
+            "longitude": "-46.6357084"
+        },
+        "name": "Pra\u00e7a Pedro Lessa",
+        "shortDescription": ""
+    },
+    {
+        "id": 237,
+        "location": {
+            "latitude": "-23.5356123891184",
+            "longitude": "-46.643041446805"
+        },
+        "name": "Rio Branco | A Rua \u00e9 Show",
+        "shortDescription": ""
+    },
+    {
+        "id": 235,
+        "location": {
+            "latitude": "-23.5452614711932",
+            "longitude": "-46.6386426240206"
+        },
+        "name": "Theatro Municipal",
+        "shortDescription": ""
+    }
+]

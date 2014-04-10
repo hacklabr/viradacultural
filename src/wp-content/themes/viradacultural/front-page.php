@@ -39,7 +39,7 @@
 				<?php endif; ?> 
 			</div>
 			<?php wp_reset_postdata(); ?>
-			<div class="row">
+			<div class="clearfix">
 			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
                 <?php html::part('loop'); ?>
                 <?php endwhile; ?>
