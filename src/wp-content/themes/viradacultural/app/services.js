@@ -2,16 +2,16 @@
 
     var app = angular.module('virada');
 
-    app.service('Query',[ '$http',
-        function QuerySrv($http) {
-            var Query = {};
+    app.service('DataService',[ '$http',
+        function DataService($http) {
+            var DataService = {};
 
-            Query.do = function() {
+            DataService.search = function() {
                 // TODO: terminar de implmentar quando houver um webservice
                 return $http.get('/wp-content/themes/viradacultural/app/spaces.json');
             };
 
-            return Query;
+            return DataService;
         }
     ]);
 

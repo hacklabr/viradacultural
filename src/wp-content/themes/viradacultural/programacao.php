@@ -11,27 +11,20 @@
             </div>
             <div class="modal-body clearfix">
                 <div class="list-group">
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item active">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item active">Espaço1</a>
-                    <a href="#" class="list-group-item active">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
-                    <a href="#" class="list-group-item">Espaço1</a>
+                    <a href="#" class="list-group-item"
+                       ng-repeat="space in spaces"
+                       ng-click="selectPlace()">{{space.name}}</a>
                 </div>
                 <div class="mapa google-map"
                         center="map.center"
                         control="map.control"
                         zoom="map.zoom"
                         draggable="true"
-                        refresh="true"></div>
+                        refresh="true">
+
+                    <marker ng-repeat="space in spaces"
+                        coords="space.location">
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
