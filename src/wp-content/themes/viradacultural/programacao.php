@@ -112,7 +112,7 @@
                                 <h1><a href="{{conf.templateURL}}/programacao/atracoes/slug-da-atracao">{{event.name}}</a></h1>
                                 <footer class="clearfix">
                                     <span class="alignleft"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
-                                    <a class="alignright icon icon_star" href="#"></a>
+                                    <a class="alignright icon icon_star_alt" href="#"></a>
                                 </footer>
                             </div>
                         </article>
