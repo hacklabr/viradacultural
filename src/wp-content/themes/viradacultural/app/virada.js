@@ -1,7 +1,7 @@
 
 document.addEventListener('keyup', function(e){
     if(e.ctrlKey && e.keyCode == 32){
-       jQuery('.panel-collapse').collapse('show');
+       jQuery('.panel-collapse').collapse('toggle');
     }
 });
 
