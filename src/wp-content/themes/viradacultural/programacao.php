@@ -92,7 +92,7 @@
         <div class="row">
             <section id="main-section" class="panel-group col-md-11 col-md-offset-1">
 
-                <div class="panel panel-default" ng-if="viewBy === 'space'" ng-repeat="space in searchResult" ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+                <div class="panel panel-default" ng-if="viewBy === 'space'" ng-repeat="space in searchResult"  on-last-repeat ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
                     <div class="panel-heading clearfix">
                         <h4 class="alignleft panel-title">
                             <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{spaceUrl(space.id)}}">{{space.name}}</a>
@@ -120,7 +120,7 @@
                 </div>
 
                 <div ng-if="viewBy === 'time'">
-                    <article class="event clearfix" ng-repeat="event in searchResultEventsByTime" ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
+                    <article class="event clearfix" ng-repeat="event in searchResultEventsByTime"  on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
                         <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
                         <div class="event-content clearfix">
                                 <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
@@ -133,7 +133,7 @@
                 </div>
 
                 <div ng-if="viewBy === 'name'">
-                    <article class="event clearfix" ng-repeat="event in searchResultEventsByName" ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
+                    <article class="event clearfix" ng-repeat="event in searchResultEventsByName" on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
                         <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
                         <div class="event-content clearfix">
                                 <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>

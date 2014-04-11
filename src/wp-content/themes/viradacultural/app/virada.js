@@ -19,8 +19,21 @@ document.addEventListener('keyup', function(e){
 
 var app = angular.module('virada', ['google-maps','ui-rangeSlider']);
 
+app.directive('onLastRepeat', function() {
+    return function(scope, element, attrs) {
+        if (scope.$last) setTimeout(function(){
+            scope.$emit('onRepeatLast', element, attrs);
+        }, 1);
+    };
+});
+
+
 app.controller('main', function($scope){
     $scope.conf = GlobalConfiguration;
+
+    $scope.$on('onRepeatLast', function(scope, element, attrs){
+        alert('last repeat')
+    });
 
     $scope.brDate = function(date){
         return moment(date).format('dddd[,] DD [de] MMMM [de] YYYY');
