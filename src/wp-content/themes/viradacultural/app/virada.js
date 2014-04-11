@@ -2,8 +2,20 @@
 document.addEventListener('keyup', function(e){
     if(e.ctrlKey && e.keyCode == 32){
        jQuery('.panel-collapse').collapse('show');
+       console.log('toggling collapsible... \n catch that fire!')
     }
 });
+
+document.addEventListener('keyup', function(e){
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 32){
+       jQuery('.event-content').height('153px').css('background-color', 'none')
+       .css('background','linear-gradient(to bottom, rgba(137,52,148,0) 0%,rgba(137,52,148,0.32) 62%,rgba(214,46,122,0.42) 81%,rgba(230,45,117,1) 85%,rgba(238,44,114,1) 87%,rgba(238,44,114,1) 89%,rgba(238,44,114,0.72) 100%)')
+       .find('h1').css({'padding-top': '15px', 'text-shadow': '2px 2px black'})
+            .hover(function(){jQuery(this).css('text-decoration', 'underline')}).mouseleave(function(){jQuery(this).css('text-decoration', 'none')}).show();
+       jQuery('.event-content').find('footer').css({'bottom': '5px', 'text-shadow': '1px 1px black'});
+    }
+});
+
 
 
 var app = angular.module('virada', ['google-maps']);
