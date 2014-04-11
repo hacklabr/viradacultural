@@ -59,7 +59,7 @@ Template Name: 10 anos
             <?php endif; ?>
         </section>
         <!-- #main-section -->
-        <style> a.active span { background:red !important; }</style>
+        
         <nav id="years-nav" class="block">
             <div class="centered">
                 <a id='nav-home' href=""><span class="year">HOME</span></a>
@@ -98,7 +98,7 @@ Template Name: 10 anos
             $("#main-section > article.parent > header").css({ marginTop: navbar_height });
             $("#main-section > article.parent .block").height(article_height);
             $("#main-section > article.parent .block > .centered > img").css({height: win_height - navbar_height * 2, width: "auto"});
-            
+
             $('body').css('height',  article_height * ($("#main-section > article").length + 2) + navbar_height);
 
 //            if ( ($win.width() / win_height) < aspectRatio ) {
@@ -111,7 +111,7 @@ Template Name: 10 anos
 //                    .addClass('bgwidth');
 //            }
 
-            
+
         }
 
         $win.resize(resize).trigger("resize");
