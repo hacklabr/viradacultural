@@ -120,7 +120,7 @@
                 </div>
 
                 <div ng-if="viewBy === 'time'">
-                    <article class="event clearfix" ng-repeat="event in events" ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
+                    <article class="event clearfix" ng-repeat="event in searchResultEventsByTime" ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
                         <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
                         <div class="event-content clearfix">
                                 <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
@@ -133,12 +133,12 @@
                 </div>
 
                 <div ng-if="viewBy === 'name'">
-                    <article class="event clearfix" ng-repeat="event in eventIndexByName" ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
+                    <article class="event clearfix" ng-repeat="event in searchResultEventsByName" ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
                         <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
                         <div class="event-content clearfix">
-                                <h1><a href="{{eventUrl(event.getEntity().id)}}">{{event.getEntity().name}}</a></h1>
+                                <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
                             <footer class="clearfix">
-                                <span class="alignleft"><span class="icon icon_clock"></span> <time>{{event.getEntity().startsAt}}</time></span>
+                                <span class="alignleft"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
                                 <a class="alignright icon icon_star_alt" href="#"></a>
                             </footer>
                         </div>
@@ -149,11 +149,12 @@
             <!-- #main-section -->
         </div>
         <!-- .row -->
+        <center>
 
             view by:
-        <button id="time-view" type="button" class="btn btn-secondary" ng-class='{"active": viewBy === "space"}' ng-click="viewBy = 'space'">space</button>
-        <button id="time-view" type="button" class="btn btn-secondary" ng-class='{"active": viewBy === "time"}' ng-click="viewBy = 'time'">time</button>
-        <button id="time-view" type="button" class="btn btn-secondary" ng-class='{"active": viewBy === "name"}' ng-click="viewBy = 'name'">name</button>
+        <button id="time-view" type="button" class="btn btn-secondary" ng-class='{"active": viewBy === "space"}' ng-click="viewBy = 'space'">space ({{searchResult.length}} espaços)</button>
+        <button id="time-view" type="button" class="btn btn-secondary" ng-class='{"active": viewBy === "time"}' ng-click="viewBy = 'time'">time ({{searchResultEventsByName.length}} eventos)</button>
+        <button id="time-view" type="button" class="btn btn-secondary" ng-class='{"active": viewBy === "name"}' ng-click="viewBy = 'name'">name ({{searchResultEventsByTime.length}} eventos)</button>
 
     </div>
     <!-- .container-fluid -->
