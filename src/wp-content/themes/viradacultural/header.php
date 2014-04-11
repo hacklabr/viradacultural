@@ -64,6 +64,7 @@
             <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/angular-rangeslider-master/angular.rangeSlider.js" ></script>
         <?php endif; ?>
 
+        <script src="<?php bloginfo( 'template_url' ) ?>/js/viradacultural.js"></script>
 
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/jquery.animascroll.js" ></script>
 

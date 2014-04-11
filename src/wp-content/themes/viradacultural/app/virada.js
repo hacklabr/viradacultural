@@ -265,5 +265,9 @@ app.controller('programacao', function($scope, $http, $location, $timeout, DataS
             });
 
         },10);
+
+        $timeout(function(){
+            hl.carrousel.init();
+        },100);
     };
 });
