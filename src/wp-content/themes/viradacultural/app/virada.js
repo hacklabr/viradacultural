@@ -99,7 +99,6 @@ app.controller('programacao', function($scope, $http, $location, $timeout, DataS
     $scope.spaces = null;
 
     $scope.eventIndex = null;
-    $scope.eventIndexByName = null;
 
     $scope.viewBy = 'space';
     $scope.viewMode = 'grid';
@@ -197,17 +196,6 @@ app.controller('programacao', function($scope, $http, $location, $timeout, DataS
 
         });
 
-        $scope.eventIndexByName = $scope.eventIndex.slice().sort(function(a,b){
-            if(a.text > b.text)
-                return 1;
-            else if(a.text < b.text)
-                return -1;
-            else
-                return 0;
-        });
-
-
-
         $scope.populateEntities();
     });
 
@@ -220,6 +208,8 @@ app.controller('programacao', function($scope, $http, $location, $timeout, DataS
     }
 
     $scope.searchResult = [];
+    $scope.searchResultEventsByTime = [];
+    $scope.searchResultEventsByName = [];
 
     $scope.populateEntities = function(){
         if(!$scope.events || !$scope.spaces)
@@ -244,6 +234,17 @@ app.controller('programacao', function($scope, $http, $location, $timeout, DataS
                 if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0)
                 && event.startsAt <= searchEndsAt  &&  event.startsAt >= searchStartsAt)
                     events.push(event.getEntity());
+            });
+
+            $scope.searchResultEventsByTime = events;
+
+            $scope.searchResultEventsByName = events.slice().sort(function(a,b){
+                if(a.name > b.name)
+                    return 1;
+                else if(a.name < b.name)
+                    return -1;
+                else
+                    return 0;
             });
 
             events.forEach(function(event){

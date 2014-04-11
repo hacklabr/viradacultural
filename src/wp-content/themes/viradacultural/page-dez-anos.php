@@ -78,6 +78,10 @@ Template Name: 10 anos
 <script type="text/javascript" charset="utf-8">
 (function($){
     $(document).ready(function() {
+        
+        var myScroll = new IScroll('body');
+        
+        
         var $win             = $(window),
             $bg              = $("figure > img"),
             $navBar          = $('#site-navbar'),
