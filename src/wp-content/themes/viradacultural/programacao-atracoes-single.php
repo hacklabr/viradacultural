@@ -1,7 +1,7 @@
 <?php
 $atracao = get_query_var('virada_object');
 ?>
-<?php get_header(); ?> asd
+<?php get_header(); ?>
 <nav id="programacao-navbar" class="navbar navbar-fixed-top">
     <div class="container-fluid" >
         <div class="col-md-8 col-md-offset-2"><h1>Atrações</h1></div>

@@ -33,6 +33,10 @@ app.controller('main', function($scope){
     $scope.spaceUrl = function(spaceId){
         return $scope.conf.baseURL + '/programacao/local/##' + spaceId;
     };
+
+    $scope.favorite = function(eventId){
+        alert(eventId);
+    };
 });
 
 app.controller('evento', function($scope, $http, $location, $timeout, DataService){
