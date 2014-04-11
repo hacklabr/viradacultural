@@ -141,7 +141,7 @@
                         <ul class="numeric-nav hl-num-nav"></ul>
                         <div class="panel-body hl-wrap">
                             <article class="event clearfix event-grid" ng-repeat="event in space.events">
-                                    <img src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
+                                    <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
                                 <div class="event-content clearfix">
                                         <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
                                     <footer class="clearfix">
@@ -166,7 +166,7 @@
                     <div id="space-{{space.id}}" class="panel-collapse collapse">
                         <div class="panel-body">
                             <article class="event clearfix event-list" ng-repeat="event in space.events">
-                                    <img src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
+                                    <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
                                 <div class="event-content clearfix">
                                         <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
                                     <footer class="clearfix">
