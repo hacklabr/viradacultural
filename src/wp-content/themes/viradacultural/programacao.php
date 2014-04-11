@@ -80,10 +80,10 @@
 
             <div class="programacao-navbar-item">
                 <span class="navbar-text">Por</span>
-                <select class="form-control">
-                    <option>local</option>
-                    <option>atração</option>
-                    <option>horário</option>
+                <select class="form-control" ng-model="viewBy">
+                    <option value="space">local</option>
+                    <option value="name">atração</option>
+                    <option value="time">horário</option>
                 </select>
             </div>
         </div>
@@ -117,8 +117,6 @@
 
         </section>
     <!-- --------------------------------- -->
-
-
 
         <div class="row">
             <section id="main-section" class="panel-group col-md-11 col-md-offset-1">
@@ -210,12 +208,6 @@
         </div>
         <!-- .row -->
         <center>
-
-            view by:
-        <button id="time-view" type="button" class="btn btn-secondary" ng-class='{"active": viewBy === "space"}' ng-click="viewBy = 'space'">space ({{searchResult.length}} espaços)</button>
-        <button id="time-view" type="button" class="btn btn-secondary" ng-class='{"active": viewBy === "time"}' ng-click="viewBy = 'time'">time ({{searchResultEventsByName.length}} eventos)</button>
-        <button id="time-view" type="button" class="btn btn-secondary" ng-class='{"active": viewBy === "name"}' ng-click="viewBy = 'name'">name ({{searchResultEventsByTime.length}} eventos)</button>
-
     </div>
     <!-- .container-fluid -->
 </div>
