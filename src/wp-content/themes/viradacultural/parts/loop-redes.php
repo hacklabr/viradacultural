@@ -1,4 +1,4 @@
-<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix grid-post post-redes')?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix grid-post post-redes')?> <?php if ($ajaxhide) echo 'style="display:none"'; ?> >
 <?php if (get_post_type() == 'twitter_cpt'): ?>
     <div class="post-content">    
         <div class="post-type-icon"><span class="icon social_twitter"></span></div>

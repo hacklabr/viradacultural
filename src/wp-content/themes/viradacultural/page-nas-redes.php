@@ -6,7 +6,9 @@ global $paged;
 query_posts(array(
 	'post_type' => array('instagram_cpt', 'twitter_cpt'),
 	'posts_per_page' => 80,
-	'paged' => $paged
+	'paged' => $paged,
+    'orderby' => 'ID',
+    'order' => 'DESC'
 ));
 
 add_action('wp_print_scripts', function () {
