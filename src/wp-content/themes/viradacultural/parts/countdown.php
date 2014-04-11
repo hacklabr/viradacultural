@@ -3,9 +3,9 @@
     <div>Faltam</div>
     <input class="knob days" data-displayfield="days" data-field="hours" data-min="0" data-max="24" data-fgcolor="#ee2c72"/>
     <div>dias</div>
-    <input class="knob hours" data-displayfield="hours" data-field="minutes" data-min="0" data-max="60" data-fgcolor="#ffc20e"/>
+    <input class="knob hours" data-displayfield="hours" data-field="m" data-min="0" data-max="60" data-fgcolor="#ffc20e"/>
     <div>horas</div>
-    <input class="knob minutes" data-displayfield="minutes" data-field="m" data-min="0" data-max="600" data-fgcolor="#893494"/>
+    <input class="knob minutes" data-displayfield="minutes" data-field="s" data-min="0" data-max="600" data-fgcolor="#893494"/>
     <div>min</div>
     <footer>
         <time>
@@ -57,11 +57,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
         var data = moment(strCurrentDate).countdown(moment(strEventDate), countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS | countdown.MILLISECONDS);
 
-        if(counter > 0) counter--; else counter = data.seconds*10;
+        if(counter && data.seconds >= 0 && data.milliseconds >= 0) counter--; else counter = data.seconds*10 + (Math.round(data.milliseconds/100)-1);
 
-        data.m = counter;
+        data.s = counter;
+        data.m = data.hours > 0 ? data.minutes : 0;
 
-        //console.log(data.seconds, data.m);
+        //console.log(data.seconds, counter, data.milliseconds, data.s);
         [].forEach.call(countdownElement.querySelectorAll('.knob'), function(el) {
             //console.log(el.dataset.field, data[el.dataset.field])
             el.value = data[el.dataset.field];
