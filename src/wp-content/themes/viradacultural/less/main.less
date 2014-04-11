@@ -1,5 +1,4 @@
 @import "bootstrap.less";
-@import "timepicker.less";
 @import "rrssb.less";
 @import "pages.less";
 @import "10-anos.less";
@@ -706,9 +705,13 @@ body.programacao {
     margin-top: 76px;
 }
 
+#programacao-navbar {
+    margin-left: 115px;
+}
+
 .virada-navbar {
-	min-height: 76px;
-	background-color: #fff;
+    min-height: 76px;
+    background-color: #fff;
     font-family: @font-family-secondary;
     h1 {
         float: left;
@@ -719,6 +722,7 @@ body.programacao {
     .navbar-text {
         margin-top: 0;
         margin-bottom: 0;
+        margin-left: 0;
         line-height: 36px;
     }
     .bootstrap-timepicker {
@@ -742,6 +746,10 @@ body.programacao {
         margin: 20px 0;
         padding: 0 15px;
         border-left: 2px solid @gray-lighter;
+        .form-control {
+          float: left;
+
+        }
     }
 }
 
@@ -789,15 +797,15 @@ body.programacao {
                     color: @amarelo;
                     font-size: 56px;
                     vertical-align: middle;
-				}
-			}
-			&:hover {
-				.program-nav {
-					display: block;
-				}
-			}
-		}
-	}
+                }
+            }
+            &:hover {
+                .program-nav {
+                    display: block;
+                }
+            }
+        }
+    }
 }
 
 #map-modal {

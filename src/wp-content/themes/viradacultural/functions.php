@@ -43,7 +43,6 @@ function viradacultural_addJS() {
     if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' );
     wp_enqueue_script('jquery');
     wp_enqueue_script('bootstrap', get_stylesheet_directory_uri().'/js/bootstrap.min.js', 'jquery');
-    wp_enqueue_script('bootstrap-timepicker', get_stylesheet_directory_uri().'/js/bootstrap-timepicker.min.js', 'jquery');
     wp_enqueue_script('viradacultural', get_stylesheet_directory_uri().'/js/viradacultural.js','jquery');
     wp_localize_script('viradacultural', 'vars', array(
         'ajaxurl' => admin_url('admin-ajax.php'),
