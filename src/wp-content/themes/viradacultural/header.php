@@ -39,6 +39,7 @@
         <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_directory' ); ?>/elegant-font.css" />
         <!-- Bootstrap -->
         <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_directory' ) ?>/main.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_directory' ) ?>/js/angular-rangeslider-master/angular.rangeSlider.css" />
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -50,16 +51,24 @@
 
         <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
 
-        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/lunr.js" ></script>
-        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angular.js" ></script>
-        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/underscore-min.js" ></script>
-        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angular-google-maps.js" ></script>
-        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/virada.js" ></script>
-        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/directives.js" ></script>
-        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/controllers.js" ></script>
-        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/services.js" ></script>
+        <?php if(defined('VIRADA_TEMPLATE') && VIRADA_TEMPLATE): ?>
+            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/lunr.js" ></script>
+            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angular.js" ></script>
+            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/underscore-min.js" ></script>
+            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angular-google-maps.js" ></script>
+            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/virada.js" ></script>
+            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/directives.js" ></script>
+            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/controllers.js" ></script>
+            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/services.js" ></script>
+
+            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/angular-rangeslider-master/angular.rangeSlider.js" ></script>
+        <?php endif; ?>
+
+
+        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/jquery.animascroll.js" ></script>
 
         <script src="<?php bloginfo( 'template_url' ) ?>/js/moment.min.js"></script>
+        <script src="<?php bloginfo( 'template_url' ) ?>/js/moment.lang.pt-br.js"></script>
         <script src="<?php bloginfo( 'template_url' ) ?>/js/countdown.min.js"></script>
         <script src="<?php bloginfo( 'template_url' ) ?>/js/moment-countdown.min.js"></script>
 
@@ -67,9 +76,6 @@
 
         <script src="<?php bloginfo( 'template_url' ) ?>/js/rrssb.js"></script>
 
-        <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/_dependent/greensock/TweenMax.min.js" type="text/javascript"></script>
-        <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/jquery.scrollmagic.js" type="text/javascript"></script>
-        <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/jquery.scrollmagic.debug.js" type="text/javascript" charset="utf-8"></script>
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/_mobile/iscroll.js" type="text/javascript" charset="utf-8"></script>
     </head>
     <body <?php body_class(); ?> ng-controller="main">
@@ -87,26 +93,9 @@
                     $blog_link = function_exists('get_the_posts_home_url') ? get_the_posts_home_url() : get_category_link( $blog_id );
                 ?>
                 <ul id="main-menu" class="nav">
-                    <li class="has-children">
-                        <a class="a-virada" href="<?php bloginfo( 'url' ); ?>/a-virada" title="A Virada"><span>A Virada</span></a>
-                        <ul class="children">
-                            <li><a>Teste 1</a></li>
-                            <li><a>Teste 2</a></li>
-                            <li><a>Teste 3</a></li>
-                        </ul>
-                    </li>
+                    <li><a class="a-virada" href="<?php bloginfo( 'url' ); ?>/a-virada" title="A Virada"><span>A Virada</span></a></li>
                     <li><a class="anos-10" href="<?php bloginfo( 'url' ); ?>/10-anos" title="10 anos"><span>10 anos</span></a></li>
-                    <li class="has-children">
-                        <a class="programacao" href="<?php bloginfo( 'url' ); ?>/programacao" title="Programação"><span>Programação</span></a>
-                        <ul class="children">
-                            <li><a>Teste 1</a></li>
-                            <li><a>Teste 2</a></li>
-                            <li><a>Teste 3</a></li>
-                            <li><a>Teste 1</a></li>
-                            <li><a>Teste 2</a></li>
-                            <li><a>Teste 3</a></li>
-                        </ul>
-                    </li>
+                    <li><a class="programacao" href="<?php bloginfo( 'url' ); ?>/programacao" title="Programação"><span>Programação</span></a></li>
                     <li><a class="noticias" href="<?php echo get_post_type_archive_link( 'noticias' ); ?>" title="Notícias"><span>Notícias</span></a></li>
                     <li><a class="blog" href="<?php echo esc_url( $blog_link ); ?>" title="Blog"><span>Blog</span></a></li>
                     <li><a class="imprensa" href="<?php echo get_post_type_archive_link( 'imprensa' ); ?>" title="Imprensa"><span>Imprensa</span></a></li>
@@ -117,7 +106,12 @@
             </nav>
             <!-- #main-nav -->
 
-            <h2 id="logo-smc" class="logo"><a href="http://www.prefeitura.sp.gov.br/"><span class="sr-only">Secretaria Municipal de Cultural de São Paulo</span></a></h2>
+            <h2 id="logo-smc" class="logo">
+                <a href="http://www.prefeitura.sp.gov.br/">
+                    <span class="sr-only">Secretaria Municipal de Cultural de São Paulo</span>
+                    <?php html::image("brasao.png", "Secretaria Municipal de Cultural de São Paulo", array("class" => "img-responsive")); ?>
+                </a>
+            </h2>
         </header>
         <!-- #main-header -->
 

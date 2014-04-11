@@ -1,6 +1,96 @@
-var app = angular.module('virada', ['google-maps']);
 
-app.controller('main', function($scope, $http, $location, $timeout, DataService){
+document.addEventListener('keyup', function(e){
+    if(e.ctrlKey && e.keyCode == 32){
+       jQuery('.panel-collapse').collapse('toggle');
+       console.log('toggling collapsible... \n catch that fire!')
+    }
+});
+
+document.addEventListener('keyup', function(e){
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 32){
+       jQuery('.event-content').height('153px').css('background-color', 'none')
+       .css('background','linear-gradient(to bottom, rgba(137,52,148,0) 0%,rgba(137,52,148,0.32) 62%,rgba(214,46,122,0.42) 81%,rgba(230,45,117,1) 85%,rgba(238,44,114,1) 87%,rgba(238,44,114,1) 89%,rgba(238,44,114,0.72) 100%)')
+       .find('h1').css({'padding-top': '15px', 'text-shadow': '2px 2px black'})
+            .hover(function(){jQuery(this).css('text-decoration', 'underline')}).mouseleave(function(){jQuery(this).css('text-decoration', 'none')}).show();
+       jQuery('.event-content').find('footer').css({'bottom': '5px', 'text-shadow': '1px 1px black'});
+    }
+});
+
+
+var app = angular.module('virada', ['google-maps','ui-rangeSlider']);
+
+app.controller('main', function($scope){
+    $scope.conf = GlobalConfiguration;
+
+    $scope.brDate = function(date){
+        return moment(date).format('dddd[,] DD [de] MMMM [de] YYYY');
+    };
+
+    $scope.eventUrl = function(eventId){
+        return $scope.conf.baseURL + '/programacao/atracao/##' + eventId;
+    };
+
+    $scope.spaceUrl = function(spaceId){
+        return $scope.conf.baseURL + '/programacao/local/##' + spaceId;
+    };
+});
+
+app.controller('evento', function($scope, $http, $location, $timeout, DataService){
+
+    $scope.event = null;
+    $scope.space = null;
+
+    var eventId = parseInt($location.$$hash);
+
+    $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
+        data.some(function(e){
+            if(e.id == eventId){
+                $scope.event = e;
+                DataService.getSpaces().then(function(response){
+                    response.data.some(function(e){
+                        if(e.id == $scope.event.spaceId){
+                            $scope.space = e;
+                            return true;
+                        }
+                    });
+                });
+                return true;
+            }
+        });
+    });
+
+
+});
+
+app.controller('espaco', function($scope, $http, $location, $timeout, DataService){
+
+    $scope.space = null;
+    $scope.spaceEvents = [];
+
+    var spaceId = parseInt($location.$$hash);
+
+    $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
+
+        data.forEach(function(e){
+            if(e.spaceId == spaceId){
+                $scope.spaceEvents.push(e);
+            }
+        });
+    });
+
+    DataService.getSpaces().then(function(response){
+        response.data.some(function(e){
+            if(e.id == spaceId){
+                $scope.space = e;
+                return true;
+            }
+        });
+    });
+
+});
+
+
+app.controller('programacao', function($scope, $http, $location, $timeout, DataService){
     $scope.events = null;
     $scope.spaces = null;
 
@@ -19,6 +109,32 @@ app.controller('main', function($scope, $http, $location, $timeout, DataService)
         'spaces': false
     };
 
+    $scope.timeSlider = {
+        range: {
+            min: 0,
+            max: 96
+        },
+        model:{
+            min:0,
+            max:96
+        },
+        time:{
+            min: '18:00',
+            max: '17:59'
+        }
+    };
+
+    $scope.slideTimeout = null;
+
+    $scope.$watch('timeSlider.model', function(){
+        $scope.startsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.min * 15).format('H:mm');
+        $scope.endsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.max * 15).format('H:mm');
+
+        $timeout.cancel($scope.slideTimeout);
+        $scope.slideTimeout = $timeout(function(){
+            $scope.populateEntities();
+        },100);
+    },true);
     /**
      *
      * @param {type} s
@@ -89,43 +205,6 @@ app.controller('main', function($scope, $http, $location, $timeout, DataService)
 
         $scope.populateEntities();
     });
-
-    $scope.$on('$locationChangeSuccess', function(){
-
-
-    });
-
-    $scope.changeStartsAt = function (){
-        var start = parseInt($scope.startsAt.replace(':', ''));
-        var end = parseInt($scope.endsAt.replace(':', ''));
-        if(start < 1800 && start > 1700){
-            $scope.startsAt = '17:00';
-            $scope.endsAt = '18:00';
-        }else if(start < 1800 && end < start + 100){
-            var startSplit = $scope.startsAt.split(':');
-            startSplit[0]++;
-            $scope.endsAt = startSplit.join(':');
-        }
-
-        $scope.populateEntities();
-    };
-
-    $scope.changeEndsAt = function (){
-        var start = parseInt($scope.startsAt.replace(':', ''));
-        var end = parseInt($scope.endsAt.replace(':', ''));
-
-        if(start < 1800 && start > 1700){
-            $scope.startsAt = '17:00';
-            $scope.endsAt = '18:00';
-        }else if(getTime($scope.endsAt) - getTime($scope.startsAt) <= 100){
-            var endSplit = $scope.endsAt.split(':');
-            endSplit[0] = endSplit[0] == 0 ? '23' : endSplit[0]-1;
-
-            $scope.startsAt = endSplit.join(':');
-        }
-
-        $scope.populateEntities();
-    };
 
     function getTime(time){
         var t = parseInt(time.replace(':', ''));

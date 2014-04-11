@@ -1,30 +1,32 @@
-<?php 
-$has_thumb = has_post_thumbnail(); 
-?>
-<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix grid-post' . ( get_post_type() == 'instagram_cpt' ? ' has-thumbnail' : '' ));?>>
-	<?php the_content(); ?>
-	
-	<div class="post-content">
-		<?php virada_the_post_type_icon();?>
-		<header>
-			<p>
-				Publicado em <time class="post-time" datetime="<?php the_time('Y-m-d'); ?>" pubdate><?php the_time( 'j \d\e F à\s H:i' ); ?></time> por
-				<a href="<?php echo get_post_type() == 'twitter_cpt' ? 'http://twitter.com/' : 'http://instagram.com/', get_post_meta(get_the_ID(), 'author_username', true); ?>"><?php echo get_post_meta(get_the_ID(), 'author_username', true); ?></a>
-				
-			</p>
-			<h1></h1>
-		</header>
-		<div class="post-entry clearfix">			
-			
-		</div>
-		<!--<footer class="clearfix">	
-			<p class="taxonomies">			
-				<span><?php _e('Categories', 'viradacultural'); ?>:</span> <?php the_category(', ');?><br />
-				<?php the_tags('<span>Tags:</span> ', ', '); ?>
-			</p>		
-		</footer> -->
-	</div>
-	
+<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix grid-post post-redes')?> <?php if ($ajaxhide) echo 'style="display:none"'; ?> >
+<?php if (get_post_type() == 'twitter_cpt'): ?>
+    <div class="post-content">    
+        <div class="post-type-icon"><span class="icon social_twitter"></span></div>
+        <header>
+            <p>
+            <a href="<?php echo 'http://twitter.com/', get_post_meta(get_the_ID(), 'author_username', true); ?>">@<?php echo get_post_meta(get_the_ID(), 'author_username', true); ?></a><br>
+            <time class="post-time" datetime="<?php the_time('Y-m-d'); ?>" pubdate><?php the_time( 'd-m-Y - H:i' ); ?></time>
+            </p>
+        </header>
+        <?php the_content(); ?> 
+        
+    </div>
+<?php else: ?>
+    <div class="post-img">
+        <div class="post-img-cover"></div>
+        <?php the_content(); ?>
+    </div>
+        <div class="post-type-icon"><span class="icon social_instagram"></span></div>
+        <footer>
+            <p>
+                <a href="<?php echo 'http://instagram.com/', get_post_meta(get_the_ID(), 'author_username', true); ?>"><?php echo get_post_meta(get_the_ID(), 'author_username', true); ?></a><br>
+                <time class="post-time" datetime="<?php the_time('Y-m-d'); ?>" pubdate><?php the_time( 'd-m-Y - H:i' ); ?></time>
+            </p>
+        </footer>
+<?php endif; ?>
+
 </article>
 <!-- .post -->
-    			
+
+
+                

@@ -56,31 +56,35 @@ class EasyAjax {
         echo json_encode($result);
         die;
     }
-    
-    static function get_nasredes_novidades() {
+
+	static function get_nasredes_posts() {
 		
-		$last_id = $_POST['last_id'];
-		global $wpdb;
-		$result = array();
-		$newPosts = $wpdb->get_col( $wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE post_type IN ('twitter_cpt', 'instagram_cpt') AND post_status = 'publish' AND ID > %d", $last_id));
-		header('Content-Type: application/json');
-		echo json_encode($newPosts);
-		die;
-	
-	}
-	
-	static function get_nasredes_post() {
+        global $wpdb;
+        
+        $last_id = $_POST['last_id'];
+        $what = $_POST['what'];
 		
-		$post_id = $_POST['post_id'];
+        $queryEnd = $what == 'newer' ? '> %d' : '< %d ORDER BY ID DESC LIMIT 50';
+        
+		$posts = $wpdb->get_col( $wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE post_type IN ('twitter_cpt', 'instagram_cpt') AND post_status = 'publish' AND ID " . $queryEnd, $last_id));
 		
+        if (sizeof($posts) < 1)
+            die;
+        
 		$query = new WP_Query(array(
 			'post_type' => array('instagram_cpt', 'twitter_cpt'),
-			'p' => $post_id
+			'post__in' => $posts,
+            'posts_per_page' => -1,
+            'orderby' => 'ID',
+            'order' => 'DESC'
 		));
 		
-		$query->the_post();
-		
-		html::part('loop-redes');
+        if ($query->have_posts()) {
+            while ($query->have_posts()) {
+                $query->the_post();
+                html::part('loop-redes', array('ajaxhide' => $what == 'newer'));
+            }
+        }
 		
 		die;
 		
