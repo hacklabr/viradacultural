@@ -62,15 +62,18 @@ class EasyAjax {
         global $wpdb;
         
         $last_id = $_POST['last_id'];
+        $what = $_POST['what'];
 		
-		$newPosts = $wpdb->get_col( $wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE post_type IN ('twitter_cpt', 'instagram_cpt') AND post_status = 'publish' AND ID > %d", $last_id));
+        $queryEnd = $what == 'newer' ? '> %d' : '< %d ORDER BY ID DESC LIMIT 50';
+        
+		$posts = $wpdb->get_col( $wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE post_type IN ('twitter_cpt', 'instagram_cpt') AND post_status = 'publish' AND ID " . $queryEnd, $last_id));
 		
-        if (sizeof($newPosts) < 1)
+        if (sizeof($posts) < 1)
             die;
         
 		$query = new WP_Query(array(
 			'post_type' => array('instagram_cpt', 'twitter_cpt'),
-			'post__in' => $newPosts,
+			'post__in' => $posts,
             'posts_per_page' => -1,
             'orderby' => 'ID',
             'order' => 'DESC'
@@ -79,7 +82,7 @@ class EasyAjax {
         if ($query->have_posts()) {
             while ($query->have_posts()) {
                 $query->the_post();
-                html::part('loop-redes', array('ajaxhide' => true));
+                html::part('loop-redes', array('ajaxhide' => $what == 'newer'));
             }
         }
 		
