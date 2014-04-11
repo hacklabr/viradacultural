@@ -71,13 +71,13 @@
             <div class="clearfix programacao-navbar-item" role="time-filter">
                 <div><span class="icon icon_clock"></span></div>
                 <div>{{startsAt}}</div>
-                <div range-slider show-values="false" prevent-equal-min-max="true" min="timeSlider.range.min" max="timeSlider.range.max" model-min="timeSlider.model.min" model-max="timeSlider.model.max" step="1"></div>                
+                <div range-slider show-values="false" prevent-equal-min-max="true" min="timeSlider.range.min" max="timeSlider.range.max" model-min="timeSlider.model.min" model-max="timeSlider.model.max" step="1"></div>
                 <div>{{endsAt}}</div>
             </div>
             <div class="programacao-navbar-item">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="icon icon_pin"></span> Filtrar Locais</button>
             </div>
-                
+
             <div class="programacao-navbar-item">
                 <span class="navbar-text">Por</span>
                 <select class="form-control">
@@ -91,36 +91,70 @@
     <div class="container-fluid">
         <div class="row">
             <section id="main-section" class="panel-group col-md-11 col-md-offset-1">
-                <div class="panel panel-default" ng-repeat="space in searchResult"
-                     ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
-                <div class="panel-heading clearfix">
-                    <h4 class="alignleft panel-title">
-                        <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{spaceUrl(space.id)}}">{{space.name}}</a>
-                    </h4>
-                    <a class="alignright" data-toggle="collapse" data-parent="#main-section" href="#space-{{space.id}}">
-                        <span class="icon arrow_carrot-down_alt2"></span>
-                    </a>
-                </div>
-                <div id="space-{{space.id}}" class="panel-collapse collapse">
-                    <div class="program-nav program-nav-left" ng-show='viewMode === "grid"'><span class="icon arrow_carrot-left"></span></div>
-                    <div class="program-nav program-nav-right" ng-show='viewMode === "grid"'><span class="icon arrow_carrot-right"></span></div>
-                    <div class="panel-body">
-                        <article class="event clearfix" ng-repeat="event in space.events" ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
-                                <img src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
-                            <div class="event-content clearfix">
-                                    <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
-                                <footer class="clearfix">
-                                    <span class="alignleft"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
-                                    <a class="alignright icon icon_star_alt" href="#" ng-click="favorite(event.id)"></a>
-                                </footer>
-                            </div>
-                        </article>
+
+                <div class="panel panel-default" ng-if="viewBy === 'space'" ng-repeat="space in searchResult" ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+                    <div class="panel-heading clearfix">
+                        <h4 class="alignleft panel-title">
+                            <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{spaceUrl(space.id)}}">{{space.name}}</a>
+                        </h4>
+                        <a class="alignright" data-toggle="collapse" data-parent="#main-section" href="#space-{{space.id}}">
+                            <span class="icon arrow_carrot-down_alt2"></span>
+                        </a>
+                    </div>
+                    <div id="space-{{space.id}}" class="panel-collapse collapse">
+                        <div class="program-nav program-nav-left" ng-show='viewMode === "grid"'><span class="icon arrow_carrot-left"></span></div>
+                        <div class="program-nav program-nav-right" ng-show='viewMode === "grid"'><span class="icon arrow_carrot-right"></span></div>
+                        <div class="panel-body">
+                            <article class="event clearfix" ng-repeat="event in space.events" ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
+                                    <img src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
+                                <div class="event-content clearfix">
+                                        <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
+                                    <footer class="clearfix">
+                                        <span class="alignleft"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
+                                        <a class="alignright icon icon_star_alt" href="#" ng-click="favorite(event.id)"></a>
+                                    </footer>
+                                </div>
+                            </article>
+                        </div>
                     </div>
                 </div>
+
+                <div ng-if="viewBy === 'time'">
+                    <article class="event clearfix" ng-repeat="event in events" ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
+                        <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
+                        <div class="event-content clearfix">
+                                <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
+                            <footer class="clearfix">
+                                <span class="alignleft"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
+                                <a class="alignright icon icon_star_alt" href="#"></a>
+                            </footer>
+                        </div>
+                    </article>
+                </div>
+
+                <div ng-if="viewBy === 'name'">
+                    <article class="event clearfix" ng-repeat="event in eventIndexByName" ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
+                        <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
+                        <div class="event-content clearfix">
+                                <h1><a href="{{eventUrl(event.getEntity().id)}}">{{event.getEntity().name}}</a></h1>
+                            <footer class="clearfix">
+                                <span class="alignleft"><span class="icon icon_clock"></span> <time>{{event.getEntity().startsAt}}</time></span>
+                                <a class="alignright icon icon_star_alt" href="#"></a>
+                            </footer>
+                        </div>
+                    </article>
+                </div>
+
             </section>
             <!-- #main-section -->
         </div>
         <!-- .row -->
+
+            view by:
+        <button id="time-view" type="button" class="btn btn-secondary" ng-class='{"active": viewBy === "space"}' ng-click="viewBy = 'space'">space</button>
+        <button id="time-view" type="button" class="btn btn-secondary" ng-class='{"active": viewBy === "time"}' ng-click="viewBy = 'time'">time</button>
+        <button id="time-view" type="button" class="btn btn-secondary" ng-class='{"active": viewBy === "name"}' ng-click="viewBy = 'name'">name</button>
+
     </div>
     <!-- .container-fluid -->
 </div>
