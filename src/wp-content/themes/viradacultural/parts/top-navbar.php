@@ -86,9 +86,9 @@
 
 
                         <?php // search form ?>
-                        <form id="pages-search" class="pages-navbar-item col-md-3" role="search">
+                        <form id="pages-search" class="pages-navbar-item col-md-3" role="search" action="<?php echo site_url(); ?>">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Digite uma palavra-chave" ng-model='searchText' ng-change='unaccentSearchText = unaccent(searchText)'>
+                                <input type="text" name="s" class="form-control" placeholder="Digite uma palavra-chave" ng-model='searchText' ng-change='unaccentSearchText = unaccent(searchText)'>
 
                                 <div class="input-group-btn">
                                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -134,12 +134,3 @@
         </nav>
         <?php } ?>
 
-        <?php if (is_search()) { ?>
-        <nav id="programacao-navbar" class="navbar navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="col-md-8 col-md-offset-2">
-                    <h1>Resultados de busca para: <?php echo get_search_query(); ?></h1>
-                </div>
-            </div>
-        </nav>
-        <?php } ?>
