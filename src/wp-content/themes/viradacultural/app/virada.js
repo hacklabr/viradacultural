@@ -101,6 +101,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, DataS
     $scope.eventIndex = null;
     $scope.eventIndexByName = null;
 
+    $scope.viewBy = 'space';
     $scope.viewMode = 'grid';
     $scope.searchText = '';
 

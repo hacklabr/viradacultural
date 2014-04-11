@@ -5,8 +5,6 @@
 
         $('.collapse').collapse();
 
-        $('.timepicker-field').timepicker();
-
         $('#front-page-carousel .item:first, .carousel-indicators li:first').addClass('active');
 
         $('#front-page-carousel').carousel();
