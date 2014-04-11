@@ -259,7 +259,7 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
 -------------------------------------------------------------- */
 #main-header {
   left: 0;
-  width: 237px;
+  width: 225px;
 
   .box-shadow(0 0 6px 0 rgba(0,0,0,.3));
   .fixed-bars();
@@ -284,7 +284,7 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
   }
 
   &.minified {
-    width: 137px;
+    width: 115px;
     #main-menu>li>a {
       background-position: center;
       height: 48px;
@@ -319,6 +319,11 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
     position: relative;
     &:hover {
       .box-shadow(6px 0 0 @rosa inset);
+    }
+    &:first-child {
+      a {
+        border-top: 1px solid @body-bg;
+      }
     }
     a {
       background-color: @gray-lighter;
@@ -386,7 +391,7 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
         z-index: 15;
       }
       &:hover {
-        .box-shadow(6px 0 0 @roxo inset);
+        .box-shadow(6px 0 0 @rosa inset);
       }
     }
   }
@@ -449,13 +454,15 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
 }
 
 #logo-smc {
-    background-image: url(img/brasao.png);
-    background-position: bottom center;
     bottom: 15px;
-    height: 80px;
     left: 0;
     position: absolute;
+    text-align: center;
     width: 100%;
+    img {
+      display: block;
+      margin: 0 auto;
+    }
 }
 
 /* =Main footer

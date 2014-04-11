@@ -90,26 +90,9 @@
                     $blog_link = function_exists('get_the_posts_home_url') ? get_the_posts_home_url() : get_category_link( $blog_id );
                 ?>
                 <ul id="main-menu" class="nav">
-                    <li class="has-children">
-                        <a class="a-virada" href="<?php bloginfo( 'url' ); ?>/a-virada" title="A Virada"><span>A Virada</span></a>
-                        <ul class="children">
-                            <li><a>Teste 1</a></li>
-                            <li><a>Teste 2</a></li>
-                            <li><a>Teste 3</a></li>
-                        </ul>
-                    </li>
+                    <li><a class="a-virada" href="<?php bloginfo( 'url' ); ?>/a-virada" title="A Virada"><span>A Virada</span></a></li>
                     <li><a class="anos-10" href="<?php bloginfo( 'url' ); ?>/10-anos" title="10 anos"><span>10 anos</span></a></li>
-                    <li class="has-children">
-                        <a class="programacao" href="<?php bloginfo( 'url' ); ?>/programacao" title="Programação"><span>Programação</span></a>
-                        <ul class="children">
-                            <li><a>Teste 1</a></li>
-                            <li><a>Teste 2</a></li>
-                            <li><a>Teste 3</a></li>
-                            <li><a>Teste 1</a></li>
-                            <li><a>Teste 2</a></li>
-                            <li><a>Teste 3</a></li>
-                        </ul>
-                    </li>
+                    <li><a class="programacao" href="<?php bloginfo( 'url' ); ?>/programacao" title="Programação"><span>Programação</span></a></li>
                     <li><a class="noticias" href="<?php echo get_post_type_archive_link( 'noticias' ); ?>" title="Notícias"><span>Notícias</span></a></li>
                     <li><a class="blog" href="<?php echo esc_url( $blog_link ); ?>" title="Blog"><span>Blog</span></a></li>
                     <li><a class="imprensa" href="<?php echo get_post_type_archive_link( 'imprensa' ); ?>" title="Imprensa"><span>Imprensa</span></a></li>
@@ -120,7 +103,12 @@
             </nav>
             <!-- #main-nav -->
 
-            <h2 id="logo-smc" class="logo"><a href="http://www.prefeitura.sp.gov.br/"><span class="sr-only">Secretaria Municipal de Cultural de São Paulo</span></a></h2>
+            <h2 id="logo-smc" class="logo">
+                <a href="http://www.prefeitura.sp.gov.br/">
+                    <span class="sr-only">Secretaria Municipal de Cultural de São Paulo</span>
+                    <?php html::image("brasao.png", "Secretaria Municipal de Cultural de São Paulo", array("class" => "img-responsive")); ?>
+                </a>
+            </h2>
         </header>
         <!-- #main-header -->
 
