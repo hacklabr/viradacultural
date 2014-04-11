@@ -89,10 +89,72 @@
         </div>
     </nav>
     <div class="container-fluid">
+
+        <!-- -----------------------------
+        <section id="destaques-da-agenda" class="home-section">
+            <div class="wrap hl-carrousel clearfix">
+                <div class='hl-ref'></div>
+                <h2 class="titulo-editoria clearfix">
+                    <a href="#" class="titulo">Destaques da Agenda</a>
+                </h2>
+                <div class="hl-wrap clearfix">
+                    <article id="post-594285" class="post-594285 post type-post status-publish format-standard hentry category-saiba-antes tag-news tag-primeira-vez-no-brasil tag-salvador-dali tag-teatro-museu-dali-de-figueras post clearfix grid category-agenda has-thumbnail">
+                        <div class="splash">Saiba Antes</div>
+                        <a href="http://catracalivre.com.br/geral/saiba-antes/indicacao/em-maio-exposicao-do-dali-chega-ao-brasil/" title="Em maio, exposi&ccedil;&atilde;o do Dal&iacute; chega ao Brasil "><img width="330" height="180" src="http://catracalivre.com.br/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://catracalivre.com.br/wp-content/uploads/2014/03/dali_divulgacao-330x180.jpg" class="attachment-grid4-medio wp-post-image" alt="dali_divulgacao"/><noscript><img width="330" height="180" src="http://catracalivre.com.br/wp-content/uploads/2014/03/dali_divulgacao-330x180.jpg" class="attachment-grid4-medio wp-post-image" alt="dali_divulgacao"/></noscript></a>
+                        <div class="post-content">
+                            <h3 class="titulo-subeditoria clearfix">
+                                <a href="http://catracalivre.com.br/geral/editoria/agenda/saiba-antes/">Saiba Antes</a>
+                            </h3>
+                            <h1><a href="http://catracalivre.com.br/geral/saiba-antes/indicacao/em-maio-exposicao-do-dali-chega-ao-brasil/" title="Em maio, exposi&ccedil;&atilde;o do Dal&iacute; chega ao Brasil ">Em maio, exposição do Dalí chega ao Brasil </a></h1>
+                        </div>
+                    </article>
+
+                </div>
+                <ul class="numeric-nav hl-num-nav"></ul>
+                <nav class="hl-nav next"></nav>
+                <nav class="hl-nav prev"></nav>
+            </div>
+
+        </section>
+    <!-- --------------------------------- -->
+
+
+
         <div class="row">
             <section id="main-section" class="panel-group col-md-11 col-md-offset-1">
 
-                <div class="panel panel-default" ng-if="viewBy === 'space'" ng-repeat="space in searchResult"  on-last-repeat ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+                <div class="panel panel-default hl-carrousel" ng-show="viewBy === 'space' && viewMode === 'grid'" on-last-repeat  ng-repeat="space in searchResult" ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+
+                    <div class='hl-ref'></div>
+
+                    <div class="panel-heading clearfix">
+                        <h4 class="alignleft panel-title">
+                            <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{spaceUrl(space.id)}}">{{space.name}}</a>
+                        </h4>
+                        <a class="alignright" data-toggle="collapse" data-parent="#main-section" href="#space-{{space.id}}">
+                            <span class="icon arrow_carrot-down_alt2"></span>
+                        </a>
+                    </div>
+                    <div id="space-{{space.id}}" class="panel-collapse">
+                        <div class="program-nav program-nav-left hl-nav prev" ><span class="icon arrow_carrot-left"></span></div>
+                        <div class="program-nav program-nav-right hl-nav next" ><span class="icon arrow_carrot-right"></span></div>
+                        <ul class="numeric-nav hl-num-nav"></ul>
+                        <div class="panel-body hl-wrap">
+                            <article class="event clearfix event-grid" ng-repeat="event in space.events">
+                                    <img src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
+                                <div class="event-content clearfix">
+                                        <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
+                                    <footer class="clearfix">
+                                        <span class="alignleft"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
+                                        <a class="alignright icon icon_star_alt" href="#" ng-click="favorite(event.id)"></a>
+                                    </footer>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default" ng-if="viewBy === 'space' && viewMode === 'list'" ng-repeat="space in searchResult" ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
                     <div class="panel-heading clearfix">
                         <h4 class="alignleft panel-title">
                             <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{spaceUrl(space.id)}}">{{space.name}}</a>
@@ -102,10 +164,8 @@
                         </a>
                     </div>
                     <div id="space-{{space.id}}" class="panel-collapse collapse">
-                        <div class="program-nav program-nav-left" ng-show='viewMode === "grid"'><span class="icon arrow_carrot-left"></span></div>
-                        <div class="program-nav program-nav-right" ng-show='viewMode === "grid"'><span class="icon arrow_carrot-right"></span></div>
                         <div class="panel-body">
-                            <article class="event clearfix" ng-repeat="event in space.events" ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
+                            <article class="event clearfix event-list" ng-repeat="event in space.events">
                                     <img src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
                                 <div class="event-content clearfix">
                                         <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>

@@ -32,7 +32,7 @@ app.controller('main', function($scope){
     $scope.conf = GlobalConfiguration;
 
     $scope.$on('onRepeatLast', function(scope, element, attrs){
-        alert('last repeat')
+        hl.carrousel.init();
     });
 
     $scope.brDate = function(date){
@@ -279,5 +279,6 @@ app.controller('programacao', function($scope, $http, $location, $timeout, DataS
             });
 
         },10);
+
     };
 });
