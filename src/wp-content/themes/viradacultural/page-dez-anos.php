@@ -142,7 +142,7 @@ Template Name: 10 anos
                 animation: function(p){
                     $this.css('top', $.PVAL(win_height, navbar_height, p));
                     if(p >= 50){
-                        $('#years-nav a.active').removeClass('active');
+                        $('#years-nav .active').removeClass('active');
                         $nav.addClass('active');
                     }
 
