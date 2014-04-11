@@ -7,7 +7,7 @@ Template Name: 10 anos
 <?php get_header(); ?>
 <div class="container-fluid">
     <div class="row">
-        <section id="main-section" class="col-md-offset-1 virada-10-anos">
+        <section id="main-section" class="virada-10-anos">
             <?php if ( have_posts()) : while ( have_posts()) : the_post(); ?>
                 <article id="post-<?php the_ID(); ?>" <?php post_class('row parent');?>>
 
@@ -33,7 +33,7 @@ Template Name: 10 anos
                 </article>
 
                 <?php
-                    $children = new WP_Query( array( 'post_parent' => $post->ID, 'post_type' => 'page', 'orderby' => 'menu_order', 'order' => 'ASC', 'nopaging' => true));
+                    $children = new WP_Query( array( 'post_parent' => $post->ID, 'post_type' => 'page', 'orderby' => 'menu_order', 'order' => 'DESC', 'nopaging' => true));
                     if( $children->have_posts() ) : while( $children->have_posts() ) : $children->the_post();
                 ?>
                     <article id="post-<?php the_ID(); ?>" data-nav='#nav-<?php the_ID(); ?>' <?php post_class('row children');?>>
@@ -45,7 +45,7 @@ Template Name: 10 anos
                         <header>
                             <h1><?php the_title(); ?></h1>
                         </header>
-                        <section class="col-md-4 col-md-offset-8 clearfix">
+                        <section class="clearfix">
                             <?php the_content(); ?>
                             <p><button class="btn btn-large btn-success">Baixar programação</button></p>
                         </section>
@@ -59,14 +59,15 @@ Template Name: 10 anos
             <?php endif; ?>
         </section>
         <!-- #main-section -->
-        <style> a.active span { background:red !important; }</style>
-        <nav id="years-nav" class="block">
-            <div class="centered">
-                <a id='nav-home' href=""><span class="year">HOME</span></a>
-                <?php if( $children->have_posts() ) : while( $children->have_posts() ) : $children->the_post(); ?>
-                    <a id='nav-<?php the_ID() ?>' href="#"><span class="year"><?php the_title(); ?></span></a>
-                <?php endwhile; endif; ?>
+        <nav id="years-nav">
+            <div class="year block">
+                <div class="centered"><span class="icon icon_house"></span></div>
             </div>
+            <?php if( $children->have_posts() ) : while( $children->have_posts() ) : $children->the_post(); ?>
+                <div id='nav-<?php the_ID() ?>' class="year block">
+                    <div class="centered"><?php the_title(); ?></div>
+                </div>
+            <?php endwhile; endif; ?>
         </nav>
     </div>
     <?php // get_footer(); ?>
@@ -80,10 +81,13 @@ Template Name: 10 anos
         var $win             = $(window),
             $bg              = $("figure > img"),
             $navBar          = $('#site-navbar'),
+            $header          = $('#main-header'),
             $footer          = $('#main-footer'),
             aspectRatio      = $bg.width() / $bg.height(),
             win_height       = $win.height(),
+            win_width        = $win.width(),
             navbar_height    = $navBar.height(),
+            header_width     = $header.width(),
             article_height = win_height - navbar_height;
 
         $("#main-section > article").css({'position': 'fixed', 'top': 1000});
@@ -92,26 +96,24 @@ Template Name: 10 anos
         function resize() {
             article_height = win_height - navbar_height;
             win_height = $win.height();
-
-            $("#main-section > article").height(article_height);
+            
+            // Altura da seção principal
+            $("#main-section").height(article_height)
+            // Altura e largura dos artigos
+            $("#main-section > article").height(article_height).width(win_width - header_width);
+            // Altura do artigo pai
             $("#main-section > article.parent").height(article_height * 2);
+            // Margem do header do artigo pai
             $("#main-section > article.parent > header").css({ marginTop: navbar_height });
+            // Altura da seção do artigo pai
             $("#main-section > article.parent .block").height(article_height);
+            // Altura da imagem do artigo pai
             $("#main-section > article.parent .block > .centered > img").css({height: win_height - navbar_height * 2, width: "auto"});
-            
+
+            // Ano
+            $("#years-nav").css({height: article_height, top: navbar_height});
+
             $('body').css('height',  article_height * ($("#main-section > article").length + 2) + navbar_height);
-
-//            if ( ($win.width() / win_height) < aspectRatio ) {
-//                $bg
-//                    .removeClass()
-//                    .addClass('bgheight');
-//            } else {
-//                $bg
-//                    .removeClass()
-//                    .addClass('bgwidth');
-//            }
-
-            
         }
 
         $win.resize(resize).trigger("resize");
