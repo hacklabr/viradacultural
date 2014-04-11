@@ -1,31 +1,32 @@
 #site-navbar {
 	.share-buttons {
-    // float: right;
 		margin-top: 20px;
-
-		div {
-      // float: left;
-			margin-left: 1rem;
-			&.facebook {
-				.fb-share-button {
-					height: 20px;
-					&>span {
-						vertical-align: top !important;
-					}
-				}
-			}
-			&.twitter {
-				iframe {
-					width: 86px !important;
-				}
-			}
-		}
 	}
 
 	.pages-navbar-item {
 	    float: right;
 	    margin: 20px 0;
 	    padding: 0 0 0 15px;
+	}
+
+	#pages-search {
+		.btn .caret {
+			margin-left: 5px;
+		}
+		.dropdown-menu {
+			left: initial;
+			right: 0;
+			width: 100%;
+			background-color: @rosa;
+
+			a {
+				color: @amarelo;
+
+				&:hover {
+					background-color: @roxo;
+				}
+			}
+		}
 	}
 }
 
