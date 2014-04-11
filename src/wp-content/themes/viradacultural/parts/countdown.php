@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
         jQuery(el).knob();
         el.insertAdjacentHTML('beforebegin', '<div class="countdown-text  circle '+el.dataset.displayfield+'" data-displayfield="'+el.dataset.displayfield+'">&nbsp;</div>');
     });
-    var counter = data.seconds*10;
+    var counter;
     function updateCountdown(){
 
         var data = moment(strCurrentDate).countdown(moment(strEventDate), countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS | countdown.MILLISECONDS);

@@ -71,12 +71,14 @@
             </form>
             <form class="clearfix programacao-navbar-item" role="time-filter">
                 <div class="input-group bootstrap-timepicker">
-                    <input id="timepicker-start" type="text" class="form-control timepicker-field" data-minute-step="5" data-show-meridian="false" ng-model="startsAt" ng-change="changeStartsAt()">
+                    <input id="timepicker-start" type="text" class="form-control" data-minute-step="5" data-show-meridian="false" ng-model="startsAt">
                     <span class="input-group-addon"><span class="icon icon_clock"></span></span>
                 </div>
-                <span class="navbar-left navbar-text"> às </span>
+                <style> .birosquinha { width:300px !important; float:left;} </style>
+                <div range-slider show-values="false" prevent-equal-min-max="true" min="timeSlider.range.min" max="timeSlider.range.max" model-min="timeSlider.model.min" model-max="timeSlider.model.max" step="1" class="birosquinha"></div>
+
                 <div class="input-group bootstrap-timepicker">
-                    <input id="timepicker-end" type="text" class="form-control timepicker-field" data-minute-step="5" data-show-meridian="false" ng-model="endsAt" ng-change="changeEndsAt()">
+                    <input id="timepicker-end" type="text" class="form-control" data-minute-step="5" data-show-meridian="false" ng-model="endsAt">
                     <span class="input-group-addon"><span class="icon icon_clock"></span></span>
                 </div>
             </form>

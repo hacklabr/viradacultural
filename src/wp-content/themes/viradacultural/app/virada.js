@@ -17,7 +17,7 @@ document.addEventListener('keyup', function(e){
 });
 
 
-var app = angular.module('virada', ['google-maps']);
+var app = angular.module('virada', ['google-maps','ui-rangeSlider']);
 
 app.controller('main', function($scope){
     $scope.conf = GlobalConfiguration;
@@ -109,6 +109,32 @@ app.controller('programacao', function($scope, $http, $location, $timeout, DataS
         'spaces': false
     };
 
+    $scope.timeSlider = {
+        range: {
+            min: 0,
+            max: 96
+        },
+        model:{
+            min:0,
+            max:96
+        },
+        time:{
+            min: '18:00',
+            max: '17:59'
+        }
+    };
+
+    $scope.slideTimeout = null;
+
+    $scope.$watch('timeSlider.model', function(){
+        $scope.startsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.min * 15).format('H:mm');
+        $scope.endsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.max * 15).format('H:mm');
+
+        $timeout.cancel($scope.slideTimeout);
+        $scope.slideTimeout = $timeout(function(){
+            $scope.populateEntities();
+        },100);
+    },true);
     /**
      *
      * @param {type} s
@@ -179,38 +205,6 @@ app.controller('programacao', function($scope, $http, $location, $timeout, DataS
 
         $scope.populateEntities();
     });
-
-    $scope.changeStartsAt = function (){
-        var start = parseInt($scope.startsAt.replace(':', ''));
-        var end = parseInt($scope.endsAt.replace(':', ''));
-        if(start < 1800 && start > 1700){
-            $scope.startsAt = '17:00';
-            $scope.endsAt = '18:00';
-        }else if(start < 1800 && end < start + 100){
-            var startSplit = $scope.startsAt.split(':');
-            startSplit[0]++;
-            $scope.endsAt = startSplit.join(':');
-        }
-
-        $scope.populateEntities();
-    };
-
-    $scope.changeEndsAt = function (){
-        var start = parseInt($scope.startsAt.replace(':', ''));
-        var end = parseInt($scope.endsAt.replace(':', ''));
-
-        if(start < 1800 && start > 1700){
-            $scope.startsAt = '17:00';
-            $scope.endsAt = '18:00';
-        }else if(getTime($scope.endsAt) - getTime($scope.startsAt) <= 100){
-            var endSplit = $scope.endsAt.split(':');
-            endSplit[0] = endSplit[0] == 0 ? '23' : endSplit[0]-1;
-
-            $scope.startsAt = endSplit.join(':');
-        }
-
-        $scope.populateEntities();
-    };
 
     function getTime(time){
         var t = parseInt(time.replace(':', ''));
