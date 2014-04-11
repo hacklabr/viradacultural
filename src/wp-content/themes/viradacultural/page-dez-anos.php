@@ -27,7 +27,7 @@ Template Name: 10 anos
                         </div>
                     </section>
 
-                    <figure>
+                    <figure class="hidden">
                         <?php if ( has_post_thumbnail() ) the_post_thumbnail("large", array("class" => "background-image")); ?>
                     </figure>
                 </article>
@@ -69,9 +69,10 @@ Template Name: 10 anos
             </div>
         </nav>
     </div>
-    <?php get_footer(); ?>
+    <?php // get_footer(); ?>
 </div>
 <!-- .container-fluid -->
+
 
 <script type="text/javascript" charset="utf-8">
 (function($){
@@ -94,9 +95,11 @@ Template Name: 10 anos
 
             $("#main-section > article").height(article_height);
             $("#main-section > article.parent").height(article_height * 2);
+            $("#main-section > article.parent > header").css({ marginTop: navbar_height });
             $("#main-section > article.parent .block").height(article_height);
             $("#main-section > article.parent .block > .centered > img").css({height: win_height - navbar_height * 2, width: "auto"});
-
+            
+            $('body').css('height',  article_height * ($("#main-section > article").length + 2) + navbar_height);
 
 //            if ( ($win.width() / win_height) < aspectRatio ) {
 //                $bg
@@ -108,7 +111,7 @@ Template Name: 10 anos
 //                    .addClass('bgwidth');
 //            }
 
-            $('body').css('height',  article_height * ($("#main-section > article").length + 2) + navbar_height);
+            
         }
 
         $win.resize(resize).trigger("resize");
@@ -154,30 +157,6 @@ Template Name: 10 anos
                 }
             });
         });
-
-
-
-
-        // $("article > figure > img").each(function(index) {
-        //     $(this).attr("id", "parallax-image-"+index);
-        //     index++;
-        // })
-        // for (var i = 0; i < $("article").size(); i++) {
-        //     $("#main-section").append("<div id='trigger-"+i+"' class='trigger'></div>");
-        // }
-        // var controller = new ScrollMagic();
-        // var scenes = [];
-        // var tweens = [];
-        // for (var i = 0; i < $("article").size(); i++) {
-        //     if (i == 0) {
-        //         tweens[i] = TweenMax.fromTo("#parallax-image-"+i, 0.5, { "opacity": 1 }, { "opacity": 1 } )
-        //         scenes[i] = new ScrollScene({triggerElement: "#trigger-"+i, duration: 0, offset: $win.height() }).setTween(tweens[i]).addTo(controller);
-        //     } else {
-        //         tweens[i] = TweenMax.fromTo("#parallax-image-"+i, 0.5, { "opacity": 0, "visibility": "hidden" }, { "opacity": 1, "visibility": "visible" } )
-        //         scenes[i] = new ScrollScene({triggerElement: "#trigger-"+i, duration: 0, offset: ($win.height() - 76) * i }).setTween(tweens[i]).addTo(controller);
-        //     }
-        //     scenes[i].addIndicators();
-        // }
     })
 })(jQuery);
 </script>
