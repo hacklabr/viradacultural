@@ -10,7 +10,7 @@ $atracao = get_query_var('virada_object');
 <div class="container-fluid" ng-controller='evento'>
     <div class="row">
         <section id="main-section" class="col-md-8 col-md-offset-2">
-            <img src="{{conf.baseURL}}/wp-content/uploads/2014/04/Virada-Cultural-2013_pequeno_cidadão-foto_sylvia_masini-17.jpg" alt="{{event.name}}"/>
+            <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/04/Virada-Cultural-2013_pequeno_cidadão-foto_sylvia_masini-17.jpg" alt="{{event.name}}"/>
             <article id="event-00" class="event-single">
                 <header>
                     <h1>{{event.name}}</h1>
