@@ -17,7 +17,6 @@ document.addEventListener('keyup', function(e){
 });
 
 
-
 var app = angular.module('virada', ['google-maps']);
 
 app.controller('main', function($scope){
