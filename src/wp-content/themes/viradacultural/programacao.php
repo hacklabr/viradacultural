@@ -3,7 +3,6 @@
     <div id="map-modal" class="modal fade" tabindex="-1" role="dialog"
          aria-labelledby="myLargeModalLabel" aria-hidden="true"
          ng-controller="SpacesFilter" modal-shown="redrawMap()">
-
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -52,7 +51,9 @@
                 </div>
             </div>
         </div>
+        <!-- .modal-dialog -->
     </div>
+    <!-- #map-modal -->
     <nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top">
         <div class="container-fluid">
             <h1 class="">Programação <a ng-if="conf.pdfURL" href="{{conf.pdfURL}}" class="icon icon_download"></a></h1>
@@ -88,43 +89,13 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid">
-
-        <!-- -----------------------------
-        <section id="destaques-da-agenda" class="home-section">
-            <div class="wrap hl-carrousel clearfix">
-                <div class='hl-ref'></div>
-                <h2 class="titulo-editoria clearfix">
-                    <a href="#" class="titulo">Destaques da Agenda</a>
-                </h2>
-                <div class="hl-wrap clearfix">
-                    <article id="post-594285" class="post-594285 post type-post status-publish format-standard hentry category-saiba-antes tag-news tag-primeira-vez-no-brasil tag-salvador-dali tag-teatro-museu-dali-de-figueras post clearfix grid category-agenda has-thumbnail">
-                        <div class="splash">Saiba Antes</div>
-                        <a href="http://catracalivre.com.br/geral/saiba-antes/indicacao/em-maio-exposicao-do-dali-chega-ao-brasil/" title="Em maio, exposi&ccedil;&atilde;o do Dal&iacute; chega ao Brasil "><img width="330" height="180" src="http://catracalivre.com.br/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://catracalivre.com.br/wp-content/uploads/2014/03/dali_divulgacao-330x180.jpg" class="attachment-grid4-medio wp-post-image" alt="dali_divulgacao"/><noscript><img width="330" height="180" src="http://catracalivre.com.br/wp-content/uploads/2014/03/dali_divulgacao-330x180.jpg" class="attachment-grid4-medio wp-post-image" alt="dali_divulgacao"/></noscript></a>
-                        <div class="post-content">
-                            <h3 class="titulo-subeditoria clearfix">
-                                <a href="http://catracalivre.com.br/geral/editoria/agenda/saiba-antes/">Saiba Antes</a>
-                            </h3>
-                            <h1><a href="http://catracalivre.com.br/geral/saiba-antes/indicacao/em-maio-exposicao-do-dali-chega-ao-brasil/" title="Em maio, exposi&ccedil;&atilde;o do Dal&iacute; chega ao Brasil ">Em maio, exposição do Dalí chega ao Brasil </a></h1>
-                        </div>
-                    </article>
-
-                </div>
-                <ul class="numeric-nav hl-num-nav"></ul>
-                <nav class="hl-nav next"></nav>
-                <nav class="hl-nav prev"></nav>
-            </div>
-
-        </section>
-    <!-- --------------------------------- -->
-
+    <!-- #programacao-navbar -->
+    <div id="programacao-container" class="container-fluid">
         <div class="row">
             <section id="main-section" class="panel-group col-md-11 col-md-offset-1">
-
+                <!-- here begins the panel on grid view mode by space-->
                 <div class="panel panel-default hl-carrousel" ng-show="viewBy === 'space' && viewMode === 'grid'" on-last-repeat  ng-repeat="space in searchResult" ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
-
                     <div class='hl-ref'></div>
-
                     <div class="panel-heading clearfix">
                         <h4 class="alignleft panel-title">
                             <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{spaceUrl(space.id)}}">{{space.name}}</a>
@@ -151,7 +122,8 @@
                         </div>
                     </div>
                 </div>
-
+                <!-- .panel-->
+                <!-- here begins the panel on list view mode by space-->
                 <div class="panel panel-default" ng-if="viewBy === 'space' && viewMode === 'list'" ng-repeat="space in searchResult" ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
                     <div class="panel-heading clearfix">
                         <h4 class="alignleft panel-title">
@@ -176,7 +148,8 @@
                         </div>
                     </div>
                 </div>
-
+                <!-- .panel-->
+                <!-- here begins the panel on grid or list view mode by time-->
                 <div ng-if="viewBy === 'time'">
                     <article class="event clearfix" ng-repeat="event in searchResultEventsByTime"  on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
                         <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
@@ -189,7 +162,8 @@
                         </div>
                     </article>
                 </div>
-
+                <!-- .panel-->
+                <!-- here begins the panel on grid or list view mode by alphabetical order-->
                 <div ng-if="viewBy === 'name'">
                     <article class="event clearfix" ng-repeat="event in searchResultEventsByName" on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
                         <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
@@ -209,6 +183,6 @@
         <!-- .row -->
         <center>
     </div>
-    <!-- .container-fluid -->
+    <!-- #programacao-container.container-fluid -->
 </div>
 <?php get_footer(); ?>
