@@ -19,26 +19,22 @@ add_action('wp_print_scripts', function () {
 
 <?php get_header(); ?>
 
-<div class="container-fluid">
-	<div class="row">
+<div class="container-fluid container-menu-large">        
+	<section id="main-section" class="row">
         
-		<section id="main-section" class="col-md-8 col-md-offset-2">
-            
-			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-                <?php html::part('loop-redes'); ?>
-            <?php endwhile; ?>
-                				
-            <?php else : ?>
-                <p>Nada encontrado. Publique no twitter ou Instagram com a hashtag #<?php echo get_theme_option('hashtag'); ?></p>              
-            <?php endif; ?>
-		</section>
-        <div class="col-md-8 col-md-offset-2">
-            <button type="button" class="btn btn-default clear" id="load-more">Carregar mais</button>
-        </div>
-		<!-- #main-section -->
-		<?php get_footer(); ?>
-	</div>
-	<!-- .row -->         
+		<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+            <?php html::part('loop-redes'); ?>
+        <?php endwhile; ?>
+            				
+        <?php else : ?>
+            <p>Nada encontrado. Publique no twitter ou Instagram com a hashtag #<?php echo get_theme_option('hashtag'); ?></p>              
+        <?php endif; ?>
+	</section>
+    <div class="col-md-8 col-md-offset-2">
+        <button type="button" class="btn btn-default clear" id="load-more">Carregar mais</button>
+    </div>
+	<!-- #main-section -->
+	<?php get_footer(); ?>      
 </div>
 <!-- .container-fluid -->
 <?php html::part('countdown'); ?>
