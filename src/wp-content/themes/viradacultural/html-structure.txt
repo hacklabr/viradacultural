@@ -1,0 +1,25 @@
+<body>
+	<header id="main-header">
+		...
+	</header>
+	<div class="navbar-fixed-top">
+		<div class="container-fluid container-menu-large"/><!--ou container-menu-minified se for programacao ou 10 anos-->
+			<div class="row">
+				...
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid container-menu-large"><!--ou container-menu-minified se for programacao ou 10 anos-->
+		<section id="main-section" class="row">
+			...
+		</section>
+		<footer id="main-footer" class="row">
+			...
+		</footer>
+	</div>
+	<div id="countdown"><!--se não for programacao ou 10 anos-->
+		...
+	</div>
+</body>
+
+
