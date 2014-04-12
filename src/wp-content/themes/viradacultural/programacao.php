@@ -55,7 +55,7 @@
     </div>
     <!-- #map-modal -->
     <nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top">
-        <div class="container-fluid">
+        <div class="container-fluid container-menu-minified">
             <h1 class="">Programação <a ng-if="conf.pdfURL" href="{{conf.pdfURL}}" class="icon icon_download"></a></h1>
             <div id="view-btn-group" class="btn-group">
                 <button id="grid-view" type="button" class="btn btn-secondary" ng-class='{"active": viewMode === "grid"}' ng-click="viewMode = 'grid'"><span class="icon icon_grid-2x2"></span></button>
@@ -90,9 +90,9 @@
         </div>
     </nav>
     <!-- #programacao-navbar -->
-    <div id="programacao-container" class="container-fluid">
+    <div id="programacao-container" class="container-fluid container-menu-minified">
         <div class="row">
-            <section id="main-section" class="panel-group col-md-11 col-md-offset-1">
+            <section id="main-section" class="panel-group">
                 <!-- here begins the panel on grid view mode by space-->
                 <div class="panel panel-default hl-carrousel" ng-show="viewBy === 'space' && viewMode === 'grid'" on-last-repeat  ng-repeat="space in searchResult" ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
                     <div class='hl-ref'></div>
