@@ -242,7 +242,7 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
 }
 
 
-/* =Grid
+/* =Layout
 -------------------------------------------------------------- */
 
 .fixed-bars(){
@@ -252,6 +252,20 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
     bottom: 0;
     background-color: @gray-lighter;
 }
+
+.container-menu-minified { 
+    margin-left: 115px;
+}
+
+.container-menu-large {
+    margin-left: 225px;
+    margin-right: 225px;
+}
+
+body {
+    margin-top: 76px;
+}
+
 
 
 /* =Main header
@@ -470,6 +484,7 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
 #main-footer {
     background: @gray;
     padding: 24px;
+    clear: both;
 }
 
 
@@ -562,8 +577,6 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
     }
 }
 
-#main-section { padding: 0; }
-
 /* =Carousel
 -------------------------------------------------------------- */
 @carousel-indicator-border-color: @gray-lighter;
@@ -572,7 +585,6 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
 /* =Front-page Carousel
 -------------------------------------------------------------- */
 #front-page-carousel {
-    margin: 0 -15px;
     border: 1px solid @body-bg;
     border-top: none;
     .carousel-control {
@@ -614,7 +626,7 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
 
 /* =Post
 -------------------------------------------------------------- */
-.post, .noticias, .imprensa, .page, .event-single, .type-twitter_cpt, .type-instagram_cpt {
+article.post, article.noticias, article.imprensa, article.page, article.event-single, article.type-twitter_cpt, article.type-instagram_cpt {
     header p, footer {
             .secondary-font();
             color: @verde;
@@ -701,15 +713,6 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
 
 /* =Programação
 -------------------------------------------------------------- */
-
-body.programacao {
-    margin-top: 76px;
-}
-
-#programacao-navbar {
-    margin-left: 115px;
-}
-
 .virada-navbar {
     min-height: 76px;
     background-color: #fff;
