@@ -115,5 +115,9 @@
             </h2>
         </header>
         <!-- #main-header -->
-
-        <?php html::part('top-navbar'); ?>
+        <?php
+            $paginaprogramacao = get_query_var('virada_tpl');
+            if ($paginaprogramacao !== 'programacao') {
+                html::part('top-navbar');
+            } 
+        ?>
