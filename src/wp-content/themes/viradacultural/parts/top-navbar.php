@@ -2,16 +2,18 @@
 			<div class="container-fluid <?php if(is_page_template('page-dez-anos.php')): ?>container-menu-minified<?php else: ?>container-menu-large<?php endif;?>">
 					<div class="row">
 						<div class="col-md-2">
+							<h1>
 							<?php // títulos ?>
 							<?php if ('noticias' == get_post_type() || is_post_type_archive('noticias')) { ?>
-								<h1>Notícias</h1>
+								Notícias
 							<?php } else if ('imprensa' == get_post_type() || is_post_type_archive('imprensa')) { ?>
-								<h1>Imprensa</h1>
+								Imprensa
 							<?php } else if (is_category()) { ?>
-								<h1><?php single_cat_title(); ?></h1>
+								<?php single_cat_title(); ?></h1>
 							<?php } else if (is_single() || is_home()) { ?>
-								<h1>Blog</h1>
+								Blog
 							<?php } ?>
+							</h1>
 						</div>
 						<?php // share buttons ?>
 
