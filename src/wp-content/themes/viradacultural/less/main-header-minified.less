@@ -1,3 +1,85 @@
 #main-header-minified {
   margin-top: -76px;
+  .navbar.navbar-default {
+    background-color: @gray-lighter;
+  }
+  .navbar-header {
+    background-color: @roxo;
+    height: 50px;
+    a.navbar-brand {
+      left: 50px;
+      position: absolute;
+      right: 40px;
+      text-align: center;
+      text-transform: uppercase;
+      span {
+        display: inline;
+        font-size: 18px;
+        font-weight: bold;
+      }
+      span.a-virada {
+      }
+      span.verde {
+        color: @verde;
+      }
+      span.rosa {
+        color: @rosa;
+      }
+      span.amarelo {
+        color: @amarelo;
+        font-size: 12px;
+      }
+    }
+    button {
+      background-color: @amarelo;
+      border-color: darken(@amarelo, 20%);
+      left: 10px;
+      position: absolute;
+      .icon-bar {
+        background-color: darken(@amarelo, 20%);
+      }
+    }
+  }
+  .nav.navbar-nav {
+    a {
+      background-color: @gray-lighter;
+      background-position: 30px center;
+      background-repeat: no-repeat;
+      border-bottom: 1px solid @body-bg;
+      color: @rosa;
+      display: block;
+      height: 48px;
+      line-height: 48px;
+      padding: 0 0 0 75px;
+      position: relative;
+      white-space: nowrap;
+      z-index: 30;
+      .secondary-font();
+    }
+  }
+  
+  .a-virada {
+    .img-retina("img/virada-icon-1x.png", "img/virada-icon-2x.png", 27px, 25px);
+  }
+  .anos-10 {
+    .img-retina("img/10-icon-1x.png", "img/10-icon-2x.png", 27px, 25px);
+  }
+  .programacao {
+    .img-retina("img/programacao-icon-1x.png", "img/programacao-icon-2x.png", 27px, 25px);
+  }
+  .noticias {
+    .img-retina("img/noticias-icon-1x.png", "img/noticias-icon-2x.png", 27px, 25px);
+  }
+  .blog {
+    .img-retina("img/blog-icon-1x.png", "img/blog-icon-2x.png", 27px, 25px);
+  }
+  .imprensa {
+    .img-retina("img/imprensa-icon-1x.png", "img/imprensa-icon-2x.png", 27px, 25px);
+  }
+  .nas-redes {
+    .img-retina("img/nas-redes-icon-1x.png", "img/nas-redes-icon-2x.png", 27px, 25px);
+  }
+  .minha-virada {
+    .img-retina("img/minha-virada-icon-1x.png", "img/minha-virada-icon-2x.png", 27px, 25px);
+  }
 }

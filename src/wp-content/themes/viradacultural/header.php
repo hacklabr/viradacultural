@@ -118,20 +118,23 @@
         <!-- #main-header -->
         
         <!-- SMALL DEVICES -->
-        <header id="main-header-minified" class="hidden-md hidden-sm">
+        <header id="main-header-minified" class="hidden-md hidden-lg">
             <nav class="navbar navbar-default" role="navigation">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="collapsed-navigation">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapsed-navigation">
                             <span class="sr-only">Menu</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand">Virada Cultural</a>
+                        <a class="navbar-brand">
+                            <span class="sr-only"><?php bloginfo( 'name' ); ?></span>
+                            <span class="a-virada"></span> <span class="verde">Virada</span> <span class="rosa">Cultural</span>
+                        </a>
                     </div>
                 </div>
-                <div class="collpase navbar-collpase" id="collpased-navigation">
+                <div class="collapse navbar-collapse" id="collapsed-navigation">
                     <ul class="nav navbar-nav">
                         <li><a class="a-virada" href="<?php bloginfo( 'url' ); ?>/a-virada" title="A Virada"><span>A Virada</span></a></li>
                         <li><a class="anos-10" href="<?php bloginfo( 'url' ); ?>/10-anos" title="10 anos"><span>10 anos</span></a></li>
