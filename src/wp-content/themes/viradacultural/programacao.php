@@ -68,12 +68,12 @@
                     </select>-->
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                            Local <span class="caret"></span>
+                          {{viewByLabels[viewBy]}}  <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Local</a></li>
-                            <li><a href="#">Atração</a></li>
-                            <li><a href="#">Horário</a></li>
+                            <li><a href="#" ng-click="viewBy='space'">Local</a></li>
+                            <li><a href="#" ng-click="viewBy='name'">Atração</a></li>
+                            <li><a href="#" ng-click="viewBy='time'">Horário</a></li>
                         </ul>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="icon icon_pin" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar espaços"></span></button>
                 </div>
                 <div class="col-md-4 programacao-navbar-item">
-                    
+
                     <div class="time-filter-group clearfix">
                         <button type="button" class="btn btn-primary"><span class="icon icon_clock" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar horários"></span></button>
                         <div class="time-filter clearfix">
@@ -93,9 +93,9 @@
                                 {{endsAt}}
                             </div>
                         </div>
-                    </div>             
+                    </div>
                 </div>
-                
+
                 <div id="programacao-search" class="col-md-2 programacao-navbar-item" role="search">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='searchText' ng-change='populateEntities()'>

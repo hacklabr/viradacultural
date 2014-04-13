@@ -113,6 +113,12 @@ app.controller('programacao', function($scope, $http, $location, $timeout, DataS
 
     $scope.eventIndex = null;
 
+
+    $scope.viewByLabels = {
+        'space': 'Local',
+        'name': 'Atração',
+        'time': 'Horário'
+    };
     $scope.viewBy = 'space';
     $scope.viewMode = 'grid';
     $scope.searchText = '';
