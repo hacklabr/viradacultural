@@ -1,5 +1,5 @@
 <div id="knob">50</div>
-<div id="countdown" style="visibility:hidden" class="col-md-2">
+<div id="countdown" style="visibility:hidden" class="col-md-2 hidden-sm hidden-xs">
     <div>Faltam</div>
     <input class="knob days" data-displayfield="days" data-field="hours" data-min="0" data-max="24" data-fgcolor="#ee2c72"/>
     <div>dias</div>

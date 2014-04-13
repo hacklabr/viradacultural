@@ -81,7 +81,8 @@
     </head>
     <body <?php body_class(); ?> ng-controller="main">
 
-        <header id="main-header" <?php if (get_query_var('virada_tpl')): ?>class="minified"<?php endif; ?>>
+        <!-- MEDIUM AND LARGE DEVICES -->
+        <header id="main-header" <?php if (get_query_var('virada_tpl')): ?>class="minified"<?php endif; ?> class="hidden-sm hidden-xs">
             <div id="brand">
                 <h1 id="logo-virada" class="logo"><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><span class="sr-only"><?php bloginfo( 'name' ); ?></span></a></h1>
                 <p class="assinatura sr-only"><span>A</span> <span>cidade</span> <span>em</span> <span>festa!</span></p>
@@ -115,6 +116,36 @@
             </h2>
         </header>
         <!-- #main-header -->
+        
+        <!-- SMALL DEVICES -->
+        <header id="main-header-minified" class="hidden-md hidden-sm">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="collapsed-navigation">
+                            <span class="sr-only">Menu</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand">Virada Cultural</a>
+                    </div>
+                </div>
+                <div class="collpase navbar-collpase" id="collpased-navigation">
+                    <ul class="nav navbar-nav">
+                        <li><a class="a-virada" href="<?php bloginfo( 'url' ); ?>/a-virada" title="A Virada"><span>A Virada</span></a></li>
+                        <li><a class="anos-10" href="<?php bloginfo( 'url' ); ?>/10-anos" title="10 anos"><span>10 anos</span></a></li>
+                        <li><a class="programacao" href="<?php bloginfo( 'url' ); ?>/programacao" title="Programação"><span>Programação</span></a></li>
+                        <li><a class="noticias" href="<?php echo get_post_type_archive_link( 'noticias' ); ?>" title="Notícias"><span>Notícias</span></a></li>
+                        <li><a class="blog" href="<?php echo esc_url( $blog_link ); ?>" title="Blog"><span>Blog</span></a></li>
+                        <li><a class="imprensa" href="<?php echo get_post_type_archive_link( 'imprensa' ); ?>" title="Imprensa"><span>Imprensa</span></a></li>
+                        <li><a class="nas-redes" href="<?php bloginfo( 'url' ); ?>/nas-redes" title="Nas redes"><span>Nas redes</span></a></li>
+                        <li><a class="minha-virada" href="<?php bloginfo( 'url' ); ?>/minha-virada" title="Minha Virada"><span>Minha Virada</span></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        
         <?php
             $paginaprogramacao = get_query_var('virada_tpl');
             if ($paginaprogramacao !== 'programacao') {

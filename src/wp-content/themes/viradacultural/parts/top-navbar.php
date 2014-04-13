@@ -1,4 +1,4 @@
-		<nav id="site-navbar" class="virada-navbar navbar navbar-fixed-top">
+		<nav id="site-navbar" class="virada-navbar navbar navbar-fixed-top hidden-xs hidden-sm">
 			<div class="container-fluid <?php if(is_page_template('page-dez-anos.php')): ?>container-menu-minified<?php else: ?>container-menu-large<?php endif;?>">
 					<div class="row">
 						<div class="col-md-2">
