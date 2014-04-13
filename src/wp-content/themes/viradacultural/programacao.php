@@ -119,7 +119,7 @@
         <div class="row">
             <section id="main-section" class="panel-group">
                 <!-- here begins the panel on grid view mode by space-->
-                <div class="panel panel-default hl-carrousel" ng-show="viewBy === 'space' && viewMode === 'grid'" on-last-repeat  ng-repeat="space in searchResult" ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+                <div class="panel panel-default hl-carrousel" ng-show="viewBy === 'space' && viewMode === 'grid'" ng-repeat="space in searchResult" on-last-repeat ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
                     <div class='hl-ref'></div>
                     <div class="panel-heading clearfix">
                         <h4 class="alignleft panel-title">
@@ -149,7 +149,7 @@
                 </div>
                 <!-- .panel-->
                 <!-- here begins the panel on list view mode by space-->
-                <div class="panel panel-default" ng-if="viewBy === 'space' && viewMode === 'list'" ng-repeat="space in searchResult" ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+                <div class="panel panel-default" ng-if="viewBy === 'space' && viewMode === 'list'" ng-repeat="space in searchResult" on-last-repeat ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
                     <div class="panel-heading clearfix">
                         <h4 class="alignleft panel-title">
                             <a href="{{spaceUrl(space.id)}}">{{space.name}}</a>
