@@ -56,38 +56,63 @@
     <!-- #map-modal -->
     <nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top">
         <div class="container-fluid container-menu-minified">
-            <h1 class="">Programação <a ng-if="conf.pdfURL" href="{{conf.pdfURL}}" class="icon icon_download"></a></h1>
-            <div id="view-btn-group" class="btn-group">
-                <button id="grid-view" type="button" class="btn btn-secondary" ng-class='{"active": viewMode === "grid"}' ng-click="viewMode = 'grid'"><span class="icon icon_grid-2x2"></span></button>
-                <button id="list-view" type="button" class="btn btn-secondary" ng-class='{"active": viewMode === "list"}' ng-click="viewMode = 'list'"><span class="icon icon_menu-square_alt"></span></button>
-            </div>
-            <div id="programacao-search" class="programacao-navbar-item" role="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Digite uma palavra-chave" ng-model='searchText' ng-change='populateEntities()'>
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button"><span class="icon icon_search"></span></button>
-                    </span>
+            <div class="row">
+                <h1 class="programacao-navbar-item">Programação
+                <a class="btn btn-primary" ng-if="conf.pdfURL" href="{{conf.pdfURL}}"><span class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></span> </a></h1>
+                <div id="sort-by" class="programacao-navbar-item">
+                    <span>Por:</span>
+                    <!--<select class="form-control" ng-model="viewBy" style="width: initial;">
+                        <option value="space">local</option>
+                        <option value="name">atração</option>
+                        <option value="time">horário</option>
+                    </select>-->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                            Local <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Local</a></li>
+                            <li><a href="#">Atração</a></li>
+                            <li><a href="#">Horário</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="space-filter" class="programacao-navbar-item">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="icon icon_pin" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar espaços"></span></button>
+                </div>
+                <div class="col-md-4 programacao-navbar-item">
+                    
+                    <div class="time-filter-group clearfix">
+                        <button type="button" class="btn btn-primary"><span class="icon icon_clock" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar horários"></span></button>
+                        <div class="time-filter clearfix">
+                            <div class="time-range time-range-start">
+                                {{startsAt}}
+                            </div>
+                            <div show-values="false" range-slider prevent-equal-min-max="true" min="timeSlider.range.min" max="timeSlider.range.max" model-min="timeSlider.model.min" model-max="timeSlider.model.max" step="1"></div>
+                            <div class="time-range time-range-end">
+                                {{endsAt}}
+                            </div>
+                        </div>
+                    </div>             
+                </div>
+                
+                <div id="programacao-search" class="col-md-2 programacao-navbar-item" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='searchText' ng-change='populateEntities()'>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button"><span class="icon icon_search" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Encontrar eventos por palavra-chave"></span></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div id="view-group" class="col-md-1">
+                    <a id="grid-view" ng-class='{"active": viewMode === "grid"}' ng-click="viewMode = 'grid'"><span class="icon icon_grid-2x2"></span></a>
+                    <a id="list-view" ng-class='{"active": viewMode === "list"}' ng-click="viewMode = 'list'"><span class="icon icon_menu-square_alt"></span></a>
                 </div>
             </div>
-            <div class="clearfix programacao-navbar-item" role="time-filter">
-                <div><span class="icon icon_clock"></span></div>
-                <div>{{startsAt}}</div>
-                <div range-slider show-values="false" prevent-equal-min-max="true" min="timeSlider.range.min" max="timeSlider.range.max" model-min="timeSlider.model.min" model-max="timeSlider.model.max" step="1"></div>
-                <div>{{endsAt}}</div>
-            </div>
-            <div class="programacao-navbar-item">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="icon icon_pin"></span> Filtrar Locais</button>
-            </div>
-
-            <div class="programacao-navbar-item">
-                <span class="navbar-text">Por</span>
-                <select class="form-control" ng-model="viewBy">
-                    <option value="space">local</option>
-                    <option value="name">atração</option>
-                    <option value="time">horário</option>
-                </select>
-            </div>
+            <!-- .row -->
         </div>
+        <!-- .container-fluid -->
     </nav>
     <!-- #programacao-navbar -->
     <div id="programacao-container" class="container-fluid container-menu-minified">
@@ -98,7 +123,7 @@
                     <div class='hl-ref'></div>
                     <div class="panel-heading clearfix">
                         <h4 class="alignleft panel-title">
-                            <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{spaceUrl(space.id)}}">{{space.name}}</a>
+                            <a href="{{spaceUrl(space.id)}}">{{space.name}}</a>
                         </h4>
                         <a class="alignright" data-toggle="collapse" data-parent="#main-section" href="#space-{{space.id}}">
                             <span class="icon arrow_carrot-down_alt2"></span>
@@ -127,7 +152,7 @@
                 <div class="panel panel-default" ng-if="viewBy === 'space' && viewMode === 'list'" ng-repeat="space in searchResult" ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
                     <div class="panel-heading clearfix">
                         <h4 class="alignleft panel-title">
-                            <a class="icon icon_pin" href="#" data-toggle="modal" data-target="#map-modal"></a> <a href="{{spaceUrl(space.id)}}">{{space.name}}</a>
+                            <a href="{{spaceUrl(space.id)}}">{{space.name}}</a>
                         </h4>
                         <a class="alignright" data-toggle="collapse" data-parent="#main-section" href="#space-{{space.id}}">
                             <span class="icon arrow_carrot-down_alt2"></span>
