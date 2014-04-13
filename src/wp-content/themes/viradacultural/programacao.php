@@ -12,9 +12,10 @@
                 </div>
                 <div class="modal-body clearfix">
                     <div class="list-group">
+                        <input ng-model="filterSpace">
                         <a href="#" class="list-group-item"
                            ng-class="{active: space.selected}"
-                           ng-repeat="space in spaces"
+                           ng-repeat="space in spacesByName | filter:filterSpace"
                            ng-click="toggleSelectSpace(space)">{{space.name}}</a>
                     </div>
                     <div class="mapa google-map"
