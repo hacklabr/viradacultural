@@ -150,7 +150,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, DataS
         $timeout.cancel($scope.slideTimeout);
         $scope.slideTimeout = $timeout(function(){
             $scope.populateEntities();
-        },100);
+        },300);
     },true);
     /**
      *
