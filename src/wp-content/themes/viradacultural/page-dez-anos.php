@@ -5,7 +5,7 @@ Template Name: 10 anos
 ?>
 
 <?php get_header(); ?>
-<div class="container-fluid">
+<div class="container-fluid container-menu-minified">
     <div class="row">
         <section id="main-section" class="virada-10-anos">
             <?php if ( have_posts()) : while ( have_posts()) : the_post(); ?>
@@ -78,9 +78,6 @@ Template Name: 10 anos
 <script type="text/javascript" charset="utf-8">
 (function($){
     $(document).ready(function() {
-        
-        var myScroll = new IScroll('body');
-        
         
         var $win             = $(window),
             $bg              = $("figure > img"),
