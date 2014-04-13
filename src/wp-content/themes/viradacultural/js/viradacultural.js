@@ -3,7 +3,7 @@ var hl = {};
 (function($){
     $(document).ready(function(){
 
-        $('.btn-sm span').tooltip();
+        $('.btn span').tooltip();
 
         $('.collapse').collapse();
 
