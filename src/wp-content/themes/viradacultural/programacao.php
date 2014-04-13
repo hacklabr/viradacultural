@@ -149,7 +149,7 @@
                 </div>
                 <!-- .panel-->
                 <!-- here begins the panel on list view mode by space-->
-                <div class="panel panel-default" ng-if="viewBy === 'space' && viewMode === 'list'" ng-repeat="space in searchResult" on-last-repeat ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+                <div class="panel panel-default" ng-if="viewBy === 'space' && viewMode === 'list'" ng-repeat="space in searchResult" ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
                     <div class="panel-heading clearfix">
                         <h4 class="alignleft panel-title">
                             <a href="{{spaceUrl(space.id)}}">{{space.name}}</a>
@@ -158,7 +158,7 @@
                             <span class="icon arrow_carrot-down_alt2"></span>
                         </a>
                     </div>
-                    <div id="space-{{space.id}}" class="panel-collapse collapse">
+                    <div id="space-{{space.id}}" class="panel-collapse collapse in">
                         <div class="panel-body">
                             <article class="event clearfix event-list" ng-repeat="event in space.events">
                                     <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
