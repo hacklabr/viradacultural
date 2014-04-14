@@ -17,7 +17,7 @@ Template Name: Credenciamento de imoprensa
                 <div class="post-content clearfix">
                     <?php the_content(); ?>
 
-                    <form action="#" class="form-horizontal col-sm-offset-3 col-sm-6" role="form">
+                    <form action="#" class="form-horizontal col-md-12 col-lg-10 col-lg-offset-1" role="form">
                         <div class="form-group">
                             <label for="nome" class="col-sm-4 control-label">Nome completo</label>
                             <div class="col-sm-8">
