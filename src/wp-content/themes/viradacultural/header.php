@@ -80,7 +80,7 @@
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/_mobile/iscroll.js" type="text/javascript" charset="utf-8"></script>
     </head>
     <body <?php body_class(); ?> ng-controller="main">
-
+        <?php if(get_query_var('virada_tpl')) MinhaVirada::add_JS(); ?>
         <!-- MEDIUM AND LARGE DEVICES -->
         <header id="main-header" <?php if (get_query_var('virada_tpl')): ?>class="minified"<?php endif; ?> class="hidden-sm hidden-xs">
             <div id="brand">
@@ -143,7 +143,7 @@
                         <li><a class="blog" href="<?php echo esc_url( $blog_link ); ?>" title="Blog"><span>Blog</span></a></li>
                         <li><a class="imprensa" href="<?php echo get_post_type_archive_link( 'imprensa' ); ?>" title="Imprensa"><span>Imprensa</span></a></li>
                         <li><a class="nas-redes" href="<?php bloginfo( 'url' ); ?>/nas-redes" title="Nas redes"><span>Nas redes</span></a></li>
-                        <li><a class="minha-virada" href="<?php bloginfo( 'url' ); ?>/minha-virada" title="Minha Virada"><span>Minha Virada</span></a></li>
+                        <li><a class="minha-virada" href="<?php bloginfo( 'url' ); ?>/minha-virada" title="Minha Virada" id="menu-minha-virada"><span>Minha Virada</span></a></li>
                     </ul>
                 </div>
             </nav>

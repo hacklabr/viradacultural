@@ -48,7 +48,7 @@ app.controller('main', function($scope){
     };
 
     $scope.favorite = function(eventId){
-        alert(eventId);
+        minhaVirada.click(eventId);
     };
 });
 
