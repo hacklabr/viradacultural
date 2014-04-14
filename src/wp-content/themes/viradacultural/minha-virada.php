@@ -54,7 +54,6 @@ if ($object) {
                             <h1><?php the_title();?></h1>
                             <p><?php edit_post_link( __( 'Edit', 'viradacultural' ), '', '' ); ?></p>
                         </header>
-                        <img class="center-block" ng-src="{{conf.templateURL}}/img/virada-icon-2x.png">
 
                         <div class="post-content clearfix">
                             <?php the_content(); ?>
