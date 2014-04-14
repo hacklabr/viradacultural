@@ -45,7 +45,7 @@ Template Name: 10 anos
                         <header>
                             <h1><?php the_title(); ?></h1>
                         </header>
-                        <section class="clearfix">
+                        <section class="clearfix js-content">
                             <?php the_content(); ?>
                             <p><button class="btn btn-large btn-success">Baixar programação</button></p>
                         </section>
@@ -64,7 +64,7 @@ Template Name: 10 anos
                 <div class="centered"><span class="icon icon_house"></span></div>
             </div>
             <?php if( $children->have_posts() ) : while( $children->have_posts() ) : $children->the_post(); ?>
-                <div id='nav-<?php the_ID() ?>' class="year block">
+                <div id='nav-<?php the_ID() ?>' class="year block" data-target="post-<?php the_ID(); ?>">
                     <div class="centered"><?php the_title(); ?></div>
                 </div>
             <?php endwhile; endif; ?>
@@ -77,8 +77,9 @@ Template Name: 10 anos
 
 <script type="text/javascript" charset="utf-8">
 (function($){
+
     $(document).ready(function() {
-        
+
         var $win             = $(window),
             $bg              = $("figure > img"),
             $navBar          = $('#site-navbar'),
@@ -89,7 +90,8 @@ Template Name: 10 anos
             win_width        = $win.width(),
             navbar_height    = $navBar.height(),
             header_width     = $header.width(),
-            article_height = win_height - navbar_height;
+            article_height = win_height - navbar_height,
+            tops             = {};
 
         $("#main-section > article").css({'position': 'fixed', 'top': 1000});
         $("#main-section > article figure").css({'position': 'fixed', 'top': 0});
@@ -97,7 +99,7 @@ Template Name: 10 anos
         function resize() {
             article_height = win_height - navbar_height;
             win_height = $win.height();
-            
+
             // Altura da seção principal
             $("#main-section").height(article_height)
             // Altura e largura dos artigos
@@ -114,10 +116,53 @@ Template Name: 10 anos
             // Ano
             $("#years-nav").css({height: article_height, top: navbar_height});
 
-            $('body').css('height',  article_height * ($("#main-section > article").length + 2) + navbar_height);
+            var total = 0;
+
+            var last = {
+                start: article_height,
+                finish: 2 * article_height
+            };
+            $("#main-section > article.children").each(function(){
+                var cheight = $(this).find('.js-content').height();
+                var height = article_height < cheight ? cheight + 130 : article_height;
+                tops[this.id] = {
+                    start: last.finish,
+                    finish: last.finish + height,
+                    height: height
+                };
+                last = tops[this.id];
+                total += height;
+
+                $(this).data('top', tops[this.id]);
+            });
+
+            $('body').css('height',  last.finish + win_height);
+
         }
 
         $win.resize(resize).trigger("resize");
+        $win.load(resize);
+
+
+        $('#years-nav>div').click(function(){
+            var top;
+            if($(this).data('target'))
+                top = tops[$(this).data('target')].start + article_height;
+            else
+                top = 0;
+
+            $('html, body').animate({scrollTop: top}, 500);
+        });
+
+        // vai para a posição certa do scroll no caso de o hash ser o id de algum post
+        if(document.location.hash){
+             if($(document.location.hash).length && $(document.location.hash).data('top'))
+                 $(window).scrollTop($(document.location.hash).data('top').top);
+             else
+                 $(window).scrollTop(0);
+        }
+
+
 
         $("#main-section > article.parent").animascroll({
             startAt: 0,
@@ -127,6 +172,7 @@ Template Name: 10 anos
             }
         });
 
+
         $("#main-section > article.children").each(function(i){
             var index = i+2;
             var $nav = $($(this).data('nav'));
@@ -135,13 +181,20 @@ Template Name: 10 anos
 
             $this.animascroll({
                 startAt: function(){
-                    return index * article_height;
+                    return tops[this.id].start;
                 },
                 finishAt: function(){
-                    return (index + 1) * article_height;
+                    return tops[this.id].finish;
                 },
                 animation: function(p){
-                    $this.css('top', $.PVAL(win_height, navbar_height, p));
+                    var top = $.PVAL(win_height, (article_height - tops[this.id].height) + navbar_height, p);
+                    if(top > navbar_height){
+                        $this.css('top', top);
+                        $this.find('.js-content').css('margin-top',0);
+                    }else{
+                        $this.css('top', navbar_height);
+                        $this.find('.js-content').css('margin-top',top - navbar_height);
+                    }
                     if(p >= 50){
                         $('#years-nav .active').removeClass('active');
                         $nav.addClass('active');
@@ -150,10 +203,10 @@ Template Name: 10 anos
                 }
             }).animascroll({
                 startAt: function(){
-                    return index * article_height + article_height/2;
+                    return tops[this.id].start + article_height * .25;
                 },
                 finishAt: function(){
-                    return (index + 1) * article_height - article_height/8;
+                    return tops[this.id].start + article_height * .75;
                 },
                 animation: function(p){
                     $figure.css('opacity',$.PVAL(0,1,p));

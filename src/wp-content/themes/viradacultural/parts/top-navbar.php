@@ -7,7 +7,9 @@
 							<?php if ('noticias' == get_post_type() || is_post_type_archive('noticias')) { ?>
 								Notícias
 							<?php } else if ('imprensa' == get_post_type() || is_post_type_archive('imprensa')) { ?>
-								Imprensa
+								Imprensa <a class="btn btn-primary btn-sm" href="<?php bloginfo( 'url' ); ?>/credenciamento">Credenciamento</a>
+							<?php } else if (is_page_template('page-credenciamento-imprensa.php')) { ?>
+								Imprensa <a class="btn btn-primary btn-sm" href="<?php echo get_post_type_archive_link( 'imprensa' ); ?>" title="Imprensa">Releases</a>
 							<?php } else if (is_category()) { ?>
 								<?php single_cat_title(); ?></h1>
 							<?php } else if (is_single() || is_home()) { ?>
