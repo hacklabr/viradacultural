@@ -44,18 +44,18 @@ function viradacultural_addJS() {
     if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' );
     wp_enqueue_script('jquery');
     wp_enqueue_script('bootstrap', get_stylesheet_directory_uri().'/js/bootstrap.min.js', 'jquery');
-    
+
     wp_localize_script('jquery', 'GlobalConfiguration', array(
         'baseURL' => get_bloginfo("url"),
         'templateURL' => get_bloginfo("template_url"),
         'pdfURL' => get_theme_option('pdf-programacao'),
         'ajaxurl' => admin_url('admin-ajax.php'),
     ));
-    
+
     if(get_query_var('virada_tpl')) {
 		wp_enqueue_script('minha-virada', get_stylesheet_directory_uri().'/js/minha-virada.js', 'jquery');
 	}
-    
+
 }
 
 // CUSTOM MENU
@@ -219,6 +219,8 @@ add_filter('body_class', function($classes) {
         $classes[] = 'programacao';
         if ($tpl == 'programacao-locais-single' || $tpl == 'programacao-atracoes-single')
             $classes[] = 'programacao-single';
+        if ($tpl == 'minha-virada')
+            $classes[] = 'page';
     }
 
     return $classes;
