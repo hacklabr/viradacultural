@@ -25,6 +25,8 @@ class MinhaVirada {
 				status     : false,
 				xfbml      : true
 				});
+				
+				minhaVirada.init();
 			};
 
 			(function(d, s, id){
