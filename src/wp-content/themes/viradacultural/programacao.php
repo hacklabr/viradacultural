@@ -158,15 +158,13 @@
                         </a>
                     </div>
                     <div id="space-{{space.id}}" class="panel-collapse collapse in">
-                        <div class="panel-body">
+                        <div class="panel-body">                            
                             <article class="event clearfix event-list" ng-repeat="event in space.events">
-                                    <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
-                                <div class="event-content clearfix">
-                                        <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
-                                    <footer class="clearfix">
-                                        <span class="alignleft"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
-                                        <a class="alignright icon icon_star_alt" href="#" ng-click="favorite(event.id)"></a>
-                                    </footer>
+                                <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
+                                <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
+                                <div class="event-content clearfix">                                    
+                                    <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
+                                    <a class="icon favorite" href="#" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
                                 </div>
                             </article>
                         </div>
@@ -176,13 +174,11 @@
                 <!-- here begins the panel on grid or list view mode by time-->
                 <div ng-if="viewBy === 'time'">
                     <article class="event clearfix" ng-repeat="event in searchResultEventsByTime"  on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
+                        <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
                         <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
-                        <div class="event-content clearfix">
-                                <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
-                            <footer class="clearfix">
-                                <span class="alignleft"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
-                                <a class="alignright icon icon_star_alt" href="#"></a>
-                            </footer>
+                        <div class="event-content clearfix">                                    
+                            <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
+                            <a class="icon favorite" href="#" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
                         </div>
                     </article>
                 </div>
@@ -190,13 +186,11 @@
                 <!-- here begins the panel on grid or list view mode by alphabetical order-->
                 <div ng-if="viewBy === 'name'">
                     <article class="event clearfix" ng-repeat="event in searchResultEventsByName" on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
+                        <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
                         <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
-                        <div class="event-content clearfix">
-                                <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
-                            <footer class="clearfix">
-                                <span class="alignleft"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
-                                <a class="alignright icon icon_star_alt" href="#"></a>
-                            </footer>
+                        <div class="event-content clearfix">                                    
+                            <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
+                            <a class="icon favorite" href="#" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
                         </div>
                     </article>
                 </div>
