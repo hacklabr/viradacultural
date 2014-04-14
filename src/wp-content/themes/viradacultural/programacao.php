@@ -155,7 +155,7 @@
             <section id="list-main-section" class="panel-group">
                 <!-- .panel-->
                 <!-- here begins the panel on list view mode by space-->
-                <div id="programacao-list" class="panel panel-default" ng-if="viewBy === 'space' && viewMode === 'list'" ng-repeat="space in searchResult" ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+                <div id="programacao-list" class="panel panel-default" ng-if="viewBy === 'space' && viewMode === 'list'" ng-repeat="space in searchResult" on-last-repeat ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
                     <div class="panel-heading clearfix">
                         <h4 class="alignleft panel-title">
                             <a href="{{spaceUrl(space.id)}}">{{space.name}}</a>

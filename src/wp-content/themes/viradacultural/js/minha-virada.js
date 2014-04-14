@@ -106,6 +106,10 @@ minhaVirada = {
     },
 
     atualizaEstrelas: function() {
+        
+        if (!minhaVirada.connected)
+            return;
+        
         jQuery('.favorite').removeClass('active');
         for (var i = 0; i < minhaVirada.events.length; i++) {
             jQuery('.favorite-event-'+minhaVirada.events[i]).addClass('active');
@@ -114,6 +118,9 @@ minhaVirada = {
 
     // retorna falso se não tem, ou o índice se tem
     has_event: function(eventId) {
+        if (!minhaVirada.connected)
+            return false;
+            
         for (var i = 0; i < minhaVirada.events.length; i++) {
             if (minhaVirada.events[i] == eventId)
                 return i;
