@@ -116,7 +116,7 @@
             </h2>
         </header>
         <!-- #main-header -->
-        
+
         <!-- SMALL DEVICES -->
         <header id="main-header-minified" class="hidden-md hidden-lg">
             <nav class="navbar navbar-default" role="navigation">
@@ -148,10 +148,10 @@
                 </div>
             </nav>
         </header>
-        
+
         <?php
             $paginaprogramacao = get_query_var('virada_tpl');
             if ($paginaprogramacao !== 'programacao') {
                 html::part('top-navbar');
-            } 
+            }
         ?>
