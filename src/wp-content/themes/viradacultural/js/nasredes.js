@@ -10,7 +10,7 @@
         var buscaNovidades = function () {
 			$.ajax({
 				type: 'POST',
-				url: vars.ajaxurl,
+				url: GlobalConfiguration.ajaxurl,
 				data: {
 					last_id: last_id,
 					action: 'get_nasredes_posts',
@@ -45,7 +45,7 @@
             
             $.ajax({
 				type: 'POST',
-				url: vars.ajaxurl,
+				url: GlobalConfiguration.ajaxurl,
 				data: {
 					last_id: $('#main-section > article:last').attr('id').replace('post-', ''),
 					action: 'get_nasredes_posts',

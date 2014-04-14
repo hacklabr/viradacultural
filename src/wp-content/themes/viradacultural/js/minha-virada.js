@@ -61,7 +61,7 @@ minhaVirada = {
         minhaVirada.accessToken = response.authResponse.accessToken;
         
         //atualiza link no menu
-        jQuery('#menu-minha-virada').attr('href', jQuery('#menu-minha-virada').attr('href') + '/' + minhaVirada.uid )
+        jQuery('header .minha-virada').attr('href', GlobalConfiguration.baseURL + '/minha-virada/' + minhaVirada.uid );
         
         FB.api('/me', {fields: ['name', 'username', 'picture.height(200)']}, function(response) {
             //console.log(response);
@@ -70,7 +70,7 @@ minhaVirada = {
             minhaVirada.picture = response.picture.data.url;
             
             // Pega eventos do usuário
-            jQuery.post( vars.ajaxurl, {action: 'minhavirada_get_user_events', userid: minhaVirada.uid}, function( data ) {
+            jQuery.post( GlobalConfiguration.ajaxurl, {action: 'minhavirada_get_user_events', userid: minhaVirada.uid}, function( data ) {
                 // não sei pq se usar o metodo getJSON ao inves de post, não funciona
                 //console.log(data);
                 minhaVirada.events = data;
@@ -99,7 +99,7 @@ minhaVirada = {
     
     save: function() {
         var userJSON = minhaVirada.prepareJSON();
-        jQuery.post( vars.ajaxurl, {action: 'minhavirada_updateJSON', dados: userJSON }, function( data ) {
+        jQuery.post( GlobalConfiguration.ajaxurl, {action: 'minhavirada_updateJSON', dados: userJSON }, function( data ) {
             // atualiza estrelas
             minhaVirada.atualizaEstrelas();
         });
