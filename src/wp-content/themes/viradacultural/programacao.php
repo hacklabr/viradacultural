@@ -12,9 +12,10 @@
                 </div>
                 <div class="modal-body clearfix">
                     <div class="list-group">
+                        <input ng-model="filterSpace">
                         <a href="#" class="list-group-item"
                            ng-class="{active: space.selected}"
-                           ng-repeat="space in spaces"
+                           ng-repeat="space in spacesByName | filter:filterSpace"
                            ng-click="toggleSelectSpace(space)">{{space.name}}</a>
                     </div>
                     <div class="mapa google-map"
@@ -68,12 +69,12 @@
                     </select>-->
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                            Local <span class="caret"></span>
+                          {{viewByLabels[viewBy]}}  <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Local</a></li>
-                            <li><a href="#">Atração</a></li>
-                            <li><a href="#">Horário</a></li>
+                            <li><a href="#" ng-click="viewBy='space'">Local</a></li>
+                            <li><a href="#" ng-click="viewBy='name'">Atração</a></li>
+                            <li><a href="#" ng-click="viewBy='time'">Horário</a></li>
                         </ul>
                     </div>
                 </div>
@@ -81,7 +82,7 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="icon icon_pin" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar espaços"></span></button>
                 </div>
                 <div class="col-md-4 programacao-navbar-item">
-                    
+
                     <div class="time-filter-group clearfix">
                         <button type="button" class="btn btn-primary"><span class="icon icon_clock" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar horários"></span></button>
                         <div class="time-filter clearfix">
@@ -93,9 +94,9 @@
                                 {{endsAt}}
                             </div>
                         </div>
-                    </div>             
+                    </div>
                 </div>
-                
+
                 <div id="programacao-search" class="col-md-2 programacao-navbar-item" role="search">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='searchText' ng-change='populateEntities()'>
@@ -119,7 +120,7 @@
         <div class="row">
             <section id="main-section" class="panel-group">
                 <!-- here begins the panel on grid view mode by space-->
-                <div class="panel panel-default hl-carrousel" ng-show="viewBy === 'space' && viewMode === 'grid'" on-last-repeat  ng-repeat="space in searchResult" ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+                <div class="panel panel-default hl-carrousel" ng-show="viewBy === 'space' && viewMode === 'grid'" ng-repeat="space in searchResult" on-last-repeat ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
                     <div class='hl-ref'></div>
                     <div class="panel-heading clearfix">
                         <h4 class="alignleft panel-title">
@@ -135,13 +136,11 @@
                         <ul class="numeric-nav hl-num-nav"></ul>
                         <div class="panel-body hl-wrap">
                             <article class="event clearfix event-grid" ng-repeat="event in space.events">
-                                    <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
-                                <div class="event-content clearfix">
-                                        <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
-                                    <footer class="clearfix">
-                                        <span class="alignleft"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
-                                        <a class="alignright icon icon_star_alt" href="#" ng-click="favorite(event.id)"></a>
-                                    </footer>
+                                <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
+                                <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
+                                <div class="event-content clearfix">                                    
+                                    <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
+                                    <a class="icon favorite" href="#" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
                                 </div>
                             </article>
                         </div>
@@ -158,7 +157,7 @@
                             <span class="icon arrow_carrot-down_alt2"></span>
                         </a>
                     </div>
-                    <div id="space-{{space.id}}" class="panel-collapse collapse">
+                    <div id="space-{{space.id}}" class="panel-collapse collapse in">
                         <div class="panel-body">
                             <article class="event clearfix event-list" ng-repeat="event in space.events">
                                     <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
