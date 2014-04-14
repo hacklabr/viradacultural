@@ -110,9 +110,15 @@ app.controller('espaco', function($scope, $http, $location, $timeout, DataServic
 app.controller('programacao', function($scope, $http, $location, $timeout, DataService){
     $scope.events = null;
     $scope.spaces = null;
+    $scope.spacesByName = null;
 
     $scope.eventIndex = null;
 
+    $scope.viewByLabels = {
+        'space': 'Local',
+        'name': 'Atração',
+        'time': 'Horário'
+    };
     $scope.viewBy = 'space';
     $scope.viewMode = 'grid';
     $scope.searchText = '';
@@ -150,7 +156,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, DataS
         $timeout.cancel($scope.slideTimeout);
         $scope.slideTimeout = $timeout(function(){
             $scope.populateEntities();
-        },100);
+        },300);
     },true);
     /**
      *
@@ -187,6 +193,15 @@ app.controller('programacao', function($scope, $http, $location, $timeout, DataS
                 text: $scope.unaccent(e.name + e.shortDescription),
                 getEntity: function (){ return e; }
             };
+        });
+
+        $scope.spacesByName = $scope.spaces.slice().sort(function(a,b){
+            if(a.name > b.name)
+                return 1;
+            else if(a.name < b.name)
+                return -1;
+            else
+                return 0;
         });
 
         $scope.populateEntities();
