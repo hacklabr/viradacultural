@@ -20,8 +20,11 @@ function viradacultural_setup() {
     //set_post_thumbnail_size( 200, 150, true );
 
     //REGISTRAR AQUI TODOS OS TAMANHOS UTILIZADOS NO LAYOUT
-    //add_image_size('nome',X,Y);
-    //add_image_size('nome2',X,Y);
+    add_image_size('i1080',1920,1080, true);
+    add_image_size('i1050',1680,1050, true);
+    add_image_size('i900',1440,900,   true);
+    add_image_size('i768',1366,768,   true);
+    add_image_size('i800',1280,800,   true);
 
     // AUTOMATIC FEED LINKS
     add_theme_support('automatic-feed-links');
@@ -44,18 +47,18 @@ function viradacultural_addJS() {
     if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' );
     wp_enqueue_script('jquery');
     wp_enqueue_script('bootstrap', get_stylesheet_directory_uri().'/js/bootstrap.min.js', 'jquery');
-    
+
     wp_localize_script('jquery', 'GlobalConfiguration', array(
         'baseURL' => get_bloginfo("url"),
         'templateURL' => get_bloginfo("template_url"),
         'pdfURL' => get_theme_option('pdf-programacao'),
         'ajaxurl' => admin_url('admin-ajax.php'),
     ));
-    
+
     if(get_query_var('virada_tpl')) {
 		wp_enqueue_script('minha-virada', get_stylesheet_directory_uri().'/js/minha-virada.js', 'jquery');
 	}
-    
+
 }
 
 // CUSTOM MENU

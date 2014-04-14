@@ -28,7 +28,7 @@ Template Name: 10 anos
                     </section>
 
                     <figure class="hidden">
-                        <?php if ( has_post_thumbnail() ) the_post_thumbnail("large", array("class" => "background-image")); ?>
+                        <?php if ( has_post_thumbnail() ) the_post_thumbnail("i1080", array("class" => "background-image")); ?>
                     </figure>
                 </article>
 
@@ -38,7 +38,7 @@ Template Name: 10 anos
                 ?>
                     <article id="post-<?php the_ID(); ?>" data-nav='#nav-<?php the_ID(); ?>' <?php post_class('row children');?>>
                         <figure id='figure-<?php the_ID(); ?>'>
-                            <?php the_post_thumbnail("large", array("class" => "background-image")); ?>
+                            <?php the_post_thumbnail("i1080", array("class" => "background-image")); ?>
                         </figure>
                         <hr style="z-index:10000; position: relative;">
 
