@@ -114,6 +114,7 @@ body.single, body.page, body.programacao-single {
 
 @headings-font-family:    @font-family-sans-serif;
 @headings-font-weight:    normal;
+@headings-small-color:    @gray-dark;
 
 .secondary-font(){
     font-family: @font-family-secondary;
@@ -699,11 +700,22 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
 }
 
 #map-modal {
-    .list-group {
+    .modal-nav {
+        position: absolute;
         width: 25%;
-        float: left;
+        height: 100%;
         max-height: 400px;
+        padding-right: 20px;
+    }
+    .list-group {    
+        position: absolute;
+        top: 40px;
+        left: 0;
+        right: 22px;
+        bottom: 0;
+        margin-bottom: 0; 
         overflow: auto;
+        .secondary-font();
     }
     .google-map {
         float: right;

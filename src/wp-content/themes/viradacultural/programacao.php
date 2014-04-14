@@ -8,16 +8,21 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                             ng-click="$parent.filters.spaces = $parent.filters.spaces && countSelected() > 0"><span class="icon icon_close"></span></button>
-                    <h4 class="modal-title" id="myModalLabel">Mapa da Virada</h4>
+                    <h4 class="modal-title" id="myModalLabel">Filtro de Locais <small>Clique no nome ou no pin do local para selecioná-lo</small></h4>
                 </div>
                 <div class="modal-body clearfix">
-                    <div class="list-group">
-                        <input ng-model="filterSpace">
-                        <a href="#" class="list-group-item"
-                           ng-class="{active: space.selected}"
-                           ng-repeat="space in spacesByName | filter:filterSpace"
-                           ng-click="toggleSelectSpace(space)">{{space.name}}</a>
-                    </div>
+                    <nav class="modal-nav">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Encontre um local" ng-model="filterSpace">
+                            <span class="input-group-addon"><span class="icon icon_search"></span></span>
+                        </div>
+                        <div class="list-group">                        
+                            <a href="#" class="list-group-item"
+                               ng-class="{active: space.selected}"
+                               ng-repeat="space in spacesByName | filter:filterSpace"
+                               ng-click="toggleSelectSpace(space)">{{space.name}}</a>
+                        </div>
+                    </nav>
                     <div class="mapa google-map"
                             center="map.center"
                             control="map.control"
@@ -48,7 +53,7 @@
                     <button type="button" class="btn btn-default" ng-click="deselectAll()">Limpar seleção</button>
 
                     <button type="button" class="btn btn-primary" data-dismiss="modal"
-                            ng-click="$parent.filters.spaces = countSelected() > 0">Ver programação</button>
+                            ng-click="$parent.filters.spaces = countSelected() > 0">Aplicar filtro</button>
                 </div>
             </div>
         </div>
