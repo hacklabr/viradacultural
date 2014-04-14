@@ -11,17 +11,14 @@
                 <img class="center-block" ng-src="{{conf.templateURL}}/img/virada-icon-2x.png">
                 <div class="timeline clearfix">
                     <div class="event-group" ng-repeat="event in spaceEvents">
-                        <div class="event-time">{{event.startsAt}}</div>
-                        <article class="event event-grid clearfix">
-                            <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/04/Virada-Cultural-2013_pequeno_cidadão-foto_sylvia_masini-17-320x210.jpg"/>
-                            <div class="event-content clearfix">
-                                <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
-                                <footer class="clearfix">
-                                    <span class="alignleft"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
-                                    <a class="alignright icon icon_star" href="#"></a>
-                                </footer>
-                            </div>
-                        </article>
+                        <div class="timeline-time">{{event.startsAt}}</div>
+                        <article class="event clearfix event-grid">
+                                <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
+                                <div class="event-content clearfix">                                    
+                                    <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
+                                    <a class="icon favorite" href="#" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
+                                </div>
+                            </article>
                     </div>
                 </div>
                 <!-- .timeline -->
