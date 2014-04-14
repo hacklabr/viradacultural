@@ -2,6 +2,18 @@
 /*
 Template Name: Nas redes
 */
+
+
+add_action('wp_print_scripts', function () {
+    wp_enqueue_script('nasredes', get_stylesheet_directory_uri().'/js/nasredes.js','jquery');
+});
+
+?>
+
+<?php get_header(); ?>
+
+<?php 
+//depois do header
 global $paged;
 query_posts(array(
 	'post_type' => array('instagram_cpt', 'twitter_cpt'),
@@ -11,13 +23,7 @@ query_posts(array(
     'order' => 'DESC'
 ));
 
-add_action('wp_print_scripts', function () {
-    wp_enqueue_script('nasredes', get_stylesheet_directory_uri().'/js/nasredes.js','jquery');
-});
-
 ?>
-
-<?php get_header(); ?>
 
 <div class="container-fluid container-menu-large">        
 	<section id="main-section" class="row">

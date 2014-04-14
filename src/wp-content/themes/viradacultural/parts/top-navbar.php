@@ -12,21 +12,29 @@
 								Imprensa <a class="btn btn-primary btn-sm" href="<?php echo get_post_type_archive_link( 'imprensa' ); ?>" title="Imprensa">Releases</a>
 							<?php } else if (is_category()) { ?>
 								<?php single_cat_title(); ?></h1>
+							<?php } else if (is_search()) { ?>
+								Busca
+                            <?php } else if (is_page_template('page-nas-redes.php')) { ?>
+                                #<?php echo get_theme_option('hashtag'); ?>
+                            <?php } else if (get_query_var('virada_tpl') && get_query_var('virada_tpl') == 'minha-virada') { ?>
+                                Minha Virada
+                            <?php } else if (get_query_var('virada_tpl') && get_query_var('virada_tpl') == 'programacao-locais-single') { ?>
+                                LOCAL
+                            <?php } else if (get_query_var('virada_tpl') && get_query_var('virada_tpl') == 'programacao-atracoes-single') { ?>
+                                Atração
+                            <?php } else if (get_query_var('virada_tpl') && get_query_var('virada_tpl') == 'programacao-atracoes-single') { ?>
+                                Atração
+                            <?php } else if (is_page_template('page-dez-anos.php')) { ?>
+                                10 anos
 							<?php } else if (is_single() || is_home()) { ?>
 								Blog
-							<?php } ?>
+                            <?php } ?>
 							</h1>
 						</div>
 						<?php // share buttons ?>
 
 						<div class="share-buttons col-md-4">
 							<ul>
-								<li class="email">
-									<a href="mailto:email@virada.com.br" class="btn btn-default">
-										<span class="icon icon_mail"></span>
-										<span class="text">email</span>
-									</a>
-								</li>
 								<li class="facebook">
 									<a href="https://www.facebook.com/sharer/sharer.php?u=<?php the_permalink(); ?>" class="btn btn-default popup">
 										<span class="icon social_facebook"></span>
