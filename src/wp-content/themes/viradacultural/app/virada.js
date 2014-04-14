@@ -33,6 +33,7 @@ app.controller('main', function($scope){
 
     $scope.$on('onRepeatLast', function(scope, element, attrs){
         hl.carrousel.init();
+
     });
 
     $scope.brDate = function(date){

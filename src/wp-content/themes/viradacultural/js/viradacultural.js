@@ -5,8 +5,6 @@ var hl = {};
 
         $('.btn span').tooltip();
 
-        $('.collapse').collapse();
-
         $('#front-page-carousel .item:first, .carousel-indicators li:first').addClass('active');
 
         $('#front-page-carousel').carousel();
@@ -24,11 +22,11 @@ var hl = {};
         $(".page-template-page-dez-anos-php > #main-header").removeClass().addClass("minified");
 
     });
-    
+
     function bla(eventId) {
         console.log('bla'+eventId);
     }
-    
+
     hl.carrousel = {
         init: function(selector){
             selector = selector || '.hl-carrousel';
