@@ -81,6 +81,16 @@
     </head>
     <body <?php body_class(); ?> ng-controller="main">
         <?php if(get_query_var('virada_tpl')) MinhaVirada::add_JS(); ?>
+        <?php if (is_single()) { ?>
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1379698002311750";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+        <?php } ?>
         <!-- MEDIUM AND LARGE DEVICES -->
         <header id="main-header" <?php if (get_query_var('virada_tpl')): ?>class="minified"<?php endif; ?> class="hidden-sm hidden-xs">
             <div id="brand">
