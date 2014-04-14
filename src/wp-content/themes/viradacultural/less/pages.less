@@ -58,33 +58,34 @@
 
 .blog, .archive {
 	#posts-nav {
+		width: 90%;
 		clear: both;
-		width: 100%;
-		padding-top: 24px;
+		padding-top: 60px;
 		overflow: hidden;
 	}
 }
 
 #posts-nav {
-	width: 80%;
-	margin: 0 auto 24px;
+	width: 70%;
+	margin: 0 auto 60px;
 
 	a {
 		display: block;
 		width: 36px;
 		height: 36px;
+		color: @amarelo;
+		background-color: @rosa;
+		border-radius: 2px;
+		&:hover {
+			background-color: @roxo;
+		}
 	}
 
 	.icon {
 		display: block;
 		width: 36px;
 		height: 36px;
-		font-size: 36px;
-		background-color: @rosa;
-		color: @amarelo;
-		&:hover {
-		background-color: @roxo;
-		}
+		font-size: 34px;
 	}
 
 	.label {

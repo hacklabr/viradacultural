@@ -16,8 +16,8 @@
 				<div class="carousel-inner">
 					<?php while ($homefeatures->have_posts()) : $homefeatures->the_post(); ?>
 						<div class="item">
-							<?php if ( has_post_thumbnail() ) : ?> 
-								<?php the_post_thumbnail('large', 'true'); ?>				 
+							<?php if ( has_post_thumbnail() ) : ?>
+								<?php the_post_thumbnail('large', 'true'); ?>
 							<?php endif; ?>
 							<div class="carousel-caption">
 								<h1><a href="<?php the_permalink();?>" title="<?php the_title_attribute();?>"><?php the_title();?></a></h1>
@@ -35,7 +35,7 @@
 				</a>
 			<?php else :?>
                 <p>Nenhum destaque encontrado.</p>
-			<?php endif; ?> 
+			<?php endif; ?>
 		</div>
 		<?php wp_reset_postdata(); ?>
 		<div class="clearfix">
@@ -44,15 +44,19 @@
             <?php endwhile; ?>
             <?php if ($wp_query->max_num_pages > 1) : ?>
                 <nav id="posts-nav" class="clearfix">
-                    <div class="alignleft"><?php next_posts_link(__('&laquo; Previous posts', 'viradacultural')); ?></div>
-                    <div class="alignright"><?php previous_posts_link(__('Next posts &raquo;', 'viradacultural')); ?></div>
+                    <div class="alignleft">
+                        <?php next_posts_link('<span class="icon  arrow_carrot-left"></span><span class="label">Posts anteriores</span>'); ?>
+                    </div>
+                    <div class="alignright">
+                        <?php previous_posts_link('<span class="icon arrow_carrot-right"></span><span class="label">Próximos posts</span>'); ?>
+                    </div>
                 </nav>
                 <!-- #posts-nav -->
-            <?php endif; ?>					
+            <?php endif; ?>
         <?php else : ?>
-            <p><?php _e('No results found.', 'viradacultural'); ?></p>              
+            <p><?php _e('No results found.', 'viradacultural'); ?></p>
         <?php endif; ?>
-       	</div>			
+       	</div>
 	</section>
 	<!-- #main-section -->
 	<?php get_footer(); ?>

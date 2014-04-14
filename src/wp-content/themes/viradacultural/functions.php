@@ -222,6 +222,8 @@ add_filter('body_class', function($classes) {
         $classes[] = 'programacao';
         if ($tpl == 'programacao-locais-single' || $tpl == 'programacao-atracoes-single')
             $classes[] = 'programacao-single';
+        if ($tpl == 'minha-virada')
+            $classes[] = 'page';
     }
 
     return $classes;
