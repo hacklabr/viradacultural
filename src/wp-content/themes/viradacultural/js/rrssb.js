@@ -257,7 +257,7 @@
 	jQuery(document).ready(function(){
 		rrssbInit();
 
-		jQuery('.rrssb-buttons a.popup').on('click', function(e){
+		jQuery('.share-buttons a.popup').on('click', function(e){
 			var _this = jQuery(this);
 			popupCenter(_this.attr('href'), _this.find('.text').html(), 580, 470);
 			e.preventDefault();
