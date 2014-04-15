@@ -2,7 +2,7 @@
 <div class="container-fluid container-menu-large">
 	<section id="main-section" class="row">
 		<?php if ( have_posts()) : while ( have_posts()) : the_post(); ?>
-			<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix');?>>
+			<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix col-md-8 col-md-offset-2');?>>
 				<header>
 					<h1><?php the_title();?></h1>
 					<p><?php edit_post_link( __( 'Edit', 'viradacultural' ), '', '' ); ?></p>

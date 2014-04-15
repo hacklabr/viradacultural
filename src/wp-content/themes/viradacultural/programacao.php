@@ -60,7 +60,7 @@
         <!-- .modal-dialog -->
     </div>
     <!-- #map-modal -->
-    <nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top">
+    <nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top hidden-sm hidden-xs">
         <div class="container-fluid container-menu-minified">
             <div class="row">
                 <h1 class="programacao-navbar-item">Programação
@@ -125,7 +125,7 @@
         <div class="row">
             <section id="main-section" class="panel-group">
                 <!-- here begins the panel on grid view mode by space-->
-                <div id="programacao-grid" class="panel panel-default hl-carrousel" ng-if="viewBy === 'space' && viewMode === 'grid'" ng-repeat="space in searchResult" on-last-repeat ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+                <div id="programacao-grid" class="panel panel-default hl-carrousel hidden-sm hidden-xs" ng-if="viewBy === 'space' && viewMode === 'grid'" ng-repeat="space in searchResult" on-last-repeat ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
                     <div class='hl-ref'></div>
                     <div class="panel-heading clearfix">
                         <h4 class="alignleft panel-title">
