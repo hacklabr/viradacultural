@@ -1,7 +1,7 @@
 <?php 
 $has_thumb = has_post_thumbnail(); 
 ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix grid-post col-lg-3 col-md-4 col-sm-4 col-xs-12' . ( $has_thumb ? ' has-thumbnail' : '' ));?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix grid-post col-lg-3 col-md-6 col-sm-4 col-xs-12 left right' . ( $has_thumb ? ' has-thumbnail' : '' ));?>>
 	<?php if ( $has_thumb ) :?>
 		<div class="post-img"><div class="post-img-cover"></div><?php the_post_thumbnail('thumbnail'); ?></div>
 	<?php endif;?> 
