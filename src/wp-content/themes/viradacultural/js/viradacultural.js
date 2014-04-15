@@ -19,7 +19,7 @@ var hl = {};
         //     }
         // );
 
-        $(".page-template-page-dez-anos-php > #main-header").removeClass().addClass("minified");
+        $(".page-template-page-dez-anos-php > #main-header").removeClass().addClass("minified hidden-sm hidden-xs");
 
     });
 
