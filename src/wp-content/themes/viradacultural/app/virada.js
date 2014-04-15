@@ -2,7 +2,7 @@
 document.addEventListener('keyup', function(e){
     if(e.ctrlKey && e.keyCode == 32){
        jQuery('.panel-collapse').collapse('toggle');
-       console.log('toggling collapsible... \n catch that fire!')
+       //console.log('toggling collapsible... \n catch that fire!')
     }
 });
 
@@ -30,7 +30,7 @@ app.directive('onLastRepeat', function() {
 
 app.controller('main', function($scope){
     $scope.conf = GlobalConfiguration;
-
+    
     $scope.$on('onRepeatLast', function(scope, element, attrs){
         hl.carrousel.init();
         minhaVirada.atualizaEstrelas();
@@ -51,6 +51,34 @@ app.controller('main', function($scope){
     $scope.favorite = function(eventId){
         minhaVirada.click(eventId);
     };
+    
+    window.fbAsyncInit = function() {
+        FB.init({
+        appId      : '1460336737533597',
+        status     : false,
+        xfbml      : true
+        });
+        
+        // ao carregar a pagina vemos se o usuario ja esta conectado e com o app autorizado.
+        // se nao estiver, não fazemos nada. Só vamos fazer alguma coisa se ele clicar
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                minhaVirada.initializeUserData(response, false);
+                $scope.connected = true;
+                $scope.$emit('fb_connected', response.authResponse.userID);
+            }
+        });
+        
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/pt_BR/all.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    
 });
 
 app.controller('evento', function($scope, $http, $location, $timeout, DataService){
@@ -297,4 +325,79 @@ app.controller('programacao', function($scope, $http, $location, $timeout, DataS
         },10);
 
     };
+});
+
+app.controller('minha-virada', function($rootScope, $scope, $http, $location, $timeout, DataService){
+    
+    $scope.hasEvents = false;
+    $scope.userEvents = [];
+    $scope.user_name = 'Minha Virada';
+    $scope.connected = false;
+    $scope.home = true; // não estou vendo perfil de ninguém
+    $scope.itsme = false;
+    
+    var $myscope = $scope;
+
+    $rootScope.$on('fb_connected', function(ev, uid) {
+        $scope.connected = true;
+        
+        $scope.home = false;
+        
+        
+        if ($location.$$hash) {
+            if ($location.$$hash == uid) {
+                
+                $scope.itsme = true;
+                $scope.$apply();
+            }
+            return;
+        }
+        
+        $scope.itsme = true;
+        
+        $scope.$apply();
+        
+        $scope.loadUserData(uid);
+        $location.hash(uid);
+        
+        
+    });
+    
+    $scope.loadUserData = function(uid) {
+        $http.get($scope.conf.baseURL+'/wp-content/uploads/minha-virada/'+uid).success(function(data){
+            $scope.populateUserInfo(data);
+        });
+    }
+    
+    $scope.populateUserInfo = function(data) {
+        
+        $scope.user_picture = data.picture;
+        $scope.user_name = data.name;
+        
+        $http.get($scope.conf.templateURL+'/app/events.json').success(function(allEvents){
+            
+            allEvents.forEach(function(e){
+                if (data.events && data.events.length > 0) {
+                    $scope.hasEvents = true
+                    for (var i = 0; i < data.events.length; i++) {
+                        if(e.id == data.events[i]) {
+                            $scope.userEvents.push(e);
+                            break;
+                        }
+                    }
+                }
+
+            });
+            
+        });
+        
+    }
+    
+    if ($location.$$hash) {
+        $scope.home = false;
+        $scope.loadUserData($location.$$hash);
+    }
+    
+    
+
 });

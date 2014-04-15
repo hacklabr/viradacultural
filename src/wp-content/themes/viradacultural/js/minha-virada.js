@@ -9,18 +9,6 @@ minhaVirada = {
     picture: false,
     events: false,
 
-    init: function() {
-        // ao carregar a pagina vemos se o usuario ja esta conectado e com o app autorizado.
-        // se nao estiver, não fazemos nada. Só vamos fazer alguma coisa se ele clicar
-
-        FB.getLoginStatus(function(response) {
-            if (response.status === 'connected') {
-                minhaVirada.initializeUserData(response, false);
-            }
-        });
-
-    },
-
     connect: function(callback) {
         var callback = 'minhaVirada.' + callback + '()';
 
@@ -118,10 +106,12 @@ minhaVirada = {
 
     // retorna falso se não tem, ou o índice se tem
     has_event: function(eventId) {
+        
         if (!minhaVirada.connected)
             return false;
             
         for (var i = 0; i < minhaVirada.events.length; i++) {
+
             if (minhaVirada.events[i] == eventId)
                 return i;
         }

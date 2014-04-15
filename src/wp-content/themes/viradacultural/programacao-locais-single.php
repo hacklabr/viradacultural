@@ -16,7 +16,7 @@
                                 <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
                                 <div class="event-content clearfix">                                    
                                     <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
-                                    <a class="icon favorite favorite-event-{{event.id}}" href="#" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
+                                    <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
                                 </div>
                             </article>
                     </div>
