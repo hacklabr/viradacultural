@@ -57,7 +57,6 @@ if ($object) {
 
                         <div class="post-content clearfix">
                             <?php the_content(); ?>
-                            <?php wp_link_pages( array( 'before' => '<nav class="page-link">' . __( 'Pages:', 'viradacultural' ), 'after' => '</nav>' ) ); ?>
                         </div>
                         <!-- .post-content -->
                     </article>
