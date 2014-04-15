@@ -60,7 +60,7 @@
         <!-- .modal-dialog -->
     </div>
     <!-- #map-modal -->
-    <nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top">
+    <nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top hidden-sm hidden-xs">
         <div class="container-fluid container-menu-minified">
             <div class="row">
                 <h1 class="programacao-navbar-item">Programação
