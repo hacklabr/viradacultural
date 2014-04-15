@@ -21,10 +21,11 @@ function viradacultural_setup() {
 
     //REGISTRAR AQUI TODOS OS TAMANHOS UTILIZADOS NO LAYOUT
     add_image_size('i1080',1920,1080, true);
-    add_image_size('i1050',1680,1050, true);
-    add_image_size('i900',1440,900,   true);
-    add_image_size('i768',1366,768,   true);
-    add_image_size('i800',1280,800,   true);
+    add_image_size('i900', 1600, 900, true);
+    add_image_size('i800', 1422, 800, true);
+    add_image_size('i768', 1366, 768, true);
+    add_image_size('i480',  853, 480, true);
+    add_image_size('i320',  568, 320, true);
 
     // AUTOMATIC FEED LINKS
     add_theme_support('automatic-feed-links');
