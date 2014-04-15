@@ -1,11 +1,11 @@
 <!-- .container-fluid -->
 
 <?php get_header(); ?>
-<div ng-controller="minha-virada">
+<div ng-controller="minha-virada" class="js-page-minha-virada">
     <div class="container-fluid container-menu-large">
         <section id="main-section" class="row">
 
-                <article id="space-00" class="space-single">
+                <article id="user-timeline" class="space-single">
                     <header>
                         <h1>{{user_name}}</h1>
                     </header>
@@ -15,7 +15,7 @@
                     <img src="{{user_picture}}" />
 
                     <div class="timeline clearfix">
-                        <div class="event-group" ng-repeat="event in userEvents">
+                        <div class="event-group" id="event-group-{{event.id}}" ng-repeat="event in userEvents">
                             <div class="timeline-time">{{event.startsAt}}</div>
                             <article class="event clearfix event-grid">
                                 <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
