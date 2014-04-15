@@ -16,7 +16,7 @@
                             <input type="text" class="form-control" placeholder="Encontre um local" ng-model="filterSpace">
                             <span class="input-group-addon"><span class="icon icon_search"></span></span>
                         </div>
-                        <div class="list-group">                        
+                        <div class="list-group">
                             <a href="#" class="list-group-item"
                                ng-class="{active: space.selected}"
                                ng-repeat="space in spacesByName | filter:filterSpace"
@@ -125,7 +125,7 @@
         <div class="row">
             <section id="main-section" class="panel-group">
                 <!-- here begins the panel on grid view mode by space-->
-                <div id="programacao-grid" class="panel panel-default hl-carrousel" ng-show="viewBy === 'space' && viewMode === 'grid'" ng-repeat="space in searchResult" on-last-repeat ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+                <div id="programacao-grid" class="panel panel-default hl-carrousel" ng-if="viewBy === 'space' && viewMode === 'grid'" ng-repeat="space in searchResult" on-last-repeat ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
                     <div class='hl-ref'></div>
                     <div class="panel-heading clearfix">
                         <h4 class="alignleft panel-title">
