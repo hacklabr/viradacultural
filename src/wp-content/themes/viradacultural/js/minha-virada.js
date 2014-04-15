@@ -48,9 +48,6 @@ minhaVirada = {
         minhaVirada.uid = response.authResponse.userID;
         minhaVirada.accessToken = response.authResponse.accessToken;
 
-        //atualiza link no menu
-        jQuery('header .minha-virada').attr('href', GlobalConfiguration.baseURL + '/minha-virada/' + minhaVirada.uid );
-
         FB.api('/me', {fields: ['name', 'username', 'picture.height(200)']}, function(response) {
             //console.log(response);
             minhaVirada.userame = response.username;
