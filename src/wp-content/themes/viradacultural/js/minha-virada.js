@@ -127,6 +127,11 @@ minhaVirada = {
             var has_event = minhaVirada.has_event(minhaVirada.eventId);
             if (has_event !== false ) { // o indice pode ser 0
                 minhaVirada.events.splice(has_event, 1);
+                
+                // Se estiver editando a pagina minha virada, exclui o evento da página
+                if (jQuery('div.js-page-minha-virada').size() > 0)
+                    jQuery('#event-group-' + minhaVirada.eventId).remove();
+                    
             } else {
                 minhaVirada.events.push(minhaVirada.eventId);
             }
