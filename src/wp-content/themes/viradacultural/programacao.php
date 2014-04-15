@@ -145,7 +145,7 @@
                                 <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
                                 <div class="event-content clearfix">
                                     <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
-                                    <a class="icon favorite favorite-event-{{event.id}}" href="#" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
+                                    <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
                                 </div>
                             </article>
                         </div>
@@ -155,7 +155,7 @@
             <section id="list-main-section" class="panel-group">
                 <!-- .panel-->
                 <!-- here begins the panel on list view mode by space-->
-                <div id="programacao-list" class="panel panel-default" ng-if="viewBy === 'space' && viewMode === 'list'" ng-repeat="space in searchResult" ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+                <div id="programacao-list" class="panel panel-default" ng-if="viewBy === 'space' && viewMode === 'list'" ng-repeat="space in searchResult" on-last-repeat ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
                     <div class="panel-heading clearfix">
                         <h4 class="alignleft panel-title">
                             <a href="{{spaceUrl(space.id)}}">{{space.name}}</a>
@@ -171,7 +171,7 @@
                                 <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
                                 <div class="event-content clearfix">
                                     <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
-                                    <a class="icon favorite favorite-event-{{event.id}}" href="#" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
+                                    <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
                                 </div>
                             </article>
                         </div>
@@ -185,7 +185,7 @@
                         <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
                         <div class="event-content clearfix">
                             <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
-                            <a class="icon favorite favorite-event-{{event.id}}" href="#" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
+                            <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
                         </div>
                     </article>
                 </div>
@@ -197,7 +197,7 @@
                         <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
                         <div class="event-content clearfix">
                             <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
-                            <a class="icon favorite favorite-event-{{event.id}}" href="#" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
+                            <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
                         </div>
                     </article>
                 </div>
