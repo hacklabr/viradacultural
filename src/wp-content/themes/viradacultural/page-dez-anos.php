@@ -181,7 +181,7 @@ imgs['<?php the_ID(); ?>'] = {};
                 }
                     
                 $(this).find('figure').css({
-                    background: 'url(' + url + ') center center',
+                    background: 'url(' + url + ') center center no-repeat',
                     width: win_width,
                     height: win_height
                 });
