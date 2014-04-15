@@ -456,8 +456,6 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
 }
 
 .grid-post {
-    // float: left;
-    // width: 25%;
     overflow: hidden;
     text-align: center;
     background-color: @gray-lighter;
@@ -516,6 +514,11 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
         }
         footer {
             padding: 0 15px;
+        }
+    }
+    &.type-twitter_cpt{
+        .post-content{
+            height: auto;
         }
     }
     .post-img {
