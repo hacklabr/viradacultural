@@ -91,6 +91,25 @@
               fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));</script>
         <?php } ?>
+
+        <!-- Modal evento salvo na Minha Virada -->
+        <div class="modal fade favorita-evento">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            <span class="icon icon_close"></span>
+                        </button>
+                        <h4>Minha Virada</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Evento salvo na página <a href="<?php bloginfo( 'url' ); ?>/minhavirada">Minha Virada</a>.</p>
+                        <button type="button" class="btn btn-primary alignright">Dispensar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
         <!-- MEDIUM AND LARGE DEVICES -->
         <header id="main-header" <?php if (get_query_var('virada_tpl')): ?>class="minified hidden-sm hidden-xs"<?php endif; ?> class="hidden-sm hidden-xs">
             <div id="brand">
