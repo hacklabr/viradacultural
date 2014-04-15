@@ -28,9 +28,13 @@ app.directive('onLastRepeat', function() {
 });
 
 
-app.controller('main', function($scope){
+app.controller('main', function($scope, $window){
     $scope.conf = GlobalConfiguration;
-    
+
+    $scope.winWidth = function(){
+        return $window.innerWidth;
+    };
+
     $scope.$on('onRepeatLast', function(scope, element, attrs){
         hl.carrousel.init();
         minhaVirada.atualizaEstrelas();
@@ -51,14 +55,14 @@ app.controller('main', function($scope){
     $scope.favorite = function(eventId){
         minhaVirada.click(eventId);
     };
-    
+
     window.fbAsyncInit = function() {
         FB.init({
         appId      : '1460336737533597',
         status     : false,
         xfbml      : true
         });
-        
+
         // ao carregar a pagina vemos se o usuario ja esta conectado e com o app autorizado.
         // se nao estiver, não fazemos nada. Só vamos fazer alguma coisa se ele clicar
         FB.getLoginStatus(function(response) {
@@ -68,7 +72,7 @@ app.controller('main', function($scope){
                 $scope.$emit('fb_connected', response.authResponse.userID);
             }
         });
-        
+
     };
 
     (function(d, s, id){
@@ -78,7 +82,7 @@ app.controller('main', function($scope){
         js.src = "//connect.facebook.net/pt_BR/all.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
-    
+
 });
 
 app.controller('evento', function($scope, $http, $location, $timeout, DataService){
@@ -136,7 +140,7 @@ app.controller('espaco', function($scope, $http, $location, $timeout, DataServic
 });
 
 
-app.controller('programacao', function($scope, $http, $location, $timeout, DataService){
+app.controller('programacao', function($scope, $http, $location, $timeout, $window, DataService){
     $scope.events = null;
     $scope.spaces = null;
     $scope.spacesByName = null;
@@ -149,7 +153,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, DataS
         'time': 'Horário'
     };
     $scope.viewBy = 'space';
-    $scope.viewMode = 'grid';
+    $scope.viewMode = $window.innerWidth >= 992 ? 'grid' : 'list';
     $scope.searchText = '';
 
     $scope.startsAt = '18:00';
@@ -177,6 +181,14 @@ app.controller('programacao', function($scope, $http, $location, $timeout, DataS
     };
 
     $scope.slideTimeout = null;
+
+    $scope.win = $window;
+
+    angular.element($window).bind('resize', function(){
+        if($window.innerWidth < 992)
+            $scope.viewMode = 'list';
+        $scope.$apply();
+    });
 
     $scope.$watch('timeSlider.model', function(){
         $scope.startsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.min * 15).format('H:mm');
@@ -328,54 +340,54 @@ app.controller('programacao', function($scope, $http, $location, $timeout, DataS
 });
 
 app.controller('minha-virada', function($rootScope, $scope, $http, $location, $timeout, DataService){
-    
+
     $scope.hasEvents = false;
     $scope.userEvents = [];
     $scope.user_name = 'Minha Virada';
     $scope.connected = false;
     $scope.home = true; // não estou vendo perfil de ninguém
     $scope.itsme = false;
-    
+
     var $myscope = $scope;
 
     $rootScope.$on('fb_connected', function(ev, uid) {
         $scope.connected = true;
-        
+
         $scope.home = false;
-        
-        
+
+
         if ($location.$$hash) {
             if ($location.$$hash == uid) {
-                
+
                 $scope.itsme = true;
                 $scope.$apply();
             }
             return;
         }
-        
+
         $scope.itsme = true;
-        
+
         $scope.$apply();
-        
+
         $scope.loadUserData(uid);
         $location.hash(uid);
-        
-        
+
+
     });
-    
+
     $scope.loadUserData = function(uid) {
         $http.get($scope.conf.baseURL+'/wp-content/uploads/minha-virada/'+uid).success(function(data){
             $scope.populateUserInfo(data);
         });
     }
-    
+
     $scope.populateUserInfo = function(data) {
-        
+
         $scope.user_picture = data.picture;
         $scope.user_name = data.name;
-        
+
         $http.get($scope.conf.templateURL+'/app/events.json').success(function(allEvents){
-            
+
             allEvents.forEach(function(e){
                 if (data.events && data.events.length > 0) {
                     $scope.hasEvents = true
@@ -388,16 +400,16 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
                 }
 
             });
-            
+
         });
-        
+
     }
-    
+
     if ($location.$$hash) {
         $scope.home = false;
         $scope.loadUserData($location.$$hash);
     }
-    
-    
+
+
 
 });

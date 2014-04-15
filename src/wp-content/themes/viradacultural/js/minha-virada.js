@@ -48,9 +48,6 @@ minhaVirada = {
         minhaVirada.uid = response.authResponse.userID;
         minhaVirada.accessToken = response.authResponse.accessToken;
 
-        //atualiza link no menu
-        jQuery('header .minha-virada').attr('href', GlobalConfiguration.baseURL + '/minha-virada/' + minhaVirada.uid );
-
         FB.api('/me', {fields: ['name', 'username', 'picture.height(200)']}, function(response) {
             //console.log(response);
             minhaVirada.userame = response.username;
@@ -130,6 +127,11 @@ minhaVirada = {
             var has_event = minhaVirada.has_event(minhaVirada.eventId);
             if (has_event !== false ) { // o indice pode ser 0
                 minhaVirada.events.splice(has_event, 1);
+                
+                // Se estiver editando a pagina minha virada, exclui o evento da página
+                if (jQuery('div.js-page-minha-virada').size() > 0)
+                    jQuery('#event-group-' + minhaVirada.eventId).remove();
+                    
             } else {
                 minhaVirada.events.push(minhaVirada.eventId);
             }
