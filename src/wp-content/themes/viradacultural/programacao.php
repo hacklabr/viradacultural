@@ -124,19 +124,13 @@
     </nav>
     <!-- #programacao-navbar -->
 
-    <!-- SMALL DEVICES -->
-    <nav id="programacao-navbar-sm" class="virada-navbar navbar navbar-fixed-top hidden-md hidden-lg">
+    <nav id="collapsed-filter" class="collapse navbar-collapse virada-navbar hidden-md hidden-ld">
         <div class="container-fluid container-menu-minified">
             <div class="row">
                 <h1 class="programacao-navbar-item">Programação
                 <a class="btn btn-primary" ng-if="conf.pdfURL" href="{{conf.pdfURL}}"><span class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></span> </a></h1>
                 <div id="sort-by" class="programacao-navbar-item">
                     <span>Por:</span>
-                    <!--<select class="form-control" ng-model="viewBy" style="width: initial;">
-                        <option value="space">local</option>
-                        <option value="name">atração</option>
-                        <option value="time">horário</option>
-                    </select>-->
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                           {{viewByLabels[viewBy]}}  <span class="caret"></span>
@@ -175,17 +169,11 @@
                         </span>
                     </div>
                 </div>
-
-                <div id="view-group" class="col-md-1">
-                    <a id="grid-view" ng-class='{"active": viewMode === "grid"}' ng-click="viewMode = 'grid'"><span class="icon icon_grid-2x2"></span></a>
-                    <a id="list-view" ng-class='{"active": viewMode === "list"}' ng-click="viewMode = 'list'"><span class="icon icon_menu-square_alt"></span></a>
-                </div>
             </div>
             <!-- .row -->
         </div>
         <!-- .container-fluid -->
     </nav>
-    <!-- #programacao-navbar -->
 
     <div id="programacao-container" class="container-fluid container-menu-minified">
         <div class="row">

@@ -151,7 +151,7 @@
             <nav class="navbar navbar-default" role="navigation">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapsed-navigation">
+                        <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target="#collapsed-navigation">
                             <span class="sr-only">Menu</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -159,8 +159,12 @@
                         </button>
                         <a class="navbar-brand">
                             <span class="sr-only"><?php bloginfo( 'name' ); ?></span>
-                            <span class="a-virada"></span> <span class="verde">Virada</span> <span class="rosa">Cultural</span>
+                            <span class="verde">Virada</span> <span class="rosa">Cultural</span>
                         </a>
+                        <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target="#collapsed-filter">
+                            <span class="sr-only">Filtro</span>
+                            <span class="glyphicon glyphicon-filter"></span>
+                        </button>
                     </div>
                 </div>
                 <div class="collapse navbar-collapse" id="collapsed-navigation">
