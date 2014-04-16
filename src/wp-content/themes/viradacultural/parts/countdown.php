@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
             jQuery(el).trigger('change'); //for knob to work ...
         });
         [].forEach.call(countdownElement.querySelectorAll('.countdown-text'), function(el) {
-            el.innerText = data[el.dataset.displayfield];
+            el.innerHTML = data[el.dataset.displayfield];
         });
         countdownElement.style.visibility = 'visible';
     }
