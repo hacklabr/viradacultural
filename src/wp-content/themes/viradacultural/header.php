@@ -93,7 +93,7 @@
         <?php } ?>
 
         <!-- Modal evento salvo na Minha Virada -->
-        <div class="modal fade favorita-evento">
+        <div id="modal-favorita-evento" class="modal fade favorita-evento">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -103,8 +103,8 @@
                         <h4>Minha Virada</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Evento salvo na página <a href="<?php bloginfo( 'url' ); ?>/minhavirada">Minha Virada</a>.</p>
-                        <button type="button" class="btn btn-primary alignright">Dispensar</button>
+                        <p>Sua programação foi atualizada! Para acessá-la, visite a página <a href="<?php echo site_url('minha-virada'); ?>">Minha Virada</a>.</p>
+                        <button id="modal-favorita-dismiss" type="button" class="btn btn-primary alignright">Ok, já entendi</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
