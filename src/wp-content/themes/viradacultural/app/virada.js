@@ -38,6 +38,12 @@ app.controller('main', function($scope, $window){
     $scope.$on('onRepeatLast', function(scope, element, attrs){
         hl.carrousel.init();
         minhaVirada.atualizaEstrelas();
+
+        jQuery("img.lazy").css('min-height', '166px').lazyload({
+//            effect : "fadeIn",
+            skip_invisible: false,
+            failure_limit: 1000
+        });
     });
 
     $scope.brDate = function(date){
@@ -161,7 +167,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
     };
     $scope.viewBy = 'space';
     $scope.smallDevice = $window.innerWidth < 992;
-    $scope.viewMode =$scope.smallDevice ? 'grid' : 'list';
+    $scope.viewMode = $scope.smallDevice ? 'list' : 'grid';
     $scope.searchText = '';
 
     $scope.startsAt = '18:00';
@@ -191,6 +197,10 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
     $scope.slideTimeout = null;
 
     $scope.win = $window;
+
+    $scope.setViewMode = function(mode){
+        $scope.viewMode = mode;
+    };
 
     angular.element($window).bind('resize', function(){
         if($window.innerWidth < 992){
