@@ -160,7 +160,8 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         'time': 'Horário'
     };
     $scope.viewBy = 'space';
-    $scope.viewMode = $window.innerWidth >= 992 ? 'grid' : 'list';
+    $scope.smallDevice = $window.innerWidth < 992;
+    $scope.viewMode =$scope.smallDevice ? 'grid' : 'list';
     $scope.searchText = '';
 
     $scope.startsAt = '18:00';
@@ -192,8 +193,12 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
     $scope.win = $window;
 
     angular.element($window).bind('resize', function(){
-        if($window.innerWidth < 992)
+        if($window.innerWidth < 992){
             $scope.viewMode = 'list';
+            $scope.smallDevice = true;
+        }else{
+            $scope.smallDevice = false;
+        }
         $scope.$apply();
     });
 
