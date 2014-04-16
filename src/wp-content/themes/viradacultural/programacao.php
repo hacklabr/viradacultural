@@ -127,10 +127,8 @@
     <nav id="collapsed-filter" class="collapse navbar-collapse virada-navbar hidden-md hidden-ld">
         <div class="container-fluid container-menu-minified">
             <div class="row">
-                <h1 class="programacao-navbar-item">Programação
-                <a class="btn btn-primary" ng-if="conf.pdfURL" href="{{conf.pdfURL}}"><span class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></span> </a></h1>
-                <div id="sort-by" class="programacao-navbar-item">
-                    <span>Por:</span>
+                <h1 class="programacao-navbar-item bottom top left right"><a class="btn btn-primary" ng-if="conf.pdfURL" href="{{conf.pdfURL}}"><span class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></span> </a></h1>
+                <div id="sort-by" class="programacao-navbar-item left right">
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                           {{viewByLabels[viewBy]}}  <span class="caret"></span>
@@ -145,8 +143,7 @@
                 <div id="space-filter" class="programacao-navbar-item">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="icon icon_pin" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar espaços"></span></button>
                 </div>
-                <div class="col-md-4 programacao-navbar-item">
-
+                <div class="programacao-navbar-item col-xs-12 col-sm-12 top left right">
                     <div class="time-filter-group clearfix">
                         <button type="button" class="btn btn-primary"><span class="icon icon_clock" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar horários"></span></button>
                         <div class="time-filter clearfix">
@@ -161,7 +158,7 @@
                     </div>
                 </div>
 
-                <div id="programacao-search" class="col-md-2 programacao-navbar-item" role="search">
+                <div id="programacao-search" class="programacao-navbar-item col-xs-12 col-sm-12 top left right" role="search">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='searchText' ng-change='populateEntities()'>
                         <span class="input-group-btn">
