@@ -66,6 +66,7 @@
 
         <script src="<?php bloginfo( 'template_url' ) ?>/js/viradacultural.js"></script>
 
+        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/jquery.lazyload.min.js" ></script>
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/jquery.animascroll.js" ></script>
 
         <script src="<?php bloginfo( 'template_url' ) ?>/js/moment.min.js"></script>

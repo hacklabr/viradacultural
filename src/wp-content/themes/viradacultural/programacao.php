@@ -114,8 +114,8 @@
                 </div>
 
                 <div id="view-group" class="col-md-1">
-                    <a id="grid-view" ng-class='{"active": viewMode === "grid"}' ng-click="viewMode = 'grid'"><span class="icon icon_grid-2x2"></span></a>
-                    <a id="list-view" ng-class='{"active": viewMode === "list"}' ng-click="viewMode = 'list'"><span class="icon icon_menu-square_alt"></span></a>
+                    <a id="grid-view" ng-class='{"active": viewMode === "grid"}' ng-click="setViewMode('grid')"><span class="icon icon_grid-2x2"></span></a>
+                    <a id="list-view" ng-class='{"active": viewMode === "list"}' ng-click="setViewMode('list')"><span class="icon icon_menu-square_alt"></span></a>
                 </div>
             </div>
             <!-- .row -->
@@ -193,7 +193,9 @@
                         <div class="panel-body hl-wrap">
                             <article class="event clearfix event-grid" ng-repeat="event in space.events">
                                 <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
+                                <!-- <img data-original="{{event.defaultImage}}" class="lazy"/> -->
                                 <img ng-src="{{event.defaultImage}}"/>
+
                                 <div class="event-content clearfix">
                                     <h1><a href="{{eventUrl(event.id)}}" target="_blank">{{event.name}}</a></h1>
                                     <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
@@ -232,6 +234,7 @@
                 <div ng-if="viewBy === 'time'">
                     <article class="event clearfix" ng-repeat="event in searchResultEventsByTime"  on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}" ng-show="!filters.spaces || (filters.spaces && event.isInFilteredSpaces() )">
                         <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
+                        <!-- <img data-original="{{event.defaultImage}}" class="lazy"/> -->
                         <img ng-src="{{event.defaultImage}}"/>
                         <div class="event-content clearfix">
                             <h1><a href="{{eventUrl(event.id)}}" target="_blank">{{event.name}}</a></h1>
@@ -244,6 +247,7 @@
                 <div ng-if="viewBy === 'name'">
                     <article class="event clearfix" ng-repeat="event in searchResultEventsByName" on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}" ng-show="!filters.spaces || (filters.spaces && event.isInFilteredSpaces() )">
                         <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
+                        <!-- <img data-original="{{event.defaultImage}}" class="lazy"/> -->
                         <img ng-src="{{event.defaultImage}}"/>
                         <div class="event-content clearfix">
                             <h1><a href="{{eventUrl(event.id)}}" target="_blank">{{event.name}}</a></h1>
