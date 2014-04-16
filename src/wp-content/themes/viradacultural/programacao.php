@@ -180,7 +180,7 @@
                 <!-- .panel-->
                 <!-- here begins the panel on grid or list view mode by time-->
                 <div ng-if="viewBy === 'time'">
-                    <article class="event clearfix" ng-repeat="event in searchResultEventsByTime"  on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
+                    <article class="event clearfix" ng-repeat="event in searchResultEventsByTime"  on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}" ng-show="!filters.spaces || (filters.spaces && event.isInFilteredSpaces() )">
                         <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
                         <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
                         <div class="event-content clearfix">
@@ -192,7 +192,7 @@
                 <!-- .panel-->
                 <!-- here begins the panel on grid or list view mode by alphabetical order-->
                 <div ng-if="viewBy === 'name'">
-                    <article class="event clearfix" ng-repeat="event in searchResultEventsByName" on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
+                    <article class="event clearfix" ng-repeat="event in searchResultEventsByName" on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}" ng-show="!filters.spaces || (filters.spaces && event.isInFilteredSpaces() )">
                         <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
                         <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
                         <div class="event-content clearfix">
