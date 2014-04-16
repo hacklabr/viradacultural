@@ -62,7 +62,7 @@
     <!-- #map-modal -->
 
     <!-- LARGE DEVICES -->
-    <nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top hidden-sm hidden-xs">
+    <nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top hidden-sm hidden-xs" ng-if="!smallDevice">
         <div class="container-fluid container-menu-minified">
             <div class="row">
                 <h1 class="programacao-navbar-item">Programação
@@ -124,7 +124,7 @@
     </nav>
     <!-- #programacao-navbar -->
 
-    <nav id="collapsed-filter" class="collapse navbar-collapse virada-navbar hidden-md hidden-ld">
+    <nav id="collapsed-filter" class="collapse navbar-collapse virada-navbar hidden-md hidden-ld"  ng-if="smallDevice">
         <div class="container-fluid container-menu-minified">
             <div class="row">
                 <h1 class="programacao-navbar-item bottom top left right"><a class="btn btn-primary" ng-if="conf.pdfURL" href="{{conf.pdfURL}}"><span class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></span> </a></h1>
