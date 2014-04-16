@@ -9,10 +9,8 @@
                     <header>
                         <h1>{{user_name}}</h1>
                     </header>
-                    <img class="center-block" ng-src="{{conf.templateURL}}/img/virada-icon-2x.png">
 
-                    
-                    <img src="{{user_picture}}" />
+                    <div class="user-photo" style="background-image: url({{user_picture}});"></div>
 
                     <div class="timeline clearfix">
                         <div class="event-group" id="event-group-{{event.id}}" ng-repeat="event in userEvents">
@@ -47,7 +45,7 @@
                 <?php endwhile; ?>
                 <?php endif; ?>
 
-            
+
 
         </section>
         <!-- #main-section -->

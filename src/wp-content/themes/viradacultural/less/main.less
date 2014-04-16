@@ -462,9 +462,11 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     border-right: 1px solid @body-bg;
     border-bottom: 1px solid @body-bg;
     .transition(background linear .3s);
+    font-size: 14px;
+    line-height: 24px;
     .post-content {
         position: relative;
-        height: 180px;
+        height: auto;
         padding: 24px 15px;
         h1 {
             font-size: @font-size-base;
@@ -474,7 +476,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
             overflow: hidden;
         }
         >p {
-            height: 72px;
+            height: auto;
             margin-bottom: 0;
             overflow: hidden;
         }
@@ -499,7 +501,13 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     }
     &.has-thumbnail {
         .post-content {
+            height: 222px;
             padding-top: 0;
+            >p {
+                height: 72px;
+                margin-bottom: 0;
+                overflow: hidden;
+            }
         }
         .post-type-icon {
             margin-top: -18px;
@@ -513,7 +521,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
             margin-top: -18px;
         }
         footer {
-            padding: 0 15px;
+            padding: 0 15px 24px;
         }
     }
     &.type-twitter_cpt{

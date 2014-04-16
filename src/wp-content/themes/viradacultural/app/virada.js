@@ -56,6 +56,13 @@ app.controller('main', function($scope, $window){
         minhaVirada.click(eventId);
     };
 
+    $scope.getSelectedIds = function(array){
+        var result = array.filter(function(value,index){
+            return value.selected;
+        });
+        return result.map(function(e){return parseInt(e.id)})
+    };
+
     window.fbAsyncInit = function() {
         FB.init({
         appId      : '1460336737533597',
@@ -199,6 +206,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
             $scope.populateEntities();
         },300);
     },true);
+
     /**
      *
      * @param {type} s
@@ -301,8 +309,13 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
 
             $scope.eventIndex.forEach(function(event){
                 if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0)
-                && event.startsAt <= searchEndsAt  &&  event.startsAt >= searchStartsAt)
-                    events.push(event.getEntity());
+                && event.startsAt <= searchEndsAt  &&  event.startsAt >= searchStartsAt){
+                    var e = event.getEntity();
+                    e.isInFilteredSpaces = function(){
+                        return $scope.getSelectedIds($scope.spaces).indexOf(parseInt(e.spaceId)) !== -1;
+                    }
+                    events.push(e);
+                }
             });
 
             $scope.searchResultEventsByTime = events;

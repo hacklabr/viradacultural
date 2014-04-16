@@ -3,8 +3,8 @@
     var app = angular.module('virada');
     var conf = GlobalConfiguration;
 
-    app.controller('SpacesFilter',[ '$scope', 'DataService',
-        function SpacesFilterCtrl($scope, DataService) {
+    app.controller('SpacesFilter',[ '$scope',
+        function SpacesFilterCtrl($scope) {
             $scope.map = {
                 center: {
                     latitude: -23.524001004591987,
@@ -19,11 +19,7 @@
                 'selected': 'http://mt.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png'
             }
 
-            $scope.spaces = [];
-            DataService.getSpaces()
-                .then(function(result){
-                    $scope.spaces = result.data;
-                });
+
 
             $scope.countSelected = function(){
                 return $scope.spaces.filter(function(space){
@@ -48,7 +44,7 @@
             $scope.toggleSelectSpace = function(space) {
                 space.selected = !space.selected;
             };
-            
+
             $scope.deselectAll = function(){
                 $scope.spaces.forEach(function(s){ s.selected = false; });
             };

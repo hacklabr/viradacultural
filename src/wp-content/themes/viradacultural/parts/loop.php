@@ -1,7 +1,7 @@
 <?php 
 $has_thumb = has_post_thumbnail(); 
 ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix grid-post col-lg-3 col-md-6 col-sm-4 col-xs-12 left right' . ( $has_thumb ? ' has-thumbnail' : '' ));?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix grid-post col-lg-3 col-md-6 col-sm-4 col-xs-12 left right js-adjust-height' . ( $has_thumb ? ' has-thumbnail' : '' ));?>>
 	<?php if ( $has_thumb ) :?>
 		<div class="post-img"><div class="post-img-cover"></div><?php the_post_thumbnail('thumbnail'); ?></div>
 	<?php endif;?> 
@@ -17,12 +17,6 @@ $has_thumb = has_post_thumbnail();
 			<h1><a href="<?php the_permalink();?>" title="<?php the_title_attribute();?>"><?php the_title();?></a></h1>
 		</header>
 		<?php the_excerpt(); ?>
-		<!--<footer class="clearfix">	
-			<p class="taxonomies">			
-				<span><?php _e('Categories', 'viradacultural'); ?>:</span> <?php the_category(', ');?><br />
-				<?php the_tags('<span>Tags:</span> ', ', '); ?>
-			</p>		
-		</footer> -->
 	</div>
 </article>
 <!-- .post -->

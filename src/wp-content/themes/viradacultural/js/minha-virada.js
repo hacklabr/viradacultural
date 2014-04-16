@@ -7,7 +7,8 @@ minhaVirada = {
     username: false,
     name: false,
     picture: false,
-    events: false,
+    events: [],
+    modalDismissed: false,
 
     connect: function(callback) {
         var callback = 'minhaVirada.' + callback + '()';
@@ -54,11 +55,19 @@ minhaVirada = {
             minhaVirada.name = response.name;
             minhaVirada.picture = response.picture.data.url;
 
-            // Pega eventos do usuário
-            jQuery.post( GlobalConfiguration.ajaxurl, {action: 'minhavirada_get_user_events', userid: minhaVirada.uid}, function( data ) {
-                // não sei pq se usar o metodo getJSON ao inves de post, não funciona
-                //console.log(data);
-                minhaVirada.events = data;
+            // Pega dados do usuário
+            jQuery.getJSON( GlobalConfiguration.baseURL + '/wp-content/uploads/minha-virada/' + minhaVirada.uid, function( data ) {
+                
+                console.log(data);
+                
+                if (!data.events)
+                    minhaVirada.events = [];
+                else
+                    minhaVirada.events = data.events;
+                
+                if (data.modalDismissed)
+                    minhaVirada.modalDismissed = data.modalDismissed;
+                
                 minhaVirada.atualizaEstrelas();
                 if (callback)
                     eval(callback);
@@ -68,7 +77,13 @@ minhaVirada = {
 
         });
 
-
+        // Dismiss modal
+        jQuery('#modal-favorita-dismiss').click(function() {
+            console.log('dismissed');
+            minhaVirada.modalDismissed = true;
+            jQuery('#modal-favorita-evento').modal('hide');
+            minhaVirada.save();
+        });
 
     },
 
@@ -77,7 +92,8 @@ minhaVirada = {
             uid: minhaVirada.uid,
             picture: minhaVirada.picture,
             events: minhaVirada.events,
-            name: minhaVirada.name
+            name: minhaVirada.name,
+            modalDismissed: minhaVirada.modalDismissed
         }
         return json;
     },
@@ -87,6 +103,8 @@ minhaVirada = {
         jQuery.post( GlobalConfiguration.ajaxurl, {action: 'minhavirada_updateJSON', dados: userJSON }, function( data ) {
             // atualiza estrelas
             minhaVirada.atualizaEstrelas();
+            if (!minhaVirada.modalDismissed)
+                jQuery('#modal-favorita-evento').modal('show');
         });
     },
 
@@ -126,12 +144,18 @@ minhaVirada = {
         if (minhaVirada.eventId) {
             var has_event = minhaVirada.has_event(minhaVirada.eventId);
             if (has_event !== false ) { // o indice pode ser 0
-                minhaVirada.events.splice(has_event, 1);
                 
-                // Se estiver editando a pagina minha virada, exclui o evento da página
-                if (jQuery('div.js-page-minha-virada').size() > 0)
-                    jQuery('#event-group-' + minhaVirada.eventId).remove();
+                //if (confirm('Tem certeza que quer remover esta atração da sua seleção?')) {
+                
+                    minhaVirada.events.splice(has_event, 1);
                     
+                    // Se estiver editando a pagina minha virada, exclui o evento da página
+                    if (jQuery('div.js-page-minha-virada').size() > 0)
+                        jQuery('#event-group-' + minhaVirada.eventId).fadeOut(function() {
+                            jQuery(this).remove();
+                        });
+                //}
+                
             } else {
                 minhaVirada.events.push(minhaVirada.eventId);
             }
