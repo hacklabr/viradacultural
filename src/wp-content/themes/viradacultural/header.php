@@ -64,8 +64,6 @@
             <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/angular-rangeslider-master/angular.rangeSlider.js" ></script>
         <?php endif; ?>
 
-        <script src="<?php bloginfo( 'template_url' ) ?>/js/viradacultural.js"></script>
-
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/jquery.lazyload.min.js" ></script>
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/jquery.animascroll.js" ></script>
 
@@ -79,6 +77,9 @@
         <script src="<?php bloginfo( 'template_url' ) ?>/js/rrssb.js"></script>
 
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/_mobile/iscroll.js" type="text/javascript" charset="utf-8"></script>
+        <script src="<?php bloginfo( 'template_url' ) ?>/js/fastclick.js"></script>
+
+        <script src="<?php bloginfo( 'template_url' ) ?>/js/viradacultural.js"></script>
     </head>
     <body <?php body_class(); ?> ng-controller="main">
         <?php if(get_query_var('virada_tpl')) MinhaVirada::add_JS(); ?>
