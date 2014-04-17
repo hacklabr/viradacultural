@@ -113,7 +113,7 @@
         </div><!-- /.modal -->
 
         <!-- MEDIUM AND LARGE DEVICES -->
-        <header id="main-header" <?php if (get_query_var('virada_tpl') == 'programacao'): ?>class="minified hidden-sm hidden-xs"<?php endif; ?> class="hidden-sm hidden-xs">
+        <header id="main-header" <?php if (get_query_var('virada_tpl') == 'programacao' || is_page_template('page-dez-anos.php')): ?>class="minified hidden-sm hidden-xs"<?php endif; ?> class="hidden-sm hidden-xs">
             <div id="brand">
                 <h1 id="logo-virada" class="logo"><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><span class="sr-only"><?php bloginfo( 'name' ); ?></span></a></h1>
                 <p class="assinatura sr-only"><span>A</span> <span>cidade</span> <span>em</span> <span>festa!</span></p>
