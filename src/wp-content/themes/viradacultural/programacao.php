@@ -189,7 +189,8 @@
                             <article class="event clearfix event-grid" ng-repeat="event in space.events">
                                 <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
                                 <!-- <img data-original="{{event.defaultImage}}" class="lazy"/> -->
-                                <img ng-src="{{event.defaultImage}}"/>
+                                <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
+
 
                                 <div class="event-content clearfix">
                                     <h1><a href="{{eventUrl(event.id)}}" target="_blank">{{event.name}}</a></h1>
