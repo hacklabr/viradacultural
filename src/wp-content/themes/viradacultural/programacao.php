@@ -53,7 +53,7 @@
                     <button type="button" class="btn btn-default" ng-click="deselectAll()">Limpar seleção</button>
 
                     <button type="button" class="btn btn-primary" data-dismiss="modal"
-                            ng-click="$parent.filters.spaces = countSelected() > 0">Aplicar filtro</button>
+                            ng-click="$parent.filters.spaces = countSelected() > 0; populateEntities();">Aplicar filtro</button>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
     </div>
     <!-- #map-modal -->
     <!-- LARGE DEVICES -->
-    <nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top hidden-sm hidden-xs" ng-show="!smallDevice" >
+    <nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top hidden-sm hidden-xs" ng-if="!smallDevice" >
         <div class="container-fluid container-menu-minified">
             <div class="row">
                 <h1 class="programacao-navbar-item">Programação
@@ -90,7 +90,7 @@
                             <div class="time-range time-range-start">
                                 {{startsAt}}
                             </div>
-                            <div show-values="false" range-slider prevent-equal-min-max="true" min="timeSlider.range.min" max="timeSlider.range.max" model-min="timeSlider.model.min" model-max="timeSlider.model.max" step="1"></div>
+                            <div show-values="false" range-slider prevent-equal-min-max="true" min="timeSlider.range.min" max="timeSlider.range.max" model-min="timeSlider.model.min" model-max="timeSlider.model.max" step="1" ></div>
                             <div class="time-range time-range-end">
                                 {{endsAt}}
                             </div>
@@ -100,7 +100,7 @@
 
                 <div id="programacao-search" class="col-md-2 programacao-navbar-item" role="search">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='searchText' ng-change='populateEntities()'>
+                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='searchText' ng-change='setSearchText()'>
                         <span class="input-group-btn">
                             <button class="btn btn-primary" type="button"><span class="icon icon_search" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Encontrar eventos por palavra-chave"></span></button>
                         </span>
@@ -170,7 +170,7 @@
         <div class="row">
             <section id="main-section" class="panel-group hidden-sm hidden-xs">
                 <!-- here begins the panel on grid view mode by space-->
-                <div id="programacao-grid" class="panel panel-default hl-carrousel" ng-if="viewBy === 'space' && viewMode === 'grid'" ng-repeat="space in searchResult" on-last-repeat ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+                <div id="programacao-grid" class="panel panel-default hl-carrousel" ng-if="viewBy === 'space' && viewMode === 'grid'" ng-repeat="space in searchResult" on-last-repeat>
                     <div class='hl-ref'></div>
                     <div class="panel-heading clearfix">
                         <h4 class="alignleft panel-title">
@@ -202,7 +202,7 @@
             <section id="list-main-section" class="panel-group">
                 <!-- .panel-->
                 <!-- here begins the panel on list view mode by space-->
-                <div id="programacao-list" class="panel panel-default" ng-if="viewBy === 'space' && viewMode === 'list'" ng-repeat="space in searchResult" on-last-repeat ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+                <div id="programacao-list" class="panel panel-default" ng-if="viewBy === 'space' && viewMode === 'list'" ng-repeat="space in searchResult" on-last-repeat>
                     <div class="panel-heading clearfix">
                         <h4 class="alignleft panel-title">
                             <a href="{{spaceUrl(space.id)}}" target="_blank">{{space.name}}</a>
@@ -226,7 +226,7 @@
                 <!-- .panel-->
                 <!-- here begins the panel on grid or list view mode by time-->
                 <div ng-if="viewBy === 'time'">
-                    <article class="event clearfix" ng-repeat="event in searchResultEventsByTime"  on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}" ng-show="!filters.spaces || (filters.spaces && event.isInFilteredSpaces() )">
+                    <article class="event clearfix" ng-repeat="event in searchResultEventsByTime" on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
                         <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
                         <img data-original="{{event.defaultImageThumb}}" class="lazy"/>
 <!--                        <img ng-src="{{event.defaultImageThumb}}"/>-->
@@ -239,7 +239,7 @@
                 <!-- .panel-->
                 <!-- here begins the panel on grid or list view mode by alphabetical order-->
                 <div ng-if="viewBy === 'name'">
-                    <article class="event clearfix" ng-repeat="event in searchResultEventsByName" on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}" ng-show="!filters.spaces || (filters.spaces && event.isInFilteredSpaces() )">
+                    <article class="event clearfix" ng-repeat="event in searchResultEventsByName" on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
                         <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
                         <img data-original="{{event.defaultImageThumb}}" class="lazy"/>
 <!--                        <img ng-src="{{event.defaultImageThumb}}"/>-->
