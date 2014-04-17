@@ -9,6 +9,7 @@
 	</header>
 	<div class="post-content clearfix">
 		<?php the_content(); ?>
+        <?php do_action('virada-single-after-content', get_the_ID()); ?>
 		<?php wp_link_pages( array( 'before' => '<nav class="page-link">' . __( 'Pages:', 'viradacultural' ), 'after' => '</nav>' ) ); ?>
 	</div>
 	<!-- .post-content -->
