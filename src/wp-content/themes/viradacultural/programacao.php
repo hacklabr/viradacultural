@@ -65,7 +65,7 @@
         <div class="container-fluid container-menu-minified">
             <div class="row">
                 <h1 class="col-md-3 programacao-navbar-item">Programação
-                <a class="btn btn-primary" ng-if="conf.pdfURL" href="{{conf.pdfURL}}"><span class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></span> </a></h1>
+                <a class="btn btn-primary" ng-if="conf.pdfURL" href="{{conf.pdfURL}}"><span class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></span></a></h1>
                 <div class="programacao-navbar-item">
                     <span>Por:</span>
                     <div class="btn-group">
@@ -80,7 +80,7 @@
                     </div>
                 </div>
                 <div id="space-filter" class="programacao-navbar-item">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="icon icon_pin" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar espaços"></span></button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true">Filtrar locais <span class="icon icon_pin" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar locais"></span></button>
                 </div>
                 <div class="col-md-2 programacao-navbar-item">
                     <div class="time-filter-group clearfix">                        
