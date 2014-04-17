@@ -102,7 +102,7 @@ app.controller('evento', function($scope, $http, $location, $timeout, DataServic
 
     $scope.event = null;
     $scope.space = null;
-
+    $scope.mapUrl = null
     var eventId = parseInt($location.$$hash);
 
     $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
@@ -113,6 +113,7 @@ app.controller('evento', function($scope, $http, $location, $timeout, DataServic
                     response.data.some(function(e){
                         if(e.id == $scope.event.spaceId){
                             $scope.space = e;
+                            $scope.mapUrl = "https://maps.google.com/maps?hl=pt-BR&amp;geocode=&amp;q=" + e.name + ", " + e.endereco + ", São Paulo - SP, Brasil&amp;sll=" + e.location.latitude + "," + e.location.longitude + "&amp;ie=UTF8&amp;hq=Teatro Municipal, Praça Ramos de Azevedo, s/n - Republica São Paulo - SP 01037-010, Brasil&amp;hnear=&amp;radius=15000&amp;t=m&amp;ll=" + e.location.latitude + "," + e.location.longitude + "&amp;z=17&amp;output=embed&amp;iwloc=near&amp;language=pt-BR&amp;region=br";
                             return true;
                         }
                     });
@@ -202,6 +203,10 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         $scope.viewMode = mode;
     };
 
+    $scope.setViewBy = function(by){
+        $scope.viewBy = by;
+    };
+
     angular.element($window).bind('resize', function(){
         if($window.innerWidth < 992){
             $scope.viewMode = 'list';
@@ -216,10 +221,8 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         $scope.startsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.min * 15).format('H:mm');
         $scope.endsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.max * 15).format('H:mm');
 
-        $timeout.cancel($scope.slideTimeout);
-        $scope.slideTimeout = $timeout(function(){
-            $scope.populateEntities();
-        },300);
+        $scope.populateEntities(300);
+
     },true);
 
     /**
@@ -303,9 +306,11 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
     $scope.searchResultEventsByTime = [];
     $scope.searchResultEventsByName = [];
 
-    $scope.populateEntities = function(){
+    $scope.populateEntities = function(delay){
         if(!$scope.events || !$scope.spaces)
             return;
+
+        delay = delay || 300;
 
         if($scope.searchTimeout)
             $timeout.cancel($scope.searchTimeout);
@@ -362,7 +367,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                 searchResultBySpaceId[event.spaceId].events.push(event);
             });
 
-        },10);
+        }, delay);
 
     };
 });
