@@ -69,11 +69,6 @@
                 <a class="btn btn-primary" ng-if="conf.pdfURL" href="{{conf.pdfURL}}"><span class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></span> </a></h1>
                 <div id="sort-by" class="programacao-navbar-item">
                     <span>Por:</span>
-                    <!--<select class="form-control" ng-model="viewBy" style="width: initial;">
-                        <option value="space">local</option>
-                        <option value="name">atração</option>
-                        <option value="time">horário</option>
-                    </select>-->
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                           {{viewByLabels[viewBy]}}  <span class="caret"></span>
@@ -220,7 +215,7 @@
                     <div id="list-space-{{space.id}}" class="panel-collapse collapse in">
                         <div class="panel-body">
                             <article class="event clearfix event-list" ng-repeat="event in space.events">
-                                <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
+                                <span class="event-time"><span class="icon icon_clock hidden-sm hidden-xs"></span> <time>{{event.startsAt}}</time></span>
                                 <div class="event-content clearfix">
                                     <h1><a href="{{eventUrl(event.id)}}" target="_blank">{{event.name}}</a></h1>
                                     <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
