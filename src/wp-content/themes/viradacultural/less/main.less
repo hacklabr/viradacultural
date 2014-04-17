@@ -600,21 +600,32 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     }
     .time-filter-group {
         width: 100%;
-        padding-left: 40px;
-        .btn {
-            margin-left: -40px;
-            border-radius: 3px 0 0 3px;
-            float: left;
+        padding-right: 40px;
+        .btn-group {
+            margin-right: -40px;            
+            float: right;
+            .btn {
+                border-radius: 0 3px 3px 0;
+            }
+        }
+        .dropdown-menu {
+            padding: 10px;
+            min-width: 340px;
+            height: 48px;
+            background: @gray-lighter;
+            left: 0;
+            margin-right: -215px;
         }
     }
     .time-filter {
         float: left;
         width: 100%;
-        min-width: 200px;
-        padding: 0 54px;
         background-color: @gray-lighter;
-        border-radius: 0 3px 3px 0;
+        border-radius: 3px 0 0 3px;
         overflow: hidden;
+        .navbar-text {
+            margin: 0 5px;
+        }
     }
     .time-range {
         float: left;
@@ -624,15 +635,8 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
         line-height: 36px;
         color: @gray-dark;
         text-align: center;
-        &.time-range-start {
-            margin-left: -54px;
-        }
-        &.time-range-end {
-            margin-right: -54px;
-        }
     } 
     .ngrs-range-slider {
-        float: left;
         height: 12px;
         width: 100%;
         margin: 12px 0 0;

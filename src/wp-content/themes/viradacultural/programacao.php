@@ -65,7 +65,7 @@
     <nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top hidden-sm hidden-xs" ng-if="!smallDevice">
         <div class="container-fluid container-menu-minified">
             <div class="row">
-                <h1 class="programacao-navbar-item">Programação
+                <h1 class="col-md-3 programacao-navbar-item">Programação
                 <a class="btn btn-primary" ng-if="conf.pdfURL" href="{{conf.pdfURL}}"><span class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></span> </a></h1>
                 <div id="sort-by" class="programacao-navbar-item">
                     <span>Por:</span>
@@ -83,23 +83,31 @@
                 <div id="space-filter" class="programacao-navbar-item">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="icon icon_pin" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar espaços"></span></button>
                 </div>
-                <div class="col-md-4 programacao-navbar-item">
-
-                    <div class="time-filter-group clearfix">
-                        <button type="button" class="btn btn-primary"><span class="icon icon_clock" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar horários"></span></button>
+                <div class="col-md-2 programacao-navbar-item">
+                    <div class="time-filter-group clearfix">                        
                         <div class="time-filter clearfix">
                             <div class="time-range time-range-start">
                                 {{startsAt}}
                             </div>
-                            <div show-values="false" range-slider prevent-equal-min-max="true" min="timeSlider.range.min" max="timeSlider.range.max" model-min="timeSlider.model.min" model-max="timeSlider.model.max" step="1"></div>
+                            <div class="navbar-text">às</div>
                             <div class="time-range time-range-end">
                                 {{endsAt}}
                             </div>
                         </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                <span class="icon icon_clock" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar horários"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <div show-values="false" range-slider prevent-equal-min-max="true" min="timeSlider.range.min" max="timeSlider.range.max" model-min="timeSlider.model.min" model-max="timeSlider.model.max" step="1"></div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-                <div id="programacao-search" class="col-md-2 programacao-navbar-item" role="search">
+                <div id="programacao-search" class="col-md-3 programacao-navbar-item" role="search">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='searchText' ng-change='populateEntities()'>
                         <span class="input-group-btn">
