@@ -1,7 +1,9 @@
 var hl = {};
 
 (function($){
-    
+
+    FastClick.attach(document.body);
+
     $(document).ready(function(){
 
         $('.btn span').tooltip();
@@ -19,9 +21,6 @@ var hl = {};
         //         $("#main-header").removeClass().addClass("col-md-2");
         //     }
         // );
-
-        $(".page-template-page-dez-anos-php > #main-header").removeClass().addClass("minified hidden-sm hidden-xs");
-        
 
         /*** Ajustando altura fixa dos posts em grid ****/
         function adustGridHeight() {

@@ -223,6 +223,8 @@ add_filter('body_class', function($classes) {
             $classes[] = 'programacao-single';
         if ($tpl == 'minha-virada')
             $classes[] = 'page';
+        if ($tpl == 'programacao')
+            $classes[] = 'programacao-home';
     }
 
     return $classes;

@@ -304,8 +304,14 @@ body {
 -------------------------------------------------------------- */
 #main-footer {
     background: @gray;
-    padding: 24px;
     clear: both;
+    margin-left: -15px;
+    margin-right: -15px;
+    padding: 24px;
+}
+.programacao-home #main-footer {
+    margin-left: 0;
+    margin-right: 0;
 }
 
 
@@ -853,6 +859,10 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     border-bottom: 1px solid @body-bg;
     background: #e9e9e9;
     padding: 15px;
+    @media (max-width: @screen-xs-max) {
+        padding: 5px 15px;
+    }
+    
     img {
         display: none;
     }
@@ -866,6 +876,10 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
             padding-right: 15px;            
             border-left: 1px solid @gray-light;
             border-right: 1px solid @gray-light;
+            @media (max-width: @screen-xs-max) {
+                font-size: 12px;
+                line-height: 1.5;
+            }
         }
         .favorite {
             float: right;
@@ -879,11 +893,16 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
         width: 15%;        
         padding-right: 15px;
         color: @verde;
+        @media (max-width: @screen-xs-max) {
+            font-size: 12px;
+            line-height: 1.5;
+        }
     }
     
     &:hover {
         background: #fff;
     }
+    
 };
 .space-single {
     .timeline {
@@ -979,10 +998,11 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
 
 }
 
-.event-single, .space-single {
+.space-single {
     width: 70%;
     margin: 0 auto 48px;
 }
+
 .servico {
     background: @gray-light;
     border-left: 4px solid @rosa;

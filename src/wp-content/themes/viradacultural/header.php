@@ -64,8 +64,6 @@
             <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/angular-rangeslider-master/angular.rangeSlider.js" ></script>
         <?php endif; ?>
 
-        <script src="<?php bloginfo( 'template_url' ) ?>/js/viradacultural.js"></script>
-
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/jquery.lazyload.min.js" ></script>
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/jquery.animascroll.js" ></script>
 
@@ -79,6 +77,9 @@
         <script src="<?php bloginfo( 'template_url' ) ?>/js/rrssb.js"></script>
 
         <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/_mobile/iscroll.js" type="text/javascript" charset="utf-8"></script>
+        <script src="<?php bloginfo( 'template_url' ) ?>/js/fastclick.js"></script>
+
+        <script src="<?php bloginfo( 'template_url' ) ?>/js/viradacultural.js"></script>
     </head>
     <body <?php body_class(); ?> ng-controller="main">
         <?php if(get_query_var('virada_tpl')) MinhaVirada::add_JS(); ?>
@@ -112,7 +113,7 @@
         </div><!-- /.modal -->
 
         <!-- MEDIUM AND LARGE DEVICES -->
-        <header id="main-header" <?php if (get_query_var('virada_tpl')): ?>class="minified hidden-sm hidden-xs"<?php endif; ?> class="hidden-sm hidden-xs">
+        <header id="main-header" <?php if (get_query_var('virada_tpl') == 'programacao' || is_page_template('page-dez-anos.php')): ?>class="minified hidden-sm hidden-xs"<?php endif; ?> class="hidden-sm hidden-xs">
             <div id="brand">
                 <h1 id="logo-virada" class="logo"><a href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>"><span class="sr-only"><?php bloginfo( 'name' ); ?></span></a></h1>
                 <p class="assinatura sr-only"><span>A</span> <span>cidade</span> <span>em</span> <span>festa!</span></p>

@@ -68,11 +68,6 @@
                 <a class="btn btn-primary" ng-if="conf.pdfURL" href="{{conf.pdfURL}}"><span class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></span> </a></h1>
                 <div class="programacao-navbar-item">
                     <span>Por:</span>
-                    <!--<select class="form-control" ng-model="viewBy" style="width: initial;">
-                        <option value="space">local</option>
-                        <option value="name">atração</option>
-                        <option value="time">horário</option>
-                    </select>-->
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                           {{viewByLabels[viewBy]}}  <span class="caret"></span>
@@ -113,8 +108,8 @@
                 </div>
 
                 <div id="view-group" class="col-md-1">
-                    <a id="grid-view" ng-class='{"active": viewMode === "grid"}' ng-click="viewMode('grid')"><span class="icon icon_grid-2x2"></span></a>
-                    <a id="list-view" ng-class='{"active": viewMode === "list"}' ng-click="viewMode('list')"><span class="icon icon_menu-square_alt"></span></a>
+                    <a id="grid-view" ng-class='{"active": viewMode === "grid"}' ng-click="setViewMode('grid')"><span class="icon icon_grid-2x2"></span></a>
+                    <a id="list-view" ng-class='{"active": viewMode === "list"}' ng-click="setViewMode('list')"><span class="icon icon_menu-square_alt"></span></a>
                 </div>
             </div>
             <!-- .row -->
@@ -123,6 +118,53 @@
     </nav>
     <!-- #programacao-navbar -->
 
+    <nav id="collapsed-filter" class="collapse navbar-collapse virada-navbar hidden-md hidden-lg" ng-if="smallDevice">
+        <div class="container-fluid container-menu-minified">
+            <div class="row">
+                <h1 class="programacao-navbar-item bottom top left right"><a class="btn btn-primary" ng-if="conf.pdfURL" href="{{conf.pdfURL}}"><span class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></span> </a></h1>
+                <div id="sort-by" class="programacao-navbar-item left right">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                          {{viewByLabels[viewBy]}}  <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#" ng-click="setViewBy('space')">Local</a></li>
+                            <li><a href="#" ng-click="setViewBy('name')">Atração</a></li>
+                            <li><a href="#" ng-click="setViewBy('time')">Horário</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="space-filter" class="programacao-navbar-item">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="icon icon_pin" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar espaços"></span></button>
+                </div>
+                <div class="programacao-navbar-item col-xs-12 col-sm-12 top left right">
+                    <div class="time-filter-group clearfix">
+                        <button type="button" class="btn btn-primary"><span class="icon icon_clock" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar horários"></span></button>
+                        <div class="time-filter clearfix">
+                            <div class="time-range time-range-start">
+                                {{startsAt}}
+                            </div>
+                            <div show-values="false" range-slider prevent-equal-min-max="true" min="timeSlider.range.min" max="timeSlider.range.max" model-min="timeSlider.model.min" model-max="timeSlider.model.max" step="1"></div>
+                            <div class="time-range time-range-end">
+                                {{endsAt}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="programacao-search" class="programacao-navbar-item col-xs-12 col-sm-12 top left right" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='searchText' ng-change='populateEntities()'>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button"><span class="icon icon_search" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Encontrar eventos por palavra-chave"></span></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- .row -->
+        </div>
+        <!-- .container-fluid -->
+    </nav>
 
     <div id="programacao-container" class="container-fluid container-menu-minified">
         <div class="row">
@@ -172,7 +214,7 @@
                     <div id="list-space-{{space.id}}" class="panel-collapse collapse in">
                         <div class="panel-body">
                             <article class="event clearfix event-list" ng-repeat="event in space.events">
-                                <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
+                                <span class="event-time"><span class="icon icon_clock hidden-sm hidden-xs"></span> <time>{{event.startsAt}}</time></span>
                                 <div class="event-content clearfix">
                                     <h1><a href="{{eventUrl(event.id)}}" target="_blank">{{event.name}}</a></h1>
                                     <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
