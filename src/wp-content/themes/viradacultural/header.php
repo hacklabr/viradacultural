@@ -62,6 +62,7 @@
             <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/services.js" ></script>
 
             <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/angular-rangeslider-master/angular.rangeSlider.js" ></script>
+            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/mustache.js" ></script>
         <?php endif; ?>
 
         <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/jquery.lazyload.min.js" ></script>

@@ -22,9 +22,9 @@ var imgLazyLoad = {
     init: function(){
         jQuery("img.lazy").each(function(){
             var $this = jQuery(this);
-            imgLazyLoad.timeouts.push(setTimeout(function(){
+//            imgLazyLoad.timeouts.push(setTimeout(function(){
                 $this.attr('src', $this.data('original'));
-            }));
+//            }));
         });
     },
 
@@ -223,10 +223,6 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         $scope.viewBy = by;
     };
 
-    $scope.setSearchText = function(elementId){
-        $scope.searchText = document.getElementById(elementId).value;
-    };
-
     angular.element($window).bind('resize', function(){
         if($window.innerWidth < 992){
             $scope.viewMode = 'list';
@@ -246,6 +242,31 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         $scope.endsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.max * 15).format('H:mm');
         $scope.populateEntities();
     });
+
+    var gridEvents = {};
+    $scope.renderList = function(){
+        var $container = jQuery('#main-section');
+        var space_template = jQuery('#template-grid-space').text();
+        var event_template = jQuery('#template-grid-event').text();
+        var html = '';
+
+        $scope.searchResult.forEach(function(space){
+            var events_html = '';
+            space.events.forEach(function(event){
+                gridEvents[event.id] = gridEvents[event.id] ? gridEvents[event.id] : Mustache.render(event_template, event);
+                events_html += gridEvents[event.id];
+
+            });
+            space.events_html = events_html;
+            html += Mustache.render(space_template, space);
+
+        });
+
+        $container.html(html);
+
+        imgLazyLoad.init();
+        hl.carrousel.init();
+    };
 
     /**
      *
@@ -387,7 +408,9 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                 searchResultBySpaceId[event.spaceId].events.push(event);
             });
 
-        }, delay);
+            $scope.renderList();
+
+        }, 100);
 
     };
 });
