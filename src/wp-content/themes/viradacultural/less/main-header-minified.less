@@ -8,7 +8,7 @@
         background-color: @roxo;
         height: 50px;
         a.navbar-brand {
-            left: 50px;
+            left: 40px;
             position: absolute;
             right: 40px;
             text-align: center;
@@ -18,31 +18,39 @@
                 font-size: 18px;
                 font-weight: bold;
             }
-            span.a-virada {
-            }
             span.verde {
                 color: @verde;
             }
             span.rosa {
                 color: @rosa;
             }
-            span.amarelo {
-                color: @amarelo;
-                font-size: 12px;
-            }
         }
         button {
             background-color: @amarelo;
             border-color: darken(@amarelo, 20%);
-            left: 10px;
-            position: absolute;
+            margin: 8px 0 0 0;
             .icon-bar {
                 background-color: darken(@amarelo, 20%);
+            }
+            &.pull-left {
+                margin-left: 10px;
+            }
+            &.pull-right {
+                color: darken(@amarelo, 20%);
+                font-size: 20px;
+                height: 34px;
+                margin-right: 10px;
+                padding: 0;
+                width: 44px;
+                .glyphicon {
+                    line-height: 1.5 !important;
+                }
             }
         }
     }
     
-    .collapse.navbar-collapse {
+    .collapse.navbar-collapse,
+    .collapsing.navbar-collapse {
         margin: 0;
         padding: 0;
     }

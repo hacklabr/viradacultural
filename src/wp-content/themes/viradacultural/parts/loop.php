@@ -1,14 +1,13 @@
 <?php 
 $has_thumb = has_post_thumbnail(); 
 ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix grid-post col-lg-3 col-md-4 col-sm-4 col-xs-12' . ( $has_thumb ? ' has-thumbnail' : '' ));?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix grid-post col-lg-3 col-md-6 col-sm-4 col-xs-12 left right js-adjust-height' . ( $has_thumb ? ' has-thumbnail' : '' ));?>>
 	<?php if ( $has_thumb ) :?>
 		<div class="post-img"><div class="post-img-cover"></div><?php the_post_thumbnail('thumbnail'); ?></div>
 	<?php endif;?> 
 	<div class="post-content">
 		<?php virada_the_post_type_icon();?>
-		<header>
-			
+		<header>			
 			<p>
 				<!--<a class="comments-number" href="<?php comments_link(); ?>"title="comentários"><?php comments_number('0','1','%');?></a>
 				<?php _e('By', 'viradacultural'); ?> <?php the_author_posts_link(); ?> <?php _e('on', 'viradacultural'); ?>-->
@@ -17,12 +16,7 @@ $has_thumb = has_post_thumbnail();
 			</p>
 			<h1><a href="<?php the_permalink();?>" title="<?php the_title_attribute();?>"><?php the_title();?></a></h1>
 		</header>
-		<!--<footer class="clearfix">	
-			<p class="taxonomies">			
-				<span><?php _e('Categories', 'viradacultural'); ?>:</span> <?php the_category(', ');?><br />
-				<?php the_tags('<span>Tags:</span> ', ', '); ?>
-			</p>		
-		</footer> -->
+		<?php the_excerpt(); ?>
 	</div>
 </article>
 <!-- .post -->

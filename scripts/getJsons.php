@@ -1,8 +1,8 @@
 <?php
-define('API_URL', "http://192.168.0.51:8000/api/");
-define('PROJECT_ID', 15);
+define('API_URL', "http://localhost:8000/api/");
+define('PROJECT_ID', 4);
 
-$get_spaces_url= API_URL . "space/find?@select=id,name,shortDescription,location&@files=(avatar,gallery):url&type=EQ(501)&@order=name";
+$get_spaces_url= API_URL . "space/find?@select=id,name,shortDescription,endereco,location&@files=(avatar,gallery):url&type=EQ(501)&@order=name";
 $get_events_url= API_URL . "event/find?@select=id,name,shortDescription,description,classificacaoEtaria,terms&@files=(avatar,gallery):url&project=EQ(@Project:" . PROJECT_ID . ")";
 
 echo "\nbaixando eventos $get_events_url\n\n";
@@ -29,13 +29,34 @@ $occurrences = json_decode($occurrences_json);
 
 $result_events = array();
 
+// fake images
+$image_categories = array(
+	'abstract',
+	'animals',
+	'business',
+	'cats',
+	'city',
+	'food',
+	'nightlife',
+	'fashion',
+	'people',
+	'nature',
+	'sports',
+	'technics',
+	'transport'
+);
+
 foreach($occurrences as $occ){
 	$rule = $occ->rule;
 	$e = $events_by_id[$occ->eventId];
 	$e->spaceId = $rule->spaceId;
-        $e->startsAt = $rule->startsAt;
+    $e->startsAt = $rule->startsAt;
 	$e->startsOn = $rule->startsOn;
-        $result_events[] = $e;
+
+	$category = $image_categories[array_rand($image_categories)];
+	$e->defaultImage = "http://lorempixel.com/1024/768/{$category}/" . rand(1,10);
+    
+    $result_events[] = $e;
 }
 
 file_put_contents('events.json', json_encode($result_events));

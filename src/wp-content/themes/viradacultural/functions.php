@@ -21,10 +21,11 @@ function viradacultural_setup() {
 
     //REGISTRAR AQUI TODOS OS TAMANHOS UTILIZADOS NO LAYOUT
     add_image_size('i1080',1920,1080, true);
-    add_image_size('i1050',1680,1050, true);
-    add_image_size('i900',1440,900,   true);
-    add_image_size('i768',1366,768,   true);
-    add_image_size('i800',1280,800,   true);
+    add_image_size('i900', 1600, 900, true);
+    add_image_size('i800', 1422, 800, true);
+    add_image_size('i768', 1366, 768, true);
+    add_image_size('i480',  853, 480, true);
+    add_image_size('i320',  568, 320, true);
 
     // AUTOMATIC FEED LINKS
     add_theme_support('automatic-feed-links');
@@ -191,10 +192,8 @@ function virada_custom_url_rewrites($rules) {
         "programacao/?$" => "index.php?virada_tpl=programacao",
         "programacao/atracoes/?$" => "index.php?virada_tpl=programacao-atracoes",
         "programacao/atracao/?$" => 'index.php?virada_tpl=programacao-atracoes-single',
-        //"programacao/locais/?$" => "index.php?virada_tpl=programacao",
         "programacao/local/?$" => 'index.php?virada_tpl=programacao-locais-single',
-        "minha-virada/?$" => 'index.php?virada_tpl=minha-virada',
-        "minha-virada/([^/]+)/?$" => 'index.php?virada_tpl=minha-virada&virada_object=$matches[1]',
+        "minha-virada/?$" => 'index.php?virada_tpl=minha-virada'
     );
 
     return $new_rules + $rules;

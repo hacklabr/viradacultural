@@ -1,27 +1,25 @@
 <!-- .container-fluid -->
 
 <?php get_header(); ?>
-<div ng-controller="minha-virada">
+<div ng-controller="minha-virada" class="js-page-minha-virada">
     <div class="container-fluid container-menu-large">
         <section id="main-section" class="row">
 
-                <article id="space-00" class="space-single">
+                <article id="user-timeline" class="space-single">
                     <header>
                         <h1>{{user_name}}</h1>
                     </header>
-                    <img class="center-block" ng-src="{{conf.templateURL}}/img/virada-icon-2x.png">
 
-                    
-                    <img src="{{user_picture}}" />
+                    <div class="user-photo" style="background-image: url({{user_picture}});"></div>
 
                     <div class="timeline clearfix">
-                        <div class="event-group" ng-repeat="event in userEvents">
+                        <div class="event-group" id="event-group-{{event.id}}" ng-repeat="event in userEvents">
                             <div class="timeline-time">{{event.startsAt}}</div>
                             <article class="event clearfix event-grid">
                                 <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
                                 <div class="event-content clearfix">
                                     <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
-                                    <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
+                                    <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)" ng-if="itsme"><!--qdo selecionado adicionar classe 'active'--></a>
                                 </div>
                             </article>
                         </div>
@@ -47,7 +45,7 @@
                 <?php endwhile; ?>
                 <?php endif; ?>
 
-            
+
 
         </section>
         <!-- #main-section -->
