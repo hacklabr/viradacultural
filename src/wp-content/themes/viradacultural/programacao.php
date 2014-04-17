@@ -60,14 +60,13 @@
         <!-- .modal-dialog -->
     </div>
     <!-- #map-modal -->
-
     <!-- LARGE DEVICES -->
-    <nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top hidden-sm hidden-xs" ng-if="!smallDevice">
+    <nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top hidden-sm hidden-xs" ng-show="!smallDevice" >
         <div class="container-fluid container-menu-minified">
             <div class="row">
                 <h1 class="programacao-navbar-item">Programação
                 <a class="btn btn-primary" ng-if="conf.pdfURL" href="{{conf.pdfURL}}"><span class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></span> </a></h1>
-                <div id="sort-by" class="programacao-navbar-item">
+                <div class="programacao-navbar-item">
                     <span>Por:</span>
                     <!--<select class="form-control" ng-model="viewBy" style="width: initial;">
                         <option value="space">local</option>
@@ -114,8 +113,8 @@
                 </div>
 
                 <div id="view-group" class="col-md-1">
-                    <a id="grid-view" ng-class='{"active": viewMode === "grid"}' ng-click="setViewMode('grid')"><span class="icon icon_grid-2x2"></span></a>
-                    <a id="list-view" ng-class='{"active": viewMode === "list"}' ng-click="setViewMode('list')"><span class="icon icon_menu-square_alt"></span></a>
+                    <a id="grid-view" ng-class='{"active": viewMode === "grid"}' ng-click="viewMode('grid')"><span class="icon icon_grid-2x2"></span></a>
+                    <a id="list-view" ng-class='{"active": viewMode === "list"}' ng-click="viewMode('list')"><span class="icon icon_menu-square_alt"></span></a>
                 </div>
             </div>
             <!-- .row -->
@@ -124,53 +123,6 @@
     </nav>
     <!-- #programacao-navbar -->
 
-    <nav id="collapsed-filter" class="collapse navbar-collapse virada-navbar hidden-md hidden-ld"  ng-if="smallDevice">
-        <div class="container-fluid container-menu-minified">
-            <div class="row">
-                <h1 class="programacao-navbar-item bottom top left right"><a class="btn btn-primary" ng-if="conf.pdfURL" href="{{conf.pdfURL}}"><span class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></span> </a></h1>
-                <div id="sort-by" class="programacao-navbar-item left right">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                          {{viewByLabels[viewBy]}}  <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" ng-click="viewBy='space'">Local</a></li>
-                            <li><a href="#" ng-click="viewBy='name'">Atração</a></li>
-                            <li><a href="#" ng-click="viewBy='time'">Horário</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="space-filter" class="programacao-navbar-item">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="icon icon_pin" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar espaços"></span></button>
-                </div>
-                <div class="programacao-navbar-item col-xs-12 col-sm-12 top left right">
-                    <div class="time-filter-group clearfix">
-                        <button type="button" class="btn btn-primary"><span class="icon icon_clock" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar horários"></span></button>
-                        <div class="time-filter clearfix">
-                            <div class="time-range time-range-start">
-                                {{startsAt}}
-                            </div>
-                            <div show-values="false" range-slider prevent-equal-min-max="true" min="timeSlider.range.min" max="timeSlider.range.max" model-min="timeSlider.model.min" model-max="timeSlider.model.max" step="1"></div>
-                            <div class="time-range time-range-end">
-                                {{endsAt}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="programacao-search" class="programacao-navbar-item col-xs-12 col-sm-12 top left right" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='searchText' ng-change='populateEntities()'>
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button"><span class="icon icon_search" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Encontrar eventos por palavra-chave"></span></button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <!-- .row -->
-        </div>
-        <!-- .container-fluid -->
-    </nav>
 
     <div id="programacao-container" class="container-fluid container-menu-minified">
         <div class="row">
@@ -193,8 +145,8 @@
                         <div class="panel-body hl-wrap">
                             <article class="event clearfix event-grid" ng-repeat="event in space.events">
                                 <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
-                                <!-- <img data-original="{{event.defaultImage}}" class="lazy"/> -->
-                                <img ng-src="{{event.defaultImage}}"/>
+                                <img data-original="{{event.defaultImageThumb}}" class="lazy"/>
+<!--                                <img ng-src="{{event.defaultImageThumb}}"/>-->
 
                                 <div class="event-content clearfix">
                                     <h1><a href="{{eventUrl(event.id)}}" target="_blank">{{event.name}}</a></h1>
@@ -234,8 +186,8 @@
                 <div ng-if="viewBy === 'time'">
                     <article class="event clearfix" ng-repeat="event in searchResultEventsByTime"  on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}" ng-show="!filters.spaces || (filters.spaces && event.isInFilteredSpaces() )">
                         <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
-                        <!-- <img data-original="{{event.defaultImage}}" class="lazy"/> -->
-                        <img ng-src="{{event.defaultImage}}"/>
+                        <img data-original="{{event.defaultImageThumb}}" class="lazy"/>
+<!--                        <img ng-src="{{event.defaultImageThumb}}"/>-->
                         <div class="event-content clearfix">
                             <h1><a href="{{eventUrl(event.id)}}" target="_blank">{{event.name}}</a></h1>
                             <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
@@ -247,8 +199,8 @@
                 <div ng-if="viewBy === 'name'">
                     <article class="event clearfix" ng-repeat="event in searchResultEventsByName" on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}" ng-show="!filters.spaces || (filters.spaces && event.isInFilteredSpaces() )">
                         <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
-                        <!-- <img data-original="{{event.defaultImage}}" class="lazy"/> -->
-                        <img ng-src="{{event.defaultImage}}"/>
+                        <img data-original="{{event.defaultImageThumb}}" class="lazy"/>
+<!--                        <img ng-src="{{event.defaultImageThumb}}"/>-->
                         <div class="event-content clearfix">
                             <h1><a href="{{eventUrl(event.id)}}" target="_blank">{{event.name}}</a></h1>
                             <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>

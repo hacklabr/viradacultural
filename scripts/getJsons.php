@@ -45,7 +45,7 @@ $image_categories = array(
 	'technics',
 	'transport'
 );
-
+$count = 0;
 foreach($occurrences as $occ){
 	$rule = $occ->rule;
 	$e = $events_by_id[$occ->eventId];
@@ -54,7 +54,8 @@ foreach($occurrences as $occ){
 	$e->startsOn = $rule->startsOn;
 
 	$category = $image_categories[array_rand($image_categories)];
-	$e->defaultImage = "http://lorempixel.com/1024/768/{$category}/" . rand(1,10);
+	$e->defaultImage = "http://lorempixel.com/1024/768/{$category}/?id={$e->id}" . rand(1,10);
+	$e->defaultImageThumb = "http://lorempixel.com/221/166/{$category}/?id={$e->id}" . rand(1,10);
     
     $result_events[] = $e;
 }
