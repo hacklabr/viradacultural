@@ -35,7 +35,7 @@ var hl = {};
                 }
                 $('article.js-adjust-height').css('height', adjustToH + 'px');
             }
-            
+
             // Nas redes
             if ($('article.js-redes-adjust-height').size()) {
                 var refH = 96;
@@ -43,14 +43,14 @@ var hl = {};
                 var adjustToH = refH + refW;
                 $('article.js-redes-adjust-height').css('height', adjustToH + 'px');
             }
-            
-            
+
+
         }
-        
+
         $(window).resize(function() {
             adustGridHeight();
         });
-        
+
         adustGridHeight();
         /*************************************************/
 
@@ -76,20 +76,20 @@ var hl = {};
             });
 
             $(selector).each(function(){
-                var $this       = $(this),
-                    $wrap       = $this.find('.hl-wrap'),
-                    $items      = $this.find('.hl-wrap>*'),
-                    $num_nav    = $this.find('.hl-num-nav'),
-                    $ref        = $this.find('.hl-ref'),
-                    inc         = $this.data('scroll-num'),
-                    num_pages   = 0,
-                    per_page    = inc,
-                    item_width  = 0,
+                var $this       = $(this),
+                    $wrap       = $this.find('.hl-wrap'),
+                    $items      = $this.find('.hl-wrap>*'),
+                    $num_nav    = $this.find('.hl-num-nav'),
+                    $ref        = $this.find('.hl-ref'),
+                    inc         = $this.data('scroll-num'),
+                    num_pages   = 0,
+                    per_page    = inc,
+                    item_width  = 0,
                     active_index = 0,
-                    outer        = 0,
-                    margin_left   = 0,
-                    margin_right  = 0,
-                    padding_left  = 0,
+                    outer        = 0,
+                    margin_left   = 0,
+                    margin_right  = 0,
+                    padding_left  = 0,
                     padding_right = 0;
 
                 $num_nav.find('.hl-num-nav-item').live('click', function(){
@@ -98,7 +98,10 @@ var hl = {};
                 });
 
                 var goto_page = function(index){
-                    $wrap.stop().animate({'margin-left': - index * (item_width + outer) * per_page}, function(){
+                    var mleft = index * (item_width + outer) * per_page;
+                    if(mleft > $wrap.width() - $wrap.parent().width() && $wrap.width() - $wrap.parent().width() > 0)
+                        mleft = $wrap.width() - $wrap.parent().width();
+                    $wrap.stop().animate({'margin-left': -mleft}, function(){
                         active_index = index;
                         $num_nav.find('.hl-num-nav-item').removeClass('current');
                         $num_nav.find('.hl-num-nav-item:eq('+index+')').addClass('current');
@@ -126,11 +129,11 @@ var hl = {};
                     $wrap.css("margin-left", 0);
 
                     if($ref.length){
-                        item_width      = $ref.width();
-                        margin_left     = parseFloat($ref.css('margin-left'));
-                        margin_right    = parseFloat($ref.css('margin-right'));
-                        padding_left    = parseFloat($ref.css('padding-left'));
-                        padding_right   = parseFloat($ref.css('padding-right'));
+                        item_width      = $ref.width();
+                        margin_left     = parseFloat($ref.css('margin-left'));
+                        margin_right    = parseFloat($ref.css('margin-right'));
+                        padding_left    = parseFloat($ref.css('padding-left'));
+                        padding_right   = parseFloat($ref.css('padding-right'));
                         outer = margin_left + margin_right + padding_left + padding_right;
                     }else{
                         item_width = $wrap.find(">:first").outerWidth(true);
