@@ -7,13 +7,9 @@
 
 		<?php endwhile; ?>
 
-			<nav id="posts-nav" class="clearfix">
-				<div class="alignleft">
-					<?php previous_post_link('%link', '<span class="icon arrow_carrot-left"></span><span class="label">Post anterior</span>'); ?>
-				</div>
-				<div class="alignright">
-					<?php next_post_link('%link', '<span class="icon arrow_carrot-right"></span><span class="label">Próximo post</span>'); ?>
-				</div>
+			<nav id="posts-nav" class="col-md-8 col-md-offset-2 clearfix">
+					<?php previous_post_link('%link'); ?>
+					<?php next_post_link('%link'); ?>
 			</nav>
 			<!-- #posts-nav -->
 
