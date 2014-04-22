@@ -16,6 +16,26 @@ document.addEventListener('keyup', function(e){
     }
 });
 
+var imgLazyLoad = {
+    timeouts: [],
+
+    init: function(){
+        jQuery("img.lazy").each(function(){
+            var $this = jQuery(this);
+            imgLazyLoad.timeouts.push(setTimeout(function(){
+                $this.attr('src', $this.data('original'));
+            }));
+        });
+    },
+
+    clear: function(){
+        imgLazyLoad.timeouts.forEach(function(e){
+            clearTimeout(e);
+        });
+
+        this.timeouts = [];
+    }
+};
 
 var app = angular.module('virada', ['google-maps','ui-rangeSlider']);
 
@@ -39,11 +59,7 @@ app.controller('main', function($scope, $window){
         hl.carrousel.init();
         minhaVirada.atualizaEstrelas();
 
-        jQuery("img.lazy").css('min-height', '166px').lazyload({
-//            effect : "fadeIn",
-            skip_invisible: false,
-            failure_limit: 1000
-        });
+        imgLazyLoad.init();
     });
 
     $scope.brDate = function(date){
@@ -102,7 +118,7 @@ app.controller('evento', function($scope, $http, $location, $timeout, DataServic
 
     $scope.event = null;
     $scope.space = null;
-
+    $scope.mapUrl = null
     var eventId = parseInt($location.$$hash);
 
     $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
@@ -113,6 +129,7 @@ app.controller('evento', function($scope, $http, $location, $timeout, DataServic
                     response.data.some(function(e){
                         if(e.id == $scope.event.spaceId){
                             $scope.space = e;
+                            $scope.mapUrl = "https://maps.google.com/maps?hl=pt-BR&amp;geocode=&amp;q=" + e.name + ", " + e.endereco + ", São Paulo - SP, Brasil&amp;sll=" + e.location.latitude + "," + e.location.longitude + "&amp;ie=UTF8&amp;hq=Teatro Municipal, Praça Ramos de Azevedo, s/n - Republica São Paulo - SP 01037-010, Brasil&amp;hnear=&amp;radius=15000&amp;t=m&amp;ll=" + e.location.latitude + "," + e.location.longitude + "&amp;z=17&amp;output=embed&amp;iwloc=near&amp;language=pt-BR&amp;region=br";
                             return true;
                         }
                     });
@@ -202,6 +219,14 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         $scope.viewMode = mode;
     };
 
+    $scope.setViewBy = function(by){
+        $scope.viewBy = by;
+    };
+
+    $scope.setSearchText = function(elementId){
+        $scope.searchText = document.getElementById(elementId).value;
+    };
+
     angular.element($window).bind('resize', function(){
         if($window.innerWidth < 992){
             $scope.viewMode = 'list';
@@ -212,15 +237,15 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         $scope.$apply();
     });
 
-    $scope.$watch('timeSlider.model', function(){
+    $scope.$watch('timeSlider.model.min', function(){
         $scope.startsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.min * 15).format('H:mm');
-        $scope.endsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.max * 15).format('H:mm');
+        $scope.populateEntities();
+    });
 
-        $timeout.cancel($scope.slideTimeout);
-        $scope.slideTimeout = $timeout(function(){
-            $scope.populateEntities();
-        },300);
-    },true);
+    $scope.$watch('timeSlider.model.max', function(){
+        $scope.endsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.max * 15).format('H:mm');
+        $scope.populateEntities();
+    });
 
     /**
      *
@@ -255,7 +280,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
 
             return {
                 text: $scope.unaccent(e.name + e.shortDescription),
-                getEntity: function (){ return e; }
+                entity: e
             };
         });
 
@@ -282,7 +307,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
             return {
                 text: $scope.unaccent(e.name + e.shortDescription),
                 startsAt : getTime(e.startsAt),
-                getEntity: function (){ return e; }
+                entity: e
             };
 
 
@@ -303,15 +328,19 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
     $scope.searchResultEventsByTime = [];
     $scope.searchResultEventsByName = [];
 
-    $scope.populateEntities = function(){
+    $scope.populateEntities = function(delay){
         if(!$scope.events || !$scope.spaces)
             return;
+
+        delay = delay || 300;
 
         if($scope.searchTimeout)
             $timeout.cancel($scope.searchTimeout);
 
 
         $scope.searchTimeout = $timeout(function(){
+            imgLazyLoad.clear();
+
             var searchResultBySpaceId = {};
             var txt = $scope.unaccent($scope.searchText);
             var searchStartsAt = getTime($scope.startsAt);
@@ -323,13 +352,9 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
             $scope.searchResult = [];
 
             $scope.eventIndex.forEach(function(event){
-                if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0)
-                && event.startsAt <= searchEndsAt  &&  event.startsAt >= searchStartsAt){
-                    var e = event.getEntity();
-                    e.isInFilteredSpaces = function(){
-                        return $scope.getSelectedIds($scope.spaces).indexOf(parseInt(e.spaceId)) !== -1;
-                    }
-                    events.push(e);
+                if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0) && event.startsAt <= searchEndsAt  &&  event.startsAt >= searchStartsAt){
+                    if(!$scope.filters.spaces || $scope.spacesById[event.entity.spaceId].selected)
+                        events.push(event.entity);
                 }
             });
 
@@ -362,7 +387,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                 searchResultBySpaceId[event.spaceId].events.push(event);
             });
 
-        },10);
+        }, delay);
 
     };
 });

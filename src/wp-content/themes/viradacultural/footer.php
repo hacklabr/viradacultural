@@ -1,4 +1,4 @@
-	<footer id="main-footer" class="row">	
+	<footer id="main-footer" class="clearfix">	
 		<p class="creditos textright alignright">
 			<a href="http://hacklab.com.br" title="Hacklab">
 				<img src="<?php bloginfo( 'stylesheet_directory' ); ?>/img/hacklab.png" alt="" />

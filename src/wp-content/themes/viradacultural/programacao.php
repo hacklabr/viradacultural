@@ -53,21 +53,22 @@
                     <button type="button" class="btn btn-default" ng-click="deselectAll()">Limpar seleção</button>
 
                     <button type="button" class="btn btn-primary" data-dismiss="modal"
-                            ng-click="$parent.filters.spaces = countSelected() > 0">Aplicar filtro</button>
+                            ng-click="$parent.filters.spaces = countSelected() > 0; populateEntities();">Aplicar filtro</button>
                 </div>
             </div>
         </div>
         <!-- .modal-dialog -->
     </div>
     <!-- #map-modal -->
-
     <!-- LARGE DEVICES -->
+
     <nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top hidden-sm hidden-xs">
+
         <div class="container-fluid container-menu-minified">
             <div class="row">
-                <h1 class="programacao-navbar-item">Programação
+                <h1 class="col-md-3 programacao-navbar-item">Programação
                 <a class="btn btn-primary" ng-if="conf.pdfURL" href="{{conf.pdfURL}}"><span class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></span> </a></h1>
-                <div id="sort-by" class="programacao-navbar-item">
+                <div class="programacao-navbar-item">
                     <span>Por:</span>
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -83,25 +84,35 @@
                 <div id="space-filter" class="programacao-navbar-item">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="icon icon_pin" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar espaços"></span></button>
                 </div>
-                <div class="col-md-4 programacao-navbar-item">
-
+                <div class="col-md-2 programacao-navbar-item">
                     <div class="time-filter-group clearfix">
-                        <button type="button" class="btn btn-primary"><span class="icon icon_clock" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar horários"></span></button>
                         <div class="time-filter clearfix">
                             <div class="time-range time-range-start">
                                 {{startsAt}}
                             </div>
-                            <div show-values="false" range-slider prevent-equal-min-max="true" min="timeSlider.range.min" max="timeSlider.range.max" model-min="timeSlider.model.min" model-max="timeSlider.model.max" step="1"></div>
+
+                            <div class="navbar-text">às</div>
+
                             <div class="time-range time-range-end">
                                 {{endsAt}}
                             </div>
                         </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                <span class="icon icon_clock" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar horários"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <div show-values="false" range-slider prevent-equal-min-max="true" min="timeSlider.range.min" max="timeSlider.range.max" model-min="timeSlider.model.min" model-max="timeSlider.model.max" step="1"></div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-                <div id="programacao-search" class="col-md-2 programacao-navbar-item" role="search">
+                <div id="programacao-search" class="col-md-3 programacao-navbar-item" role="search">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='searchText' ng-change='populateEntities()'>
+                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='searchText' ng-change='setSearchText()'>
                         <span class="input-group-btn">
                             <button class="btn btn-primary" type="button"><span class="icon icon_search" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Encontrar eventos por palavra-chave"></span></button>
                         </span>
@@ -119,7 +130,7 @@
     </nav>
     <!-- #programacao-navbar -->
 
-    <nav id="collapsed-filter" class="collapse navbar-collapse virada-navbar hidden-md hidden-lg"  ng-if="smallDevice">
+    <nav id="collapsed-filter" class="collapse navbar-collapse virada-navbar hidden-md hidden-lg" ng-if="smallDevice">
         <div class="container-fluid container-menu-minified">
             <div class="row">
                 <h1 class="programacao-navbar-item bottom top left right"><a class="btn btn-primary" ng-if="conf.pdfURL" href="{{conf.pdfURL}}"><span class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></span> </a></h1>
@@ -129,9 +140,9 @@
                           {{viewByLabels[viewBy]}}  <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" ng-click="viewBy='space'">Local</a></li>
-                            <li><a href="#" ng-click="viewBy='name'">Atração</a></li>
-                            <li><a href="#" ng-click="viewBy='time'">Horário</a></li>
+                            <li><a href="#" ng-click="setViewBy('space')">Local</a></li>
+                            <li><a href="#" ng-click="setViewBy('name')">Atração</a></li>
+                            <li><a href="#" ng-click="setViewBy('time')">Horário</a></li>
                         </ul>
                     </div>
                 </div>
@@ -171,7 +182,7 @@
         <div class="row">
             <section id="main-section" class="panel-group hidden-sm hidden-xs">
                 <!-- here begins the panel on grid view mode by space-->
-                <div id="programacao-grid" class="panel panel-default hl-carrousel" ng-if="viewBy === 'space' && viewMode === 'grid'" ng-repeat="space in searchResult" on-last-repeat ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+                <div id="programacao-grid" class="panel panel-default hl-carrousel" ng-if="viewBy === 'space' && viewMode === 'grid'" ng-repeat="space in searchResult" on-last-repeat>
                     <div class='hl-ref'></div>
                     <div class="panel-heading clearfix">
                         <h4 class="alignleft panel-title">
@@ -188,6 +199,7 @@
                         <div class="panel-body hl-wrap">
                             <article class="event clearfix event-grid" ng-repeat="event in space.events">
                                 <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
+
                                 <!-- <img data-original="{{event.defaultImage}}" class="lazy"/> -->
                                 <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
 
@@ -204,7 +216,7 @@
             <section id="list-main-section" class="panel-group">
                 <!-- .panel-->
                 <!-- here begins the panel on list view mode by space-->
-                <div id="programacao-list" class="panel panel-default" ng-if="viewBy === 'space' && viewMode === 'list'" ng-repeat="space in searchResult" on-last-repeat ng-show="!filters.spaces || (filters.spaces && space.isSelected())">
+                <div id="programacao-list" class="panel panel-default" ng-if="viewBy === 'space' && viewMode === 'list'" ng-repeat="space in searchResult" on-last-repeat>
                     <div class="panel-heading clearfix">
                         <h4 class="alignleft panel-title">
                             <a href="{{spaceUrl(space.id)}}" target="_blank">{{space.name}}</a>
@@ -228,10 +240,10 @@
                 <!-- .panel-->
                 <!-- here begins the panel on grid or list view mode by time-->
                 <div ng-if="viewBy === 'time'">
-                    <article class="event clearfix" ng-repeat="event in searchResultEventsByTime"  on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}" ng-show="!filters.spaces || (filters.spaces && event.isInFilteredSpaces() )">
+                    <article class="event clearfix" ng-repeat="event in searchResultEventsByTime" on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
                         <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
-                        <!-- <img data-original="{{event.defaultImage}}" class="lazy"/> -->
-                        <img ng-src="{{event.defaultImage}}"/>
+                        <img data-original="{{event.defaultImageThumb}}" class="lazy"/>
+<!--                        <img ng-src="{{event.defaultImageThumb}}"/>-->
                         <div class="event-content clearfix">
                             <h1><a href="{{eventUrl(event.id)}}" target="_blank">{{event.name}}</a></h1>
                             <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
@@ -241,10 +253,10 @@
                 <!-- .panel-->
                 <!-- here begins the panel on grid or list view mode by alphabetical order-->
                 <div ng-if="viewBy === 'name'">
-                    <article class="event clearfix" ng-repeat="event in searchResultEventsByName" on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}" ng-show="!filters.spaces || (filters.spaces && event.isInFilteredSpaces() )">
+                    <article class="event clearfix" ng-repeat="event in searchResultEventsByName" on-last-repeat ng-class="{'event-grid': viewMode === 'grid', 'event-list': viewMode === 'list'}">
                         <span class="event-time"><span class="icon icon_clock"></span> <time>{{event.startsAt}}</time></span>
-                        <!-- <img data-original="{{event.defaultImage}}" class="lazy"/> -->
-                        <img ng-src="{{event.defaultImage}}"/>
+                        <img data-original="{{event.defaultImageThumb}}" class="lazy"/>
+<!--                        <img ng-src="{{event.defaultImageThumb}}"/>-->
                         <div class="event-content clearfix">
                             <h1><a href="{{eventUrl(event.id)}}" target="_blank">{{event.name}}</a></h1>
                             <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
