@@ -463,7 +463,24 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
         }
     header { text-align: center; }
 }
-
+.post-type-icon {
+    position: relative;
+    background: @rosa;
+    border-radius: 18px;
+    height: 36px;
+    width: 36px;
+    margin: 0 auto 12px;
+    text-align: center;
+    line-height: 36px;
+    img {
+        width: 24px;
+        display: inline;
+    }
+    .icon {
+        color: @amarelo;
+        vertical-align: middle;
+    }
+}
 .grid-post {
     overflow: hidden;
     text-align: center;
@@ -490,24 +507,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
             overflow: hidden;
         }
     }
-    .post-type-icon {
-        position: relative;
-        background: @rosa;
-        border-radius: 18px;
-        height: 36px;
-        width: 36px;
-        margin: 0 auto 12px;
-        text-align: center;
-        line-height: 36px;
-        img {
-            width: 24px;
-            display: inline;
-        }
-        .icon {
-            color: @amarelo;
-            vertical-align: middle;
-        }
-    }
+    
     &.has-thumbnail {
         .post-content {
             height: 222px;

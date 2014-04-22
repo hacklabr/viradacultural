@@ -90,19 +90,54 @@
 .page, .single {
 	article {
 		margin-bottom: 48px;
-
-		.author-photo {
-			margin: 0 10px 10px 0;
+		#author-info {
+			position: relative;
+			margin-bottom: 48px;
+			padding-top: 23px;
+			padding-left: 70px;
+			border-top: 1px solid @gray-light;
+			text-transform: none;
+			font-size: 14px;
+			line-height: 24px;
+			.author-photo {
+				position: absolute;
+				top: 23px;
+				left: 0;
+			}
 		}
 	}
 }
 
+.comments {
+ 	text-align: center;
+}
+
 .blog, .archive {
 	#posts-nav {
-		width: 90%;
 		clear: both;
-		padding-top: 60px;
 		overflow: hidden;
+		margin: 0;
+		a {
+			display: block;
+			width: 36px;
+			height: 36px;
+			color: @amarelo;
+			background-color: @rosa;
+			&:hover {
+				background-color: @roxo;
+			}
+		}
+
+		.icon {
+			display: block;
+			width: 36px;
+			height: 36px;
+			font-size: 34px;
+		}
+
+		.label {
+			.sr-only;
+		}
 	}
 }
 
@@ -114,29 +149,6 @@
 }
 
 #posts-nav {
-	width: 70%;
-	margin: 0 auto 60px;
-
-	a {
-		display: block;
-		width: 36px;
-		height: 36px;
-		color: @amarelo;
-		background-color: @rosa;
-		border-radius: 2px;
-		&:hover {
-			background-color: @roxo;
-		}
-	}
-
-	.icon {
-		display: block;
-		width: 36px;
-		height: 36px;
-		font-size: 34px;
-	}
-
-	.label {
-		.sr-only;
-	}
+	margin-bottom: 48px;
+	.secondary-font();	
 }
