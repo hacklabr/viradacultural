@@ -273,7 +273,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
             var $container = jQuery('#main-section');
 
             var eventTemplate = $scope.viewMode === 'list' ? 'template-event-list' : 'template-event-grid';
-            console.log(page);
+
             if(page === 0)
                 $container.html('');
 
@@ -283,10 +283,13 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                     var spaceTemplate = $scope.viewMode === 'list' ? 'template-space-list' : 'template-space-grid';
                     var element = appendEntityToContainer(spaceTemplate, space, $container);
                     var $eventsContainer = jQuery(element).find('.js-events-container');
+
                     appendEntitiesToContainer(eventTemplate, space.events, $eventsContainer, true);
+
+                    if($scope.viewMode === 'grid'){
+                        hl.carrousel.init($eventsContainer.parents('.hl-carrousel'));
+                    }
                 });
-                if($scope.viewMode === 'grid')
-                    hl.carrousel.init();
             }else{
                 offset = page * eventsPerPage;
 
@@ -321,7 +324,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
     jQuery(window).scroll(function(){
         if(jQuery(window).height() + jQuery(this).scrollTop() >= jQuery('body').height() - jQuery(window).height() / 2)
             $scope.renderList();
-        
+
     });
 
     /**
