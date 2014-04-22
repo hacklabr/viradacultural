@@ -22,9 +22,9 @@ var imgLazyLoad = {
     init: function(){
         jQuery("img.lazy").each(function(){
             var $this = jQuery(this);
-            imgLazyLoad.timeouts.push(setTimeout(function(){
+//            imgLazyLoad.timeouts.push(setTimeout(function(){
                 $this.attr('src', $this.data('original'));
-            }));
+//            }));
         });
     },
 
@@ -35,6 +35,14 @@ var imgLazyLoad = {
 
         this.timeouts = [];
     }
+};
+
+var eventUrl = function(eventId){
+    return GlobalConfiguration.baseURL + '/programacao/atracao/##' + eventId;
+};
+
+var spaceUrl = function(spaceId){
+    return GlobalConfiguration.baseURL + '/programacao/local/##' + spaceId;
 };
 
 var app = angular.module('virada', ['google-maps','ui-rangeSlider']);
@@ -48,7 +56,7 @@ app.directive('onLastRepeat', function() {
 });
 
 
-app.controller('main', function($scope, $window){
+app.controller('main', function($scope, $rootScope, $window){
     $scope.conf = GlobalConfiguration;
 
     $scope.winWidth = function(){
@@ -64,14 +72,6 @@ app.controller('main', function($scope, $window){
 
     $scope.brDate = function(date){
         return moment(date).format('dddd[,] DD [de] MMMM [de] YYYY');
-    };
-
-    $scope.eventUrl = function(eventId){
-        return $scope.conf.baseURL + '/programacao/atracao/##' + eventId;
-    };
-
-    $scope.spaceUrl = function(spaceId){
-        return $scope.conf.baseURL + '/programacao/local/##' + spaceId;
     };
 
     $scope.favorite = function(eventId){
@@ -125,9 +125,11 @@ app.controller('evento', function($scope, $http, $location, $timeout, DataServic
         data.some(function(e){
             if(e.id == eventId){
                 $scope.event = e;
+                e.url = eventUrl(e.id);
                 DataService.getSpaces().then(function(response){
                     response.data.some(function(e){
                         if(e.id == $scope.event.spaceId){
+                            e.url = spaceUrl(e.id);
                             $scope.space = e;
                             $scope.mapUrl = "https://maps.google.com/maps?hl=pt-BR&amp;geocode=&amp;q=" + e.name + ", " + e.endereco + ", São Paulo - SP, Brasil&amp;sll=" + e.location.latitude + "," + e.location.longitude + "&amp;ie=UTF8&amp;hq=Teatro Municipal, Praça Ramos de Azevedo, s/n - Republica São Paulo - SP 01037-010, Brasil&amp;hnear=&amp;radius=15000&amp;t=m&amp;ll=" + e.location.latitude + "," + e.location.longitude + "&amp;z=17&amp;output=embed&amp;iwloc=near&amp;language=pt-BR&amp;region=br";
                             return true;
@@ -142,7 +144,7 @@ app.controller('evento', function($scope, $http, $location, $timeout, DataServic
 
 });
 
-app.controller('espaco', function($scope, $http, $location, $timeout, DataService){
+app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout, DataService){
 
     $scope.space = null;
     $scope.spaceEvents = [];
@@ -150,17 +152,19 @@ app.controller('espaco', function($scope, $http, $location, $timeout, DataServic
     var spaceId = parseInt($location.$$hash);
 
     $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
-
         data.forEach(function(e){
             if(e.spaceId == spaceId){
+                e.url = eventUrl(e.id);
                 $scope.spaceEvents.push(e);
             }
         });
     });
 
     DataService.getSpaces().then(function(response){
+
         response.data.some(function(e){
             if(e.id == spaceId){
+                e.url = spaceUrl(e.id);
                 $scope.space = e;
                 return true;
             }
@@ -171,6 +175,8 @@ app.controller('espaco', function($scope, $http, $location, $timeout, DataServic
 
 
 app.controller('programacao', function($scope, $http, $location, $timeout, $window, DataService){
+    var page = 0;
+
     $scope.events = null;
     $scope.spaces = null;
     $scope.spacesByName = null;
@@ -183,9 +189,16 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         'time': 'Horário'
     };
     $scope.viewBy = 'space';
+
     $scope.smallDevice = $window.innerWidth < 992;
+
     $scope.viewMode = $scope.smallDevice ? 'list' : 'grid';
+
     $scope.searchText = '';
+
+    $scope.$watch('searchText', function(){
+        $scope.populateEntities();
+    });
 
     $scope.startsAt = '18:00';
     $scope.endsAt = '18:00';
@@ -216,15 +229,15 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
     $scope.win = $window;
 
     $scope.setViewMode = function(mode){
+        page = 0;
         $scope.viewMode = mode;
+        $scope.renderList();
     };
 
     $scope.setViewBy = function(by){
+        page = 0;
         $scope.viewBy = by;
-    };
-
-    $scope.setSearchText = function(elementId){
-        $scope.searchText = document.getElementById(elementId).value;
+        $scope.renderList();
     };
 
     angular.element($window).bind('resize', function(){
@@ -245,6 +258,73 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
     $scope.$watch('timeSlider.model.max', function(){
         $scope.endsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.max * 15).format('H:mm');
         $scope.populateEntities();
+    });
+
+    var renderTimeout = null;
+
+    $scope.renderList = function(){
+        $timeout.cancel(renderTimeout);
+
+        renderTimeout = $timeout(function(){
+            var spacesPerPage = 8;
+            var eventsPerPage = 36;
+            var offset;
+
+            var $container = jQuery('#main-section');
+
+            var eventTemplate = $scope.viewMode === 'list' ? 'template-event-list' : 'template-event-grid';
+
+            if(page === 0)
+                $container.html('');
+
+            if($scope.viewBy === 'space'){
+                offset = page * spacesPerPage;
+                $scope.searchResult.slice(offset, offset + spacesPerPage).forEach(function(space){
+                    var spaceTemplate = $scope.viewMode === 'list' ? 'template-space-list' : 'template-space-grid';
+                    var element = appendEntityToContainer(spaceTemplate, space, $container);
+                    var $eventsContainer = jQuery(element).find('.js-events-container');
+
+                    appendEntitiesToContainer(eventTemplate, space.events, $eventsContainer, true);
+
+                    if($scope.viewMode === 'grid'){
+                        hl.carrousel.init($eventsContainer.parents('.hl-carrousel'));
+                    }
+                });
+            }else{
+                offset = page * eventsPerPage;
+
+                var events = $scope.viewBy === 'time' ? $scope.searchResultEventsByTime : $scope.searchResultEventsByName;
+                appendEntitiesToContainer(eventTemplate, events.slice(offset, offset + eventsPerPage), $container);
+            }
+
+            function appendEntitiesToContainer(template, entities, $container, renderTemplate){
+                entities.forEach(function(entity){
+                    var element = renderTemplate ?
+                        Resig.render(template, entity) :
+                        Resig.renderElement(template, entity);
+                    $container.append(element);
+                });
+            }
+
+            function appendEntityToContainer(template, entity, $container){
+                var element = Resig.renderElement(template, entity);
+                $container.append(element);
+                return element;
+            }
+
+
+            if($scope.viewMode === 'grid')
+                imgLazyLoad.init();
+
+            page++;
+
+        },20);
+    };
+
+    jQuery(window).scroll(function(){
+        if(jQuery(window).height() + jQuery(this).scrollTop() >= jQuery('body').height() - jQuery(window).height() / 2)
+            $scope.renderList();
+
     });
 
     /**
@@ -276,8 +356,8 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         $scope.spacesById = {};
 
         $scope.spaceIndex = data.map(function(e,i){
+            e.url = spaceUrl(e.id);
             $scope.spacesById[e.id] = e;
-
             return {
                 text: $scope.unaccent(e.name + e.shortDescription),
                 entity: e
@@ -302,6 +382,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         $scope.events = data;
 
         $scope.eventIndex = data.map(function(e,i){
+            e.url = eventUrl(e.id);
             $scope.eventsById[e.id] = e;
 
             return {
@@ -328,11 +409,15 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
     $scope.searchResultEventsByTime = [];
     $scope.searchResultEventsByName = [];
 
+    $scope.$watch('searchResult', function(){
+        $scope.renderList();
+    });
+
     $scope.populateEntities = function(delay){
         if(!$scope.events || !$scope.spaces)
             return;
 
-        delay = delay || 300;
+        delay = delay || 50;
 
         if($scope.searchTimeout)
             $timeout.cancel($scope.searchTimeout);
@@ -349,7 +434,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
             var events = [];
             var spaces = [];
 
-            $scope.searchResult = [];
+            var searchResult = [];
 
             $scope.eventIndex.forEach(function(event){
                 if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0) && event.startsAt <= searchEndsAt  &&  event.startsAt >= searchStartsAt){
@@ -379,7 +464,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                 var space = angular.copy(e);
                 space.isSelected = function(){ return e.selected; };
                 space.events = [];
-                $scope.searchResult.push(space);
+                searchResult.push(space);
                 searchResultBySpaceId[space.id] = space;
             });
 
@@ -387,7 +472,12 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                 searchResultBySpaceId[event.spaceId].events.push(event);
             });
 
-        }, delay);
+            $scope.searchResult = searchResult;
+
+            RESULTS = {searchResult: $scope.searchResult, searchResultEventsByTime: $scope.searchResultEventsByTime, searchResultEventsByName: $scope.searchResultEventsByName};
+
+            page = 0;
+        }, 100);
 
     };
 });
