@@ -175,6 +175,8 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
 
 
 app.controller('programacao', function($scope, $http, $location, $timeout, $window, DataService){
+    var page = 0;
+
     $scope.events = null;
     $scope.spaces = null;
     $scope.spacesByName = null;
@@ -187,9 +189,16 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         'time': 'Horário'
     };
     $scope.viewBy = 'space';
+
     $scope.smallDevice = $window.innerWidth < 992;
+
     $scope.viewMode = $scope.smallDevice ? 'list' : 'grid';
+
     $scope.searchText = '';
+
+    $scope.$watch('searchText', function(){
+        $scope.populateEntities();
+    });
 
     $scope.startsAt = '18:00';
     $scope.endsAt = '18:00';
@@ -220,11 +229,15 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
     $scope.win = $window;
 
     $scope.setViewMode = function(mode){
+        page = 0;
         $scope.viewMode = mode;
+        $scope.renderList();
     };
 
     $scope.setViewBy = function(by){
+        page = 0;
         $scope.viewBy = by;
+        $scope.renderList();
     };
 
     angular.element($window).bind('resize', function(){
@@ -247,30 +260,69 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         $scope.populateEntities();
     });
 
+    var renderTimeout = null;
+
     $scope.renderList = function(){
-        var $container = jQuery('#main-section');
+        $timeout.cancel(renderTimeout);
 
-        $container.html('');
+        renderTimeout = $timeout(function(){
+            var spacesPerPage = 8;
+            var eventsPerPage = 36;
+            var offset;
 
-        var events = [];
-        var spaces = [];
+            var $container = jQuery('#main-section');
 
-        $scope.searchResult.forEach(function(space){
-            var $space = jQuery(Resig.render('template-grid-space', space));
-            var $eventContainer = $space.find('.js-events');
-            $eventContainer.html('');
+            var eventTemplate = $scope.viewMode === 'list' ? 'template-event-list' : 'template-event-grid';
+            console.log(page);
+            if(page === 0)
+                $container.html('');
 
-            space.events.forEach(function(event){
-                var element = Resig.renderElement('template-grid-event', event);
-                $eventContainer.append(element);
-            });
+            if($scope.viewBy === 'space'){
+                offset = page * spacesPerPage;
+                $scope.searchResult.slice(offset, offset + spacesPerPage).forEach(function(space){
+                    var spaceTemplate = $scope.viewMode === 'list' ? 'template-space-list' : 'template-space-grid';
+                    var element = appendEntityToContainer(spaceTemplate, space, $container);
+                    var $eventsContainer = jQuery(element).find('.js-events-container');
+                    appendEntitiesToContainer(eventTemplate, space.events, $eventsContainer, true);
+                });
+                if($scope.viewMode === 'grid')
+                    hl.carrousel.init();
+            }else{
+                offset = page * eventsPerPage;
 
-            $container.append($space);
-        });
+                var events = $scope.viewBy === 'time' ? $scope.searchResultEventsByTime : $scope.searchResultEventsByName;
+                appendEntitiesToContainer(eventTemplate, events.slice(offset, offset + eventsPerPage), $container);
+            }
 
-        imgLazyLoad.init();
-        hl.carrousel.init();
+            function appendEntitiesToContainer(template, entities, $container, renderTemplate){
+                entities.forEach(function(entity){
+                    var element = renderTemplate ?
+                        Resig.render(template, entity) :
+                        Resig.renderElement(template, entity);
+                    $container.append(element);
+                });
+            }
+
+            function appendEntityToContainer(template, entity, $container){
+                var element = Resig.renderElement(template, entity);
+                $container.append(element);
+                return element;
+            }
+
+
+            if($scope.viewMode === 'grid')
+                imgLazyLoad.init();
+
+            page++;
+
+        },20);
     };
+
+    jQuery(window).scroll(function(){
+        if(jQuery(window).height() + jQuery(this).scrollTop() >= jQuery('body').height() - jQuery(window).height() / 2)
+            $scope.renderList();
+        
+    });
 
     /**
      *
@@ -354,11 +406,15 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
     $scope.searchResultEventsByTime = [];
     $scope.searchResultEventsByName = [];
 
+    $scope.$watch('searchResult', function(){
+        $scope.renderList();
+    });
+
     $scope.populateEntities = function(delay){
         if(!$scope.events || !$scope.spaces)
             return;
 
-        delay = delay || 300;
+        delay = delay || 50;
 
         if($scope.searchTimeout)
             $timeout.cancel($scope.searchTimeout);
@@ -375,7 +431,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
             var events = [];
             var spaces = [];
 
-            $scope.searchResult = [];
+            var searchResult = [];
 
             $scope.eventIndex.forEach(function(event){
                 if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0) && event.startsAt <= searchEndsAt  &&  event.startsAt >= searchStartsAt){
@@ -405,7 +461,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                 var space = angular.copy(e);
                 space.isSelected = function(){ return e.selected; };
                 space.events = [];
-                $scope.searchResult.push(space);
+                searchResult.push(space);
                 searchResultBySpaceId[space.id] = space;
             });
 
@@ -413,8 +469,11 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                 searchResultBySpaceId[event.spaceId].events.push(event);
             });
 
-            $scope.renderList();
+            $scope.searchResult = searchResult;
 
+            RESULTS = {searchResult: $scope.searchResult, searchResultEventsByTime: $scope.searchResultEventsByTime, searchResultEventsByName: $scope.searchResultEventsByName};
+
+            page = 0;
         }, 100);
 
     };

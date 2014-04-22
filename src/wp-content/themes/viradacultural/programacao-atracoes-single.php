@@ -7,6 +7,9 @@
                 <h1>{{event.name}}</h1>
             </header>
             <div class="post-content clearfix">
+                {{event.shortDescription}}
+            </div>
+            <div class="post-content clearfix">
                 {{event.description}}
             </div>
             <!-- .post-content -->

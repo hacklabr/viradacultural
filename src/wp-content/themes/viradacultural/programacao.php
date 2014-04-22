@@ -73,9 +73,9 @@
                           {{viewByLabels[viewBy]}}  <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" ng-click="viewBy='space'">Local</a></li>
-                            <li><a href="#" ng-click="viewBy='name'">Atração</a></li>
-                            <li><a href="#" ng-click="viewBy='time'">Horário</a></li>
+                            <li><a href="#" ng-click="setViewBy('space')">Local</a></li>
+                            <li><a href="#" ng-click="setViewBy('name')">Atração</a></li>
+                            <li><a href="#" ng-click="setViewBy('time')">Horário</a></li>
                         </ul>
                     </div>
                 </div>
@@ -164,7 +164,7 @@
 
                 <div id="programacao-search" class="programacao-navbar-item col-xs-12 col-sm-12 top left right" role="search">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='searchText' ng-change='populateEntities()'>
+                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='searchText'>
                         <span class="input-group-btn">
                             <button class="btn btn-primary" type="button"><span class="icon icon_search" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Encontrar eventos por palavra-chave"></span></button>
                         </span>
@@ -184,13 +184,12 @@
             <!-- #main-section -->
         </div>
         <!-- .row -->
-        <center>
     </div>
     <!-- #programacao-container.container-fluid -->
 </div>
 
 
-<script type="text/html" id="template-grid-space">
+<script type="text/html" id="template-space-grid">
     <div id="programacao-grid" class="panel panel-default hl-carrousel">
         <div class="hl-ref"></div>
         <div class="panel-heading clearfix">
@@ -205,16 +204,45 @@
             <div class="program-nav program-nav-left hl-nav prev" ><span class="icon arrow_carrot-left"></span></div>
             <div class="program-nav program-nav-right hl-nav next" ><span class="icon arrow_carrot-right"></span></div>
             <ul class="numeric-nav hl-num-nav"></ul>
-            <div class="panel-body hl-wrap js-events"></div>
+            <div class="panel-body hl-wrap js-events-container"></div>
         </div>
     </div>
 </script>
 
-<script type="text/html" id="template-grid-event">
+<script type="text/html" id="template-space-list">
+    <div id="programacao-list" class="panel panel-default">
+        <div class="hl-ref"></div>
+        <div class="panel-heading clearfix">
+            <h4 class="alignleft panel-title">
+                <a href="<%=url%>" target="_blank"><%=name%></a>
+            </h4>
+            <a class="alignright" data-toggle="collapse" data-target="#grid-space-<%=id%>">
+                <span class="icon arrow_carrot-down_alt2"></span>
+            </a>
+        </div>
+        <div id="grid-space-<%=id%>" class="panel-collapse collapse in">
+            <div class="panel-body hl-wrap js-events-container"></div>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="template-event-grid">
     <article class="event clearfix event-grid">
         <span class="event-time"><span class="icon icon_clock"></span> <time><%=startsAt%></time></span>
 
         <img src="<%=defaultImageThumb%>"/>
+
+        <div class="event-content clearfix">
+            <h1><a href="<%=url%>" target="_blank"><%=name%></a></h1>
+            <a class="icon favorite favorite-event-<%=id%>" ng-click="favorite(id)"><!--qdo selecionado adicionar classe active--></a>
+        </div>
+    </article>
+</script>
+
+
+<script type="text/html" id="template-event-list">
+    <article class="event clearfix event-list">
+        <span class="event-time"><span class="icon icon_clock"></span> <time><%=startsAt%></time></span>
 
         <div class="event-content clearfix">
             <h1><a href="<%=url%>" target="_blank"><%=name%></a></h1>
