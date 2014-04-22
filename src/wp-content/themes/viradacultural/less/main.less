@@ -140,6 +140,9 @@ body.single, body.page, body.programacao-single {
 @component-active-color: @amarelo;
 @list-group-link-color: @rosa;
 
+@caret-width-base:          5px;
+@caret-width-large:         7px;
+
 
 /* =WordPress
 -------------------------------------------------------------- */
@@ -569,21 +572,34 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     }
     #view-group {
         float: right;
-        padding: 20px 0;
+        padding: 26px 15px;
         background-color: @gray-lighter;
-        line-height: 36px;
         text-align: center;
         a {
             display: inline-block;
-            width: 36px;
-            height: 36px;
-            background: @gray;
-            border-radius: @border-radius-base;
-            color: @gray-lighter;
+            width: 24px;
+            height: 24px;
+            color: @gray;
             vertical-align: middle;
             cursor: pointer;
-            &:hover, &.active{
+            &:hover {
                 color: @gray-dark;
+            }
+            &.active {
+                color: @rosa;
+            }
+            .icon {
+                line-height: 24px;
+            }
+        }
+    }
+    #by-group {
+        .btn {
+            width: 108px;
+            text-align: left;
+            .caret {
+                margin-top: 10px;
+                float: right;
             }
         }
     }
@@ -593,6 +609,12 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
         float: left;
         line-height: 36px;
         border-left: 2px solid @gray-lighter;
+    }
+    #programacao-search {
+        width: 190px;
+        @media (min-width: @screen-lg-min) {
+            width: 240px;
+        }
     }
     #sort-by {
         .btn {
@@ -630,7 +652,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
         border-radius: 3px 0 0 3px;
         overflow: hidden;
         .navbar-text {
-            margin: 0 5px;
+            margin: 0;
         }
     }
     .time-range {
@@ -645,7 +667,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     .ngrs-range-slider {
         height: 12px;
         width: 100%;
-        margin: 12px 0 0;
+        margin: 8px 0 0;
         padding: 0;
         border: none;
         border-radius: 12px;

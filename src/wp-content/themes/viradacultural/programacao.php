@@ -66,25 +66,33 @@
 
         <div class="container-fluid container-menu-minified">
             <div class="row">
-                <h1 class="col-md-3 programacao-navbar-item">Programação
-                <a class="btn btn-primary" ng-if="conf.pdfURL" href="{{conf.pdfURL}}"><span class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></span></a></h1>
-                <div class="programacao-navbar-item">
-                    <span>Por:</span>
+                <h1 class="programacao-navbar-item">Programação
+                <a class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></a></h1>
+                <div id="programacao-search" class="programacao-navbar-item" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='searchText' ng-change='setSearchText()'>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button"><span class="icon icon_search" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Encontrar eventos por palavra-chave"></span></button>
+                        </span>
+                    </div>
+                </div>
+                <div id="by-group" class="programacao-navbar-item">
+                    <span class="hidden-md">Por:</span>
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                           {{viewByLabels[viewBy]}}  <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" ng-click="viewBy='space'">Local</a></li>
-                            <li><a href="#" ng-click="viewBy='name'">Atração</a></li>
-                            <li><a href="#" ng-click="viewBy='time'">Horário</a></li>
+                            <li><a href="#" ng-click="viewBy='space'">Por local</a></li>
+                            <li><a href="#" ng-click="viewBy='name'">Por atração</a></li>
+                            <li><a href="#" ng-click="viewBy='time'">Por horário</a></li>
                         </ul>
                     </div>
                 </div>
                 <div id="space-filter" class="programacao-navbar-item">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true">Filtrar locais <span class="icon icon_pin" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar locais"></span></button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="hidden-md">Filtrar locais </span><span class="icon icon_pin" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar locais"></span></button>
                 </div>
-                <div class="col-md-2 programacao-navbar-item">
+                <div class="programacao-navbar-item">
                     <div class="time-filter-group clearfix">
                         <div class="time-filter clearfix">
                             <div class="time-range time-range-start">
@@ -99,7 +107,7 @@
                         </div>
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="icon icon_clock" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar horários"></span>
+                                <span class="icon icon_clock" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar horário"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
@@ -109,19 +117,9 @@
                         </div>
                     </div>
                 </div>
-
-                <div id="programacao-search" class="col-md-3 programacao-navbar-item" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='searchText' ng-change='setSearchText()'>
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button"><span class="icon icon_search" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Encontrar eventos por palavra-chave"></span></button>
-                        </span>
-                    </div>
-                </div>
-
-                <div id="view-group" class="col-md-1">
-                    <a id="grid-view" ng-class='{"active": viewMode === "grid"}' ng-click="setViewMode('grid')"><span class="icon icon_grid-2x2"></span></a>
-                    <a id="list-view" ng-class='{"active": viewMode === "list"}' ng-click="setViewMode('list')"><span class="icon icon_menu-square_alt"></span></a>
+                <div id="view-group">
+                    <a id="grid-view" ng-class='{"active": viewMode === "grid"}' ng-click="setViewMode('grid')"><div class="icon icon_grid-2x2"></div></a>
+                    <a id="list-view" ng-class='{"active": viewMode === "list"}' ng-click="setViewMode('list')"><div class="icon icon_menu-square_alt"></div></a>
                 </div>
             </div>
             <!-- .row -->
