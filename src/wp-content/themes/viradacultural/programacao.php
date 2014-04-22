@@ -40,7 +40,7 @@
                                     closeClick="hideSpaceInfo(space)">
                                 <h3>{{space.name}}</h3>
                                 <p>{{space.shortDescription}}</p>
-                                <p><a href="{{spaceUrl(space.id)}}" target="_blank">mais info</a></p>
+                                <p><a href="{{space.url}}" target="_blank">mais info</a></p>
                             </window>
                         </marker>
                     </div>
@@ -192,35 +192,33 @@
 
 <script type="text/html" id="template-grid-space">
     <div id="programacao-grid" class="panel panel-default hl-carrousel">
-        <div class='hl-ref'></div>
+        <div class="hl-ref"></div>
         <div class="panel-heading clearfix">
             <h4 class="alignleft panel-title">
-                <a href="{{url}}" target="_blank">{{name}}</a>
+                <a href="<%=url%>" target="_blank"><%=name%></a>
             </h4>
-            <a class="alignright" data-toggle="collapse" data-target="#grid-space-{{id}}">
+            <a class="alignright" data-toggle="collapse" data-target="#grid-space-<%=id%>">
                 <span class="icon arrow_carrot-down_alt2"></span>
             </a>
         </div>
-        <div id="grid-space-{{id}}" class="panel-collapse collapse in">
+        <div id="grid-space-<%=id%>" class="panel-collapse collapse in">
             <div class="program-nav program-nav-left hl-nav prev" ><span class="icon arrow_carrot-left"></span></div>
             <div class="program-nav program-nav-right hl-nav next" ><span class="icon arrow_carrot-right"></span></div>
             <ul class="numeric-nav hl-num-nav"></ul>
-            <div class="panel-body hl-wrap" >
-                {{{events_html}}}
-            </div>
+            <div class="panel-body hl-wrap js-events"></div>
         </div>
     </div>
 </script>
 
 <script type="text/html" id="template-grid-event">
     <article class="event clearfix event-grid">
-        <span class="event-time"><span class="icon icon_clock"></span> <time>{{startsAt}}</time></span>
-        
-        <img src="{{defaultImageThumb}}"/>
+        <span class="event-time"><span class="icon icon_clock"></span> <time><%=startsAt%></time></span>
+
+        <img src="<%=defaultImageThumb%>"/>
 
         <div class="event-content clearfix">
-            <h1><a href="{{url)}}" target="_blank">{{name}}</a></h1>
-            <a class="icon favorite favorite-event-{{id}}" ng-click="favorite(id)"><!--qdo selecionado adicionar classe 'active'--></a>
+            <h1><a href="<%=url%>" target="_blank"><%=name%></a></h1>
+            <a class="icon favorite favorite-event-<%=id%>" ng-click="favorite(id)"><!--qdo selecionado adicionar classe active--></a>
         </div>
     </article>
 </script>

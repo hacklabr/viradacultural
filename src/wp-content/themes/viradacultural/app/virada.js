@@ -37,6 +37,14 @@ var imgLazyLoad = {
     }
 };
 
+var eventUrl = function(eventId){
+    return GlobalConfiguration.baseURL + '/programacao/atracao/##' + eventId;
+};
+
+var spaceUrl = function(spaceId){
+    return GlobalConfiguration.baseURL + '/programacao/local/##' + spaceId;
+};
+
 var app = angular.module('virada', ['google-maps','ui-rangeSlider']);
 
 app.directive('onLastRepeat', function() {
@@ -48,7 +56,7 @@ app.directive('onLastRepeat', function() {
 });
 
 
-app.controller('main', function($scope, $window){
+app.controller('main', function($scope, $rootScope, $window){
     $scope.conf = GlobalConfiguration;
 
     $scope.winWidth = function(){
@@ -64,14 +72,6 @@ app.controller('main', function($scope, $window){
 
     $scope.brDate = function(date){
         return moment(date).format('dddd[,] DD [de] MMMM [de] YYYY');
-    };
-
-    $scope.eventUrl = function(eventId){
-        return $scope.conf.baseURL + '/programacao/atracao/##' + eventId;
-    };
-
-    $scope.spaceUrl = function(spaceId){
-        return $scope.conf.baseURL + '/programacao/local/##' + spaceId;
     };
 
     $scope.favorite = function(eventId){
@@ -125,9 +125,11 @@ app.controller('evento', function($scope, $http, $location, $timeout, DataServic
         data.some(function(e){
             if(e.id == eventId){
                 $scope.event = e;
+                e.url = eventUrl(e.id);
                 DataService.getSpaces().then(function(response){
                     response.data.some(function(e){
                         if(e.id == $scope.event.spaceId){
+                            e.url = spaceUrl(e.id);
                             $scope.space = e;
                             $scope.mapUrl = "https://maps.google.com/maps?hl=pt-BR&amp;geocode=&amp;q=" + e.name + ", " + e.endereco + ", São Paulo - SP, Brasil&amp;sll=" + e.location.latitude + "," + e.location.longitude + "&amp;ie=UTF8&amp;hq=Teatro Municipal, Praça Ramos de Azevedo, s/n - Republica São Paulo - SP 01037-010, Brasil&amp;hnear=&amp;radius=15000&amp;t=m&amp;ll=" + e.location.latitude + "," + e.location.longitude + "&amp;z=17&amp;output=embed&amp;iwloc=near&amp;language=pt-BR&amp;region=br";
                             return true;
@@ -142,7 +144,7 @@ app.controller('evento', function($scope, $http, $location, $timeout, DataServic
 
 });
 
-app.controller('espaco', function($scope, $http, $location, $timeout, DataService){
+app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout, DataService){
 
     $scope.space = null;
     $scope.spaceEvents = [];
@@ -150,17 +152,19 @@ app.controller('espaco', function($scope, $http, $location, $timeout, DataServic
     var spaceId = parseInt($location.$$hash);
 
     $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
-
         data.forEach(function(e){
             if(e.spaceId == spaceId){
+                e.url = eventUrl(e.id);
                 $scope.spaceEvents.push(e);
             }
         });
     });
 
     DataService.getSpaces().then(function(response){
+
         response.data.some(function(e){
             if(e.id == spaceId){
+                e.url = spaceUrl(e.id);
                 $scope.space = e;
                 return true;
             }
@@ -243,26 +247,26 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         $scope.populateEntities();
     });
 
-    var gridEvents = {};
     $scope.renderList = function(){
         var $container = jQuery('#main-section');
-        var space_template = jQuery('#template-grid-space').text();
-        var event_template = jQuery('#template-grid-event').text();
-        var html = '';
+
+        $container.html('');
+
+        var events = [];
+        var spaces = [];
 
         $scope.searchResult.forEach(function(space){
-            var events_html = '';
+            var $space = jQuery(Resig.render('template-grid-space', space));
+            var $eventContainer = $space.find('.js-events');
+            $eventContainer.html('');
+
             space.events.forEach(function(event){
-                gridEvents[event.id] = gridEvents[event.id] ? gridEvents[event.id] : Mustache.render(event_template, event);
-                events_html += gridEvents[event.id];
-
+                var element = Resig.renderElement('template-grid-event', event);
+                $eventContainer.append(element);
             });
-            space.events_html = events_html;
-            html += Mustache.render(space_template, space);
 
+            $container.append($space);
         });
-
-        $container.html(html);
 
         imgLazyLoad.init();
         hl.carrousel.init();
@@ -297,8 +301,8 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         $scope.spacesById = {};
 
         $scope.spaceIndex = data.map(function(e,i){
+            e.url = spaceUrl(e.id);
             $scope.spacesById[e.id] = e;
-
             return {
                 text: $scope.unaccent(e.name + e.shortDescription),
                 entity: e
@@ -323,6 +327,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         $scope.events = data;
 
         $scope.eventIndex = data.map(function(e,i){
+            e.url = eventUrl(e.id);
             $scope.eventsById[e.id] = e;
 
             return {

@@ -12,7 +12,7 @@
             <!-- .post-content -->
             <div class="servico">
                 <p>
-                    <span>Local:</span> <a href="{{spaceUrl(space.id)}}">{{space.name}}</a><br>
+                    <span>Local:</span> <a href="{{space.url}}">{{space.name}}</a><br>
                     <span>Endereço:</span> {{space.endereco}}<br>
                     <span>Data:</span> {{brDate(event.startsOn)}}<br>
                     <span>Horário:</span> {{event.startsAt}}<br>
