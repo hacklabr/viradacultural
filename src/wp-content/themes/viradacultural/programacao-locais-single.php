@@ -13,7 +13,7 @@
                     <div class="event-group" ng-repeat="event in spaceEvents">
                         <div class="timeline-time">{{event.startsAt}}</div>
                         <article class="event clearfix event-grid">
-                                <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
+                                <img ng-src="{{event.defaultImageThumb}}"/>
                                 <div class="event-content clearfix">
                                     <h1><a href="{{event.url}}">{{event.name}}</a></h1>
                                     <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>

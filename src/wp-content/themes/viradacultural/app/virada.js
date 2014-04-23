@@ -409,6 +409,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                 offset = page * eventsPerPage;
 
                 var events = $scope.data.viewBy === 'time' ? $scope.searchResultEventsByTime : $scope.searchResultEventsByName;
+
                 appendEntitiesToContainer(eventTemplate, events.slice(offset, offset + eventsPerPage), $container);
             }
 
@@ -418,7 +419,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                     var $this = jQuery(this);
                     if(this.complete){
                         $this.hide();
-                        setTimeout(function(){$this.fadeIn('fast');},delay);
+                        setTimeout(function(){ $this.fadeIn('fast'); }, delay);
                         delay = delay + 10;
                     }else{
                         $this.hide().load(function(){
@@ -435,14 +436,15 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                 entities.forEach(function(entity){
                     var $element = jQuery(Resig.renderElement(template, entity));
 
-
                     $container.append($element);
 
                     if($scope.data.viewMode === 'grid'){
                         fadeInImages($element, delay);
                         delay += 10;
-                        article_height = article_height || parseInt($element.width() * .67);
+
+                        article_height = article_height || parseInt($element.width() * .67) + 14;
                         $element.height(article_height);
+                        $element.find('img').width('100%');
                     }
 
 
