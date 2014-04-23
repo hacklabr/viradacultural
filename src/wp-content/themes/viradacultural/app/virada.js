@@ -247,29 +247,46 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
 
 
     DataService.getSpaces().then(function(response){
-        var data = response.data;
-        $scope.spaces = data;
-        $scope.spacesById = {};
+        $http.get($scope.conf.templateURL+'/app/spaces-order.json').success(function(order){
+            var data = [];
+            order.forEach(function(o){
 
-        $scope.spaceIndex = data.map(function(e,i){
-            e.url = spaceUrl(e.id);
-            $scope.spacesById[e.id] = e;
-            return {
-                text: $scope.unaccent(e.name + e.shortDescription),
-                entity: e
-            };
+                response.data.slice().forEach(function(s, i){
+                    if(s.id == o.id){
+                        data.push(s);
+
+                        delete response.data[i];
+                    }
+                });
+            });
+
+            response.data.forEach(function(e){
+                data.push(e);
+            });
+
+            $scope.spaces = data;
+            $scope.spacesById = {};
+
+            $scope.spaceIndex = data.map(function(e,i){
+                e.url = spaceUrl(e.id);
+                $scope.spacesById[e.id] = e;
+                return {
+                    text: $scope.unaccent(e.name + e.shortDescription),
+                    entity: e
+                };
+            });
+
+            $scope.spacesByName = $scope.spaces.slice().sort(function(a,b){
+                if(a.name > b.name)
+                    return 1;
+                else if(a.name < b.name)
+                    return -1;
+                else
+                    return 0;
+            });
+
+            $scope.populateEntities();
         });
-
-        $scope.spacesByName = $scope.spaces.slice().sort(function(a,b){
-            if(a.name > b.name)
-                return 1;
-            else if(a.name < b.name)
-                return -1;
-            else
-                return 0;
-        });
-
-        $scope.populateEntities();
     });
 
     $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
@@ -355,12 +372,16 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                     spaces.push(space);
             });
 
-            spaces.forEach(function(e){
-                var space = angular.copy(e);
-                space.isSelected = function(){ return e.selected; };
-                space.events = [];
-                searchResult.push(space);
-                searchResultBySpaceId[space.id] = space;
+            $scope.spaces.forEach(function(s){
+                spaces.forEach(function(e){
+                    if(s.id == e.id){
+                        var space = angular.copy(e);
+                        space.isSelected = function(){ return e.selected; };
+                        space.events = [];
+                        searchResult.push(space);
+                        searchResultBySpaceId[space.id] = space;
+                    }
+                });
             });
 
             events.forEach(function(event){
