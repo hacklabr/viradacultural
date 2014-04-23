@@ -728,9 +728,15 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
                 top: 0;
                 bottom: 0;
                 width: 50px;
-                line-height: 168px;
                 cursor: pointer;
                 background-color: rgba(0, 166, 138, .5);
+                &:before {
+                    content: '';
+                    display: inline-block;
+                    height: 100%;
+                    vertical-align: middle;
+                    margin-right: -0.25em; /* Adjusts for spacing */
+                }
                 &.program-nav-left {
                     left: 0;
                 }
@@ -739,7 +745,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
                 }
                 .icon {
                     color: @amarelo;
-                    font-size: 56px;
+                    font-size: 52px;
                     vertical-align: middle;
                 }
             }
