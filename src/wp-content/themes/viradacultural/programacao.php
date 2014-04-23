@@ -61,7 +61,7 @@
     </div>
     <!-- #map-modal -->
     <!-- LARGE DEVICES -->
-    <nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top hidden-sm hidden-xs">
+    <nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top hidden-sm hidden-xs" ng-if="!smallDevice">
 
         <div class="container-fluid container-menu-minified">
             <div class="row">
@@ -69,7 +69,7 @@
                 <a class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></a></h1>
                 <div id="programacao-search" class="programacao-navbar-item" role="search">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='searchText' ng-change='setSearchText()'>
+                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='data.searchText' ng-change='populateEntities()'>
                         <span class="input-group-btn">
                             <button class="btn btn-primary" type="button"><span class="icon icon_search" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Encontrar eventos por palavra-chave"></span></button>
                         </span>
@@ -79,12 +79,12 @@
                     <span class="hidden-md">Por:</span>
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                          {{viewByLabels[viewBy]}}  <span class="caret"></span>
+                          {{viewByLabels[data.viewBy]}}  <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" ng-click="setViewBy('space')">Por Local</a></li>
-                            <li><a href="#" ng-click="setViewBy('name')">Por Atração</a></li>
-                            <li><a href="#" ng-click="setViewBy('time')">Por Horário</a></li>
+                            <li><a href="#" ng-click="data.viewBy = 'space'">Por Local</a></li>
+                            <li><a href="#" ng-click="data.viewBy = 'name'">Por Atração</a></li>
+                            <li><a href="#" ng-click="data.viewBy = 'time'">Por Horário</a></li>
                         </ul>
                     </div>
                 </div>
@@ -117,8 +117,8 @@
                     </div>
                 </div>
                 <div id="view-group">
-                    <a id="grid-view" ng-class='{"active": viewMode === "grid"}' ng-click="setViewMode('grid')"><div class="icon icon_grid-2x2"></div></a>
-                    <a id="list-view" ng-class='{"active": viewMode === "list"}' ng-click="setViewMode('list')"><div class="icon icon_menu-square_alt"></div></a>
+                    <a id="grid-view" ng-class='{"active": data.viewMode === "grid"}' ng-click="data.viewMode = 'grid'"><div class="icon icon_grid-2x2"></div></a>
+                    <a id="list-view" ng-class='{"active": data.viewMode === "list"}' ng-click="data.viewMode = 'list'"><div class="icon icon_menu-square_alt"></div></a>
                 </div>
             </div>
             <!-- .row -->
@@ -137,9 +137,9 @@
                           {{viewByLabels[viewBy]}}  <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" ng-click="setViewBy('space')">Local</a></li>
-                            <li><a href="#" ng-click="setViewBy('name')">Atração</a></li>
-                            <li><a href="#" ng-click="setViewBy('time')">Horário</a></li>
+                            <li><a href="#" ng-click="data.viewBy = 'space'">Local</a></li>
+                            <li><a href="#" ng-click="data.viewBy = 'name'">Atração</a></li>
+                            <li><a href="#" ng-click="data.viewBy = 'time'">Horário</a></li>
                         </ul>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
 
                 <div id="programacao-search" class="programacao-navbar-item col-xs-12 col-sm-12 top left right" role="search">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='searchText'>
+                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='data.searchText'>
                         <span class="input-group-btn">
                             <button class="btn btn-primary" type="button"><span class="icon icon_search" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Encontrar eventos por palavra-chave"></span></button>
                         </span>
@@ -177,7 +177,7 @@
 
     <div id="programacao-container" class="container-fluid container-menu-minified">
         <div class="row">
-            <section id="main-section" class="panel-group hidden-sm hidden-xs">
+            <section id="main-section" class="panel-group">
 
             </section>
             <!-- #main-section -->

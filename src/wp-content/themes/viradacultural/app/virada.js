@@ -16,27 +16,6 @@ document.addEventListener('keyup', function(e){
     }
 });
 
-var imgLazyLoad = {
-    timeouts: [],
-
-    init: function(){
-        jQuery("img.lazy").each(function(){
-            var $this = jQuery(this);
-//            imgLazyLoad.timeouts.push(setTimeout(function(){
-                $this.attr('src', $this.data('original'));
-//            }));
-        });
-    },
-
-    clear: function(){
-        imgLazyLoad.timeouts.forEach(function(e){
-            clearTimeout(e);
-        });
-
-        this.timeouts = [];
-    }
-};
-
 var eventUrl = function(eventId){
     return GlobalConfiguration.baseURL + '/programacao/atracao/##' + eventId;
 };
@@ -62,13 +41,6 @@ app.controller('main', function($scope, $rootScope, $window){
     $scope.winWidth = function(){
         return $window.innerWidth;
     };
-
-    $scope.$on('onRepeatLast', function(scope, element, attrs){
-        hl.carrousel.init();
-        minhaVirada.atualizaEstrelas();
-
-        imgLazyLoad.init();
-    });
 
     $scope.brDate = function(date){
         return moment(date).format('dddd[,] DD [de] MMMM [de] YYYY');
@@ -175,7 +147,10 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
 
 
 app.controller('programacao', function($scope, $http, $location, $timeout, $window, DataService){
-    var page = 0;
+    var page = 0,
+        timeouts = {};
+
+    $scope.conf = GlobalConfiguration;
 
     $scope.events = null;
     $scope.spaces = null;
@@ -183,27 +158,22 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
 
     $scope.eventIndex = null;
 
+    $scope.smallDevice = $window.innerWidth < 992;
+
     $scope.viewByLabels = {
         'space': 'Local',
         'name': 'Atração',
         'time': 'Horário'
     };
-    $scope.viewBy = 'space';
 
-    $scope.smallDevice = $window.innerWidth < 992;
-
-    $scope.viewMode = $scope.smallDevice ? 'list' : 'grid';
-
-    $scope.searchText = '';
-
-    $scope.$watch('searchText', function(){
-        $scope.populateEntities();
-    });
+    $scope.data = {
+        viewBy: 'space',
+        viewMode: $scope.smallDevice ? 'list' : 'grid',
+        searchText: ''
+    };
 
     $scope.startsAt = '18:00';
     $scope.endsAt = '18:00';
-
-    $scope.conf = GlobalConfiguration;
 
     $scope.filters = {
         'spaces': false
@@ -224,25 +194,9 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         }
     };
 
-    $scope.slideTimeout = null;
-
-    $scope.win = $window;
-
-    $scope.setViewMode = function(mode){
-        page = 0;
-        $scope.viewMode = mode;
-        $scope.renderList();
-    };
-
-    $scope.setViewBy = function(by){
-        page = 0;
-        $scope.viewBy = by;
-        $scope.renderList();
-    };
-
     angular.element($window).bind('resize', function(){
         if($window.innerWidth < 992){
-            $scope.viewMode = 'list';
+            $scope.data.viewMode = 'list';
             $scope.smallDevice = true;
         }else{
             $scope.smallDevice = false;
@@ -260,72 +214,14 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         $scope.populateEntities();
     });
 
-    var renderTimeout = null;
-
-    $scope.renderList = function(){
-        $timeout.cancel(renderTimeout);
-
-        renderTimeout = $timeout(function(){
-            var spacesPerPage = 8;
-            var eventsPerPage = 36;
-            var offset;
-
-            var $container = jQuery('#main-section');
-
-            var eventTemplate = $scope.viewMode === 'list' ? 'template-event-list' : 'template-event-grid';
-
-            if(page === 0)
-                $container.html('');
-
-            if($scope.viewBy === 'space'){
-                offset = page * spacesPerPage;
-                $scope.searchResult.slice(offset, offset + spacesPerPage).forEach(function(space){
-                    var spaceTemplate = $scope.viewMode === 'list' ? 'template-space-list' : 'template-space-grid';
-                    var element = appendEntityToContainer(spaceTemplate, space, $container);
-                    var $eventsContainer = jQuery(element).find('.js-events-container');
-
-                    appendEntitiesToContainer(eventTemplate, space.events, $eventsContainer, true);
-
-                    if($scope.viewMode === 'grid'){
-                        hl.carrousel.init($eventsContainer.parents('.hl-carrousel'));
-                    }
-                });
-            }else{
-                offset = page * eventsPerPage;
-
-                var events = $scope.viewBy === 'time' ? $scope.searchResultEventsByTime : $scope.searchResultEventsByName;
-                appendEntitiesToContainer(eventTemplate, events.slice(offset, offset + eventsPerPage), $container);
-            }
-
-            function appendEntitiesToContainer(template, entities, $container, renderTemplate){
-                entities.forEach(function(entity){
-                    var element = renderTemplate ?
-                        Resig.render(template, entity) :
-                        Resig.renderElement(template, entity);
-                    $container.append(element);
-                });
-            }
-
-            function appendEntityToContainer(template, entity, $container){
-                var element = Resig.renderElement(template, entity);
-                $container.append(element);
-                return element;
-            }
-
-
-            if($scope.viewMode === 'grid')
-                imgLazyLoad.init();
-
-            page++;
-
-        },20);
-    };
-
-    jQuery(window).scroll(function(){
-        if(jQuery(window).height() + jQuery(this).scrollTop() >= jQuery('body').height() - jQuery(window).height() / 2)
+    $scope.$watch('data', function(oldValue, newValue){
+        if(oldValue.searchText !== newValue.searchText){
+            $scope.populateEntities();
+        }else{
+            page = 0;
             $scope.renderList();
-
-    });
+        }
+    }, true);
 
     /**
      *
@@ -413,21 +309,20 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         $scope.renderList();
     });
 
+
     $scope.populateEntities = function(delay){
         if(!$scope.events || !$scope.spaces)
             return;
 
         delay = delay || 50;
 
-        if($scope.searchTimeout)
-            $timeout.cancel($scope.searchTimeout);
+        if(timeouts.populateEntities)
+            $timeout.cancel(timeouts.populateEntities);
 
 
-        $scope.searchTimeout = $timeout(function(){
-            imgLazyLoad.clear();
-
+        timeouts.populateEntities = $timeout(function(){
             var searchResultBySpaceId = {};
-            var txt = $scope.unaccent($scope.searchText);
+            var txt = $scope.unaccent($scope.data.searchText);
             var searchStartsAt = getTime($scope.startsAt);
             var searchEndsAt = $scope.endsAt === '18:00' ? getTime('17:59') : getTime($scope.endsAt);
 
@@ -480,6 +375,96 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         }, 100);
 
     };
+
+    $scope.renderList = function(){
+        if(timeouts.renderList)
+            $timeout.cancel(timeouts.renderList);
+
+        timeouts.renderList = $timeout(function(){
+            var spacesPerPage = 8;
+            var eventsPerPage = 36;
+            var offset;
+
+            var $container = jQuery('#main-section');
+
+            var eventTemplate = $scope.data.viewMode === 'list' ? 'template-event-list' : 'template-event-grid';
+
+            if(page === 0)
+                $container.html('');
+
+            if($scope.data.viewBy === 'space'){
+                offset = page * spacesPerPage;
+                $scope.searchResult.slice(offset, offset + spacesPerPage).forEach(function(space){
+                    var spaceTemplate = $scope.data.viewMode === 'list' ? 'template-space-list' : 'template-space-grid';
+                    var element = appendEntityToContainer(spaceTemplate, space, $container);
+                    var $eventsContainer = jQuery(element).find('.js-events-container');
+
+                    appendEntitiesToContainer(eventTemplate, space.events, $eventsContainer);
+
+                    if($scope.data.viewMode === 'grid'){
+                        hl.carrousel.init($eventsContainer.parents('.hl-carrousel'));
+                    }
+                });
+            }else{
+                offset = page * eventsPerPage;
+
+                var events = $scope.data.viewBy === 'time' ? $scope.searchResultEventsByTime : $scope.searchResultEventsByName;
+                appendEntitiesToContainer(eventTemplate, events.slice(offset, offset + eventsPerPage), $container);
+            }
+
+
+            function fadeInImages($element, delay){
+                $element.find('img').each(function(){
+                    var $this = jQuery(this);
+                    if(this.complete){
+                        $this.hide();
+                        setTimeout(function(){$this.fadeIn('fast');},delay);
+                        delay = delay + 10;
+                    }else{
+                        $this.hide().load(function(){
+                            $this.fadeIn('fast');
+                        });
+                    }
+                });
+            }
+
+            var article_height;
+
+            function appendEntitiesToContainer(template, entities, $container){
+                var delay = 0;
+                entities.forEach(function(entity){
+                    var $element = jQuery(Resig.renderElement(template, entity));
+
+
+                    $container.append($element);
+
+                    if($scope.data.viewMode === 'grid'){
+                        fadeInImages($element, delay);
+                        delay += 10;
+                        article_height = article_height || parseInt($element.width() * .67);
+                        $element.height(article_height);
+                    }
+
+
+                });
+            }
+
+            function appendEntityToContainer(template, entity, $container){
+                var $element = jQuery(Resig.render(template, entity));
+                $container.append($element);
+                return $element;
+            }
+
+            page++;
+
+        },20);
+    };
+
+    jQuery(window).scroll(function(){
+        if(jQuery(window).height() + jQuery(this).scrollTop() >= jQuery('body').height() - jQuery(window).height() / 2)
+            $scope.renderList();
+    });
+    jQuery(window).scroll();
 });
 
 app.controller('minha-virada', function($rootScope, $scope, $http, $location, $timeout, DataService){
