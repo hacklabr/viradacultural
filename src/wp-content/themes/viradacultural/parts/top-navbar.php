@@ -28,6 +28,8 @@
                                 10 anos
 							<?php } else if (is_single()) { ?>
 								Blog
+							<?php } else if (is_author()) { ?>
+								Blog - <?php wp_title(''); ?>								
 							<?php } else if (is_home()) { ?>
 								
                             <?php } ?>
