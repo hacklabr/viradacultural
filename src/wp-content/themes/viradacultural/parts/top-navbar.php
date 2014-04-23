@@ -1,7 +1,7 @@
 		<nav id="site-navbar" class="virada-navbar navbar navbar-fixed-top hidden-xs hidden-sm">
 			<div class="container-fluid <?php if(is_page_template('page-dez-anos.php')): ?>container-menu-minified<?php else: ?>container-menu-large<?php endif;?>">
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-4 col-lg-6">
 							<h1>
 							<?php // títulos ?>
 							<?php if ('noticias' == get_post_type() || is_post_type_archive('noticias')) { ?>
@@ -33,7 +33,7 @@
 						</div>
 						<?php // share buttons ?>
 
-						<div class="share-buttons col-md-4">
+						<div class="share-buttons col-md-4 col-lg-3">
 							<ul>
 								<li class="facebook">
 									<a href="https://www.facebook.com/sharer/sharer.php?u=<?php the_permalink(); ?>" class="btn btn-default popup">
@@ -59,7 +59,7 @@
 
 
 						<?php // search form ?>
-						<form id="pages-search" class="pages-navbar-item col-md-4" role="search" action="<?php echo site_url(); ?>">
+						<form id="pages-search" class="pages-navbar-item col-md-4 col-lg-3" role="search" action="<?php echo site_url(); ?>">
 							<div class="input-group">
 								<input type="text" name="s" class="form-control" placeholder="Digite uma palavra-chave" ng-model='searchText' ng-change='unaccentSearchText = unaccent(searchText)'>
 
