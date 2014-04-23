@@ -15,7 +15,7 @@
 							<?php } else if (is_search()) { ?>
 								Busca <small>Resultado da busca por <strong><?php echo get_search_query(); ?></strong></small>
                             <?php } else if (is_page_template('page-nas-redes.php')) { ?>
-                                #<?php echo get_theme_option('hashtag'); ?>
+                                Nas redes <small>#<?php echo get_theme_option('hashtag'); ?></small>
                             <?php } else if (get_query_var('virada_tpl') && get_query_var('virada_tpl') == 'minha-virada') { ?>
                                 Minha Virada
                             <?php } else if (get_query_var('virada_tpl') && get_query_var('virada_tpl') == 'programacao-locais-single') { ?>
