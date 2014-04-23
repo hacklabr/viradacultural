@@ -13,7 +13,7 @@
 							<?php } else if (is_category()) { ?>
 								<?php single_cat_title(); ?></h1>
 							<?php } else if (is_search()) { ?>
-								Busca
+								Busca <small>Resultado da busca por <strong><?php echo get_search_query(); ?></strong></small>
                             <?php } else if (is_page_template('page-nas-redes.php')) { ?>
                                 #<?php echo get_theme_option('hashtag'); ?>
                             <?php } else if (get_query_var('virada_tpl') && get_query_var('virada_tpl') == 'minha-virada') { ?>
@@ -26,8 +26,10 @@
                                 Atração
                             <?php } else if (is_page_template('page-dez-anos.php')) { ?>
                                 10 anos
-							<?php } else if (is_single() || is_home()) { ?>
+							<?php } else if (is_single()) { ?>
 								Blog
+							<?php } else if (is_home()) { ?>
+								
                             <?php } ?>
 							</h1>
 						</div>
