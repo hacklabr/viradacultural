@@ -26,6 +26,19 @@ var spaceUrl = function(spaceId){
 
 var app = angular.module('virada', ['google-maps','ui-rangeSlider']);
 
+(function getThemeDir(){
+    var scripts = document.getElementsByTagName('script');
+    if(scripts.length === 0) return;
+
+    var index = scripts.length - 1;
+    var viradajs = scripts[index];
+
+    if(viradajs) {
+        var themeDir = viradajs.src.replace(/app\/virada\.js$/, '');
+        app.constant('THEME_DIR', themeDir);
+    }
+})();
+
 app.directive('onLastRepeat', function() {
     return function(scope, element, attrs) {
         if (scope.$last) setTimeout(function(){
@@ -469,7 +482,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
 
 
                     if($scope.data.viewMode === 'grid'){
-                        grid_width = grid_width || parseInt(jQuery('#main-section').width() * .18);
+                        grid_width = grid_width || parseInt(jQuery('#main-section').innerWidth() * .2) - 1;
                         grid_height = grid_height || parseInt(grid_width * .66667);
                         grid_height_inc = grid_height_inc || $element.find('>div.event-content').outerHeight();
 
@@ -538,7 +551,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
     });
 
     $scope.loadUserData = function(uid) {
-        $http.get($scope.conf.baseURL+'/wp-content/uploads/minha-virada/'+uid).success(function(data){
+        $http.get($scope.conf.templateURL + '/includes/minha-virada-ajax.php?action=minhavirada_getJSON&uid='+uid).success(function(data){
             $scope.populateUserInfo(data);
         });
     }

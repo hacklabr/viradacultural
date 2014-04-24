@@ -5,10 +5,10 @@ class MinhaVirada {
     static $folder;
     
     static function init() {
-		self::$folder = WP_CONTENT_DIR . '/uploads/minha-virada/';
+		#self::$folder = WP_CONTENT_DIR . '/uploads/minha-virada/';
         
-        add_action('wp_ajax_minhavirada_updateJSON', array(__CLASS__, 'ajax_update_JSON'));
-        add_action('wp_ajax_nopriv_minhavirada_updateJSON', array(__CLASS__, 'ajax_update_JSON'));
+        #add_action('wp_ajax_minhavirada_updateJSON', array(__CLASS__, 'ajax_update_JSON'));
+        #add_action('wp_ajax_nopriv_minhavirada_updateJSON', array(__CLASS__, 'ajax_update_JSON'));
         
     }
 
@@ -19,7 +19,7 @@ class MinhaVirada {
         <?php
         
     }
-    
+    /*
 	static function ajax_update_JSON() {
 		if( is_array($_POST['dados'])) {
 			if (isset($_POST['dados']['events']) && is_array($_POST['dados']['events'])) {
@@ -37,7 +37,7 @@ class MinhaVirada {
 		}
 		die;
 	}
-
+    */
 }
 
 MinhaVirada::init();

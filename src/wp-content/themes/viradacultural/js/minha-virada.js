@@ -9,6 +9,7 @@ minhaVirada = {
     picture: false,
     events: [],
     modalDismissed: false,
+    data: false,
 
     connect: function(callback) {
         var callback = 'minhaVirada.' + callback + '()';
@@ -56,9 +57,9 @@ minhaVirada = {
             minhaVirada.picture = response.picture.data.url;
 
             // Pega dados do usuário
-            jQuery.getJSON( GlobalConfiguration.baseURL + '/wp-content/uploads/minha-virada/' + minhaVirada.uid, function( data ) {
+            jQuery.getJSON( GlobalConfiguration.templateURL + '/includes/minha-virada-ajax.php?action=minhavirada_getJSON&uid=' + minhaVirada.uid, function( data ) {
                 
-                console.log(data);
+                minhaVirada.debug = data;
                 
                 if (!data.events)
                     minhaVirada.events = [];
@@ -100,7 +101,7 @@ minhaVirada = {
 
     save: function() {
         var userJSON = minhaVirada.prepareJSON();
-        jQuery.post( GlobalConfiguration.ajaxurl, {action: 'minhavirada_updateJSON', dados: userJSON }, function( data ) {
+        jQuery.post( GlobalConfiguration.templateURL + '/includes/minha-virada-ajax.php', {action: 'minhavirada_updateJSON', dados: userJSON }, function( data ) {
             // atualiza estrelas
             minhaVirada.atualizaEstrelas();
             if (!minhaVirada.modalDismissed)
