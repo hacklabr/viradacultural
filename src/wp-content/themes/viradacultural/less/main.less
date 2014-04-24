@@ -565,6 +565,9 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     min-height: 76px;
     background-color: #fff;
     font-family: @font-family-secondary;
+    &.navbar-collapse {
+        padding: 0;
+    }
     h1 {
         margin: 20px 0;
         font-size: 24px;
@@ -609,6 +612,9 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
         float: left;
         line-height: 36px;
         border-left: 2px solid @gray-lighter;
+        @media (max-width: @screen-tablet) {
+            border-left: none;
+        }
     }
     #programacao-search {
         width: 190px;
@@ -691,12 +697,6 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
             background-color: @rosa;
 
         }
-    }
-}
-
-#collapsed-filter {
-    .programacao-navbar-item {
-        border: none;
     }
 }
 
