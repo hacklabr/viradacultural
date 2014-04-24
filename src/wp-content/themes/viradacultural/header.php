@@ -152,7 +152,7 @@
         <!-- SMALL DEVICES -->
         <header id="main-header-minified" class="hidden-md hidden-lg">
             <nav class="navbar navbar-default" role="navigation">
-                <div class="container-fluid left right">
+                <div class="container-fluid">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target="#collapsed-navigation">
                             <span class="sr-only">Menu</span>
