@@ -33,8 +33,6 @@
 				<a class="right carousel-control" href="#front-page-carousel" data-slide="next">
 				<span class="glyphicon glyphicon-chevron-right"></span>
 				</a>
-			<?php else :?>
-                <p>Nenhum destaque encontrado.</p>
 			<?php endif; ?>
 		</div>
 		<?php wp_reset_postdata(); ?>
