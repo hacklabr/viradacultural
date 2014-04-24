@@ -28,8 +28,8 @@
                 <!-- src="{{mapUrl}}" -->
                 <iframe class="hidden-sm hidden-xs" width="100%" height="220" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?hl=pt-BR&amp;geocode=&amp;q=Teatro Municipal, Praça Ramos de Azevedo, s/n - Republica São Paulo - SP 01037-010, Brasil&amp;sll=-23.545235,-46.638615&amp;ie=UTF8&amp;hq=Teatro Municipal, Praça Ramos de Azevedo, s/n - Republica São Paulo - SP 01037-010, Brasil&amp;hnear=&amp;radius=15000&amp;t=m&amp;ll=-23.545235,-46.638615&amp;z=17&amp;output=embed&amp;iwloc=near&amp;language=pt-BR&amp;region=br"></iframe>
 
-                <p>
-                    <a class="btn btn-primary btn-xs" target="_blank" href="http://maps.google.com/maps?q={{space.name}}, {{space.endereco}},São Paulo&hl=pt-BR&ll={{space.location.latitude}},{{space.location.longitude}}&z=17z">
+                <p class="hidden-md hidden-lg">
+                    <a class="btn btn-primary btn-xs" target="_blank" href="{{mapUrl}}">
                         <span class="icon icon_pin"></span> Ver no mapa
                     </a>
                 </p>
