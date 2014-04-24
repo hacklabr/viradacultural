@@ -50,6 +50,9 @@ foreach($occurrences as $occ){
 	$rule = $occ->rule;
 	$e = $events_by_id[$occ->eventId];
 	$e->spaceId = $rule->spaceId;
+	
+	echo $rule->startsOn . ' - ' . $rule->startsAt . "\n";
+
     $e->startsAt = $rule->startsAt;
 	$e->startsOn = $rule->startsOn;
 
