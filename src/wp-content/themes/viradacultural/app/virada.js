@@ -159,6 +159,12 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
     $scope.eventIndex = null;
 
     $scope.smallDevice = $window.innerWidth < 992;
+    $scope.midgetDevice = $window.innerWidth < 768;
+
+    jQuery(window).resize(function(){
+        $scope.smallDevice = $window.innerWidth < 992;
+        $scope.midgetDevice = $window.innerWidth < 768;
+    });
 
     $scope.viewByLabels = {
         'space': 'Local',
