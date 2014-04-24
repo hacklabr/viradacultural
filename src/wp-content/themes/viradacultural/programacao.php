@@ -193,7 +193,7 @@
         <div class="hl-ref"></div>
         <div class="panel-heading clearfix">
             <h4 class="alignleft panel-title">
-                <a href="<%=url%>" target="_blank"><%=name%></a>
+                <a href="<%=url%>"><%=name%></a>
             </h4>
             <a class="alignright" data-toggle="collapse" data-target="#grid-space-<%=id%>">
                 <span class="icon arrow_carrot-down_alt2"></span>
@@ -213,7 +213,7 @@
         <div class="hl-ref"></div>
         <div class="panel-heading clearfix">
             <h4 class="alignleft panel-title">
-                <a href="<%=url%>" target="_blank"><%=name%></a>
+                <a href="<%=url%>"><%=name%></a>
             </h4>
             <a class="alignright" data-toggle="collapse" data-target="#grid-space-<%=id%>">
                 <span class="icon arrow_carrot-down_alt2"></span>
@@ -232,7 +232,7 @@
         <img src="<%=defaultImageThumb%>"/>
 
         <div class="event-content clearfix">
-            <h1><a href="<%=url%>" target="_blank"><%=name%></a></h1>
+            <h1><a href="<%=url%>"><%=name%></a></h1>
             <a class="icon favorite favorite-event-<%=id%>" ng-click="favorite(id)"><!--qdo selecionado adicionar classe active--></a>
         </div>
     </article>
@@ -244,7 +244,7 @@
         <span class="event-time"><span class="icon icon_clock"></span> <time><%=startsAt%></time></span>
 
         <div class="event-content clearfix">
-            <h1><a href="<%=url%>" target="_blank"><%=name%></a></h1>
+            <h1><a href="<%=url%>"><%=name%></a></h1>
             <a class="icon favorite favorite-event-<%=id%>" ng-click="favorite(id)"><!--qdo selecionado adicionar classe active--></a>
         </div>
     </article>
