@@ -24,6 +24,11 @@ var spaceUrl = function(spaceId){
     return GlobalConfiguration.baseURL + '/programacao/local/##' + spaceId;
 };
 
+var getMapUrl = function (spaceEntity){
+    var e = spaceEntity;
+    return "https://maps.google.com/maps?hl=pt-BR&geocode=&q=" + e.name + ", " + e.endereco + ", São Paulo - SP, Brasil&sll=" + e.location.latitude + "," + e.location.longitude + "&ie=UTF8&hq=" + e.name + ", " + e.endereco + ", São Paulo - SP, Brasil&hnear=&radius=15000&t=m&ll=" + e.location.latitude + "," + e.location.longitude + "&z=17&output=embed&iwloc=near&language=pt-BR&region=br";
+};
+
 var app = angular.module('virada', ['google-maps','ui-rangeSlider']);
 
 (function getThemeDir(){
@@ -48,8 +53,12 @@ app.directive('onLastRepeat', function() {
 });
 
 
-app.controller('main', function($scope, $rootScope, $window){
+app.controller('main', function($scope, $rootScope, $window, $sce){
     $scope.conf = GlobalConfiguration;
+
+    $scope.getTrustedURI = function (URI){
+        return $sce.trustAsResourceUrl(URI);
+    };
 
     $scope.winWidth = function(){
         return $window.innerWidth;
@@ -116,7 +125,7 @@ app.controller('evento', function($scope, $http, $location, $timeout, DataServic
                         if(e.id == $scope.event.spaceId){
                             e.url = spaceUrl(e.id);
                             $scope.space = e;
-                            $scope.mapUrl = "https://maps.google.com/maps?hl=pt-BR&amp;geocode=&amp;q=" + e.name + ", " + e.endereco + ", São Paulo - SP, Brasil&amp;sll=" + e.location.latitude + "," + e.location.longitude + "&amp;ie=UTF8&amp;hq=Teatro Municipal, Praça Ramos de Azevedo, s/n - Republica São Paulo - SP 01037-010, Brasil&amp;hnear=&amp;radius=15000&amp;t=m&amp;ll=" + e.location.latitude + "," + e.location.longitude + "&amp;z=17&amp;output=embed&amp;iwloc=near&amp;language=pt-BR&amp;region=br";
+                            $scope.mapUrl = getMapUrl(e);
                             return true;
                         }
                     });
@@ -151,6 +160,7 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
             if(e.id == spaceId){
                 e.url = spaceUrl(e.id);
                 $scope.space = e;
+                $scope.mapUrl = getMapUrl(e);
                 return true;
             }
         });
