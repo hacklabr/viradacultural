@@ -939,6 +939,10 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
 .space-single {
     .timeline {
         width: 520px;
+        @media (max-width: @screen-xs-min) {
+            width: 260px;
+        }
+
         margin-bottom: 48px;
         .center-block();
         .event-group {
@@ -995,33 +999,37 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
                     bottom: 60px;
                 }
             }
-
-            &:nth-child(odd){
-                float: left;
-                border-right: 2px solid @amarelo;
-                margin-left: 2px;
-                .timeline-time {
-                    right: -23px;
-                }
-                .event-grid {
-                    margin-right: 35px;
-                    &:before {
-                        content: "\45";
-                        right: -18px;
-                    }
+            float: right;
+            border-left: 2px solid @amarelo;
+            .timeline-time {
+                left: -23px;
+            }
+            .event-grid {
+                margin-left: 33px;
+                &:before {
+                    content: "\44";
+                    left: -18px;
                 }
             }
-            &:nth-child(even){
-                float: right;
-                border-left: 2px solid @amarelo;
-                .timeline-time {
-                    left: -23px;
-                }
-                .event-grid {
-                    margin-left: 33px;
-                    &:before {
-                        content: "\44";
-                        left: -18px;
+            
+            @media (min-width: @screen-xs-min) {
+                &:nth-child(odd){
+                    float: left;
+                    border-right: 2px solid @amarelo;
+                    border-left: none;
+                    margin-left: 2px;
+                    .timeline-time {
+                        right: -23px;
+                        left: initial;
+                    }
+                    .event-grid {
+                        margin-right: 35px;
+                        margin-left: 0;
+                        &:before {
+                            content: "\45";
+                            right: -18px;
+                            left: initial;
+                        }
                     }
                 }
             }
@@ -1031,8 +1039,8 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
 }
 
 .space-single {
-    width: 70%;
     margin: 0 auto 48px;
+
 }
 
 .servico {
