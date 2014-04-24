@@ -99,7 +99,7 @@
                 <div id="space-filter" class="programacao-navbar-item">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="hidden-md">Filtrar locais </span><span class="icon icon_pin" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar locais"></span></button>
                 </div>
-                <div class="programacao-navbar-item">
+                <div id="time-filter-item" class="programacao-navbar-item">
                     <div class="time-filter-group clearfix">
                         <div class="time-filter clearfix">
                             <div class="time-range time-range-start">
