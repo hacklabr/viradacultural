@@ -5,7 +5,7 @@
   position: relative;
   
   article {
-    left: 115px;
+    left: 130px;
     right: 0;
     width: initial !important;
     hr {
@@ -53,6 +53,7 @@
       padding: 18px 36px;
       position: absolute;
       top: 0;
+      z-index: 20;
       h1 {
         color: white !important;
         line-height: 1;
@@ -66,6 +67,11 @@
       padding: 18px 100px 18px 18px;
       position: absolute;
       right: 0;
+      z-index: 10;
+      > div {
+        padding-left: 200px;
+        padding-right: 80px;
+      }
     }
   }
 }
@@ -73,6 +79,7 @@
 #years-nav {
   position: fixed;
   right: 0;
+  z-index: 100;
   .year {
     background-color: @roxo;
     color: @amarelo;
