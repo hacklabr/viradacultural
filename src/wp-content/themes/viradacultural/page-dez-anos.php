@@ -76,13 +76,14 @@ imgs['<?php the_ID(); ?>'] = {};
                     <article id="post-<?php the_ID(); ?>" data-id="<?php the_ID(); ?>" data-nav='#nav-<?php the_ID(); ?>' <?php post_class('row children');?>>
                         <figure id='figure-<?php the_ID(); ?>'></figure>
                         <hr style="z-index:10000; position: relative;">
-
                         <header>
                             <h1><?php the_title(); ?></h1>
                         </header>
-                        <section class="clearfix js-content">
-                            <?php the_content(); ?>
-                            <p><button class="btn btn-large btn-success">Baixar programação</button></p>
+                        <section class="block">
+                            <div class="centered text-left">
+                                <?php the_content(); ?>
+                                <p class="text-right"><button class="btn btn-large btn-success">Baixar programação</button></p>
+                            </div>
                         </section>
                     </article>
 

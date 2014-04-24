@@ -1,4 +1,4 @@
-<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix col-md-8 col-md-offset-2');?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix col-md-10 col-md-offset-1');?>>
 	<header>
 		<h1><?php the_title();?></h1>
 		<p>
