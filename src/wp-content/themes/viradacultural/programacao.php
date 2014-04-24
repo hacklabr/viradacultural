@@ -11,38 +11,47 @@
                     <h4 class="modal-title" id="myModalLabel">Filtro de Locais <small>Clique no nome ou no pin do local para selecioná-lo</small></h4>
                 </div>
                 <div class="modal-body clearfix">
-                    <nav class="modal-nav">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Encontre um local" ng-model="filterSpace">
-                            <span class="input-group-addon"><span class="icon icon_search"></span></span>
-                        </div>
-                        <div class="list-group">
-                            <a href="#" class="list-group-item"
-                               ng-class="{active: space.selected}"
-                               ng-repeat="space in spacesByName | filter:filterSpace"
-                               ng-click="toggleSelectSpace(space)">{{space.name}}</a>
-                        </div>
-                    </nav>
-                    <div class="mapa google-map"
-                            center="map.center"
-                            control="map.control"
-                            zoom="map.zoom"
-                            draggable="true"
-                            refresh="true">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs visible-xs">
+                        <li class="active"><a href="#modal-list" data-toggle="tab">Lista</a></li>
+                        <li><a href="#modal-map" data-toggle="tab">Mapa</a></li>
+                    </ul>
+                    <div class="tab-content clearfix">
+                        <nav id="modal-list" class="modal-nav tab-pane active">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Encontre um local" ng-model="filterSpace">
+                                <span class="input-group-addon"><span class="icon icon_search"></span></span>
+                            </div>
+                            <div class="list-group">
+                                <a href="#" class="list-group-item"
+                                   ng-class="{active: space.selected}"
+                                   ng-repeat="space in spacesByName | filter:filterSpace"
+                                   ng-click="toggleSelectSpace(space)">{{space.name}}</a>
+                            </div>
+                        </nav>
+                        <div id="modal-map" class="mapa google-map tab-pane"
+                                center="map.center"
+                                control="map.control"
+                                zoom="map.zoom"
+                                draggable="true"
+                                refresh="true"
+                                ng-class="{'active': !midgetDevice}"
+                                >
 
-                        <marker ng-repeat="space in spaces"
-                                coords="space.location"
-                                icon="space.selected ? icons.selected : icons.default"
-                                click="showSpaceInfo(space)">
+                            <marker ng-repeat="space in spaces"
+                                    coords="space.location"
+                                    icon="space.selected ? icons.selected : icons.default"
+                                    click="showSpaceInfo(space)">
 
-                            <window show="space.showInfo"
-                                    isIconVisibleOnClick="true"
-                                    closeClick="hideSpaceInfo(space)">
-                                <h3>{{space.name}}</h3>
-                                <p>{{space.shortDescription}}</p>
-                                <p><a href="{{space.url}}" target="_blank">mais info</a></p>
-                            </window>
-                        </marker>
+                                <window show="space.showInfo"
+                                        isIconVisibleOnClick="true"
+                                        closeClick="hideSpaceInfo(space)">
+                                    <h3>{{space.name}}</h3>
+                                    <p>{{space.shortDescription}}</p>
+                                    <p><a href="{{space.url}}" target="_blank">mais info</a></p>
+                                </window>
+                            </marker>
+                        </div>
                     </div>
                 </div>
 
@@ -61,8 +70,7 @@
     </div>
     <!-- #map-modal -->
     <!-- LARGE DEVICES -->
-    <nav id="programacao-navbar" class="virada-navbar navbar navbar-fixed-top hidden-sm hidden-xs" ng-if="!smallDevice">
-
+    <nav id="programacao-navbar" class="collapse navbar-collapse virada-navbar navbar navbar-fixed-top">
         <div class="container-fluid container-menu-minified">
             <div class="row">
                 <h1 class="programacao-navbar-item">Programação
@@ -127,53 +135,7 @@
     </nav>
     <!-- #programacao-navbar -->
 
-    <nav id="collapsed-filter" class="collapse navbar-collapse virada-navbar hidden-md hidden-lg" ng-if="smallDevice">
-        <div class="container-fluid container-menu-minified">
-            <div class="row">
-                <h1 class="programacao-navbar-item bottom top left right"><a class="btn btn-primary" ng-if="conf.pdfURL" href="{{conf.pdfURL}}"><span class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></span> </a></h1>
-                <div id="sort-by" class="programacao-navbar-item left right">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                          {{viewByLabels[viewBy]}}  <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" ng-click="data.viewBy = 'space'">Local</a></li>
-                            <li><a href="#" ng-click="data.viewBy = 'name'">Atração</a></li>
-                            <li><a href="#" ng-click="data.viewBy = 'time'">Horário</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="space-filter" class="programacao-navbar-item">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="icon icon_pin" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar espaços"></span></button>
-                </div>
-                <div class="programacao-navbar-item col-xs-12 col-sm-12 top left right">
-                    <div class="time-filter-group clearfix">
-                        <button type="button" class="btn btn-primary"><span class="icon icon_clock" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar horários"></span></button>
-                        <div class="time-filter clearfix">
-                            <div class="time-range time-range-start">
-                                {{startsAt}}
-                            </div>
-                            <div show-values="false" range-slider prevent-equal-min-max="true" min="timeSlider.range.min" max="timeSlider.range.max" model-min="timeSlider.model.min" model-max="timeSlider.model.max" step="1"></div>
-                            <div class="time-range time-range-end">
-                                {{endsAt}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="programacao-search" class="programacao-navbar-item col-xs-12 col-sm-12 top left right" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='data.searchText'>
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button"><span class="icon icon_search" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Encontrar eventos por palavra-chave"></span></button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <!-- .row -->
-        </div>
-        <!-- .container-fluid -->
-    </nav>
+    
 
     <div id="programacao-container" class="container-fluid container-menu-minified">
         <div class="row">
