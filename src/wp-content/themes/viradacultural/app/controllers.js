@@ -17,7 +17,11 @@
             $scope.icons = {
                 'default': THEME_DIR + 'img/pin.png',
                 'selected': THEME_DIR + 'img/pin-selected.png'
-            }
+            };
+
+            $scope.infowindowOptions = {
+                pixelOffset: new google.maps.Size(0, -40)
+            };
 
             $scope.countSelected = function(){
                 return $scope.spaces.filter(function(space){

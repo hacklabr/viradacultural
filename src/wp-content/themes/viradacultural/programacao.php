@@ -45,6 +45,7 @@
 
                                 <window show="space.showInfo"
                                         isIconVisibleOnClick="true"
+                                        options="infowindowOptions"
                                         closeClick="hideSpaceInfo(space)">
                                     <h3>{{space.name}}</h3>
                                     <p>{{space.shortDescription}}</p>
@@ -73,7 +74,7 @@
     <nav id="programacao-navbar" class="collapse navbar-collapse virada-navbar navbar navbar-fixed-top">
         <div class="container-fluid container-menu-minified">
             <div class="row">
-                <h1 class="programacao-navbar-item">Programação
+                <h1 class="programacao-navbar-item visible-md visible-lg">Programação
                 <a class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></a></h1>
                 <div id="programacao-search" class="programacao-navbar-item" role="search">
                     <div class="input-group">
@@ -99,7 +100,7 @@
                 <div id="space-filter" class="programacao-navbar-item">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="hidden-md">Filtrar locais </span><span class="icon icon_pin" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar locais"></span></button>
                 </div>
-                <div class="programacao-navbar-item">
+                <div id="time-filter-item" class="programacao-navbar-item">
                     <div class="time-filter-group clearfix">
                         <div class="time-filter clearfix">
                             <div class="time-range time-range-start">
@@ -124,7 +125,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="view-group">
+                <div id="view-group" class="visible-md visible-lg">
                     <a id="grid-view" ng-class='{"active": data.viewMode === "grid"}' ng-click="data.viewMode = 'grid'"><div class="icon icon_grid-2x2"></div></a>
                     <a id="list-view" ng-class='{"active": data.viewMode === "list"}' ng-click="data.viewMode = 'list'"><div class="icon icon_menu-square_alt"></div></a>
                 </div>
