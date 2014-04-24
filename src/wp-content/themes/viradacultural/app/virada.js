@@ -538,7 +538,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
     });
 
     $scope.loadUserData = function(uid) {
-        $http.get($scope.conf.baseURL+'/wp-content/uploads/minha-virada/'+uid).success(function(data){
+        $http.get($scope.conf.templateURL + '/includes/minha-virada-ajax.php?action=minhavirada_getJSON&uid='+uid).success(function(data){
             $scope.populateUserInfo(data);
         });
     }

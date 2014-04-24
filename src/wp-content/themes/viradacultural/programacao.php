@@ -194,8 +194,10 @@
         <img src="<%=defaultImageThumb%>"/>
 
         <div class="event-content clearfix">
+
             <h1><a href="<%=url%>"><%=name%></a></h1>
-            <a class="icon favorite favorite-event-<%=id%>" ng-click="favorite(id)"><!--qdo selecionado adicionar classe active--></a>
+            <a class="icon favorite favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
+
         </div>
     </article>
 </script>
@@ -206,8 +208,10 @@
         <span class="event-time"><span class="icon icon_clock"></span> <time><%=startsAt%></time></span>
 
         <div class="event-content clearfix">
+
             <h1><a href="<%=url%>"><%=name%></a></h1>
-            <a class="icon favorite favorite-event-<%=id%>" ng-click="favorite(id)"><!--qdo selecionado adicionar classe active--></a>
+            <a class="icon favorite favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
+
         </div>
     </article>
 </script>
