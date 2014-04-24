@@ -45,6 +45,7 @@
 
                                 <window show="space.showInfo"
                                         isIconVisibleOnClick="true"
+                                        options="infowindowOptions"
                                         closeClick="hideSpaceInfo(space)">
                                     <h3>{{space.name}}</h3>
                                     <p>{{space.shortDescription}}</p>
