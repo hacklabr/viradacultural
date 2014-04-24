@@ -3,8 +3,8 @@
     var app = angular.module('virada');
     var conf = GlobalConfiguration;
 
-    app.controller('SpacesFilter',[ '$scope',
-        function SpacesFilterCtrl($scope) {
+    app.controller('SpacesFilter',[ '$scope', 'THEME_DIR',
+        function SpacesFilterCtrl($scope, THEME_DIR) {
             $scope.map = {
                 center: {
                     latitude: -23.524001004591987,
@@ -15,11 +15,9 @@
             };
 
             $scope.icons = {
-                'default': 'http://mt.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png',
-                'selected': 'http://mt.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png'
+                'default': THEME_DIR + 'img/pin.png',
+                'selected': THEME_DIR + 'img/pin-selected.png'
             }
-
-
 
             $scope.countSelected = function(){
                 return $scope.spaces.filter(function(space){

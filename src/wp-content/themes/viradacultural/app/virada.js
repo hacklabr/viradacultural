@@ -26,6 +26,19 @@ var spaceUrl = function(spaceId){
 
 var app = angular.module('virada', ['google-maps','ui-rangeSlider']);
 
+(function getThemeDir(){
+    var scripts = document.getElementsByTagName('script');
+    if(scripts.length === 0) return;
+
+    var index = scripts.length - 1;
+    var viradajs = scripts[index];
+
+    if(viradajs) {
+        var themeDir = viradajs.src.replace(/app\/virada\.js$/, '');
+        app.constant('THEME_DIR', themeDir);
+    }
+})();
+
 app.directive('onLastRepeat', function() {
     return function(scope, element, attrs) {
         if (scope.$last) setTimeout(function(){
