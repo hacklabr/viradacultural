@@ -1,3 +1,4 @@
+<?php $paginaprogramacao = get_query_var('virada_tpl'); ?>
 <!DOCTYPE html>
 <!--[if IE 6]>
 <html id="ie6" <?php language_attributes(); ?>>
@@ -164,10 +165,12 @@
                             <span class="sr-only"><?php bloginfo( 'name' ); ?></span>
                             <span class="verde">Virada</span> <span class="rosa">Cultural</span>
                         </a>
-                        <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target="#collapsed-filter">
-                            <span class="sr-only">Filtro</span>
-                            <span class="glyphicon glyphicon-filter"></span>
-                        </button>
+                        <?php if($paginaprogramacao == 'programacao'): ?>
+                            <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target="#programacao-navbar">
+                                <span class="sr-only">Filtro</span>
+                                <span class="glyphicon glyphicon-filter"></span>
+                            </button>
+                        <?php endif;?>
                     </div>
                 </div>
                 <div class="collapse navbar-collapse" id="collapsed-navigation">
@@ -186,7 +189,6 @@
         </header>
 
         <?php
-            $paginaprogramacao = get_query_var('virada_tpl');
             if ($paginaprogramacao !== 'programacao') {
                 html::part('top-navbar');
             }
