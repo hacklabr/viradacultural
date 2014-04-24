@@ -80,7 +80,7 @@ imgs['<?php the_ID(); ?>'] = {};
                         <header>
                             <h1><?php the_title(); ?></h1>
                         </header>
-                        <section class="clearfix js-content">
+                        <section class="col-lg-5 col-md-4 js-content">
                             <?php the_content(); ?>
                             <p><button class="btn btn-large btn-success">Baixar programação</button></p>
                         </section>
