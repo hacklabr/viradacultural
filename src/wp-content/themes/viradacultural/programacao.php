@@ -87,7 +87,7 @@
                     <span class="hidden-md">Por:</span>
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                          {{viewByLabels[data.viewBy]}}  <span class="caret"></span>
+                            {{viewByLabels[data.viewBy]}}  <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#" ng-click="data.viewBy = 'space'">Por Local</a></li>
@@ -98,7 +98,7 @@
                 </div>
                 <div id="space-filter" class="programacao-navbar-item">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="hidden-md">Filtrar locais </span><span class="icon icon_pin"></span></button>
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="icon icon_pin"></span> <span class="hidden-md">Filtrar locais </span></button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#">Próximo a mim</a></li>
                             <li><a href="#" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true">Selecionar locais</a></li>
@@ -107,17 +107,6 @@
                 </div>
                 <div id="time-filter-item" class="programacao-navbar-item">
                     <div class="time-filter-group clearfix">
-                        <div class="time-filter clearfix">
-                            <div class="time-range time-range-start">
-                                {{startsAt}}
-                            </div>
-
-                            <div class="navbar-text">às</div>
-
-                            <div class="time-range time-range-end">
-                                {{endsAt}}
-                            </div>
-                        </div>
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                                 <span class="icon icon_clock" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar horário"></span>
@@ -128,6 +117,17 @@
                                 </li>
                             </ul>
                         </div>
+                        <div class="time-filter clearfix">
+                            <div class="time-range time-range-start">
+                                {{startsAt}}
+                            </div>
+
+                            <div class="navbar-text">às</div>
+
+                            <div class="time-range time-range-end">
+                                {{endsAt}}
+                            </div>
+                        </div>                        
                     </div>
                 </div>
                 <div id="view-group" class="visible-md visible-lg">
