@@ -8,13 +8,13 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                             ng-click="$parent.filters.spaces = $parent.filters.spaces && countSelected() > 0"><span class="icon icon_close"></span></button>
-                    <h4 class="modal-title" id="myModalLabel">Filtro de Locais <small>Clique no nome ou no pin do local para selecioná-lo</small></h4>
+                    <h4 class="modal-title" id="myModalLabel">Filtro de Locais <small class="hidden-xs">Clique no nome ou no pin do local para selecioná-lo</small></h4>
                 </div>
+                <!-- .modal-header -->
                 <div class="modal-body clearfix">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs visible-xs">
-                        <li class="active"><a href="#modal-list" data-toggle="tab">Lista</a></li>
-                        <li><a href="#modal-map" data-toggle="tab">Mapa</a></li>
+                    <ul class="nav nav-pills visible-xs">
+                        <li class="active"><a href="#modal-list" data-toggle="pill">Lista</a></li>
+                        <li><a href="#modal-map" data-toggle="pill">Mapa</a></li>
                     </ul>
                     <div class="tab-content clearfix">
                         <nav id="modal-list" class="modal-nav tab-pane active">
@@ -59,12 +59,12 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"
-                            ng-click="$parent.filters.spaces=false">Cancelar</button>
+                            ng-click="$parent.filters.spaces=false" ng-class="{'btn-xs': midgetDevice}">Cancelar</button>
 
-                    <button type="button" class="btn btn-default" ng-click="deselectAll()">Limpar seleção</button>
+                    <button type="button" class="btn btn-default" ng-click="deselectAll()" ng-class="{'btn-xs': midgetDevice}">Limpar seleção</button>
 
                     <button type="button" class="btn btn-primary" data-dismiss="modal"
-                            ng-click="$parent.filters.spaces = countSelected() > 0; populateEntities();">Aplicar filtro</button>
+                            ng-click="$parent.filters.spaces = countSelected() > 0; populateEntities();" ng-class="{'btn-xs': midgetDevice}">Filtrar</button>
                 </div>
             </div>
         </div>
