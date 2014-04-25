@@ -97,7 +97,13 @@
                     </div>
                 </div>
                 <div id="space-filter" class="programacao-navbar-item">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="hidden-md">Filtrar locais </span><span class="icon icon_pin" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar locais"></span></button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="hidden-md">Filtrar locais </span><span class="icon icon_pin"></span></button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Próximo a mim</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true">Selecionar locais</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div id="time-filter-item" class="programacao-navbar-item">
                     <div class="time-filter-group clearfix">
