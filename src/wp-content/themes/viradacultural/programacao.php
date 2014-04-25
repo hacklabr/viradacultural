@@ -22,8 +22,9 @@
                                 <input type="text" class="form-control" placeholder="Encontre um local" ng-model="filterSpace">
                                 <span class="input-group-addon"><span class="icon icon_search"></span></span>
                             </div>
-                            <div class="list-group">
+                            <div class="list-group" id="fl-list-spaces">
                                 <a href="#" class="list-group-item"
+                                   id="fl-list-item-{{space.id}}"
                                    ng-class="{active: space.selected}"
                                    ng-repeat="space in spacesByName | filter:filterSpace"
                                    ng-click="toggleSelectSpace(space)">{{space.name}}</a>
@@ -40,7 +41,9 @@
 
                             <marker ng-repeat="space in spaces"
                                     coords="space.location"
-                                    icon="space.selected ? icons.selected : icons.default"
+                                    icon="space.selected ? marker.icon.selected : marker.icon.default"
+                                    options="marker.options"
+                                    events="marker.events"
                                     click="showSpaceInfo(space)">
 
                                 <window show="space.showInfo"

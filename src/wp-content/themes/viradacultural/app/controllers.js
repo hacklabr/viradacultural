@@ -14,10 +14,15 @@
                 zoom: 14
             };
 
-            $scope.icons = {
-                'default': THEME_DIR + 'img/pin.png',
-                'selected': THEME_DIR + 'img/pin-selected.png'
-            };
+            $scope.marker = {
+                icon: {
+                    'default': THEME_DIR + 'img/pin.png',
+                    'selected': THEME_DIR + 'img/pin-selected.png'
+                },
+                options: {
+                    'shadow': THEME_DIR + 'img/pin-shadow.png'
+                }
+            }
             
             $scope.infowindow = {
                 options: {
@@ -60,20 +65,27 @@
              * <window /> que é da lib angular-google-maps. Então para fazer
              * o botão selectionar, fiz a engenhoca abaixo.
              */
-            if(jQuery) {
-                jQuery(document.body).on('click', '[fl-space-id]', function(){
-                    var id = parseInt(jQuery(this).attr('fl-space-id'), 10);
-                    var space;
-                    for(var i=0; i < $scope.spaces.length; i++) {
+            jQuery(document.body).on('click', '[fl-space-id]', function(){
+                var id = parseInt(jQuery(this).attr('fl-space-id'), 10);
+                var space;
+                for(var i=0; i < $scope.spaces.length; i++) {
+                    if($scope.spaces[i].id === id){
                         space = $scope.spaces[i];
-                        if(space && space.id === id) {
-                            $scope.$apply(function(){
-                                toggleSelectSpace(space);
-                            });
-                        }
                     }
-                })
-            }
+                }
+                if( !space ) { return; }
+
+                var list = jQuery('#fl-list-spaces');
+                var listItem = list.find('#fl-list-item-' + id);
+                var offsetTop = listItem.get(0).offsetTop - list.height() / 3;
+
+                $scope.$apply(function(){
+                    toggleSelectSpace(space);
+                    if(space.selected){
+                        list.animate({scrollTop: offsetTop});
+                    }
+                });
+            });
         }
     ]);
 

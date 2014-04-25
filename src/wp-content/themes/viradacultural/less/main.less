@@ -875,6 +875,10 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
         padding: 5px 15px;
         background-color: @rosa;
         .transition(all linear .3s);
+        @media (max-width: @screen-phone) {
+            overflow: visible;
+            height: auto;
+        }
         h1 {
             display: inline-block;
             width: 100%;
@@ -882,6 +886,10 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
             vertical-align: middle;
             overflow: hidden;
             text-align: center;
+            @media (max-width: @screen-phone) {
+                overflow: visible;
+                height: auto;
+            }
         }
         .favorite {
             display: none;
