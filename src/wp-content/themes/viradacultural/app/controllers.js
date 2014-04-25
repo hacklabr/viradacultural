@@ -18,9 +18,11 @@
                 'default': THEME_DIR + 'img/pin.png',
                 'selected': THEME_DIR + 'img/pin-selected.png'
             };
-
-            $scope.infowindowOptions = {
-                pixelOffset: new google.maps.Size(0, -40)
+            
+            $scope.infowindow = {
+                options: {
+                    pixelOffset: new google.maps.Size(0, -40)
+                }
             };
 
             $scope.countSelected = function(){
@@ -28,7 +30,7 @@
                     return space.selected === true;
                 }).length;
             };
-
+            
             $scope.redrawMap = function(){
                 var gmap = $scope.map.control.getGMap()
                 google.maps.event.trigger(gmap, 'resize')
@@ -43,13 +45,35 @@
                 space.showInfo = false;
             };
 
-            $scope.toggleSelectSpace = function(space) {
+            var toggleSelectSpace = function(space) {
                 space.selected = !space.selected;
             };
+            $scope.toggleSelectSpace = toggleSelectSpace;
+
 
             $scope.deselectAll = function(){
                 $scope.spaces.forEach(function(s){ s.selected = false; });
             };
+
+            /**
+             * Não estou conseguindo colocar um callback dentro do elemento
+             * <window /> que é da lib angular-google-maps. Então para fazer
+             * o botão selectionar, fiz a engenhoca abaixo.
+             */
+            if(jQuery) {
+                jQuery(document.body).on('click', '[fl-space-id]', function(){
+                    var id = parseInt(jQuery(this).attr('fl-space-id'), 10);
+                    var space;
+                    for(var i=0; i < $scope.spaces.length; i++) {
+                        space = $scope.spaces[i];
+                        if(space && space.id === id) {
+                            $scope.$apply(function(){
+                                toggleSelectSpace(space);
+                            });
+                        }
+                    }
+                })
+            }
         }
     ]);
 
