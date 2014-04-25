@@ -47,10 +47,8 @@
                                         isIconVisibleOnClick="true"
                                         options="infowindow.options"
                                         closeClick="hideSpaceInfo(space)">
-                                    <h3>{{space.name}}</h3>
-                                    <p>{{space.shortDescription}}</p>
-                                    <p><a fl-space-id="{{space.id}}" style="cursor:pointer">selecionar</a></p>
-                                    <p><a href="{{space.url}}" target="_blank">mais info</a></p>
+                                    <h5 class="map-space-title">{{space.name}}</h5>
+                                    <p class="textcenter"><a class="btn btn-primary btn-xs" fl-space-id="{{space.id}}">selecionar</a></p>
                                 </window>
                             </marker>
                         </div>
@@ -129,7 +127,7 @@
                             <div class="time-range time-range-end">
                                 {{endsAt}}
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
                 <div id="view-group" class="visible-md visible-lg">
@@ -143,7 +141,7 @@
     </nav>
     <!-- #programacao-navbar -->
 
-    
+
 
     <div id="programacao-container" class="container-fluid container-menu-minified">
         <div class="row">
@@ -196,7 +194,7 @@
 </script>
 
 <script type="text/html" id="template-event-grid">
-    <article class="event clearfix event-grid">
+    <article class="event clearfix event-grid <% if (!defaultImageThumb) { %> no-thumb <% } %>">
         <span class="event-time"><span class="icon icon_clock"></span> <time><%=startsAt%></time></span>
 
         <img src="<%=defaultImageThumb%>"/>
