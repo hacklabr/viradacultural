@@ -3,7 +3,7 @@ $has_thumb = has_post_thumbnail();
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('clearfix grid-post col-lg-3 col-md-6 col-sm-4 col-xs-12 left right js-adjust-height' . ( $has_thumb ? ' has-thumbnail' : '' ));?>>
 	<?php if ( $has_thumb ) :?>
-		<div class="post-img"><div class="post-img-cover"></div><?php the_post_thumbnail('thumbnail'); ?></div>
+		<div class="post-img"><div class="post-img-cover visible-lg"></div><?php the_post_thumbnail('thumbnail'); ?></div>
 	<?php endif;?> 
 	<div class="post-content">
 		<?php virada_the_post_type_icon();?>

@@ -13,7 +13,7 @@
     </div>
 <?php else: ?>
     <div class="post-img">
-        <div class="post-img-cover"></div>
+        <div class="post-img-cover visible-lg"></div>
         <?php the_content(); ?>
     </div>
         <div class="post-type-icon"><span class="icon social_instagram"></span></div>
