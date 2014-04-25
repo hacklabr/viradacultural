@@ -73,5 +73,5 @@ foreach($occurrences as $occ){
     $result_events[] = $e;
 }
 
-file_put_contents('events.json', json_encode($result_events));
-file_put_contents('spaces.json', json_encode($spaces));
+file_put_contents(__DIR__ . '/events.json', json_encode($result_events));
+file_put_contents(__DIR__ . '/spaces.json', json_encode($spaces));
