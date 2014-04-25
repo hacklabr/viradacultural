@@ -47,10 +47,8 @@
                                         isIconVisibleOnClick="true"
                                         options="infowindow.options"
                                         closeClick="hideSpaceInfo(space)">
-                                    <h3>{{space.name}}</h3>
-                                    <p>{{space.shortDescription}}</p>
-                                    <p><a fl-space-id="{{space.id}}" style="cursor:pointer">selecionar</a></p>
-                                    <p><a href="{{space.url}}" target="_blank">mais info</a></p>
+                                    <h5 class="map-space-title">{{space.name}}</h5>
+                                    <p class="textcenter"><a class="btn btn-primary btn-xs" fl-space-id="{{space.id}}">selecionar</a></p>
                                 </window>
                             </marker>
                         </div>
