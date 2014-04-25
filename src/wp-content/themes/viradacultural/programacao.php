@@ -8,13 +8,13 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                             ng-click="$parent.filters.spaces = $parent.filters.spaces && countSelected() > 0"><span class="icon icon_close"></span></button>
-                    <h4 class="modal-title" id="myModalLabel">Filtro de Locais <small>Clique no nome ou no pin do local para selecioná-lo</small></h4>
+                    <h4 class="modal-title" id="myModalLabel">Filtro de Locais <small class="hidden-xs">Clique no nome ou no pin do local para selecioná-lo</small></h4>
                 </div>
+                <!-- .modal-header -->
                 <div class="modal-body clearfix">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs visible-xs">
-                        <li class="active"><a href="#modal-list" data-toggle="tab">Lista</a></li>
-                        <li><a href="#modal-map" data-toggle="tab">Mapa</a></li>
+                    <ul class="nav nav-pills visible-xs">
+                        <li class="active"><a href="#modal-list" data-toggle="pill">Lista</a></li>
+                        <li><a href="#modal-map" data-toggle="pill">Mapa</a></li>
                     </ul>
                     <div class="tab-content clearfix">
                         <nav id="modal-list" class="modal-nav tab-pane active">
@@ -50,10 +50,8 @@
                                         isIconVisibleOnClick="true"
                                         options="infowindow.options"
                                         closeClick="hideSpaceInfo(space)">
-                                    <h3>{{space.name}}</h3>
-                                    <p>{{space.shortDescription}}</p>
-                                    <p><a fl-space-id="{{space.id}}" style="cursor:pointer">selecionar</a></p>
-                                    <p><a href="{{space.url}}" target="_blank">mais info</a></p>
+                                    <h5 class="map-space-title">{{space.name}}</h5>
+                                    <p class="textcenter"><a class="btn btn-primary btn-xs" fl-space-id="{{space.id}}">selecionar</a></p>
                                 </window>
                             </marker>
                         </div>
@@ -62,12 +60,12 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"
-                            ng-click="$parent.filters.spaces=false">Cancelar</button>
+                            ng-click="$parent.filters.spaces=false" ng-class="{'btn-xs': midgetDevice}">Cancelar</button>
 
-                    <button type="button" class="btn btn-default" ng-click="deselectAll()">Limpar seleção</button>
+                    <button type="button" class="btn btn-default" ng-click="deselectAll()" ng-class="{'btn-xs': midgetDevice}">Limpar seleção</button>
 
                     <button type="button" class="btn btn-primary" data-dismiss="modal"
-                            ng-click="$parent.filters.spaces = countSelected() > 0; populateEntities();">Aplicar filtro</button>
+                            ng-click="$parent.filters.spaces = countSelected() > 0; populateEntities();" ng-class="{'btn-xs': midgetDevice}">Filtrar</button>
                 </div>
             </div>
         </div>
@@ -92,7 +90,7 @@
                     <span class="hidden-md">Por:</span>
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                          {{viewByLabels[data.viewBy]}}  <span class="caret"></span>
+                            {{viewByLabels[data.viewBy]}}  <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#" ng-click="data.viewBy = 'space'">Por Local</a></li>
@@ -102,10 +100,26 @@
                     </div>
                 </div>
                 <div id="space-filter" class="programacao-navbar-item">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true"><span class="hidden-md">Filtrar locais </span><span class="icon icon_pin" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar locais"></span></button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="icon icon_pin"></span> <span class="hidden-md">Filtrar locais </span></button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Próximo a mim</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true">Selecionar locais</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div id="time-filter-item" class="programacao-navbar-item">
                     <div class="time-filter-group clearfix">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                <span class="icon icon_clock" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar horário"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <div show-values="false" range-slider prevent-equal-min-max="true" min="timeSlider.range.min" max="timeSlider.range.max" model-min="timeSlider.model.min" model-max="timeSlider.model.max" step="1"></div>
+                                </li>
+                            </ul>
+                        </div>
                         <div class="time-filter clearfix">
                             <div class="time-range time-range-start">
                                 {{startsAt}}
@@ -116,16 +130,6 @@
                             <div class="time-range time-range-end">
                                 {{endsAt}}
                             </div>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="icon icon_clock" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar horário"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <div show-values="false" range-slider prevent-equal-min-max="true" min="timeSlider.range.min" max="timeSlider.range.max" model-min="timeSlider.model.min" model-max="timeSlider.model.max" step="1"></div>
-                                </li>
-                            </ul>
                         </div>
                     </div>
                 </div>
@@ -140,7 +144,7 @@
     </nav>
     <!-- #programacao-navbar -->
 
-    
+
 
     <div id="programacao-container" class="container-fluid container-menu-minified">
         <div class="row">
@@ -193,7 +197,7 @@
 </script>
 
 <script type="text/html" id="template-event-grid">
-    <article class="event clearfix event-grid">
+    <article class="event clearfix event-grid <% if (!defaultImageThumb) { %> no-thumb <% } %>">
         <span class="event-time"><span class="icon icon_clock"></span> <time><%=startsAt%></time></span>
 
         <img src="<%=defaultImageThumb%>"/>
