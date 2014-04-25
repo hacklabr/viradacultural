@@ -432,7 +432,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
 
         timeouts.renderList = $timeout(function(){
             var spacesPerPage = 8;
-            var eventsPerPage = 36;
+            var eventsPerPage = 35;
             var offset;
 
             var $container = jQuery('#main-section');
@@ -492,14 +492,14 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
 
 
                     if($scope.data.viewMode === 'grid'){
-                        grid_width = grid_width || parseInt(jQuery('#main-section').innerWidth() * .2) - 1;
+                        grid_width = grid_width || parseInt(jQuery('#main-section').outerWidth(true) * .2);
                         grid_height = grid_height || parseInt(grid_width * .66667);
                         grid_height_inc = grid_height_inc || $element.find('>div.event-content').outerHeight();
 
                         fadeInImages($element, delay);
                         delay += 10;
 
-                        $element.css({ width: grid_width, height: grid_height + grid_height_inc });
+                        jQuery('article.event').css({ height: grid_height + grid_height_inc });
                     }
 
 
