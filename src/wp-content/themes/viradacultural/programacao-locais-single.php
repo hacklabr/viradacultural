@@ -12,7 +12,7 @@
                 <div class="timeline clearfix">
                     <div class="event-group" ng-repeat="event in spaceEvents">
                         <div class="timeline-time">{{event.startsAt}}</div>
-                        <article class="event clearfix event-grid">
+                        <article class="event clearfix event-grid" ng-class="{'no-thumb' : !event.defaultImageThumb}">
                             <img ng-src="{{event.defaultImageThumb}}"/>
                             <div class="event-content clearfix">
                                 <h1><a href="{{event.url}}">{{event.name}}</a></h1>

@@ -127,7 +127,7 @@
                             <div class="time-range time-range-end">
                                 {{endsAt}}
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
                 <div id="view-group" class="visible-md visible-lg">
@@ -141,7 +141,7 @@
     </nav>
     <!-- #programacao-navbar -->
 
-    
+
 
     <div id="programacao-container" class="container-fluid container-menu-minified">
         <div class="row">
@@ -194,7 +194,7 @@
 </script>
 
 <script type="text/html" id="template-event-grid">
-    <article class="event clearfix event-grid">
+    <article class="event clearfix event-grid <% if (!defaultImageThumb) { %> no-thumb <% } %>">
         <span class="event-time"><span class="icon icon_clock"></span> <time><%=startsAt%></time></span>
 
         <img src="<%=defaultImageThumb%>"/>
