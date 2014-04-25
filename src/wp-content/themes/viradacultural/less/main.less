@@ -768,25 +768,31 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
 }
 
 #map-modal {
+    .nav {
+        margin-bottom: 12px;
+        >li>a {
+            padding: 6px 15px;
+        }
+    }
+    .tab-content {
+        min-height: 400px;
+    }
     .modal-nav {
         position: absolute;
         width: 25%;
         height: 100%;
         max-height: 400px;
         padding-right: 20px;
-    }
-    .tab-content {
-        min-height: 400px;
-    }
-    .list-group {
-        position: absolute;
-        top: 40px;
-        left: 0;
-        right: 22px;
-        bottom: 0;
-        margin-bottom: 0;
-        overflow: auto;
-        .secondary-font();
+        .list-group {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 22px;
+            bottom: 0;
+            margin-bottom: 0;
+            overflow: auto;
+            .secondary-font();
+        }
     }
     .google-map {
         float: right;
@@ -798,9 +804,24 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     .angular-google-map-container {
       height: 400px;
     }
-
     img {
       max-width: none;
+    }
+    @media (max-width: @screen-phone) {
+        .tab-content {
+            min-height: 300px;
+        }
+        .modal-nav {
+            width: auto;
+            max-height: 300px;
+        }
+        .google-map {
+            width: 100%;
+            max-height: 300px;
+        }
+        .angular-google-map-container {
+            height: 300px;
+        }
     }
 }
 
