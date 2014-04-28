@@ -11,8 +11,8 @@ var hl = {};
             if ( $('article.js-adjust-height.has-thumbnail').size() > 0 ) {
                 var adjustToH = $('article.js-adjust-height.has-thumbnail').height();
             } else {
-                var refH = parseInt(jQuery('.post-content').css('height').replace('px', ''));
-                var refW = parseInt(jQuery('.js-adjust-height').css('width').replace('px', ''));
+                var refH = $('.post-content').height();
+                var refW = $('.js-adjust-height').width();
                 var refP = parseInt(jQuery('.post-content').css('padding-top').replace('px', ''));
                 var adjustToH = 10 + refH - refP + parseInt(refW*4/6);
             }
