@@ -16,7 +16,8 @@ Template Name: Credenciamento de imoprensa
                 </header>
                 <div class="post-content clearfix">
                     <?php the_content(); ?>
-
+                    <iframe class="form-horizontal col-md-12 col-lg-10 col-lg-offset-1" src="https://docs.google.com/forms/d/1VtJ9eQMYScyB2huYh9dzPdqbE_-2XHNML4IfUG1Q_qc/viewform?embedded=true" width="679" height="750" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+                    <!--
                     <form action="#" class="form-horizontal col-md-12 col-lg-10 col-lg-offset-1" role="form">
                         <div class="form-group">
                             <label for="nome" class="col-sm-4 control-label">Nome completo</label>
@@ -60,6 +61,7 @@ Template Name: Credenciamento de imoprensa
                             </div>
                         </div>
                     </form>
+                    -->
                     <?php wp_link_pages( array( 'before' => '<nav class="page-link">' . __( 'Pages:', 'viradacultural' ), 'after' => '</nav>' ) ); ?>
                 </div>
                 <!-- .post-content -->
