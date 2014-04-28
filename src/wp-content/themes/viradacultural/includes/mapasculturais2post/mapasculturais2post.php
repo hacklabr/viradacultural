@@ -113,7 +113,7 @@ class MapasCulturais2Post {
             'title' => $event->name,
             'short_description' => $event->shortDescription,
             'description' => $event->description,
-            'date' => $rule->startsOn,
+            'date' => preg_replace('#(\d{4})-(\d{2})-(\d{2})#','$3/$2',$rule->startsOn),
             'time' => $rule->startsAt,
             'place' => $space->name,
             'place_id' => $space->id,
@@ -229,30 +229,30 @@ class MapasCulturais2Post {
                 update_post_meta($post_id, $meta_key, self::filterValue($meta_key, $value));
         }
     }
-    
+
     //OUTPUT
     static function addCaixaServicos($post_id) {
         if (!$post_id)
             return;
-        
+
         $metadata = get_metadata('post', $post_id);
-        
+
         if (!isset($metadata['mapas_local_id']))
             return;
-        
-        
-        
+
+
+
         ?>
         <div class="servico">
             <p>
                 <?php if (isset($metadata['mapas_titutlo'])): ?>
                     <span>Atração:</span> <?php echo $metadata['mapas_titutlo'][0]; ?><br>
                 <?php endif; ?>
-                
+
                 <?php if (isset($metadata['mapas_local'])): ?>
                     <span>Local:</span> <a href="<?php echo site_url('/programacao/local/##'); ?><?php echo $metadata['mapas_local_id'][0]; ?>"><?php echo $metadata['mapas_local'][0]; ?></a><br>
                 <?php endif; ?>
-                
+
                 <?php if (isset($metadata['mapas_data'])): ?>
                     <span>Data:</span> <?php echo $metadata['mapas_data'][0]; ?><br>
                 <?php endif; ?>
@@ -260,10 +260,10 @@ class MapasCulturais2Post {
                     <span>Horário:</span> <?php echo $metadata['mapas_hora'][0]; ?><br>
                 <?php endif; ?>
             </p>
-            
+
         </div>
         <?php
-        
+
     }
 
 }
