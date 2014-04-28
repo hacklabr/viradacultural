@@ -166,9 +166,13 @@
             <h4 class="alignleft panel-title">
                 <a href="<%=url%>"><%=name%></a>
             </h4>
+
             <a class="alignright" data-toggle="collapse" data-target="#grid-space-<%=id%>">
                 <span class="icon arrow_carrot-down_alt2"></span>
             </a>
+             <?php if (current_user_can('edit_posts') && defined('MAPASCULTURAIS_URL') ): ?>
+                <a class="alignright" href="<?php echo MAPASCULTURAIS_URL ?>/espacos/edita/<%=id%>">Editar</a>
+            <?php endif; ?>
         </div>
         <div id="grid-space-<%=id%>" class="panel-collapse collapse in">
             <div class="program-nav program-nav-left hl-nav prev" ><span class="icon arrow_carrot-left"></span></div>
@@ -189,6 +193,9 @@
             <a class="alignright" data-toggle="collapse" data-target="#grid-space-<%=id%>">
                 <span class="icon arrow_carrot-down_alt2"></span>
             </a>
+             <?php if (current_user_can('edit_posts') && defined('MAPASCULTURAIS_URL') ): ?>
+                <a class="alignright" href="<?php echo MAPASCULTURAIS_URL ?>/espacos/edita/<%=id%>">Editar</a>
+            <?php endif; ?>
         </div>
         <div id="grid-space-<%=id%>" class="panel-collapse collapse in">
             <div class="panel-body hl-wrap js-events-container"></div>
@@ -204,9 +211,13 @@
 
         <div class="event-content clearfix">
 
-            <h1><a href="<%=url%>"><%=name%></a></h1>
+            <h1>
+                <a href="<%=url%>"><%=name%></a>
+                <?php if (current_user_can('edit_posts') && defined('MAPASCULTURAIS_URL') ): ?>
+                    <a class="alignright" href="<?php echo MAPASCULTURAIS_URL ?>/eventos/edita/<%=id%>">Editar</a>
+                <?php endif; ?>
+            </h1>
             <a class="icon favorite favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
-
         </div>
     </article>
 </script>
@@ -218,7 +229,12 @@
 
         <div class="event-content clearfix">
 
-            <h1><a href="<%=url%>"><%=name%></a></h1>
+            <h1>
+                <a href="<%=url%>"><%=name%></a>
+                <?php if (current_user_can('edit_posts') && defined('MAPASCULTURAIS_URL') ): ?>
+                    <a class="alignright" href="<?php echo MAPASCULTURAIS_URL ?>/eventos/edita/<%=id%>">Editar</a>
+                <?php endif; ?>
+            </h1>
             <a class="icon favorite favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
 
         </div>
