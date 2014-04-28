@@ -201,7 +201,10 @@ function virada_template_redirect_intercept() {
     global $wp_query;
 
     if ( $wp_query->get('virada_tpl') ) {
-
+        
+        if (!is_user_logged_in())
+            die('Página não encontrada');
+        
         if (file_exists( TEMPLATEPATH . '/' . $wp_query->get('virada_tpl') . '.php' )) {
             define('VIRADA_TEMPLATE', true);
             include( TEMPLATEPATH . '/' . $wp_query->get('virada_tpl') . '.php' );
