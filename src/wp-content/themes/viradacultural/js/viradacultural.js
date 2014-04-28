@@ -53,7 +53,12 @@ var hl = {};
 
         adustGridHeight();
         /*************************************************/
-
+        
+        $('#search-submit').click(function() {
+            $('#pages-search').submit();
+        });
+        
+        
     });
 
     function bla(eventId) {

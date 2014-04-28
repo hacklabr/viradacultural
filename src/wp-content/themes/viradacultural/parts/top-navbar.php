@@ -68,6 +68,15 @@
 								<input type="text" name="s" class="form-control" placeholder="Digite uma palavra-chave" ng-model='searchText' ng-change='unaccentSearchText = unaccent(searchText)'>
 
 								<div class="input-group-btn">
+									<button type="button" class="btn btn-primary">
+										<span class="icon icon_search" id="search-submit"></span>
+									
+									</button>
+									
+								</div><!-- /btn-group -->
+                                
+                                <!-- enquanto nao temos programação usamos o form acima 
+                                <div class="input-group-btn">
 									<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 										<span class="icon icon_search"></span>
 										<span class="caret"></span>
@@ -77,6 +86,7 @@
 										<li><a href="#">Site</a></li>
 									</ul>
 								</div><!-- /btn-group -->
+                                
 							</div>
 						</form>
 					</div>
