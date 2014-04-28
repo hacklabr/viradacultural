@@ -1,8 +1,36 @@
 var hl = {};
 
+
 (function($){
 
     FastClick.attach(document.body);
+
+    /*** Ajustando altura fixa dos posts em grid ****/
+    function adustGridHeight(ent) {
+        if ($('article.js-adjust-height').size()) {
+            if ( $('article.js-adjust-height.has-thumbnail').size() > 0 ) {
+                var adjustToH = $('article.js-adjust-height.has-thumbnail').height();
+            } else {
+                var refH = parseInt(jQuery('.post-content').css('height').replace('px', ''));
+                var refW = parseInt(jQuery('.js-adjust-height').css('width').replace('px', ''));
+                var refP = parseInt(jQuery('.post-content').css('padding-top').replace('px', ''));
+                var adjustToH = 10 + refH - refP + parseInt(refW*4/6);
+            }
+            $('article.js-adjust-height').css('height', adjustToH + 'px');
+        }
+
+        // Nas redes
+        if ($('article.js-redes-adjust-height').size()) {
+            var refH = 96;
+            var refW = parseInt(jQuery('article.js-redes-adjust-height').css('width').replace('px', ''));
+            var adjustToH = refH + refW;
+            $('article.js-redes-adjust-height').css('height', adjustToH + 'px');
+        }
+    }
+
+    $(window).load(function(){
+        adustGridHeight();
+    });
 
     $(document).ready(function(){
 
@@ -22,43 +50,18 @@ var hl = {};
         //     }
         // );
 
-        /*** Ajustando altura fixa dos posts em grid ****/
-        function adustGridHeight() {
-            if ($('article.js-adjust-height').size()) {
-                if ( $('article.js-adjust-height.has-thumbnail').size() > 0 ) {
-                    var adjustToH = parseInt($('article.js-adjust-height.has-thumbnail').css('height').replace('px', ''));
-                } else {
-                    var refH = parseInt(jQuery('.post-content').css('height').replace('px', ''));
-                    var refW = parseInt(jQuery('.js-adjust-height').css('width').replace('px', ''));
-                    var refP = parseInt(jQuery('.post-content').css('padding-top').replace('px', ''));
-                    var adjustToH = 10 + refH - refP + parseInt(refW*4/6);
-                }
-                $('article.js-adjust-height').css('height', adjustToH + 'px');
-            }
 
-            // Nas redes
-            if ($('article.js-redes-adjust-height').size()) {
-                var refH = 96;
-                var refW = parseInt(jQuery('article.js-redes-adjust-height').css('width').replace('px', ''));
-                var adjustToH = refH + refW;
-                $('article.js-redes-adjust-height').css('height', adjustToH + 'px');
-            }
-
-
-        }
 
         $(window).resize(function() {
-            adustGridHeight();
+            adustGridHeight('resize');
         });
-
-        adustGridHeight();
         /*************************************************/
-        
+
         $('#search-submit').click(function() {
             $('#pages-search').submit();
         });
-        
-        
+
+
     });
 
     function bla(eventId) {
