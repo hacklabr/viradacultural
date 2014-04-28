@@ -28,51 +28,86 @@
 <!-- #countdown -->
 
 <script>
-//when DOM is ready, fire!
-document.addEventListener("DOMContentLoaded", function() {
+//when DOM is ready, execute
+jQuery(document).ready(function() {
 
-	var template = null,
-        strCurrentDate, //TODO get from server
-        strEventDate = '2014-05-17 18:00',
-        countdownElement = document.querySelector('#countdown');
+    var strCurrentDate = '<?php echo date('Y-m-d H:i:s'); ?>', //TODO get from server
+    strEventDate = '2014-05-17 18:00',
+    countdownElement = document.querySelector('#countdown');
 
-        updateCountdown();
-        setInterval(updateCountdown, 100);
+    updateCountdown();
+    setInterval(updateCountdown, 100);
 
-    //init knob and displayfield patch
-    [].forEach.call(countdownElement.querySelectorAll('.knob'), function(el) {
-        el.dataset.width = el.dataset.height = '72';
-        el.dataset.readonly = true;
-        el.dataset.thickness = '.18';
-        el.dataset.bgcolor= '#ccc';
-        el.dataset.step = '1';
-        el.dataset.displayinput = false;
-        //el.dataset.rotation = 'anticlockwise';
-        jQuery(el).knob();
-        el.insertAdjacentHTML('beforebegin', '<div class="countdown-text  circle '+el.dataset.displayfield+'" data-displayfield="'+el.dataset.displayfield+'">&nbsp;</div>');
+    //init knob and display text
+    jQuery('.knob').each(function() {
+        var $el = jQuery(this);
+        $el.data('width', '72');
+        $el.data('height', '72');
+        $el.data('readonly', true);
+        $el.data('thickness', '.18');
+        $el.data('step', '1');
+        $el.data('displayinput', false);
+        //$el.data('rotation') = 'anticlockwise';
+        //Interet Explorer doesn't suppor jQuery Knob background color. Causes a bug drawing a canvas circle, not an arc, so set it transparent
+        if(navigator.appName != 'Microsoft Internet Explorer' && !(navigator.appName == 'Netscape' && navigator.userAgent.indexOf('Trident') !== -1))
+            $el.data('bgcolor', '#ccc');
+        else
+            $el.data('bgcolor', 'transparent');
+        $el.knob();
+        //creates an element for displaying the text outside of knob
+        this.insertAdjacentHTML('beforebegin', '<div class="countdown-text  circle '+$el.data('displayfield')+'" data-displayfield="'+$el.data('displayfield')+'">&nbsp;</div>');
     });
+
+
+    var hasUpdatedOnce = false;
     var counter;
     function updateCountdown(){
+        //get current time data using momentJS;
+        var data = moment(strCurrentDate).countdown(moment(strEventDate), countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS | countdown.MILLISECONDS );
 
-        var data = moment(strCurrentDate).countdown(moment(strEventDate), countdown.DAYS | countdown.HOURS | countdown.MINUTES | countdown.SECONDS | countdown.MILLISECONDS);
-
-        if(counter && data.seconds >= 0 && data.milliseconds >= 0) counter--; else counter = data.seconds*10 + (Math.round(data.milliseconds/100)-1);
+        //Synchronize the seconds every minute and also updateAllButMinutes
+        if(counter && data.seconds >= 0 && data.milliseconds >= 0)
+            counter--;
+        else{
+            counter = data.seconds*10 + (Math.round(data.milliseconds/100)-1);
+            updateAllButMinutes(data);
+        }
 
         data.s = counter;
+
         data.m = data.hours > 0 ? data.minutes : 0;
 
-        //console.log(data.seconds, counter, data.milliseconds, data.s);
-        [].forEach.call(countdownElement.querySelectorAll('.knob'), function(el) {
-            //console.log(el.dataset.field, data[el.dataset.field])
-            el.value = data[el.dataset.field];
-            jQuery(el).trigger('change'); //for knob to work ...
-        });
-        [].forEach.call(countdownElement.querySelectorAll('.countdown-text'), function(el) {
-            el.innerHTML = data[el.dataset.displayfield];
-        });
-        countdownElement.style.visibility = 'visible';
+        //update seconds of minutes every cycle
+        var $knobMinutes = jQuery('.knob.minutes');
+        $knobMinutes.val(data[$knobMinutes.data('field')]);
+        $knobMinutes.trigger('change'); //for knob to work ...
+        $knobMinutes.parent().find('.countdown-text').html(data[$knobMinutes.data('displayfield')]);
+
+        //If it's the first update, set the container visible and updateAllButMinutes
+        if(!hasUpdatedOnce){
+            countdownElement.style.visibility = 'visible';
+            updateAllButMinutes(data);
+        }
+
+        hasUpdatedOnce = true;
     }
 
+    function updateAllButMinutes(data){
+        jQuery('.knob').not('.minutes').each( function() {
+            jQuery(this).val( data[ jQuery(this).data('field') ] );
+            jQuery(this).trigger('change'); //for knob to work ...
+        });
+        jQuery('.countdown-text').not('.minutes').each( function() {
+            this.innerHTML = data[ jQuery(this).data('displayfield') ];
+        });
+    }
+
+    //Add a listener to window/tab focus to reset the counter so everything updates when the user leaves and get back focusing the tab - tested in latest Chrome, Firefox and IE (11)
+    window.addEventListener('focus', function(){
+        counter = 0;
+    },false);
+    
 });
+
 
 </script>
