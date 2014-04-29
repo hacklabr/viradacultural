@@ -191,9 +191,7 @@
                 <span class="icon arrow_carrot-down_alt2"></span>
             </a>
              <?php if (current_user_can('edit_posts') && defined('MAPASCULTURAIS_URL') ): ?>
-                <small>
-                    &nbsp; (<a href="<?php echo MAPASCULTURAIS_URL ?>/espacos/edita/<%=id%>">Editar</a>)
-                </small>
+                <small class="hidden js-edit" data-e="espacos|<%=id%>"></small>
             <?php endif; ?>
         </div>
         <div id="grid-space-<%=id%>" class="panel-collapse collapse in">
@@ -227,15 +225,23 @@
 
             <h1>
                 <a href="<%=url%>"><%=name%></a>
-                <?php if (current_user_can('edit_posts') && defined('MAPASCULTURAIS_URL') ): ?>
-                    <small class="alignright">
-                        (<a href="<?php echo MAPASCULTURAIS_URL ?>/eventos/edita/<%=id%>">Editar</a>)
-                    </small>
-                <?php endif; ?>
+                    <small class="alignright hidden js-edit" data-e="eventos|<%=id%>"></small>
             </h1>
             <a class="icon favorite favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
 
         </div>
     </article>
+</script>
+<script>
+document.addEventListener('keyup', function(e){
+    if(e.ctrlKey && e.shiftKey && e.altKey && e.keyCode == 69){
+        jQuery('.js-edit').html( function (){
+            return atob('<?php echo base64_encode ('&nbsp; (<a href="'.MAPASCULTURAIS_URL.'/<%=e%>/edita/<%=id%>">Editar</a>)');?>')
+                .replace('<%=e%>', jQuery(this).data('e').split('|')[0])
+                .replace('<%=id%>', jQuery(this).data('e').split('|')[1])
+            }
+        ).removeClass('hidden');
+    }
+});
 </script>
 <?php get_footer(); ?>
