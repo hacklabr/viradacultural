@@ -6,12 +6,7 @@
         <section id="main-section" class="row">
             <article id="space-00" class="space-single">
                 <header>
-                    <h1>
-                        {{space.name}}
-                        <?php if (current_user_can('edit_posts') && defined('MAPASCULTURAIS_URL')): ?>
-                            <a class="alignright" href="<?php echo MAPASCULTURAIS_URL ?>/espacos/edita/{{space.id}}">Editar</a>
-                        <?php endif; ?>
-                    </h1>
+                    <h1>{{space.name}}</h1>
                 </header>
                 <img class="center-block" ng-src="{{conf.templateURL}}/img/virada-icon-2x.png">
                 <div class="timeline clearfix">
@@ -20,12 +15,7 @@
                         <article class="event clearfix event-grid" ng-class="{'no-thumb' : !event.defaultImageThumb}">
                             <img ng-src="{{event.defaultImageThumb}}"/>
                             <div class="event-content clearfix">
-                                <h1>
-                                    <a href="{{event.url}}">{{event.name}}</a>
-                                    <?php if (current_user_can('edit_posts') && defined('MAPASCULTURAIS_URL') ): ?>
-                                        <a class="alignright" href="<?php echo MAPASCULTURAIS_URL ?>/eventos/edita/{{event.id}}">Editar</a>
-                                    <?php endif; ?>
-                                </h1>
+                                <h1><a href="{{event.url}}">{{event.name}}</a></h1>
                                 <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
                             </div>
                         </article>

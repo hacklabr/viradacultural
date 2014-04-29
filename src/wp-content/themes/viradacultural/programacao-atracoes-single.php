@@ -5,9 +5,6 @@
         <article id="event-00" class="event-single col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
             <header>
                 <h1>{{event.name}}</h1>
-                <?php if (current_user_can('edit_posts') && defined('MAPASCULTURAIS_URL') ): ?>
-                    <a href="<?php echo MAPASCULTURAIS_URL ?>/eventos/edita/{{event.id}}">Editar</a>
-                <?php endif; ?>
             </header>
             <div class="post-content clearfix">
                 <p>{{event.shortDescription}}</p>
