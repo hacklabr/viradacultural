@@ -9,14 +9,14 @@ Template Name: Credenciamento de imoprensa
 <div class="container-fluid container-menu-large">
     <section id="main-section" class="row">
         <?php if ( have_posts()) : while ( have_posts()) : the_post(); ?>
-            <article id="post-<?php the_ID(); ?>" <?php post_class('clearfix');?>>
+            <article id="post-<?php the_ID(); ?>" <?php post_class('clearfix col-md-8 col-md-offset-2');?>>
                 <header>
                     <h1><?php the_title();?></h1>
                     <p><?php edit_post_link( __( 'Edit', 'viradacultural' ), '', '' ); ?></p>
                 </header>
                 <div class="post-content clearfix">
                     <?php the_content(); ?>
-                    <iframe class="form-horizontal col-md-12 col-lg-10 col-lg-offset-1" src="https://docs.google.com/forms/d/1VtJ9eQMYScyB2huYh9dzPdqbE_-2XHNML4IfUG1Q_qc/viewform?embedded=true" width="679" height="750" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+                    <iframe class="form-horizontal col-md-12 col-lg-10 col-lg-offset-1" src="https://docs.google.com/forms/d/1VtJ9eQMYScyB2huYh9dzPdqbE_-2XHNML4IfUG1Q_qc/viewform?embedded=true" width="513" height="750" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
                     <!--
                     <form action="#" class="form-horizontal col-md-12 col-lg-10 col-lg-offset-1" role="form">
                         <div class="form-group">
