@@ -29,24 +29,24 @@ Template Name: 10 anos
                             </div>
                         </div>
                     </section>
-<script type="text/javascript">
-imgs['<?php the_ID(); ?>'] = {};
-<?php
-    $fig_id = "bg-" . get_the_ID();
-    $imgs = array();
+                    <script type="text/javascript">
+                    imgs['<?php the_ID(); ?>'] = {};
+                    <?php
+                        $fig_id = "bg-" . get_the_ID();
+                        $imgs = array();
 
-    if( has_post_thumbnail() ){
-        $imgs[1080] = wp_get_attachment_image_src(get_post_thumbnail_id(), "i1080");
-        $imgs[900]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i900");
-        $imgs[800]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i800");
-        $imgs[768]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i768");
-        $imgs[480]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i480");
-        $imgs[320]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i320");
-        foreach($imgs as $size => $img)
-            echo "\nimgs[" . get_the_ID() . "][{$size}] = '{$img[0]}';";
-    }
-?>
-</script>
+                        if( has_post_thumbnail() ){
+                            $imgs[1080] = wp_get_attachment_image_src(get_post_thumbnail_id(), "i1080");
+                            $imgs[900]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i900");
+                            $imgs[800]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i800");
+                            $imgs[768]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i768");
+                            $imgs[480]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i480");
+                            $imgs[320]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i320");
+                            foreach($imgs as $size => $img)
+                                echo "\nimgs[" . get_the_ID() . "][{$size}] = '{$img[0]}';";
+                        }
+                    ?>
+                    </script>
                     <figure id='<?php $fig_id ?>' class="hidden" >
                     </figure>
                 </article>
@@ -55,36 +55,38 @@ imgs['<?php the_ID(); ?>'] = {};
                     $children = new WP_Query( array( 'post_parent' => $post->ID, 'post_type' => 'page', 'orderby' => 'menu_order', 'order' => 'DESC', 'nopaging' => true));
                     if( $children->have_posts() ) : while( $children->have_posts() ) : $children->the_post();
                 ?>
-<script type="text/javascript">
-imgs['<?php the_ID(); ?>'] = {};
-<?php
-    $fig_id = "bg-" . get_the_ID();
-    $imgs = array();
+                    <script type="text/javascript">
+                    imgs['<?php the_ID(); ?>'] = {};
+                    <?php
+                        $fig_id = "bg-" . get_the_ID();
+                        $imgs = array();
 
-    if( has_post_thumbnail() ){
-        $imgs[1080] = wp_get_attachment_image_src(get_post_thumbnail_id(), "i1080");
-        $imgs[900]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i900");
-        $imgs[800]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i800");
-        $imgs[768]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i768");
-        $imgs[480]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i480");
-        $imgs[320]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i320");
-        foreach($imgs as $size => $img)
-            echo "\nimgs[" . get_the_ID() . "][{$size}] = '{$img[0]}';";
-    }
-?>
-</script>
+                        if( has_post_thumbnail() ){
+                            $imgs[1080] = wp_get_attachment_image_src(get_post_thumbnail_id(), "i1080");
+                            $imgs[900]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i900");
+                            $imgs[800]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i800");
+                            $imgs[768]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i768");
+                            $imgs[480]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i480");
+                            $imgs[320]  = wp_get_attachment_image_src(get_post_thumbnail_id(), "i320");
+                            foreach($imgs as $size => $img)
+                                echo "\nimgs[" . get_the_ID() . "][{$size}] = '{$img[0]}';";
+                        }
+                    ?>
+                    </script>
                     <article id="post-<?php the_ID(); ?>" data-id="<?php the_ID(); ?>" data-nav='#nav-<?php the_ID(); ?>' <?php post_class('row children');?>>
                         <figure id='figure-<?php the_ID(); ?>'></figure>
-                        <hr style="z-index:10000; position: relative;">
-                        <header>
-                            <h1><?php the_title(); ?></h1>
-                        </header>
-                        <section class="block">
+                        <section class="block js-content" style="z-index:10001;">
                             <div class="centered text-left">
                                 <?php the_content(); ?>
                                 <p class="text-right"><button class="btn btn-large btn-success">Baixar programação</button></p>
                             </div>
                         </section>
+                        <div class="js-article-header" style="z-index:10000;">
+                            <hr>
+                            <header>
+                                <h1><?php the_title(); ?></h1>
+                            </header>
+                        </div>
                     </article>
 
                 <?php endwhile; endif; ?>
@@ -106,7 +108,7 @@ imgs['<?php the_ID(); ?>'] = {};
             <?php endwhile; endif; ?>
         </nav>
     </div>
-    <?php // get_footer(); ?>
+    <?php  get_footer(); ?>
 </div>
 <!-- .container-fluid -->
 
@@ -126,67 +128,73 @@ imgs['<?php the_ID(); ?>'] = {};
             win_width        = $win.width(),
             navbar_height    = $navBar.height(),
             header_width     = $header.width(),
-            article_height = win_height - navbar_height,
-            tops             = {};
+            area_util        = win_height - navbar_height,
+            tops             = {},
+            last;
 
         $("#main-section > article").css({'position': 'fixed', 'top': 1000});
         $("#main-section > article figure").css({'position': 'fixed', 'top': 0});
+        $(".js-article-header").css({'position': 'fixed', 'top': navbar_height, height: $(".js-article-header h1").height()});
 
         function resize() {
-            article_height = win_height - navbar_height;
+            area_util = win_height - navbar_height;
             win_height = $win.height();
             win_width  = $win.width();
             navbar_height = $navBar.is(':visible') ? $navBar.height() : 0;
 
             // Altura da seção principal
-            $("#main-section").height(article_height)
+            $("#main-section").height(area_util)
             // Altura e largura dos artigos
-            $("#main-section > article").height(article_height).width(win_width - header_width);
+            $("#main-section > article").height(area_util).width(win_width - header_width);
             // Altura do artigo pai
-            $("#main-section > article.parent").height(article_height * 2);
+            $("#main-section > article.parent").height(area_util * 2);
             // Margem do header do artigo pai
             $("#main-section > article.parent > header").css({ marginTop: navbar_height });
             // Altura da seção do artigo pai
-            $("#main-section > article.parent .block").height(article_height);
+            $("#main-section > article.parent .block").height(area_util);
             // Altura da imagem do artigo pai
             $("#main-section > article.parent .block > .centered > img").css({height: win_height - navbar_height * 2, width: "auto"});
 
             // Ano
-            $("#years-nav").css({height: article_height, top: navbar_height});
+            $("#years-nav").css({height: area_util, top: navbar_height});
 
             var total = 0;
 
-            var last = {
-                start: article_height,
-                finish: 2 * article_height
+            last = {
+                start: area_util,
+                finish: 2 * area_util
             };
+
             $("#main-section > article.children").each(function(){
+                var url;
                 var id = $(this).data('id');
 
-                var cheight = $(this).find('.js-content').height();
-                var height = article_height < cheight ? cheight + 130 : article_height;
+                var cheight = $(this).find('.js-content').outerHeight();
+                var height = area_util + cheight;
+
                 tops[this.id] = {
-                    start: last.finish,
-                    finish: last.finish + height,
-                    height: height
+                    start: last.finish + 100,
+                    finish: last.finish + height + 100,
+                    height: height,
+                    contentHeight: cheight
                 };
                 last = tops[this.id];
                 total += height;
 
                 $(this).data('top', tops[this.id]);
 
-                for(size in imgs[id]){
+                for(var size in imgs[id]){
                     url = imgs[id][size];
                     if(size >= win_height && size * 1.777778 >= win_width)
                         break;
                 }
-                    
+
                 $(this).find('figure').css({
                     background: 'url(' + url + ') center center no-repeat',
                     width: win_width,
                     height: win_height
                 });
-                
+
             });
 
             $('body').css('height',  last.finish + win_height);
@@ -202,9 +210,8 @@ imgs['<?php the_ID(); ?>'] = {};
             for(var id in tops){
                 if(st > tops[id].start + 100)
                     activeId = $('#' + id).data('nav')
-                
+
             };
-            console.log(activeId);
             $('#years-nav .active').removeClass('active');
             $(activeId).addClass('active');
         });
@@ -212,7 +219,7 @@ imgs['<?php the_ID(); ?>'] = {};
         $('#years-nav>div').click(function(){
             var top;
             if($(this).data('target'))
-                top = tops[$(this).data('target')].start + article_height;
+                top = tops[$(this).data('target')].start + tops[$(this).data('target')].contentHeight;
             else
                 top = 0;
 
@@ -231,7 +238,7 @@ imgs['<?php the_ID(); ?>'] = {};
 
         $("#main-section > article.parent").animascroll({
             startAt: 0,
-            finishAt: function(){ console.log(win_height); return win_height; },
+            finishAt: function(){return win_height; },
             animation: function(p){
                 $(this).css('top', $.PVAL(0, -win_height, p));
             }
@@ -243,7 +250,7 @@ imgs['<?php the_ID(); ?>'] = {};
             var $nav = $($(this).data('nav'));
             var $this = $(this);
             var $figure = $this.find('figure');
-
+            var $article_header = $this.find('.js-article-header');
 
             $this.animascroll({
                 startAt: function(){
@@ -253,27 +260,42 @@ imgs['<?php the_ID(); ?>'] = {};
                     return tops[this.id].finish;
                 },
                 animation: function(p){
-                    var top = $.PVAL(win_height, (article_height - tops[this.id].height) + navbar_height, p);
-                    if(top > navbar_height){
-                        $this.css('top', top);
-                        $this.find('.js-content').css('margin-top',0);
-                    }else{
-                        $this.css('top', navbar_height);
-                        $this.find('.js-content').css('margin-top',top - navbar_height);
-                    }
+                    console.log(navbar_height);
+                    $this.css('top', $.PVAL(win_height, -tops[this.id].contentHeight + navbar_height, p));
                 }
 
             }).animascroll({
                 startAt: function(){
-                    return tops[this.id].start + article_height * .25;
+                    return tops[this.id].start;
                 },
                 finishAt: function(){
-                    return tops[this.id].start + article_height * .75;
+                    return tops[this.id].start + tops[this.id].contentHeight;
                 },
                 animation: function(p){
-                    $figure.css('opacity',$.PVAL(0,1,p));
+                    var val = $.PVAL(0,1,p);
+                    $figure.css({
+                        'opacity': val,
+                        //top: $.PVAL(10,-10,p)
+                    });
+                    $article_header.css('opacity', val);
                 }
             });
+        });
+
+        $('#main-footer').css({
+            position: 'fixed',
+            right:0,
+            left: $('#main-nav').width()
+        }).animascroll({
+            startAt: function(){
+                return last.finish - $(this).outerHeight();
+            },
+            finishAt: function(){
+                return last.finish;
+            },
+            animation: function(p){
+                $(this).css('top', $.PVAL(win_height, win_height - $(this).outerHeight(), p));
+            }
         });
     })
 })(jQuery);
