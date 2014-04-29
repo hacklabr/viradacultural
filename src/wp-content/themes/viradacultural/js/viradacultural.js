@@ -64,10 +64,6 @@ var hl = {};
 
     });
 
-    function bla(eventId) {
-        console.log('bla'+eventId);
-    }
-
     hl.carrousel = {
         init: function(selector){
             selector = selector || '.hl-carrousel';
