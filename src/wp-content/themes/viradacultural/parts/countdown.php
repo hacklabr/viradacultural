@@ -98,9 +98,7 @@ jQuery(document).ready(function() {
     }
 
     function updateAllButMinutes(data){
-        console.log('updateAllButMinutes', data);
         jQuery('.knob').not('.minutes').each( function() {
-            console.log( jQuery(this).data('field') )
             jQuery(this).val( data[ jQuery(this).data('field') ] );
             jQuery(this).trigger('change'); //for knob to work ...
         });
