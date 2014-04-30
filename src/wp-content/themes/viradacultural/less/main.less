@@ -306,11 +306,30 @@ body {
 /* =Main footer
 -------------------------------------------------------------- */
 #main-footer {
-    background: @gray;
+    background-color: @gray;
     clear: both;
+    font-size: 12px;
+    min-height: 200px;
+    line-height: 2 !important;
     margin-left: -15px;
     margin-right: -15px;
     padding: 24px;
+    .secondary-font();
+    img {
+      margin: 0 auto;
+      &.hacklab {
+        display: inline-block;
+        height: 18px;
+        margin: 0 5px;
+        vertical-align: top;
+        width: auto;
+      }
+      &.instituto-tim {
+        display: inline-block;
+        margin: 0 5px;
+        vertical-align: top;
+      }
+    }
 }
 .programacao-home #main-footer {
     margin-left: 0;

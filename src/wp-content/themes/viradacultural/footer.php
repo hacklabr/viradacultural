@@ -1,14 +1,39 @@
-	<footer id="main-footer" class="clearfix">	
-		<p class="creditos textright alignright">
-			<a href="http://hacklab.com.br" title="Hacklab">
-				<img src="<?php bloginfo( 'stylesheet_directory' ); ?>/img/hacklab.png" alt="" />
-			</a>
-			<a href="http://wordpress.org" title="WordPress">
-				<img src="<?php bloginfo( 'stylesheet_directory' ); ?>/img/wp.png" alt="" />
-			</a>
-		</p>
-	</footer>
-	<!-- #main-footer -->
+    <footer id="main-footer" class="clearfix">
+        <ul class="sr-only">
+            <li>
+                Realização
+                <ul>
+                    <li>Prefeitura de São Paulo - Cultura</li>
+                </ul>
+            </li>
+            <li>
+                Parceria
+                <ul>
+                    <li>Sesc</li>
+                    <li>Governo do Estado de São Paulo</li>
+                </ul>
+            </li>
+            <li>
+                Produção
+                <ul>
+                    <li>São Paulo Turismo</li>
+                </ul>
+            </li>
+            <li>
+                Patrocínio
+                <ul>
+                    <li>Petrobras</li>
+                    <li>Governo Federal - Brasil - País Rico É País Sem Pobreza</li>
+                </ul>
+            </li>
+        </ul>
+        <p class="text-center">
+            <?php html::image("logos-990.png", "", array("class" => "img-responsive visible-sm visible-md visible-lg")); ?>
+            <?php html::image("logos-320.png", "", array("class" => "img-responsive visible-xs")); ?>
+        </p>
+        <p class="text-center">Desenvolvido por <a id="hacklab" href="http://www.hacklab.com.br" title="hacklab/"><?php html::image("hacklab.png", "", array("class" => "hacklab")); ?></a> utilizando a API de dados do SP CUltura - plataforma desenvolvida em parceria do <?php html::image("instituto-tim-white.png", "", array("class" => "instituto-tim")); ?> com a Secretaria Municipal de Cultura</p>
+    </footer>
+    <!-- #main-footer -->
 <?php wp_footer(); ?>
 </body>
 </html>
