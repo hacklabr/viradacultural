@@ -42,6 +42,7 @@ foreach ($occurrences as $occ) {
 
     $e->startsAt = $rule->startsAt;
     $e->startsOn = $rule->startsOn;
+    $e->duration = @$rule->duration;
 
     $small_image_property = '@files:avatar.viradaSmall';
     $big_image_property = '@files:avatar.viradaBig';

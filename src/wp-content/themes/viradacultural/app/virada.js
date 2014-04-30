@@ -480,8 +480,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
             }
 
             var grid_width,
-                grid_height,
-                grid_height_inc;
+                grid_height;
 
             function appendEntitiesToContainer(template, entities, $container){
                 var delay = 0;
@@ -494,12 +493,13 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                     if($scope.data.viewMode === 'grid'){
                         grid_width = grid_width || parseInt(jQuery('#main-section').outerWidth(true) * .2);
                         grid_height = grid_height || parseInt(grid_width * .66667);
-                        grid_height_inc = grid_height_inc || $element.find('>div.event-content').outerHeight();
 
                         fadeInImages($element, delay);
                         delay += 10;
 
-                        jQuery('article.event').css({ height: grid_height + grid_height_inc });
+                        console.log(grid_height);
+
+                        jQuery('article.event').css({ height: grid_height + 34 });
                     }
 
 
