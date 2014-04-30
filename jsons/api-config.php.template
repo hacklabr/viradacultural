@@ -1,0 +1,4 @@
+<?php
+define('API_URL', "http://mapasculturais.hacklab.com.br/api/");
+define('PROJECT_ID', 4);
+
