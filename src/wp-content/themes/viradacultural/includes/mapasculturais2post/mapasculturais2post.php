@@ -236,8 +236,8 @@ class MapasCulturais2Post {
             return;
 
         $metadata = get_metadata('post', $post_id);
-
-        if (!isset($metadata['mapas_local_id']))
+        
+        if (!isset($metadata['mapas_local_id']) || !is_numeric($metadata['mapas_local_id']) )
             return;
 
 
