@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 <div class="container-fluid container-menu-large" ng-controller='evento'>
     <section id="main-section" class="row">
-        <img ng-src="{{event.defaultImage}}" alt="{{event.name}}"/>
+        <img style="margin: 0px auto;" ng-src="{{event.defaultImage}}" alt="{{event.name}}"/>
         <article id="event-00" class="event-single col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
             <header>
                 <h1>{{event.name}}</h1>
