@@ -17,7 +17,7 @@ msgstr "Não encontrado"
 msgid "The 2013 theme for WordPress takes us back to the blog, featuring a full range of post formats, each displayed beautifully in their own unique way. Design details abound, starting with a vibrant color scheme and matching header images, beautiful typography and icons, and a flexible layout that looks great on any device, big or small."
 msgstr "O tema Twenty Thirteen nos leva de volta ao blog, destacando-se todos os formatos de posts, cada um exibido de forma elegante e única. São vários detalhes, começando com uma combinação de cores vibrantes e cabeçalho, bela tipografia e ícones, e um layout flexível que se adapta a qualquer dispositivo, pequeno ou grande. "
 
-#: functions.php:237
+#: functions.php:233
 msgid "Appears in the footer section of the site."
 msgstr "Aparece no rodapé do site."
 
@@ -28,15 +28,15 @@ msgstr "http://wordpress.org/themes/twentythirteen"
 msgid "Link to full-size image"
 msgstr "Link para a imagem original"
 
-#: functions.php:235
+#: functions.php:231
 msgid "Main Widget Area"
 msgstr "Área de widgets principal"
 
-#: functions.php:245
+#: functions.php:241
 msgid "Secondary Widget Area"
 msgstr "Área de widgets secundária"
 
-#: functions.php:247
+#: functions.php:243
 msgid "Appears on posts and pages in the sidebar."
 msgstr "Aparece nos posts e nas páginas na barra lateral."
 
@@ -44,7 +44,7 @@ msgstr "Aparece nos posts e nas páginas na barra lateral."
 msgid "Full resolution"
 msgstr "Resolução original"
 
-#: inc/back-compat.php:41 inc/back-compat.php:53 inc/back-compat.php:68
+#: inc/back-compat.php:37 inc/back-compat.php:47 inc/back-compat.php:60
 msgid "Twenty Thirteen requires at least WordPress version 3.6. You are running version %s. Please upgrade and try again."
 msgstr "O Twenty Thirteen necessita pelo menos a versão 3.6 do WordPress. A versão do seu WordPress é a %s. Atualize e tente novamente."
 
@@ -141,7 +141,7 @@ msgstr "Páginas:"
 msgid "Edit"
 msgstr "Editar"
 
-#: functions.php:379
+#: functions.php:369
 msgid "Permalink to %s"
 msgstr "Link permanente para %s"
 
@@ -202,49 +202,49 @@ msgctxt "Bitter font: on or off"
 msgid "on"
 msgstr "ativada"
 
-#: functions.php:220
+#: functions.php:218
 msgid "Page %s"
 msgstr "Página %s"
 
-#: functions.php:272
+#: functions.php:266
 msgid "Posts navigation"
 msgstr "Navegação por posts"
 
-#: functions.php:276
+#: functions.php:270
 msgid "<span class=\"meta-nav\">&larr;</span> Older posts"
 msgstr "<span class=\"meta-nav\">&larr;</span> Posts mais antigos"
 
-#: functions.php:280
+#: functions.php:274
 msgid "Newer posts <span class=\"meta-nav\">&rarr;</span>"
 msgstr "Posts mais recentes <span class=\"meta-nav\">&rarr;</span>"
 
-#: functions.php:308
+#: functions.php:300
 msgid "Post navigation"
 msgstr "Navegação do post"
 
-#: functions.php:311
+#: functions.php:303
 msgctxt "Previous post link"
 msgid "<span class=\"meta-nav\">&larr;</span> %title"
 msgstr "<span class=\"meta-nav\">&larr;</span> %title"
 
-#: functions.php:312
+#: functions.php:304
 msgctxt "Next post link"
 msgid "%title <span class=\"meta-nav\">&rarr;</span>"
 msgstr "%title <span class=\"meta-nav\">&rarr;</span>"
 
-#: functions.php:332
+#: functions.php:322
 msgid "Sticky"
 msgstr "Fixo"
 
-#: functions.php:338 functions.php:344
+#: functions.php:328 functions.php:334
 msgid ", "
 msgstr ", "
 
-#: functions.php:353
+#: functions.php:343
 msgid "View all posts by %s"
 msgstr "Ver todos posts por %s"
 
-#: functions.php:373
+#: functions.php:363
 msgctxt "1: post format name. 2: date"
 msgid "%1$s on %2$s"
 msgstr "%1$s em %2$s"
@@ -269,17 +269,17 @@ msgstr "<span class=\"meta-nav\">&larr;</span> Anterior"
 msgid "Next <span class=\"meta-nav\">&rarr;</span>"
 msgstr "Próxima <span class=\"meta-nav\">&rarr;</span>"
 
-#: inc/custom-header.php:51
+#: inc/custom-header.php:49
 msgctxt "header image description"
 msgid "Circle"
 msgstr "Círculo"
 
-#: inc/custom-header.php:56
+#: inc/custom-header.php:54
 msgctxt "header image description"
 msgid "Diamond"
 msgstr "Diamante"
 
-#: inc/custom-header.php:61
+#: inc/custom-header.php:59
 msgctxt "header image description"
 msgid "Star"
 msgstr "Estrela"
