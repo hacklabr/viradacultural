@@ -25,6 +25,7 @@ function render_virada_page_order_page(){
     if($_POST){
         $json = json_encode(array_values($_POST['order']));
         file_put_contents($filename, $json);
+        $mensagem = "Ordem Salva";
     }
 
 
