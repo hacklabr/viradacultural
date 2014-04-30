@@ -1,26 +1,27 @@
-<article id="post-<?php the_ID(); ?>" <?php post_class('clearfix grid-post post-redes col-lg-3 col-md-6 col-sm-4 col-xs-12 bottom left right js-redes-adjust-height' )?> <?php if ($ajaxhide) echo 'style="display:none"'; ?> >
-<?php if (get_post_type() == 'twitter_cpt'): ?>
-    <div class="post-content">    
+<article id="post-<?php echo $item->id; ?>" class="<?php echo 'type-'.$item->type;?> clearfix grid-post post-redes col-lg-3 col-md-6 col-sm-4 col-xs-12 bottom left right js-redes-adjust-height"
+    <?php if ($ajaxhide) echo 'style="display:none"'; ?> >
+<?php if ($item->type == 'twitter_cpt'): ?>
+    <div class="post-content">
         <div class="post-type-icon"><span class="icon social_twitter"></span></div>
         <header>
             <p>
-            <a href="<?php echo 'http://twitter.com/', get_post_meta(get_the_ID(), 'author_username', true); ?>">@<?php echo get_post_meta(get_the_ID(), 'author_username', true); ?></a><br>
-            <time class="post-time" datetime="<?php the_time('Y-m-d'); ?>" pubdate><?php the_time( 'd-m-Y - H:i' ); ?></time>
+            <a href="<?php echo 'http://twitter.com/', $item->author_username; ?>">@<?php echo $item->author_username; ?></a><br>
+            <time class="post-time" datetime="<?php echo $item->dateFormatted; ?>" pubdate><?php echo $item->dateTimeFormatted; ?></time>
             </p>
         </header>
-        <?php the_content(); ?> 
-        
+        <?php echo $item->content; ?>
+
     </div>
 <?php else: ?>
     <div class="post-img">
         <div class="post-img-cover visible-lg"></div>
-        <?php the_content(); ?>
+        <?php echo $item->content; ?>
     </div>
         <div class="post-type-icon"><span class="icon social_instagram"></span></div>
         <footer>
             <p>
-                <a href="<?php echo 'http://instagram.com/', get_post_meta(get_the_ID(), 'author_username', true); ?>"><?php echo get_post_meta(get_the_ID(), 'author_username', true); ?></a><br>
-                <time class="post-time" datetime="<?php the_time('Y-m-d'); ?>" pubdate><?php the_time( 'd-m-Y - H:i' ); ?></time>
+                <a href="<?php echo 'http://instagram.com/', $item->author_username; ?>"><?php echo $item->author_username; ?></a><br>
+                <time class="post-time" datetime="<?php $item->dateFormatted; ?>" pubdate><?php $item->dateTimeFormatted; ?></time>
             </p>
         </footer>
 <?php endif; ?>
@@ -29,4 +30,4 @@
 <!-- .post -->
 
 
-                
+
