@@ -1,9 +1,11 @@
-<?php 
+<?php
+
+$action = $_REQUEST['action'];
 
 add_filter( 'cron_schedules', 'virada_add_cron' );
 
 function virada_add_cron( $schedules ) {
-	
+
 	$schedules['tsecs'] = array(
 	'interval' => 30,
 	'display' => __( 'A cada 30 segundos' )
@@ -28,7 +30,16 @@ add_action( 'virada_cron', function() {
 
 function virada_get_social_feeds() {
 
-	global $wpdb;
+	//global $wpdb;
+
+    include ('Simple-Database-PHP-Class/Db.php');
+    include ('extra-db-config.php');
+    $db = new Db('mysql',
+        $db_config['virada_nas_redes']['host'],
+        $db_config['virada_nas_redes']['name'],
+        $db_config['virada_nas_redes']['user'],
+        $db_config['virada_nas_redes']['pass']
+    );
 
 	/* Twitter */
 
@@ -88,36 +99,49 @@ function virada_get_social_feeds() {
 	foreach($instagram_fotos['data'] as $item){
 		$image_link = $item['images']['standard_resolution']['url'];
 		$image_tag = '<img src="'.$image_link.'" />';
-		
-		
-		
+
+
 		// check if post exists
-		$exists = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(ID) FROM $wpdb->posts WHERE post_type = 'instagram_cpt' AND post_title = %s", $item['id']));
-		
-		if ($exists)
+		//$exists = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(ID) FROM $wpdb->posts WHERE post_type = 'instagram_cpt' AND post_title = %s", $item['id']));
+        $exists = $db->query( 'SELECT id FROM items WHERE type = "instagram_cpt" AND ref_id = :ref_id', array( 'ref_id' => $item['id'] ) )->fetch();
+
+        if ($exists){
+            //error_log('ALREADY EXISTS '.print_r($exists, true), 4);
 			continue;
-		
-		$post = array(
-			'post_content'   => $image_tag,
-			'post_title'     => $item['id'],
-			'post_status'    => 'publish',
-			'post_type'      => 'instagram_cpt',
-			//'post_author'    => [ <user ID> ] // The user ID number of the author. Default is the current user ID.
-			//'post_excerpt'   => [ <string> ] // For all your post excerpt needs.
-			'comment_status' => 'closed',
-			'post_date' => date('Y-m-d H:i:s', $item['created_time'])
-		); 
-		
+        }
+
+        $db->create( 'items', array(
+            'ref_id'            => $item['id'],
+            'type'              => 'instagram_cpt',
+            'content'           => $image_tag,
+            'date'              => date('Y-m-d H:i:s', $item['created_time']),
+            'author_username'   => $item['user']['username'],
+            'author_fullname'   => $item['user']['full_name'],
+            'text'              => $item['text'],
+            'link'              => $item['link']
+        ));
+
+//		$post = array(
+//			'post_content'   => $image_tag,
+//			'post_title'     => $item['id'],
+//			'post_status'    => 'publish',
+//			'post_type'      => 'instagram_cpt',
+//			//'post_author'    => [ <user ID> ] // The user ID number of the author. Default is the current user ID.
+//			//'post_excerpt'   => [ <string> ] // For all your post excerpt needs.
+//			'comment_status' => 'closed',
+//			'post_date' => date('Y-m-d H:i:s', $item['created_time'])
+//		);
+
 		//echo date('Y-m-d H:i:s', $item['created_time']) . "\n\n";
-		
+
 		//echo date('Y-m-d H:i:s', $item['created_time']);
-		
-		$newId = wp_insert_post($post);
-		var_dump($newId);
-		
-		if (!is_wp_error($newId) && $newId) {
-			add_post_meta($newId, 'author_username', $item['user']['username']);
-		}
+
+//		$newId = wp_insert_post($post);
+//		var_dump($newId);
+//
+//		if (!is_wp_error($newId) && $newId) {
+//			add_post_meta($newId, 'author_username', $item['user']['username']);
+//		}
 		//print_r($item);
 		//break;
 	}
@@ -125,33 +149,44 @@ function virada_get_social_feeds() {
 	/* Twitter */
 
 	foreach($tweets->statuses as $tweet) {
-		
+
 		// check if post exists
-		$exists = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(ID) FROM $wpdb->posts WHERE post_type = 'twitter_cpt' AND post_title = %s", $tweet->id));
-		
-		if ($exists)
+		//$exists = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(ID) FROM $wpdb->posts WHERE post_type = 'twitter_cpt' AND post_title = %s", $tweet->id));
+        $exists = $db->query( 'SELECT id FROM items WHERE type = "twitter_cpt" AND ref_id = :ref_id', array( 'ref_id' => $tweet->id ) )->fetch();
+
+        if ($exists){
+            //error_log('ALREADY EXISTS '.print_r($exists, true), 4);
 			continue;
-		
-		$post = array(
-			'post_content'   => virada_twitterify($tweet->text),
-			'post_title'     => $tweet->id,
-			'post_status'    => 'publish',
-			'post_type'      => 'twitter_cpt',
-			//'post_author'    => [ <user ID> ] // The user ID number of the author. Default is the current user ID.
-			//'post_excerpt'   => [ <string> ] // For all your post excerpt needs.
-			'comment_status' => 'closed',
-			//'post_date' => date('Y-m-d H:i:s', $item['created_time'])
-		); 
-		
-		$newId = wp_insert_post($post);
-		var_dump($newId);
-		
-		if (!is_wp_error($newId) && $newId) {
-			add_post_meta($newId, 'author_username', $tweet->user->screen_name);
-		}
-		
+        }
+        $db->create( 'items', array(
+            'ref_id'            => $tweet->id,
+            'type'              => 'twitter_cpt',
+            'content'           => virada_twitterify($tweet->text),
+            'date'              => gmdate('Y-m-d H:i:s', strtotime($tweet->created_at)),
+            'author_username'   => $tweet->user->screen_name,
+            'author_fullname'   => $tweet->user->name
+        ));
+
+//		$post = array(
+//			'post_content'   => virada_twitterify($tweet->text),
+//			'post_title'     => $tweet->id,
+//			'post_status'    => 'publish',
+//			'post_type'      => 'twitter_cpt',
+//			//'post_author'    => [ <user ID> ] // The user ID number of the author. Default is the current user ID.
+//			//'post_excerpt'   => [ <string> ] // For all your post excerpt needs.
+//			'comment_status' => 'closed',
+//			//'post_date' => date('Y-m-d H:i:s', $item['created_time'])
+//		);
+//
+//		$newId = wp_insert_post($post);
+//		var_dump($newId);
+//
+//		if (!is_wp_error($newId) && $newId) {
+//			add_post_meta($newId, 'author_username', $tweet->user->screen_name);
+//		}
+
 	}
-	
+
 }
 
 ?>
