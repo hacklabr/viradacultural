@@ -3,16 +3,12 @@
 
         var fila = new Array();
         
-        
-        var last_id = $('#main-section > article:first').attr('id').replace('post-', '');
-        if (!last_id) last_id = 0;
-        
         var buscaNovidades = function () {
 			$.ajax({
 				type: 'POST',
-				url: GlobalConfiguration.ajaxurl,
+				url: GlobalConfiguration.templateURL + '/includes/nas-redes-ajax.php',
 				data: {
-					last_id: last_id,
+					last_id: $('#main-section > article:first').attr('id').replace('post-', ''),
 					action: 'get_nasredes_posts',
                     what: 'newer'
 				},
@@ -21,7 +17,7 @@
 					var results = request.responseText;
 					if (results != '') {
 						$('#main-section').prepend(results);
-						last_id = $('#main-section > article:first').attr('id').replace('post-', '');
+                        window.adustGridHeight();					
 					}
 					
 				}
@@ -45,7 +41,7 @@
             
             $.ajax({
 				type: 'POST',
-				url: GlobalConfiguration.ajaxurl,
+				url: GlobalConfiguration.templateURL + '/includes/nas-redes-ajax.php',
 				data: {
 					last_id: $('#main-section > article:last').attr('id').replace('post-', ''),
 					action: 'get_nasredes_posts',
@@ -57,6 +53,7 @@
 					if (results != '') {
 						$('#main-section').append(results);
 						$botao.html('Carregar mais').removeClass('btn-info').addClass('btn-default');
+                        window.adustGridHeight();
 					} else {
                         $botao.html('Não há mais novidades').removeClass('btn-info').addClass('btn-warning');
                     }

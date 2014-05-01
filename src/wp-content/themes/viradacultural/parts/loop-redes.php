@@ -21,7 +21,7 @@
         <footer>
             <p>
                 <a href="<?php echo 'http://instagram.com/', $item->author_username; ?>"><?php echo $item->author_username; ?></a><br>
-                <time class="post-time" datetime="<?php $item->dateFormatted; ?>" pubdate><?php $item->dateTimeFormatted; ?></time>
+                <time class="post-time" datetime="<?php echo $item->dateFormatted; ?>" pubdate><?php echo $item->dateTimeFormatted; ?></time>
             </p>
         </footer>
 <?php endif; ?>

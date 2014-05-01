@@ -121,29 +121,6 @@ function virada_get_social_feeds() {
             'link'              => $item['link']
         ));
 
-//		$post = array(
-//			'post_content'   => $image_tag,
-//			'post_title'     => $item['id'],
-//			'post_status'    => 'publish',
-//			'post_type'      => 'instagram_cpt',
-//			//'post_author'    => [ <user ID> ] // The user ID number of the author. Default is the current user ID.
-//			//'post_excerpt'   => [ <string> ] // For all your post excerpt needs.
-//			'comment_status' => 'closed',
-//			'post_date' => date('Y-m-d H:i:s', $item['created_time'])
-//		);
-
-		//echo date('Y-m-d H:i:s', $item['created_time']) . "\n\n";
-
-		//echo date('Y-m-d H:i:s', $item['created_time']);
-
-//		$newId = wp_insert_post($post);
-//		var_dump($newId);
-//
-//		if (!is_wp_error($newId) && $newId) {
-//			add_post_meta($newId, 'author_username', $item['user']['username']);
-//		}
-		//print_r($item);
-		//break;
 	}
 
 	/* Twitter */
@@ -166,24 +143,6 @@ function virada_get_social_feeds() {
             'author_username'   => $tweet->user->screen_name,
             'author_fullname'   => $tweet->user->name
         ));
-
-//		$post = array(
-//			'post_content'   => virada_twitterify($tweet->text),
-//			'post_title'     => $tweet->id,
-//			'post_status'    => 'publish',
-//			'post_type'      => 'twitter_cpt',
-//			//'post_author'    => [ <user ID> ] // The user ID number of the author. Default is the current user ID.
-//			//'post_excerpt'   => [ <string> ] // For all your post excerpt needs.
-//			'comment_status' => 'closed',
-//			//'post_date' => date('Y-m-d H:i:s', $item['created_time'])
-//		);
-//
-//		$newId = wp_insert_post($post);
-//		var_dump($newId);
-//
-//		if (!is_wp_error($newId) && $newId) {
-//			add_post_meta($newId, 'author_username', $tweet->user->screen_name);
-//		}
 
 	}
 

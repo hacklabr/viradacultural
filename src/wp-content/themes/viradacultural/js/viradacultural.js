@@ -6,7 +6,7 @@ var hl = {};
     FastClick.attach(document.body);
 
     /*** Ajustando altura fixa dos posts em grid ****/
-    function adustGridHeight(ent) {
+    window.adustGridHeight = function (ent) {
         if ($('article.js-adjust-height').size()) {
             if ( $('article.js-adjust-height.has-thumbnail').size() > 0 ) {
                 var adjustToH = $('article.js-adjust-height.has-thumbnail').height();
@@ -29,7 +29,7 @@ var hl = {};
     }
 
     $(window).load(function(){
-        adustGridHeight();
+        window.adustGridHeight();
     });
 
     $(document).ready(function(){
@@ -53,7 +53,7 @@ var hl = {};
 
 
         $(window).resize(function() {
-            adustGridHeight('resize');
+            window.adustGridHeight('resize');
         });
         /*************************************************/
 

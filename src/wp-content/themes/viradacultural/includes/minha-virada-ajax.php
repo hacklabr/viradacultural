@@ -5,16 +5,6 @@ include ('extra-db-config.php');
 
 $action = $_REQUEST['action'];
 
-$db = new Db(
-            'mysql', 
-            $db_config['minha_virada']['host'], 
-            $db_config['minha_virada']['name'], 
-            $db_config['minha_virada']['user'],
-            $db_config['minha_virada']['pass']
-        );
-        
-//var_dump($db->read('users', 1)->fetch()); die;
-
 if ($action == 'minhavirada_updateJSON') {
 
     if( is_array($_POST['dados'])) {

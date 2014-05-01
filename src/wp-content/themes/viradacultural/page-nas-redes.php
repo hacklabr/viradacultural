@@ -13,15 +13,6 @@ add_action('wp_print_scripts', function () {
 <?php get_header(); ?>
 
 <?php
-//depois do header
-//global $paged;
-//query_posts(array(
-//	'post_type' => array('instagram_cpt', 'twitter_cpt'),
-//	'posts_per_page' => 80,
-//	'paged' => $paged,
-//    'orderby' => 'ID',
-//    'order' => 'DESC'
-//));
 
     include ('includes/Simple-Database-PHP-Class/Db.php');
     include ('includes/extra-db-config.php');
@@ -39,7 +30,7 @@ add_action('wp_print_scripts', function () {
 	<section id="main-section" class="row">
 
         <?php
-            $items = $db->query('SELECT * FROM items LIMIT 80', array());
+            $items = $db->query('SELECT * FROM items ORDER BY id DESC LIMIT 50', array());
             if($items->count()){
                 while ( $item = $items->fetch() ){
                     $dateCreated = date_create($item->date);
