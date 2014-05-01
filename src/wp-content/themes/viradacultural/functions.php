@@ -6,7 +6,7 @@ include dirname(__FILE__).'/includes/utils.class.php';
 include dirname(__FILE__).'/includes/form.class.php';
 include dirname(__FILE__).'/includes/hacklab_post2home/hacklab_post2home.php';
 include dirname(__FILE__).'/includes/mapasculturais2post/mapasculturais2post.php';
-include dirname(__FILE__).'/includes/agrega-twitter-instagram.php';
+include dirname(__FILE__).'/includes/nas-redes-wp-cron.php';
 include dirname(__FILE__).'/includes/minha-virada.php';
 
 

@@ -30,8 +30,6 @@ add_action( 'virada_cron', function() {
 
 function virada_get_social_feeds() {
 
-	//global $wpdb;
-
     include ('Simple-Database-PHP-Class/Db.php');
     include ('extra-db-config.php');
     $db = new Db('mysql',
