@@ -497,8 +497,6 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                         fadeInImages($element, delay);
                         delay += 10;
 
-                        console.log(grid_height);
-
                         jQuery('article.event').css({ height: grid_height + 34 });
                     }
 
