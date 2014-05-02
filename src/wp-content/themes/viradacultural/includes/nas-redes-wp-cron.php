@@ -1,7 +1,5 @@
 <?php
 
-$action = $_REQUEST['action'];
-
 add_filter( 'cron_schedules', 'virada_add_cron' );
 
 function virada_add_cron( $schedules ) {
@@ -93,56 +91,62 @@ function virada_get_social_feeds() {
 	$inst_stream = callInstagram($url);
 	$instagram_fotos = json_decode($inst_stream, true);
 
+    
+    if (is_array($instagram_fotos) && isset($instagram_fotos['data']) && is_array($instagram_fotos['data']) && sizeof($instagram_fotos['data']) > 0) {
+    
+        foreach($instagram_fotos['data'] as $item){
+            $image_link = $item['images']['standard_resolution']['url'];
+            $image_tag = '<img src="'.$image_link.'" />';
 
-	foreach($instagram_fotos['data'] as $item){
-		$image_link = $item['images']['standard_resolution']['url'];
-		$image_tag = '<img src="'.$image_link.'" />';
 
+            // check if post exists
+            //$exists = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(ID) FROM $wpdb->posts WHERE post_type = 'instagram_cpt' AND post_title = %s", $item['id']));
+            $exists = $db->query( 'SELECT id FROM items WHERE type = "instagram_cpt" AND ref_id = :ref_id', array( 'ref_id' => $item['id'] ) )->fetch();
 
-		// check if post exists
-		//$exists = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(ID) FROM $wpdb->posts WHERE post_type = 'instagram_cpt' AND post_title = %s", $item['id']));
-        $exists = $db->query( 'SELECT id FROM items WHERE type = "instagram_cpt" AND ref_id = :ref_id', array( 'ref_id' => $item['id'] ) )->fetch();
+            if ($exists){
+                //error_log('ALREADY EXISTS '.print_r($exists, true), 4);
+                continue;
+            }
 
-        if ($exists){
-            //error_log('ALREADY EXISTS '.print_r($exists, true), 4);
-			continue;
+            $db->create( 'items', array(
+                'ref_id'            => $item['id'],
+                'type'              => 'instagram_cpt',
+                'content'           => $image_tag,
+                'date'              => date('Y-m-d H:i:s', $item['created_time']),
+                'author_username'   => $item['user']['username'],
+                'author_fullname'   => $item['user']['full_name'],
+                'text'              => isset($item['text']) ? $item['text'] : '',
+                'link'              => $item['link']
+            ));
+
         }
-
-        $db->create( 'items', array(
-            'ref_id'            => $item['id'],
-            'type'              => 'instagram_cpt',
-            'content'           => $image_tag,
-            'date'              => date('Y-m-d H:i:s', $item['created_time']),
-            'author_username'   => $item['user']['username'],
-            'author_fullname'   => $item['user']['full_name'],
-            'text'              => $item['text'],
-            'link'              => $item['link']
-        ));
-
-	}
-
+    }
+    
 	/* Twitter */
 
-	foreach($tweets->statuses as $tweet) {
+	if (is_object($tweets) && isset($tweets->statuses) && is_array($tweets->statuses) && sizeof($tweets->statuses) > 0) {
+    
+        foreach($tweets->statuses as $tweet) {
 
-		// check if post exists
-		//$exists = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(ID) FROM $wpdb->posts WHERE post_type = 'twitter_cpt' AND post_title = %s", $tweet->id));
-        $exists = $db->query( 'SELECT id FROM items WHERE type = "twitter_cpt" AND ref_id = :ref_id', array( 'ref_id' => $tweet->id ) )->fetch();
+            // check if post exists
+            //$exists = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(ID) FROM $wpdb->posts WHERE post_type = 'twitter_cpt' AND post_title = %s", $tweet->id));
+            $exists = $db->query( 'SELECT id FROM items WHERE type = "twitter_cpt" AND ref_id = :ref_id', array( 'ref_id' => $tweet->id ) )->fetch();
 
-        if ($exists){
-            //error_log('ALREADY EXISTS '.print_r($exists, true), 4);
-			continue;
+            if ($exists){
+                //error_log('ALREADY EXISTS '.print_r($exists, true), 4);
+                continue;
+            }
+            $db->create( 'items', array(
+                'ref_id'            => $tweet->id,
+                'type'              => 'twitter_cpt',
+                'content'           => virada_twitterify($tweet->text),
+                'date'              => gmdate('Y-m-d H:i:s', strtotime($tweet->created_at)),
+                'author_username'   => $tweet->user->screen_name,
+                'author_fullname'   => $tweet->user->name
+            ));
+
         }
-        $db->create( 'items', array(
-            'ref_id'            => $tweet->id,
-            'type'              => 'twitter_cpt',
-            'content'           => virada_twitterify($tweet->text),
-            'date'              => gmdate('Y-m-d H:i:s', strtotime($tweet->created_at)),
-            'author_username'   => $tweet->user->screen_name,
-            'author_fullname'   => $tweet->user->name
-        ));
-
-	}
+    }
 
 }
 
