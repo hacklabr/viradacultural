@@ -426,11 +426,13 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
 
     };
 
+    var renderingList = false;
     $scope.renderList = function(){
-        if(timeouts.renderList)
-            $timeout.cancel(timeouts.renderList);
+        if(renderingList)
+            return;
 
         timeouts.renderList = $timeout(function(){
+            renderingList = true;
             var spacesPerPage = 8;
             var eventsPerPage = 35;
             var offset;
@@ -489,7 +491,6 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
 
                     $container.append($element);
 
-
                     if($scope.data.viewMode === 'grid'){
                         grid_width = grid_width || parseInt(jQuery('#main-section').outerWidth(true) * .2);
                         grid_height = grid_height || parseInt(grid_width * .66667);
@@ -511,6 +512,8 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
             }
 
             page++;
+
+            renderingList = false;
 
         },20);
     };

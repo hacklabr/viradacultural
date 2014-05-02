@@ -37,7 +37,7 @@ foreach ($autoinclude_folders as $folder) {
  * 		$result = "ALGUMA COISA";
  * 		RCache::set(__METHOD__, $nome, $result);
  * 		return $result;
- *  } 
+ *  }
  *  </pre>
  * @author rafael
  */
@@ -47,7 +47,7 @@ class RCache {
 
     /**
      * Salva o cache
-     * @param string $group pode ser usado __METHOD__ 
+     * @param string $group pode ser usado __METHOD__
      * @param string $id um identificador para o cache, deve ser único para o mesmo $group
      * @param mixed $data o que deve ser cacheado
      * @example RCache::set(__METHOD__, $post_id, $post);
@@ -69,7 +69,7 @@ class RCache {
 
     /**
      * Retorna o que estiver cacheado
-     * @param string $group 
+     * @param string $group
      * @param string $id
      * @example $value = RCache(__METHOD__, $post_id);
      * @return mixed o que estiver cacheado ou null se o cache não existir
@@ -102,7 +102,7 @@ class RCache {
  * 		$result = "ALGUMA COISA";
  * 		DCache::set(__METHOD__, $nome, $result);
  * 		return $result;
- *  } 
+ *  }
  *  </pre>
  * @author rafael
  */
@@ -135,7 +135,7 @@ class DCache {
 
     /**
      * Salva o cache
-     * @param string $group pode ser usado __METHOD__ 
+     * @param string $group pode ser usado __METHOD__
      * @param string $id um identificador para o cache, deve ser único para o mesmo $group
      * @param mixed $data o que deve ser cacheado
      * @example DCache::set(__METHOD__, $post_id, $post);
@@ -171,7 +171,7 @@ class DCache {
 
     /**
      * Retorna o que estiver cacheado
-     * @param string $group 
+     * @param string $group
      * @param string $id
      * @example $value = DCache(__METHOD__, $post_id);
      * @return mixed o que estiver cacheado ou null se o cache não existir
@@ -225,7 +225,7 @@ class DCache {
 /**
  * Guarda em uma entrada da tabela wp_usermeta
  * a data do último login de cada usuário.
- * 
+ *
  * @param $login
  * @return null
  */
@@ -234,14 +234,14 @@ function congelado_last_login($login) {
     $user = get_userdatabylogin($login);
     update_usermeta($user->ID, 'last_login', time());
 }
-add_action('wp_login', 'congelado_user_last_login');
+add_action('wp_login', 'congelado_last_login');
 
 
 /**
  * Atalho para ser usado no arquivo db-updates.php. Chama a função get_option()
- * e se a opção existir retorna false. Se a opção não existir cria ela e 
+ * e se a opção existir retorna false. Se a opção não existir cria ela e
  * retorna true.
- * 
+ *
  * @param string $option_name nome da opção
  * @return bool
  */
@@ -304,7 +304,7 @@ function _pr($var, $die = false) {
 }
 
 /**
- * _pr(debug_backtrace()) somente se $HL_DEBUG estiver definida como true 
+ * _pr(debug_backtrace()) somente se $HL_DEBUG estiver definida como true
  * @param mixed $var
  * @param boolean $die executa um die; no final
  */
@@ -316,7 +316,7 @@ function _bt() {
 }
 
 /**
- * imprime <pre>print_r($var)</pre> somente se $HL_DEBUG estiver definida como true 
+ * imprime <pre>print_r($var)</pre> somente se $HL_DEBUG estiver definida como true
  * @param mixed $var
  * @param boolean $die executa um die; no final
  */
