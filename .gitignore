@@ -11,3 +11,6 @@ node_modules
 /src/wp-content/themes/viradacultural/includes/extra-db-config.php
 /jsons/*.json
 /jsons/api-config.php
+src/wp-content/cache/
+src/wp-content/advanced-cache.php
+src/wp-content/object-cache.php
