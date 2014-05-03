@@ -416,8 +416,6 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
             events.forEach(function(event){
                 if(searchResultBySpaceId[event.spaceId])
                     searchResultBySpaceId[event.spaceId].events.push(event);
-                else
-                    console.log("ERROR> ", event);
             });
 
             $scope.searchResult = searchResult;
