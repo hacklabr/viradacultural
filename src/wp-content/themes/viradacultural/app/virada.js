@@ -378,7 +378,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
             var searchResult = [];
 
             $scope.eventIndex.forEach(function(event){
-                if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0) && event.startsAt <= searchEndsAt  &&  event.startsAt >= searchStartsAt){
+                if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0) && (event.startsAt <= searchEndsAt  &&  event.startsAt >= searchStartsAt || event.duration === '24h00')){
                     if(!$scope.filters.spaces || $scope.spacesById[event.entity.spaceId].selected)
                         events.push(event.entity);
                 }
@@ -414,7 +414,10 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
             });
 
             events.forEach(function(event){
-                searchResultBySpaceId[event.spaceId].events.push(event);
+                if(searchResultBySpaceId[event.spaceId])
+                    searchResultBySpaceId[event.spaceId].events.push(event);
+                else
+                    console.log("ERROR> ", event);
             });
 
             $scope.searchResult = searchResult;
@@ -533,8 +536,6 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
     $scope.connected = false;
     $scope.home = true; // não estou vendo perfil de ninguém
     $scope.itsme = false;
-
-    var $myscope = $scope;
 
     $rootScope.$on('fb_connected', function(ev, uid) {
         $scope.connected = true;
