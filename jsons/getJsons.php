@@ -2,12 +2,15 @@
 
 if (file_exists(__DIR__ . '/api-config.php')) {
     include __DIR__ . '/api-config.php';
-} else {
-    define('API_URL', "http://localhost:8000/api/");
-    define('PROJECT_ID', 4);
-}
+} 
+if(!defined('API_URL')) define('API_URL', "http://mapasculturais.hacklab.com.br/api/");
 
-$get_spaces_url = API_URL . "space/find?@select=id,name,shortDescription,endereco,location&@files=(avatar.viradaSmall,avatar.viradaBig):url&type=EQ(501)&@order=name";
+if(!defined('PROJECT_ID')) define('PROJECT_ID', 4);
+
+if(!defined('AGENT_ID')) define('AGENT_ID', 428);
+
+
+$get_spaces_url = API_URL . "space/find?@select=id,name,shortDescription,endereco,location&@files=(avatar.viradaSmall,avatar.viradaBig):url&@order=name&owner=EQ(@Agent:" . AGENT_ID .")";
 $get_events_url = API_URL . "event/find?@select=id,name,shortDescription,description,classificacaoEtaria,terms&@files=(avatar.viradaSmall,avatar.viradaBig):url&project=EQ(@Project:" . PROJECT_ID . ")";
 
 echo "\nbaixando eventos $get_events_url\n\n";
