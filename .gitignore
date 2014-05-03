@@ -9,3 +9,5 @@ node_modules
 /src/wp-content/themes/viradacultural/main.css
 /nbproject/
 /src/wp-content/themes/viradacultural/includes/extra-db-config.php
+/jsons/*.json
+/jsons/api-config.php
