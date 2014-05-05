@@ -3,8 +3,8 @@
     var app = angular.module('virada');
     var conf = GlobalConfiguration;
 
-    app.controller('SpacesFilter',[ '$scope', 'THEME_DIR',
-        function SpacesFilterCtrl($scope, THEME_DIR) {
+    app.controller('SpacesFilter',[ '$scope', '$rootScope', 'THEME_DIR',
+        function SpacesFilterCtrl($scope, $rootScope, THEME_DIR) {
             $scope.map = {
                 center: {
                     latitude: -23.524001004591987,
@@ -17,28 +17,34 @@
             $scope.marker = {
                 icon: {
                     'default': THEME_DIR + 'img/pin.png',
-                    'selected': THEME_DIR + 'img/pin-selected.png'
+                    'selected': THEME_DIR + 'img/pin-selected.png',
+                    'nearMe' :  THEME_DIR + 'img/pin-mim.png'
                 },
                 options: {
                     'shadow': THEME_DIR + 'img/pin-shadow.png'
                 }
-            }
-            
+            };
+
             $scope.infowindow = {
                 options: {
                     pixelOffset: new google.maps.Size(0, -40)
                 }
             };
 
+            //Exports this settings to the root scope
+            $rootScope.map = $scope.map;
+            $rootScope.marker = $scope.marker;
+            $rootScope.infowindow = $scope.infowindow;
+
             $scope.countSelected = function(){
                 return $scope.spaces.filter(function(space){
                     return space.selected === true;
                 }).length;
             };
-            
+
             $scope.redrawMap = function(){
-                var gmap = $scope.map.control.getGMap()
-                google.maps.event.trigger(gmap, 'resize')
+                var gmap = $scope.map.control.getGMap();
+                google.maps.event.trigger(gmap, 'resize');
             };
 
             $scope.showSpaceInfo = function(space) {

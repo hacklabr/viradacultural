@@ -62,7 +62,7 @@
 						</div>
 
 
-                                            <?php if (is_user_logged_in()): ?>
+                                            <?php if (mostrar_programacao()): ?>
                                                 <form id="pages-search" class="pages-navbar-item col-md-4 col-lg-3" role="search" action="<?php echo site_url(); ?>">
                                                     <div class="input-group">
                                                         <input type="text" name="s" id="search-term" class="form-control" placeholder="Digite uma palavra-chave" ng-model='searchText' ng-change='unaccentSearchText = unaccent(searchText)'>
