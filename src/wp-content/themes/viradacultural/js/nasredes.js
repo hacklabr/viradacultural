@@ -2,6 +2,7 @@
     $(document).ready(function(){
 
         var fila = new Array();
+        var limiteNaPagina = 500;
         
         var buscaNovidades = function () {
 			$.ajax({
@@ -29,7 +30,13 @@
 			
             if ($('#main-section > article:visible').eq(0).prev().size() > 0) {
                 $('#main-section > article:visible').eq(0).prev().fadeIn();
+                
+                // Limpando o fim da página
+                if ($('#main-section > article:visible').size() > limiteNaPagina)
+                    $('#main-section > article:last').remove();
             }
+        
+            
         
             setTimeout(imprimeNovidades, Math.floor((Math.random()*5)*1000));
         
