@@ -14,9 +14,10 @@
 
                     <div class="timeline clearfix">
                         <div class="event-group" id="event-group-{{event.id}}" ng-repeat="event in userEvents">
-                            <div class="timeline-time">{{event.startsAt}}</div>
-                            <article class="event clearfix event-grid">
-                                <img ng-src="{{conf.baseURL}}/wp-content/uploads/2014/03/Virada-Cultural-2013_racionais-foto_sylvia_masini-18-320x210.jpg"/>
+                            <div class="timeline-time" ng-if="event.duration === '24h00'">24 horas</div>
+                            <div class="timeline-time" ng-if="event.duration !== '24h00'">{{event.startsAt}}</div>
+                            <article class="event clearfix event-grid" ng-class="{'no-thumb' : !event.defaultImageThumb, 'evento-24h': event.duration === '24h00'}">
+                                <img ng-src="{{event.defaultImageThumb}}"/>
                                 <div class="event-content clearfix">
                                     <h1><a href="{{eventUrl(event.id)}}">{{event.name}}</a></h1>
                                     <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)" ng-if="itsme"><!--qdo selecionado adicionar classe 'active'--></a>

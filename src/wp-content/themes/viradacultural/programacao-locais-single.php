@@ -11,8 +11,9 @@
                 <img class="center-block" ng-src="{{conf.templateURL}}/img/virada-icon-2x.png">
                 <div class="timeline clearfix">
                     <div class="event-group" ng-repeat="event in spaceEvents">
-                        <div class="timeline-time">{{event.startsAt}}</div>
-                        <article class="event clearfix event-grid" ng-class="{'no-thumb' : !event.defaultImageThumb}">
+                        <div class="timeline-time" ng-if="event.duration === '24h00'">24 horas</div>
+                        <div class="timeline-time" ng-if="event.duration !== '24h00'">{{event.startsAt}}</div>
+                        <article class="event clearfix event-grid" ng-class="{'no-thumb' : !event.defaultImageThumb, 'evento-24h': event.duration === '24h00'}">
                             <img ng-src="{{event.defaultImageThumb}}"/>
                             <div class="event-content clearfix">
                                 <h1><a href="{{event.url}}">{{event.name}}</a></h1>
