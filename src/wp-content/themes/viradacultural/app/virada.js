@@ -455,9 +455,8 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
     var renderingList = false;
     $scope.renderList = function(){
-        if(renderingList)
+        if(renderingList || (!$scope.spaces || !$scope.events))
             return;
-
         timeouts.renderList = $timeout(function(){
             renderingList = true;
             var spacesPerPage = 8;
@@ -492,6 +491,8 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
                 appendEntitiesToContainer(eventTemplate, events.slice(offset, offset + eventsPerPage), $container);
             }
 
+            jQuery('#programacao-loading').hide();
+
             minhaVirada.atualizaEstrelas();
 
             function fadeInImages($element, delay){
@@ -513,7 +514,6 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
                 grid_height;
 
             function appendEntitiesToContainer(template, entities, $container){
-                jQuery('#programacao-loading').hide();
                 var delay = 0;
                 entities.forEach(function(entity){
                     var $element = jQuery(Resig.renderElement(template, entity));
@@ -544,7 +544,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
             renderingList = false;
 
-        },20);
+        });
     };
 
     jQuery(window).scroll(function(){
