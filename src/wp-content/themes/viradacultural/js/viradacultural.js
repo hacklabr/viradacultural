@@ -1,9 +1,24 @@
-var hl = {};
-
+var hl = {
+    isMobile: function(){
+        if (navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+                ) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+};
 
 (function($){
-
-    FastClick.attach(document.body);
+    if(hl.isMobile)
+        $('body').addClass('mobile');
 
     /*** Ajustando altura fixa dos posts em grid ****/
     window.adustGridHeight = function (ent) {
@@ -32,10 +47,14 @@ var hl = {};
         window.adustGridHeight();
     });
 
+
+
     $(document).ready(function(){
-        
+        FastClick.attach(document.body);
+
+
         $('#programacao-loading').height( $(window).height() );
-        
+
         $('.btn span').tooltip();
 
         $('#front-page-carousel .item:first, .carousel-indicators li:first').addClass('active');
@@ -74,6 +93,83 @@ var hl = {};
 
 
     });
+
+    hl.scrollCarrousel = {
+
+        init: function(selector){
+            selector = selector || '.hl-carrousel';
+
+            if($(selector).data('hl-carrousel-ready'))
+                return false;
+            $(selector).data('hl-carrousel-ready', true);
+
+            $(selector).find('.hl-nav, .hl-num-nav').remove();
+
+            $(selector).css({
+                position: 'relative',
+                overflowY: 'hidden'
+            }).find('.hl-wrap>*').css({
+                float: 'left'
+            });
+            $(selector).find('.hl-wrap').parent().css({
+                overflowX: 'auto'
+            });
+
+            $(selector).each(function(){
+                var $this       = $(this),
+                    $wrap       = $this.find('.hl-wrap'),
+                    $items      = $this.find('.hl-wrap>*'),
+                    $ref        = $this.find('.hl-ref'),
+                    item_width  = 0,
+                    outer        = 0,
+                    margin_left   = 0,
+                    margin_right  = 0,
+                    padding_left  = 0,
+                    padding_right = 0;
+
+
+                var adjust = function(){
+                    var wrap_width = 0;
+
+                    if($this.width() === $this.data('last-width'))
+                        return true;
+
+                    $this.data('last-width', $this.width());
+
+                    $wrap.css("margin-left", 0);
+
+                    if($ref.length){
+                        item_width      = $ref.width();
+                        margin_left     = parseFloat($ref.css('margin-left'));
+                        margin_right    = parseFloat($ref.css('margin-right'));
+                        padding_left    = parseFloat($ref.css('padding-left'));
+                        padding_right   = parseFloat($ref.css('padding-right'));
+                        outer = margin_left + margin_right + padding_left + padding_right;
+                    }else{
+                        item_width = $wrap.find(">:first").outerWidth(true);
+                    }
+
+                    $items.each(function(){
+                        wrap_width += item_width + outer;
+                    });
+
+                    $wrap.css('width', wrap_width);
+
+
+                    $items.css({
+                        width: item_width,
+                        marginLeft: margin_left,
+                        marginRight: margin_right,
+                        paddingLeft: padding_left,
+                        paddingRight: padding_right
+                    });
+                };
+
+                adjust();
+                $(window).resize(adjust);
+            });
+        }
+    },
 
     hl.carrousel = {
         init: function(selector){

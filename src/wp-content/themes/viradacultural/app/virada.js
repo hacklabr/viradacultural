@@ -481,7 +481,11 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
                     appendEntitiesToContainer(eventTemplate, space.events, $eventsContainer);
 
                     if($scope.data.viewMode === 'grid'){
-                        hl.carrousel.init($eventsContainer.parents('.hl-carrousel'));
+                        if(hl.isMobile()){
+                            hl.scrollCarrousel.init($eventsContainer.parents('.hl-carrousel'));
+                        }else{
+                            hl.carrousel.init($eventsContainer.parents('.hl-carrousel'));
+                        }
                     }
                 });
             }else{
@@ -589,11 +593,11 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
 
 
     });
-    
+
     $rootScope.$on('fb_not_connected', function(ev, uid) {
-        
+
         jQuery('#programacao-loading').hide();
-        if (!$location.$$hash) 
+        if (!$location.$$hash)
             jQuery('.user-photo').hide();
 
     });
@@ -605,13 +609,13 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
     }
 
     $scope.populateUserInfo = function(data) {
-        
-        
+
+
         if ( typeof(data.user_picture) != 'undefined' ) {
-        
+
             $scope.user_picture = "background-image: url(" + data.picture + ");";
             $scope.user_name = data.name;
-            
+
         } else {
             jQuery('.user-photo').hide();
         }
@@ -630,7 +634,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
                 }
 
             });
-            
+
             jQuery('#programacao-loading').hide();
             minhaVirada.atualizaEstrelas();
 
