@@ -1,8 +1,11 @@
 <!-- .container-fluid -->
 
 <?php get_header(); ?>
+
 <div ng-controller="espaco">
+
     <div class="container-fluid container-menu-large">
+        <section id='programacao-loading'>AGUARDE</section>
         <section id="main-section" class="row">
             <article id="space-00" class="space-single">
                 <header>
