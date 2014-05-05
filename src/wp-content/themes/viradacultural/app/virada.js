@@ -259,21 +259,22 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
         var onError = function (error) {
             //CATCH ERRORS
-//            switch (error.code) {
-//                case error.PERMISSION_DENIED:
-//                    $scope.error = "User denied the request for Geolocation."
-//                    break;
-//                case error.POSITION_UNAVAILABLE:
-//                    $scope.error = "Location information is unavailable."
-//                    break;
-//                case error.TIMEOUT:
-//                    $scope.error = "The request to get user location timed out."
-//                    break;
-//                case error.UNKNOWN_ERROR:
-//                    $scope.error = "An unknown error occurred."
-//                    break;
-//            }
-//            $scope.$apply();
+           switch (error.code) {
+               case error.PERMISSION_DENIED:
+                   $scope.geolocationError = "User denied the request for Geolocation."
+                   break;
+               case error.POSITION_UNAVAILABLE:
+                   $scope.geolocationError = "Location information is unavailable."
+                   break;
+               case error.TIMEOUT:
+                   $scope.geolocationError = "The request to get user location timed out."
+                   break;
+               case error.UNKNOWN_ERROR:
+                   $scope.geolocationError = "An unknown error occurred."
+                   break;
+           }
+           console.log($scope.geolocationError);
+           //$scope.$apply();
         };
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(onFound, onError);
