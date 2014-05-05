@@ -29,9 +29,9 @@
 							<?php } else if (is_single()) { ?>
 								Blog
 							<?php } else if (is_author()) { ?>
-								Blog - <?php wp_title(''); ?>								
+								Blog - <?php wp_title(''); ?>
 							<?php } else if (is_home()) { ?>
-								
+
                             <?php } ?>
 							</h1>
 						</div>
@@ -62,24 +62,40 @@
 						</div>
 
 
-						<?php // search form ?>
-						<form id="pages-search" class="pages-navbar-item col-md-4 col-lg-3" role="search" action="<?php echo site_url(); ?>">
-							<div class="input-group">
-								<input type="text" name="s" id="search-term" class="form-control" placeholder="Digite uma palavra-chave" ng-model='searchText' ng-change='unaccentSearchText = unaccent(searchText)'>
+                                            <?php if (is_user_logged_in()): ?>
+                                                <form id="pages-search" class="pages-navbar-item col-md-4 col-lg-3" role="search" action="<?php echo site_url(); ?>">
+                                                    <div class="input-group">
+                                                        <input type="text" name="s" id="search-term" class="form-control" placeholder="Digite uma palavra-chave" ng-model='searchText' ng-change='unaccentSearchText = unaccent(searchText)'>
 
-                                <div class="input-group-btn">
-									<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-										<span class="icon icon_search"></span>
-										<span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu">
-										<li><a id="busca-programacao">Programação</a></li>
-										<li><a id="busca-site" >Site</a></li>
-									</ul>
-								</div><!-- /btn-group -->
-                                
-							</div>
-						</form>
+                                                        <div class="input-group-btn">
+                                                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                                <span class="icon icon_search"></span>
+                                                                <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a id="busca-programacao">Programação</a></li>
+                                                                <li><a id="busca-site" >Site</a></li>
+                                                            </ul>
+                                                        </div><!-- /btn-group -->
+
+                                                    </div>
+                                                </form>
+                                            <?php else: ?>
+                                                <form id="pages-search" class="pages-navbar-item col-md-4 col-lg-3" role="search" action="<?php echo site_url(); ?>">
+                                                    <div class="input-group">
+                                                        <input type="text" name="s" class="form-control" placeholder="Digite uma palavra-chave" ng-model='searchText' ng-change='unaccentSearchText = unaccent(searchText)'>
+
+                                                        <div class="input-group-btn">
+                                                            <button type="button" class="btn btn-primary">
+                                                                <span class="icon icon_search" id="search-submit"></span>
+
+                                                            </button>
+
+                                                        </div><!-- /btn-group -->
+
+                                                    </div>
+                                                </form>
+                                            <?php endif; ?>
 					</div>
 
 

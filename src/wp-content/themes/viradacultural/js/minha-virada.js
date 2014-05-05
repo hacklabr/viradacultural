@@ -10,6 +10,7 @@ minhaVirada = {
     events: [],
     modalDismissed: false,
     data: false,
+    initialized: false,
 
     connect: function(callback) {
         var callback = 'minhaVirada.' + callback + '()';
@@ -58,20 +59,22 @@ minhaVirada = {
 
             // Pega dados do usuário
             jQuery.getJSON( GlobalConfiguration.templateURL + '/includes/minha-virada-ajax.php?action=minhavirada_getJSON&uid=' + minhaVirada.uid, function( data ) {
-                
+
                 minhaVirada.debug = data;
-                
+
                 if (!data.events)
                     minhaVirada.events = [];
                 else
                     minhaVirada.events = data.events;
-                
+
                 if (data.modalDismissed)
                     minhaVirada.modalDismissed = data.modalDismissed;
-                
+
                 minhaVirada.atualizaEstrelas();
                 if (callback)
                     eval(callback);
+
+                minhaVirada.initialized = true;
             });
 
 
@@ -110,10 +113,12 @@ minhaVirada = {
     },
 
     atualizaEstrelas: function() {
-        
+        if(minhaVirada.initialized)
+            jQuery('.favorite').show();
+
         if (!minhaVirada.connected)
             return;
-        
+
         jQuery('.favorite').removeClass('active');
         for (var i = 0; i < minhaVirada.events.length; i++) {
             jQuery('.favorite-event-'+minhaVirada.events[i]).addClass('active');
@@ -122,10 +127,10 @@ minhaVirada = {
 
     // retorna falso se não tem, ou o índice se tem
     has_event: function(eventId) {
-        
+
         if (!minhaVirada.connected)
             return false;
-            
+
         for (var i = 0; i < minhaVirada.events.length; i++) {
 
             if (minhaVirada.events[i] == eventId)
@@ -145,18 +150,18 @@ minhaVirada = {
         if (minhaVirada.eventId) {
             var has_event = minhaVirada.has_event(minhaVirada.eventId);
             if (has_event !== false ) { // o indice pode ser 0
-                
+
                 //if (confirm('Tem certeza que quer remover esta atração da sua seleção?')) {
-                
+
                     minhaVirada.events.splice(has_event, 1);
-                    
+
                     // Se estiver editando a pagina minha virada, exclui o evento da página
                     if (jQuery('div.js-page-minha-virada').size() > 0)
                         jQuery('#event-group-' + minhaVirada.eventId).fadeOut(function() {
                             jQuery(this).remove();
                         });
                 //}
-                
+
             } else {
                 minhaVirada.events.push(minhaVirada.eventId);
             }

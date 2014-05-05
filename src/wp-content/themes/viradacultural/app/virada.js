@@ -93,6 +93,9 @@ app.controller('main', function($scope, $rootScope, $window, $sce){
                 minhaVirada.initializeUserData(response, false);
                 $scope.connected = true;
                 $scope.$emit('fb_connected', response.authResponse.userID);
+            }else{
+                minhaVirada.initialized = true;
+                minhaVirada.atualizaEstrelas();
             }
         });
 
@@ -466,6 +469,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                 appendEntitiesToContainer(eventTemplate, events.slice(offset, offset + eventsPerPage), $container);
             }
 
+            minhaVirada.atualizaEstrelas();
 
             function fadeInImages($element, delay){
                 $element.find('img').each(function(){
