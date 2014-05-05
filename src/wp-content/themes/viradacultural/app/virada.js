@@ -129,6 +129,8 @@ app.controller('evento', function($scope, $http, $location, $timeout, DataServic
                             e.url = spaceUrl(e.id);
                             $scope.space = e;
                             $scope.mapUrl = getMapUrl(e);
+
+                            jQuery('#programacao-loading').hide();
                             return true;
                         }
                     });
@@ -148,7 +150,13 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
 
     var spaceId = parseInt($location.$$hash);
 
+    var c = 0;
+
     $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
+        c++;
+        if(c === 2)
+            jQuery('#programacao-loading').hide();
+
         data.forEach(function(e){
             if(e.spaceId == spaceId){
                 e.url = eventUrl(e.id);
@@ -158,6 +166,9 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
     });
 
     DataService.getSpaces().then(function(response){
+        c++;
+        if(c === 2)
+            jQuery('#programacao-loading').hide();
 
         response.data.some(function(e){
             if(e.id == spaceId){
@@ -490,6 +501,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                 grid_height;
 
             function appendEntitiesToContainer(template, entities, $container){
+                jQuery('#programacao-loading').hide();
                 var delay = 0;
                 entities.forEach(function(entity){
                     var $element = jQuery(Resig.renderElement(template, entity));
