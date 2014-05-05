@@ -32,9 +32,8 @@
 
                     <iframe width="100%" height="220" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
                             ng-src="{{getTrustedURI(mapUrl)}}"></iframe>
-
-                    <p>
-                        <a class="btn btn-primary btn-xs" target="_blank" href="http://maps.google.com/maps?q=teatro municipal de sao paulo, Praça Ramos de Azevedo, s/n, São Paulo&hl=pt-BR&ll=-23.5451833,-46.6397523&z=17z">
+                    <p class="hidden-md hidden-lg">
+                        <a class="btn btn-primary btn-xs" target="_blank" href="{{mapUrl}}">
                             <span class="icon icon_pin"></span> Ver no mapa
                         </a>
                     </p>
