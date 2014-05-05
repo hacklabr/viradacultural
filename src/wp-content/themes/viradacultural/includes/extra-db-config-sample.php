@@ -39,3 +39,6 @@ CREATE TABLE `items` (
     `link` varchar(255) DEFAULT NULL,
     PRIMARY KEY (`id`)
 );
+
+create index date on items (date);
+create index type_ref_id on items (type, ref_id);
