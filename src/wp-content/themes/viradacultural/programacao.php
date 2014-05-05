@@ -201,8 +201,15 @@
 </script>
 
 <script type="text/html" id="template-event-grid">
-    <article class="event clearfix event-grid <% if (!defaultImageThumb) { %> no-thumb <% } %>">
-        <span class="event-time"><span class="icon icon_clock"></span> <time><%=startsAt%></time></span>
+    <article class="event clearfix event-grid <% if(duration === '24h00') { %> evento-24h <% } %> <% if (!defaultImageThumb) { %> no-thumb <% } %>">
+        <span class="event-time">
+            <span class="icon icon_clock"></span>
+            <% if(duration === '24h00') { %>
+                <time>24 horas</time>
+            <% } else { %>
+                <time><%=startsAt%></time>
+            <% } %>
+        </span>
 
         <img src="<%=defaultImageThumb%>"/>
 
@@ -218,8 +225,15 @@
 
 
 <script type="text/html" id="template-event-list">
-    <article class="event clearfix event-list">
-        <span class="event-time"><span class="icon icon_clock"></span> <time><%=startsAt%></time></span>
+    <article class="event clearfix event-list <% if(duration === '24h00') { %> evento-24h <% } %>">
+        <span class="event-time">
+            <span class="icon icon_clock"></span>
+            <% if(duration === '24h00') { %>
+                <time>24 horas</time>
+            <% } else { %>
+                <time><%=startsAt%></time>
+            <% } %>
+        </span>
 
         <div class="event-content clearfix">
 

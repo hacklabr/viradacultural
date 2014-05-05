@@ -378,7 +378,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
             var searchResult = [];
 
             $scope.eventIndex.forEach(function(event){
-                if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0) && (event.startsAt <= searchEndsAt  &&  event.startsAt >= searchStartsAt || event.duration === '24h00')){
+                if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0) && (event.startsAt <= searchEndsAt  &&  event.startsAt >= searchStartsAt || event.entity.duration === '24h00')){
                     if(!$scope.filters.spaces || $scope.spacesById[event.entity.spaceId].selected)
                         events.push(event.entity);
                 }
