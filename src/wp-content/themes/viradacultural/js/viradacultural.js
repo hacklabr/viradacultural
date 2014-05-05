@@ -57,6 +57,10 @@ var hl = {};
         });
         /*************************************************/
 
+        // véio
+        $('#search-submit').click(function() {
+            $('#pages-search').submit();
+        });
         $('#busca-site').click(function() {
             $('#pages-search').submit();
         });
