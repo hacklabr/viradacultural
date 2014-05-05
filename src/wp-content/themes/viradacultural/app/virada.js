@@ -199,6 +199,75 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     $scope.smallDevice = $window.innerWidth < 992;
     $scope.midgetDevice = $window.innerWidth < 768;
 
+    $rootScope.filterNearMe = {showMarker:false, coords : {}};
+    $scope.nearMe = function(){
+
+        var onFound = function (position) {
+
+            var gmap = $rootScope.map.control.getGMap();
+            var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+            $rootScope.filterNearMe.coords = position;
+            $rootScope.filterNearMe.showMarker = true;
+
+
+
+            var nearMeMarker = new google.maps.Marker({
+                map: gmap,
+                position: position,
+                icon: $rootScope.marker.icon.nearMe,
+                options : $rootScope.marker.options
+            });
+
+            var nearMeInfoWindow = new google.maps.InfoWindow({
+                content: '<h5 class="map-space-title">Mostrando somente locais<br> a 2km de sua localização aproximada</h5>'
+            });
+            //nearMeInfoWindow.open(gmap,nearMeMarker);
+            google.maps.event.addListener(nearMeMarker, 'click', function() {
+                nearMeInfoWindow.open(gmap,nearMeMarker);
+            });
+
+            $scope.spaces.forEach(function(s){
+                var spacePosition = new google.maps.LatLng(s.location.latitude, s.location.longitude);
+                var distance = google.maps.geometry.spherical.computeDistanceBetween(spacePosition,position);
+                if(distance < 2000)
+                    s.selected = true;
+            });
+
+            setTimeout( function () {
+                gmap.setCenter(position);
+                nearMeInfoWindow.open(gmap,nearMeMarker);
+                google.maps.event.trigger(gmap, 'resize');
+            },500);
+
+        };
+
+        var onError = function (error) {
+            //CATCH ERRORS
+//            switch (error.code) {
+//                case error.PERMISSION_DENIED:
+//                    $scope.error = "User denied the request for Geolocation."
+//                    break;
+//                case error.POSITION_UNAVAILABLE:
+//                    $scope.error = "Location information is unavailable."
+//                    break;
+//                case error.TIMEOUT:
+//                    $scope.error = "The request to get user location timed out."
+//                    break;
+//                case error.UNKNOWN_ERROR:
+//                    $scope.error = "An unknown error occurred."
+//                    break;
+//            }
+//            $scope.$apply();
+        };
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(onFound, onError);
+        }
+        else {
+            //$scope.error = "Geolocation is not supported by this browser.";
+        }
+    };
+
     jQuery(window).resize(function(){
         $scope.smallDevice = $window.innerWidth < 992;
         $scope.midgetDevice = $window.innerWidth < 768;
@@ -553,6 +622,11 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             $scope.renderList();
     });
     jQuery(window).scroll();
+
+
+
+
+
 });
 
 app.controller('minha-virada', function($rootScope, $scope, $http, $location, $timeout, DataService){
@@ -602,7 +676,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
         $http.get($scope.conf.templateURL + '/includes/minha-virada-ajax.php?action=minhavirada_getJSON&uid='+uid).success(function(data){
             $scope.populateUserInfo(data);
         });
-    }
+    };
 
     $scope.populateUserInfo = function(data) {
         

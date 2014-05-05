@@ -50,7 +50,7 @@
         <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/img/favicon.png" type="image/x-icon" />
         <?php wp_head(); ?>
 
-        <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+        <script src='//maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry'></script>
 
         <?php if(defined('VIRADA_TEMPLATE') && VIRADA_TEMPLATE): ?>
             <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angular.js" ></script>

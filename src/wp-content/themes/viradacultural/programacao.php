@@ -39,6 +39,8 @@
                                 ng-class="{'active': !midgetDevice}"
                                 >
 
+
+
                             <marker ng-repeat="space in spaces"
                                     coords="space.location"
                                     icon="space.selected ? marker.icon.selected : marker.icon.default"
@@ -54,6 +56,10 @@
                                     <p class="textcenter"><a class="btn btn-primary btn-xs" fl-space-id="{{space.id}}">selecionar</a></p>
                                 </window>
                             </marker>
+
+
+
+
                         </div>
                     </div>
                 </div>
@@ -103,7 +109,7 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="icon icon_pin"></span> <span class="hidden-md">Filtrar locais </span></button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Próximo a mim</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#map-modal" ng-click="nearMe()">Próximo a mim</a></li>
                             <li><a href="#" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true">Selecionar locais</a></li>
                         </ul>
                     </div>
