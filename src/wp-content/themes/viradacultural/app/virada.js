@@ -183,7 +183,7 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
 });
 
 
-app.controller('programacao', function($scope, $http, $location, $timeout, $window, DataService){
+app.controller('programacao', function($scope, $rootScope, $http, $location, $timeout, $window, DataService){
     var page = 0,
         timeouts = {};
 
@@ -212,8 +212,13 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
     $scope.data = {
         viewBy: 'space',
         viewMode: $scope.smallDevice ? 'list' : 'grid',
-        searchText: ''
+        searchText: $location.$$hash
     };
+
+    $rootScope.$on('$locationChangeSuccess', function(){
+        if($location.$$hash !== $scope.data.searchText)
+            $scope.data.searchText = $location.$$hash;
+    });
 
     $scope.startsAt = '18:00';
     $scope.endsAt = '18:00';
@@ -258,6 +263,13 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
     });
 
     $scope.$watch('data', function(oldValue, newValue){
+        if(timeouts.setHash)
+            $timeout.cancel(timeouts.setHash);
+
+        $timeout(function(){
+            $location.hash($scope.data.searchText);
+        },750);
+
         if(oldValue.searchText !== newValue.searchText){
             $scope.populateEntities();
         }else{
