@@ -8,7 +8,7 @@
 				type: 'POST',
 				url: GlobalConfiguration.templateURL + '/includes/nas-redes-ajax.php',
 				data: {
-					last_id: $('#main-section > article:first').attr('id').replace('post-', ''),
+					last_date: $('#main-section > article:first').data('date'),
 					action: 'get_nasredes_posts',
                     what: 'newer'
 				},
@@ -43,7 +43,7 @@
 				type: 'POST',
 				url: GlobalConfiguration.templateURL + '/includes/nas-redes-ajax.php',
 				data: {
-					last_id: $('#main-section > article:last').attr('id').replace('post-', ''),
+					last_date: $('#main-section > article:last').data('date'),
 					action: 'get_nasredes_posts',
                     what: 'older'
 				},

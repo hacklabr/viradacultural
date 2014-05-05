@@ -30,7 +30,7 @@ add_action('wp_print_scripts', function () {
 	<section id="main-section" class="row">
 
         <?php
-            $items = $db->query('SELECT * FROM items ORDER BY id DESC LIMIT 50', array());
+            $items = $db->query('SELECT * FROM items ORDER BY date DESC LIMIT 50', array());
             if($items->count()){
                 while ( $item = $items->fetch() ){
                     $dateCreated = date_create($item->date);
