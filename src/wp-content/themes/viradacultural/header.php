@@ -53,7 +53,6 @@
         <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
 
         <?php if(defined('VIRADA_TEMPLATE') && VIRADA_TEMPLATE): ?>
-            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/lunr.js" ></script>
             <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angular.js" ></script>
             <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/underscore-min.js" ></script>
             <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angular-google-maps.js" ></script>
