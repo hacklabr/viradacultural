@@ -57,8 +57,13 @@ var hl = {};
         });
         /*************************************************/
 
-        $('#search-submit').click(function() {
+        $('#busca-site').click(function() {
             $('#pages-search').submit();
+        });
+        $('#busca-programacao').click(function() {
+            var term = $('#search-term').val();
+            if (term)
+                window.location.replace(GlobalConfiguration.baseURL + '/programacao/##' + term);
         });
 
 
