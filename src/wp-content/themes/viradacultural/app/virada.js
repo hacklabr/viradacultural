@@ -222,6 +222,21 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             var nearMeInfoWindow = new google.maps.InfoWindow({
                 content: '<h5 class="map-space-title">Mostrando somente locais<br> a 2km de sua localização aproximada</h5>'
             });
+
+            circle = new google.maps.Circle({
+                map: gmap,
+                clickable: false,
+                // metres
+                radius: 2000,
+                fillColor: '#fff',
+                fillOpacity: .3,
+                strokeColor: '#313131',
+                strokeOpacity: .4,
+                strokeWeight: .8
+            });
+            // attach circle to marker
+            circle.bindTo('center', nearMeMarker, 'position');
+
             //nearMeInfoWindow.open(gmap,nearMeMarker);
             google.maps.event.addListener(nearMeMarker, 'click', function() {
                 nearMeInfoWindow.open(gmap,nearMeMarker);
@@ -663,11 +678,11 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
 
 
     });
-    
+
     $rootScope.$on('fb_not_connected', function(ev, uid) {
-        
+
         jQuery('#programacao-loading').hide();
-        if (!$location.$$hash) 
+        if (!$location.$$hash)
             jQuery('.user-photo').hide();
 
     });
@@ -679,13 +694,13 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
     };
 
     $scope.populateUserInfo = function(data) {
-        
-        
+
+
         if ( typeof(data.user_picture) != 'undefined' ) {
-        
+
             $scope.user_picture = "background-image: url(" + data.picture + ");";
             $scope.user_name = data.name;
-            
+
         } else {
             jQuery('.user-photo').hide();
         }
@@ -704,7 +719,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
                 }
 
             });
-            
+
             jQuery('#programacao-loading').hide();
             minhaVirada.atualizaEstrelas();
 
