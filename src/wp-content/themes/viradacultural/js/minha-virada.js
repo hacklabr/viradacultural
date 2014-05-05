@@ -69,12 +69,14 @@ minhaVirada = {
 
                 if (data.modalDismissed)
                     minhaVirada.modalDismissed = data.modalDismissed;
-
+                    
+                minhaVirada.initialized = true;
                 minhaVirada.atualizaEstrelas();
+                
                 if (callback)
                     eval(callback);
 
-                minhaVirada.initialized = true;
+                
             });
 
 
@@ -113,8 +115,9 @@ minhaVirada = {
     },
 
     atualizaEstrelas: function() {
-        if(minhaVirada.initialized)
+        if(minhaVirada.initialized) {
             jQuery('.favorite').show();
+        }
 
         if (!minhaVirada.connected)
             return;

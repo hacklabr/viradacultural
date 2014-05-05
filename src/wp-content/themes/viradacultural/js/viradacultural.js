@@ -33,7 +33,9 @@ var hl = {};
     });
 
     $(document).ready(function(){
-
+        
+        $('#programacao-loading').height( $(window).height() );
+        
         $('.btn span').tooltip();
 
         $('#front-page-carousel .item:first, .carousel-indicators li:first').addClass('active');

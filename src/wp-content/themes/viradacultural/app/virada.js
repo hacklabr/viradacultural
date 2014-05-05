@@ -96,6 +96,7 @@ app.controller('main', function($scope, $rootScope, $window, $sce){
             }else{
                 minhaVirada.initialized = true;
                 minhaVirada.atualizaEstrelas();
+                $scope.$emit('fb_not_connected');
             }
         });
 
@@ -562,6 +563,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
     $scope.connected = false;
     $scope.home = true; // não estou vendo perfil de ninguém
     $scope.itsme = false;
+    $scope.user_picture = '';
 
     $rootScope.$on('fb_connected', function(ev, uid) {
         $scope.connected = true;
@@ -587,6 +589,14 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
 
 
     });
+    
+    $rootScope.$on('fb_not_connected', function(ev, uid) {
+        
+        jQuery('#programacao-loading').hide();
+        if (!$location.$$hash) 
+            jQuery('.user-photo').hide();
+
+    });
 
     $scope.loadUserData = function(uid) {
         $http.get($scope.conf.templateURL + '/includes/minha-virada-ajax.php?action=minhavirada_getJSON&uid='+uid).success(function(data){
@@ -595,9 +605,16 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
     }
 
     $scope.populateUserInfo = function(data) {
-
-        $scope.user_picture = data.picture;
-        $scope.user_name = data.name;
+        
+        
+        if ( typeof(data.user_picture) != 'undefined' ) {
+        
+            $scope.user_picture = "background-image: url(" + data.picture + ");";
+            $scope.user_name = data.name;
+            
+        } else {
+            jQuery('.user-photo').hide();
+        }
 
         $http.get($scope.conf.templateURL+'/app/events.json').success(function(allEvents){
 
@@ -613,6 +630,9 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
                 }
 
             });
+            
+            jQuery('#programacao-loading').hide();
+            minhaVirada.atualizaEstrelas();
 
         });
 

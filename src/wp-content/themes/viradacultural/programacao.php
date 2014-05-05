@@ -148,7 +148,7 @@
 
     <div id="programacao-container" class="container-fluid container-menu-minified">
         <div class="row">
-            <section id='programacao-loading'>AGUARDE</section>
+            <section id='programacao-loading'></section>
             <section id="main-section" class="panel-group">
 
             </section>

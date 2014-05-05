@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 <div class="container-fluid container-menu-large" ng-controller='evento'>
-    <section id='programacao-loading'>AGUARDE</section>
+    <section id='programacao-loading'></section>
     <section id="main-section" class="row">
         <img class="img-destacada-single-atracao" ng-src="{{event.defaultImage}}" alt="{{event.name}}"/>
         <article id="event-00" class="event-single col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
