@@ -83,6 +83,7 @@
         <script src="<?php bloginfo( 'template_url' ) ?>/js/viradacultural.js"></script>
     </head>
     <body <?php body_class(); ?> ng-controller="main">
+        
         <?php if(get_query_var('virada_tpl')) MinhaVirada::add_JS(); ?>
         <?php if (is_single()) { ?>
             <div id="fb-root"></div>
@@ -128,13 +129,13 @@
                 ?>
                 <ul id="main-menu" class="nav">
                     <li><a class="a-virada" href="<?php bloginfo( 'url' ); ?>/a-virada" title="A Virada"><span>A Virada</span></a></li>
-                    <?php if (is_user_logged_in()): ?>
+                    <?php if (mostrar_programacao()): ?>
                         <li><a class="programacao" href="<?php bloginfo( 'url' ); ?>/programacao" title="Programação"><span>Programação</span></a></li>
                     <?php endif; ?>
                     <li><a class="noticias" href="<?php echo get_post_type_archive_link( 'noticias' ); ?>" title="Notícias"><span>Notícias</span></a></li>
                     <li><a class="blog" href="<?php echo esc_url( $blog_link ); ?>" title="Blog"><span>Blog</span></a></li>
                     <li><a class="imprensa" href="<?php echo get_post_type_archive_link( 'imprensa' ); ?>" title="Imprensa"><span>Imprensa</span></a></li>
-                    <?php if (is_user_logged_in()): ?>
+                    <?php if (mostrar_programacao()): ?>
                         <li><a class="nas-redes" href="<?php bloginfo( 'url' ); ?>/nas-redes" title="Nas redes"><span>Nas redes</span></a></li>
                         <li><a class="anos-10" href="<?php bloginfo( 'url' ); ?>/10-anos" title="10 anos"><span>10 anos</span></a></li>
                         <li><a class="minha-virada" href="<?php bloginfo( 'url' ); ?>/minha-virada" title="Minha Virada"><span>Minha Virada</span></a></li>
@@ -179,13 +180,13 @@
                 <div class="collapse navbar-collapse" id="collapsed-navigation">
                     <ul class="nav navbar-nav">
                         <li class="col-sm-6 col-xs-6"><a class="a-virada" href="<?php bloginfo( 'url' ); ?>/a-virada" title="A Virada"><span>A Virada</span></a></li>
-                        <?php if (is_user_logged_in()): ?>
+                        <?php if (mostrar_programacao()): ?>
                             <li class="col-sm-6 col-xs-6"><a class="programacao" href="<?php bloginfo( 'url' ); ?>/programacao" title="Programação"><span>Programação</span></a></li>
                         <?php endif; ?>
                         <li class="col-sm-6 col-xs-6"><a class="noticias" href="<?php echo get_post_type_archive_link( 'noticias' ); ?>" title="Notícias"><span>Notícias</span></a></li>
                         <li class="col-sm-6 col-xs-6"><a class="blog" href="<?php echo esc_url( $blog_link ); ?>" title="Blog"><span>Blog</span></a></li>
                         <li class="col-sm-6 col-xs-6"><a class="imprensa" href="<?php echo get_post_type_archive_link( 'imprensa' ); ?>" title="Imprensa"><span>Imprensa</span></a></li>
-                        <?php if (is_user_logged_in()): ?>
+                        <?php if (mostrar_programacao()): ?>
                             <li class="col-sm-6 col-xs-6"><a class="nas-redes" href="<?php bloginfo( 'url' ); ?>/nas-redes" title="Nas redes"><span>Nas redes</span></a></li>
                             <li class="col-sm-6 col-xs-6"><a class="anos-10" href="<?php bloginfo( 'url' ); ?>/10-anos" title="10 anos"><span>10 anos</span></a></li>
                             <li class="col-sm-6 col-xs-6"><a class="minha-virada" href="<?php bloginfo( 'url' ); ?>/minha-virada" title="Minha Virada"><span>Minha Virada</span></a></li>
