@@ -78,7 +78,7 @@ Template Name: 10 anos
                         <section class="block js-content" style="z-index:10001;">
                             <div class="centered text-left">
                                 <?php the_content(); ?>
-                                <p class="text-right"><button class="btn btn-large btn-success">Baixar programação</button></p>
+                                <p class="text-right"><a href="<?php echo get_post_meta($post->ID, 'url_do_pdf', true);?>" class="btn btn-large btn-success">Baixar programação</a></p>
                             </div>
                         </section>
                         <div class="js-article-header" style="z-index:10000;">
