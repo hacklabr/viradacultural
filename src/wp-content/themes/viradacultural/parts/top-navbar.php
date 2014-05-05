@@ -65,25 +65,16 @@
 						<?php // search form ?>
 						<form id="pages-search" class="pages-navbar-item col-md-4 col-lg-3" role="search" action="<?php echo site_url(); ?>">
 							<div class="input-group">
-								<input type="text" name="s" class="form-control" placeholder="Digite uma palavra-chave" ng-model='searchText' ng-change='unaccentSearchText = unaccent(searchText)'>
+								<input type="text" name="s" id="search-term" class="form-control" placeholder="Digite uma palavra-chave" ng-model='searchText' ng-change='unaccentSearchText = unaccent(searchText)'>
 
-								<div class="input-group-btn">
-									<button type="button" class="btn btn-primary">
-										<span class="icon icon_search" id="search-submit"></span>
-									
-									</button>
-									
-								</div><!-- /btn-group -->
-                                
-                                <!-- enquanto nao temos programação usamos o form acima 
                                 <div class="input-group-btn">
 									<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 										<span class="icon icon_search"></span>
 										<span class="caret"></span>
 									</button>
 									<ul class="dropdown-menu">
-										<li><a href="#">Programação</a></li>
-										<li><a href="#">Site</a></li>
+										<li><a id="busca-programacao">Programação</a></li>
+										<li><a id="busca-site" >Site</a></li>
 									</ul>
 								</div><!-- /btn-group -->
                                 
