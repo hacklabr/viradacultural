@@ -130,10 +130,10 @@ app.controller('evento', function($scope, $http, $location, $timeout, DataServic
                             $scope.space = e;
                             $scope.mapUrl = getMapUrl(e);
 
-                            jQuery('#programacao-loading').hide();
                             return true;
                         }
                     });
+                    jQuery('#programacao-loading').hide();
                 });
                 return true;
             }
