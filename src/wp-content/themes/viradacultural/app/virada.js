@@ -26,7 +26,7 @@ var spaceUrl = function(spaceId){
 
 var getMapUrl = function (spaceEntity){
     var e = spaceEntity;
-    return "https://maps.google.com/maps?hl=pt-BR&geocode=&q=" + e.name + ", " + e.endereco + ", São Paulo - SP, Brasil&sll=" + e.location.latitude + "," + e.location.longitude + "&ie=UTF8&hq=" + e.name + ", " + e.endereco + ", São Paulo - SP, Brasil&hnear=&radius=15000&t=m&ll=" + e.location.latitude + "," + e.location.longitude + "&z=17&output=embed&iwloc=near&language=pt-BR&region=br";
+    return "https://maps.google.com/maps?hl=pt-BR&geocode=&daddr=" + e.location.latitude + "," + e.location.longitude +"&sll=" + e.location.latitude + "," + e.location.longitude + "&ie=UTF8&hq=" + e.endereco + ",+São+Paulo,+SP,+Brasil&hnear=" + e.endereco + ",+São+Paulo,+SP,+Brasil&radius=15000&t=m&ll=" + e.location.latitude + "," + e.location.longitude + "&z=17&output=embed&iwloc=near&language=pt-BR&region=br";
 };
 
 var app = angular.module('virada', ['google-maps','ui-rangeSlider']);
