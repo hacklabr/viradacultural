@@ -15,12 +15,12 @@ if ($action == 'get_nasredes_posts') {
         $db_config['virada_nas_redes']['pass']
     );
 
-    $last_id = $_POST['last_id'];
+    $last_date = $_POST['last_date'];
     $what = $_POST['what'];
 
-    $queryEnd = $what == 'newer' ? '> :last_id ORDER BY id DESC' : '< :last_id ORDER BY id DESC LIMIT 50';
+    $queryEnd = $what == 'newer' ? '> :last_date ORDER BY date DESC' : '< :last_date ORDER BY date DESC LIMIT 50';
 
-    $items = $db->query( 'SELECT * FROM items WHERE id ' . $queryEnd, array( 'last_id' => $last_id ) );
+    $items = $db->query( 'SELECT * FROM items WHERE date ' . $queryEnd, array( 'last_date' => $last_date ) );
 
     if ($items->count()){
         while ($item = $items->fetch()) {
