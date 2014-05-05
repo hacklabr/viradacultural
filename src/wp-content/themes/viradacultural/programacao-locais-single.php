@@ -30,7 +30,7 @@
                     <p>
                         <span><span>Endereço:</span> {{space.endereco}}<br></span>
                         <span><span>Telefone:</span> {{space.telefonePublico}}<br></span>
-                        <span><span>Acessibilidade:</span> {{space.acessibilidade}}<br></span>
+                        <span ng-if='space.acessibilidade'><span>Acessibilidade:</span> Sim<br></span>
                     </p>
 
                     <iframe width="100%" height="220" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"

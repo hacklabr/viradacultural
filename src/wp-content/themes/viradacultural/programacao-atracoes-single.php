@@ -2,7 +2,7 @@
 <div class="container-fluid container-menu-large" ng-controller='evento'>
     <section id='programacao-loading'></section>
     <section id="main-section" class="row">
-        <img class="img-destacada-single-atracao" ng-src="{{event.defaultImage}}" alt="{{event.name}}"/>
+        <img class="img-destacada-single-atracao" ng-src="{{event.defaultImage}}" alt="{{event.name}}" ng-if='event.defaultImage'/>
         <article id="event-00" class="event-single col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
             <header>
                 <h1>{{event.name}}</h1>
@@ -20,9 +20,9 @@
                     <span><span>Endereço:</span> {{space.endereco}}<br></span>
                     <span><span>Data:</span> {{brDate(event.startsOn)}}<br></span>
                     <span><span>Horário:</span> {{event.startsAt}}<br></span>
-                    <span><span>Linguagem:</span> {{event.terms.linguagem.join(', ')}} <br></span>
-                    <span><span>Classificação:</span> {{event.classificacaoEtaria}}<br></span>
-                    <span><span>Acessibilidade:</span> {{event.acessibilidade}}<br></span>
+                    <span ng-if='event.terms.linguagem.length > 0'><span>Linguagem:</span> {{event.terms.linguagem.join(', ')}} <br></span>
+                    <span ng-if='event.classificacaoEtaria'><span>Classificação:</span> {{event.classificacaoEtaria}}<br></span>
+                    <span ng-if='event.acessibilidade.length > 0'><span>Acessibilidade:</span> {{event.acessibilidade.join(', ')}}<br></span>
                 </p>
                 <div class="hidden">URL : {{mapUrl}}</div>
 
