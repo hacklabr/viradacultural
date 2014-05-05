@@ -8,7 +8,7 @@ $db_config = array(
         'pass' => '',
         'host' => 'localhost'
     ),
-    'nas_redes' => array(
+    'virada_nas_redes' => array(
         'name' => 'nas_redes',
         'user' => 'root',
         'pass' => '',
