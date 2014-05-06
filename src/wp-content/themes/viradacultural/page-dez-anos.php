@@ -16,7 +16,7 @@ Template Name: 10 anos
 
                     <header>
                         <div class="block">
-                            <div class="centered textcenter">
+                            <div class="centered text-center">
                                 <?php html::image("logo-roxo-1024.png", "", array("class" => "img-responsive")); ?>
                             </div>
                         </div>
@@ -24,7 +24,7 @@ Template Name: 10 anos
 
                     <section>
                         <div class="block">
-                            <div class="centered textcenter" style="width: 90%;">
+                            <div class="centered text-center" style="width: 90%;">
                                 <div class="content col-md-8 col-md-offset-2"><?php the_content(); ?></div>
                             </div>
                         </div>

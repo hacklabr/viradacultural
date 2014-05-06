@@ -53,7 +53,7 @@
                                         options="infowindow.options"
                                         closeClick="hideSpaceInfo(space)">
                                     <h5 class="map-space-title">{{space.name}}</h5>
-                                    <p class="textcenter"><a class="btn btn-primary btn-xs" fl-space-id="{{space.id}}">selecionar</a></p>
+                                    <p class="text-center"><a class="btn btn-primary btn-xs" fl-space-id="{{space.id}}">selecionar</a></p>
                                 </window>
                             </marker>
 

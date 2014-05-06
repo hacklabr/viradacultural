@@ -17,8 +17,14 @@ var hl = {
 };
 
 (function($){
-    if(hl.isMobile)
-        $('body').addClass('mobile');
+    
+    $(document).ready(function() {
+        if (hl.isMobile()) {
+            $('body').addClass('mobile');
+        } else {
+            $('body').addClass('desktop');
+        }
+    });
 
     /*** Ajustando altura fixa dos posts em grid ****/
     window.adustGridHeight = function (ent) {
