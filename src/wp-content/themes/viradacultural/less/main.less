@@ -943,12 +943,19 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
         color: @amarelo;
         background-color: @verde;
     }
+    &.evento-24h {
+        .event-content {
+            background-color: @amarelo;
+            a {
+                color: @rosa;
+            }
+        }
+    }
     &:hover, &.no-thumb {
         .event-content {
             bottom: 0;
             height: 100%;
-            padding: 15px;
-            background-color: @roxo;
+            padding: 15px;            
             &:before {
                 content: '';
                 display: inline-block;
@@ -959,6 +966,16 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
             h1 {
                 height: auto;
 
+            }
+        }
+    }
+    &:hover {
+        .event-content {
+            background-color: @roxo; 
+        }
+        &.evento-24h {
+            a {
+                color: @amarelo;
             }
         }
     }
@@ -1014,7 +1031,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
         background: #fff;
     }
 
-};
+}
 .space-single {
     .timeline {
         width: 520px;
@@ -1028,7 +1045,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
             clear: both;
             float: right;
             width: 260px;
-            border-left: 2px solid @amarelo;
+            border-left: 2px solid @verde;
             .timeline-time {
                 position: absolute;
                 z-index: 100;
@@ -1037,8 +1054,8 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
                 width: 46px;
                 padding: 3px;
                 .secondary-font();
-                color: @rosa;
-                background: @amarelo;
+                color: @amarelo;
+                background: @verde;
                 text-align: center;
                 border-radius: @border-radius-base;
             }
@@ -1063,15 +1080,19 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
                     font-size: 36px;
                     color: @rosa;
                 }
+                &.evento-24h:before {
+                    color: @amarelo;
+                }
                 &:hover {
                     .event-content {
                         bottom: initial;
                         top: 0;
                     }
                 }
-                &:hover:before, &.no-thumb:before {
+                &:hover:before {
                     color: @roxo;
                 }
+
             }
             @media (max-width: @screen-xs-min) {
                 .event-grid {
@@ -1090,7 +1111,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
             @media (min-width: @screen-xs-min) {
                 &:nth-child(odd){
                     float: left;
-                    border-right: 2px solid @amarelo;
+                    border-right: 2px solid @verde;
                     border-left: none;
                     margin-left: 2px;
                     .timeline-time {
