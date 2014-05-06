@@ -595,6 +595,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     background-color: #fff;
     font-family: @font-family-secondary;
     @media (max-width: @screen-tablet) {
+        margin-top: 50px;
         &.navbar-collapse.in {
             overflow-y: visible;
         }
@@ -662,6 +663,9 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
             background: @gray-lighter;
             left: 0;
             margin-left: -88px;
+            @media (max-width: @screen-tablet) {
+                margin-left: 0;
+            }
         }
     }
     .time-filter {

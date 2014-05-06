@@ -78,12 +78,11 @@
         <!-- .modal-dialog -->
     </div>
     <!-- #map-modal -->
-    <!-- LARGE DEVICES -->
     <nav id="programacao-navbar" class="collapse navbar-collapse virada-navbar navbar navbar-fixed-top">
         <div class="container-fluid container-menu-minified">
             <div class="row">
                 <h1 class="programacao-navbar-item visible-md visible-lg">Programação
-                <a class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></a></h1>
+                <a class="icon icon_download" title="Baixar a programação"></a></h1>
                 <div id="programacao-search" class="programacao-navbar-item" role="search">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='data.searchText' ng-change='populateEntities()'>
@@ -118,7 +117,7 @@
                     <div class="time-filter-group clearfix">
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="icon icon_clock" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar horário"></span>
+                                <span class="icon icon_clock" title="teste horário"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
@@ -149,9 +148,6 @@
         <!-- .container-fluid -->
     </nav>
     <!-- #programacao-navbar -->
-
-
-
     <div id="programacao-container" class="container-fluid container-menu-minified">
         <div class="row">
             <section id='programacao-loading'></section>
