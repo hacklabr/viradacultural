@@ -11,7 +11,7 @@ if(!defined('AGENT_ID')) define('AGENT_ID', 428);
 
 if(!defined('REPLACE_IMAGES_URL_FROM')) define('REPLACE_IMAGES_URL_FROM', 'http://mapasculturais.hacklab.com.br//files/');
 
-if(!defined('REPLACE_IMAGES_URL_TO')) define('REPLACE_IMAGES_URL_TO', 'http://virada.sp.gov.br/imagens/');
+if(!defined('REPLACE_IMAGES_URL_TO')) define('REPLACE_IMAGES_URL_TO', 'http://viradacultural.prefeitura.sp.gov.br/imagens/');
 
 
 $get_spaces_url = API_URL . "space/find?@select=id,name,shortDescription,endereco,location&@files=(avatar.viradaSmall,avatar.viradaBig):url&@order=name&owner=EQ(@Agent:" . AGENT_ID .")";

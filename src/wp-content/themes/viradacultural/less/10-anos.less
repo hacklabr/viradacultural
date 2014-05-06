@@ -4,125 +4,179 @@
 // DESKTOP
 body.desktop {
     #main-section.virada-10-anos {
-
-        figure {
-            z-index: 1 !important;
-        }
-
-      position: relative;
-  
-      article {
-        left: 130px;
-        right: 0;
-        width: initial !important;
-        hr {
-          border-color: @rosa;
-          margin: 0;
-          padding: 0;
-        }
-      }
-
-      article.parent {
-        margin-bottom: 0 !important;
-        position: relative;
-        header {
-          background-color: @verde;
-        }
-        section {
-          .content {
-            background-color: white;
-            padding: 18px 18px 0 18px;
-          }
-        }
-        img {
-          height: initial;
-          max-height: 380px;
-          max-width: 380px;
-          width: initial;
-          z-index: 10;
-          .transition(opacity linear .1s);
-        }
-      }
-
-      article.children {
-        margin-bottom: 0 !important;
         position: relative;
 
-        header {
-          background-color: @rosa;
-          color: white;
-          display: inline-block;
-          height: initial;
-          padding: 18px 36px;
-          position: absolute;
-          top: 0;
-          z-index: 20;
-          h1 {
-            color: white !important;
-            line-height: 1;
-            margin: 0;
-            padding: 0;
-          }
+        article {
+            left: 130px;
+            right: 0;
+            width: initial !important;
+            hr {
+                border-color: @rosa;
+                margin: 0;
+                padding: 0;
+            }
         }
-        section {
-          background-color: rgba(255,255,255,1);
-          font-size: 14px;
-          padding: 18px 100px 18px 18px;
-          position: absolute;
-          right: 0;
-          z-index: 10;
-          > div {
-            padding-left: 200px;
-            padding-right: 80px;
-          }
+
+        article.parent {
+            margin-bottom: 0 !important;
+            position: relative;
+            header {
+                background-color: @verde;
+            }
+            section {
+                .content {
+                    background-color: white;
+                    padding: 18px 18px 0 18px;
+                }
+            }
+            img {
+                height: initial;
+                max-height: 380px;
+                max-width: 380px;
+                width: initial;
+                z-index: 10;
+                .transition(opacity linear .1s);
+            }
         }
-      }
+
+        article.children {
+            margin-bottom: 0 !important;
+            position: relative;
+
+            header {
+                background-color: @rosa;
+                color: white;
+                display: inline-block;
+                height: initial;
+                padding: 18px 36px;
+                position: absolute;
+                top: 0;
+                z-index: 20;
+                h1 {
+                    color: white !important;
+                    line-height: 1;
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+            section {
+                background-color: rgba(255,255,255,1);
+                font-size: 14px;
+                padding: 18px 100px 18px 18px;
+                position: absolute;
+                right: 0;
+                z-index: 10;
+                > div {
+                    padding-left: 200px;
+                    padding-right: 80px;
+                }
+            }
+        }
     }
 }
 
+body.mobile {
+    article {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    article.parent {
+        header {
+            background-color: @verde;
+        }
+        img {
+            height: initial;
+            max-height: 300px;
+            max-width: 300px;
+            width: initial;
+            z-index: 10;
+            .transition(opacity linear .1s);
+        }
+    }
+    article.children {
+        header {
+            background-color: @rosa;
+            color: white;
+            display: block;
+            height: initial;
+            padding: 18px 36px;
+            text-align: left;
+            h1 {
+                color: white !important;
+                line-height: 1;
+                margin: 0;
+                padding: 0;
+            }
+        }
+        section {
+            background-color: rgba(255,255,255,1);
+            font-size: 14px;
+            padding: 18px;
+            z-index: 10;
+            > div {
+                @media (max-width: @screen-xs-max) {
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+                @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+                @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                    padding-left: 80px;
+                    padding-right: 80px;
+                }
+                @media (min-width: @screen-lg-min) {
+                    padding-left: 80px;
+                    padding-right: 80px;
+                }
+            }
+        }
+    }
+}
 
 #years-nav {
-  position: fixed;
-  right: 0;
-  z-index: 100;
-  .year {
-    background-color: @roxo;
-    color: @amarelo;
-    cursor: pointer;
-    font-weight: bold;
-    margin-bottom: 1px;
-    padding: 10px;
-    .transition(background-color ease-in-out .5s);
-    &:hover {
-      background-color: @verde;
+    position: fixed;
+    right: 0;
+    z-index: 100;
+    .year {
+        background-color: @roxo;
+        color: @amarelo;
+        cursor: pointer;
+        font-weight: bold;
+        margin-bottom: 1px;
+        padding: 10px;
+        .transition(background-color ease-in-out .5s);
+        &:hover {
+            background-color: @verde;
+        }
+        &.active {
+            background-color: @verde;
+        }
     }
-    &.active {
-      background-color: @verde;
-    }
-  }
 }
 
 // responsive background images
 .bgwidth {
-  height: auto !important;
-  width: 100% !important;
+    height: auto !important;
+    width: 100% !important;
 }
 .bgheight {
-  height: 100% !important;
-  width: auto !important;
+    height: 100% !important;
+    width: auto !important;
 }
 
 // centering elements vertically
 .block {
-  text-align: center;
-  &:before {
-    content: '';
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-  }
-  .centered {
-    display: inline-block;
-    vertical-align: middle;
-  }
+    text-align: center;
+    &:before {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+    }
+    .centered {
+        display: inline-block;
+        vertical-align: middle;
+    }
 }
