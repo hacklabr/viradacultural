@@ -186,11 +186,21 @@ Template Name: 10 anos
 
                 $(this).data('top', tops[this.id]);
 
-                for(var size in imgs[id]){
-                    url = imgs[id][size];
-                    if(size >= win_height && size * 1.777778 >= win_width)
-                        break;
+                if(hl.isMobile()){
+                    for(var size in imgs[id]){
+                        if(size >= win_height && size * 1.777778 >= win_width && url)
+                            break;
+
+                        url = imgs[id][size];
+                    }
+                }else{
+                    for(var size in imgs[id]){
+                        url = imgs[id][size];
+                        if(size >= win_height && size * 1.777778 >= win_width)
+                            break;
+                    }
                 }
+                
 
                 if (!hl.isMobile()) {
                     $(this).find('figure').css({
@@ -199,11 +209,19 @@ Template Name: 10 anos
                         height: win_height
                     });
                 } else {
-                    $(this).find('figure').css({
-                        background: 'url(' + url + ') center center no-repeat',
-                        width: win_width - 115,
-                        height: win_height
-                    });
+                    if (win_height > win_width) {
+                        $(this).find('figure').css({
+                            background: 'url(' + url + ') center center no-repeat',
+                            width: win_width,
+                            height: win_height
+                        });
+                    } else {
+                        $(this).find('figure').css({
+                            background: 'url(' + url + ') center center no-repeat',
+                            width: win_width - 115,
+                            height: win_height
+                        });
+                    }
                 }
 
             });

@@ -79,7 +79,7 @@ function theme_options_page_callback_function() {
                     <input type="text" id="facebook" class="text" name="theme_options[social_networks][facebook]" value="<?php echo htmlspecialchars($options['social_networks']['facebook']); ?>" style="width: 80%"/>
                     <br/><br/>
                     <label for="twitter"><strong><?php _e("Twitter", "viradacultural"); ?></strong></label><br/>
-                    <input type="text" id="twitter" class="text" name="theme_options[social_networks][twitter]" value="<?php echo htmlspecialchars($options['social_networks']['facebook']); ?>" style="width: 80%"/>
+                    <input type="text" id="twitter" class="text" name="theme_options[social_networks][twitter]" value="<?php echo htmlspecialchars($options['social_networks']['twitter']); ?>" style="width: 80%"/>
                     <br/><br/>
                     <label for="googleplus"><strong><?php _e("Google +", "viradacultural"); ?></strong></label><br/>
                     <input type="text" id="googleplus" class="text" name="theme_options[social_networks][googleplus]" value="<?php echo htmlspecialchars($options['social_networks']['googleplus']); ?>" style="width: 80%"/>
