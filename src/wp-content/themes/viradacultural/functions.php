@@ -202,7 +202,7 @@ function virada_template_redirect_intercept() {
 
     if ( $wp_query->get('virada_tpl') ) {
         
-        if (!is_user_logged_in())
+        if (!mostrar_programacao())
             die('Página não encontrada');
         
         if (file_exists( TEMPLATEPATH . '/' . $wp_query->get('virada_tpl') . '.php' )) {
@@ -231,3 +231,12 @@ add_filter('body_class', function($classes) {
     return $classes;
 
 });
+
+function mostrar_programacao() {
+    
+    if (is_user_logged_in())
+        return true;
+    
+    return get_theme_option('programacao_published');
+    
+}

@@ -26,7 +26,7 @@ var spaceUrl = function(spaceId){
 
 var getMapUrl = function (spaceEntity){
     var e = spaceEntity;
-    return "https://maps.google.com/maps?hl=pt-BR&geocode=&q=" + e.name + ", " + e.endereco + ", São Paulo - SP, Brasil&sll=" + e.location.latitude + "," + e.location.longitude + "&ie=UTF8&hq=" + e.name + ", " + e.endereco + ", São Paulo - SP, Brasil&hnear=&radius=15000&t=m&ll=" + e.location.latitude + "," + e.location.longitude + "&z=17&output=embed&iwloc=near&language=pt-BR&region=br";
+    return "https://maps.google.com/maps?hl=pt-BR&geocode=&daddr=" + e.location.latitude + "," + e.location.longitude +"&sll=" + e.location.latitude + "," + e.location.longitude + "&ie=UTF8&hq=" + e.endereco + ",+São+Paulo,+SP,+Brasil&hnear=" + e.endereco + ",+São+Paulo,+SP,+Brasil&radius=15000&t=m&ll=" + e.location.latitude + "," + e.location.longitude + "&z=17&output=embed&iwloc=near&language=pt-BR&region=br";
 };
 
 var app = angular.module('virada', ['google-maps','ui-rangeSlider']);
@@ -93,6 +93,10 @@ app.controller('main', function($scope, $rootScope, $window, $sce){
                 minhaVirada.initializeUserData(response, false);
                 $scope.connected = true;
                 $scope.$emit('fb_connected', response.authResponse.userID);
+            }else{
+                minhaVirada.initialized = true;
+                minhaVirada.atualizaEstrelas();
+                $scope.$emit('fb_not_connected');
             }
         });
 
@@ -126,9 +130,11 @@ app.controller('evento', function($scope, $http, $location, $timeout, DataServic
                             e.url = spaceUrl(e.id);
                             $scope.space = e;
                             $scope.mapUrl = getMapUrl(e);
+
                             return true;
                         }
                     });
+                    jQuery('#programacao-loading').hide();
                 });
                 return true;
             }
@@ -145,7 +151,13 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
 
     var spaceId = parseInt($location.$$hash);
 
+    var c = 0;
+
     $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
+        c++;
+        if(c === 2)
+            jQuery('#programacao-loading').hide();
+
         data.forEach(function(e){
             if(e.spaceId == spaceId){
                 e.url = eventUrl(e.id);
@@ -155,6 +167,9 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
     });
 
     DataService.getSpaces().then(function(response){
+        c++;
+        if(c === 2)
+            jQuery('#programacao-loading').hide();
 
         response.data.some(function(e){
             if(e.id == spaceId){
@@ -169,7 +184,7 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
 });
 
 
-app.controller('programacao', function($scope, $http, $location, $timeout, $window, DataService){
+app.controller('programacao', function($scope, $rootScope, $http, $location, $timeout, $window, DataService){
     var page = 0,
         timeouts = {};
 
@@ -183,6 +198,103 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
 
     $scope.smallDevice = $window.innerWidth < 992;
     $scope.midgetDevice = $window.innerWidth < 768;
+
+    $rootScope.filterNearMe = {showMarker:false, coords : {}};
+    $scope.nearMe = function(){
+
+        var getFilterRadius = function (distance){
+            if(distance < 500) return 300; else
+            if(distance < 1000) return 500; else
+            if(distance < 2000) return 1000; else
+            if(distance < 3000) return 2000; else
+            return 3000;
+        };
+
+        var onFound = function (position) {
+
+            var gmap = $rootScope.map.control.getGMap();
+            var position = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+            $rootScope.filterNearMe.coords = position;
+            $rootScope.filterNearMe.showMarker = true;
+
+            var nearMeMarker = new google.maps.Marker({
+                map: gmap,
+                position: position,
+                icon: $rootScope.marker.icon.nearMe,
+                options : $rootScope.marker.options
+            });
+
+            var saoPauloCenter = new google.maps.LatLng(-23.5466623,-46.643183);
+            var distanceFromSaoPauloCenter = google.maps.geometry.spherical.computeDistanceBetween(saoPauloCenter,position);
+            console.log('DISTANCIA DO CENTRO DE SAO PAULO: '+distanceFromSaoPauloCenter);
+            var filterRadius = getFilterRadius(distanceFromSaoPauloCenter);
+            console.log('RAIO CONSIDERADO: '+filterRadius);
+
+            $scope.spaces.forEach(function(s){
+                var spacePosition = new google.maps.LatLng(s.location.latitude, s.location.longitude);
+                var distance = google.maps.geometry.spherical.computeDistanceBetween(spacePosition,position);
+                if(distance < filterRadius)
+                    s.selected = true;
+            });
+
+
+            var nearMeInfoWindow = new google.maps.InfoWindow({
+                content: '<h5 class="map-space-title">Mostrando somente locais<br> a '+Math.round(filterRadius)+' metros de sua localização aproximada</h5>'
+            });
+
+            //nearMeInfoWindow.open(gmap,nearMeMarker);
+            google.maps.event.addListener(nearMeMarker, 'click', function() {
+                nearMeInfoWindow.open(gmap,nearMeMarker);
+            });
+
+            nearMeCircle = new google.maps.Circle({
+                map: gmap,
+                clickable: false,
+                // metres
+                radius: filterRadius,
+                fillColor: '#fff',
+                fillOpacity: .3,
+                strokeColor: '#313131',
+                strokeOpacity: .4,
+                strokeWeight: .8
+            });
+            nearMeCircle.bindTo('center', nearMeMarker, 'position');
+
+            setTimeout( function () {
+                gmap.setCenter(position);
+                nearMeInfoWindow.open(gmap,nearMeMarker);
+                google.maps.event.trigger(gmap, 'resize');
+            },500);
+
+        };
+
+        var onError = function (error) {
+            //CATCH ERRORS
+           switch (error.code) {
+               case error.PERMISSION_DENIED:
+                   $scope.geolocationError = "Para buscar locais próximo a você, permita o acesso a sua localização."
+                   break;
+               case error.POSITION_UNAVAILABLE:
+                   $scope.geolocationError = "Sua localização não está disponível."
+                   break;
+               case error.TIMEOUT:
+                   $scope.geolocationError = "O pedido de localização do usuário esgotou o tempo limite."
+                   break;
+               case error.UNKNOWN_ERROR:
+                   $scope.geolocationError = "Um erro desconhecido ocorreu ao encontrar sua localização. Por favor recarregue e tente novamente."
+                   break;
+           }
+           alert($scope.geolocationError);
+           //$scope.$apply();
+        };
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(onFound, onError);
+        }
+        else {
+            //$scope.error = "Geolocation is not supported by this browser.";
+        }
+    };
 
     jQuery(window).resize(function(){
         $scope.smallDevice = $window.innerWidth < 992;
@@ -198,8 +310,13 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
     $scope.data = {
         viewBy: 'space',
         viewMode: $scope.smallDevice ? 'list' : 'grid',
-        searchText: ''
+        searchText: $location.$$hash
     };
+
+    $rootScope.$on('$locationChangeSuccess', function(){
+        if($location.$$hash !== $scope.data.searchText)
+            $scope.data.searchText = $location.$$hash;
+    });
 
     $scope.startsAt = '18:00';
     $scope.endsAt = '18:00';
@@ -223,6 +340,8 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
         }
     };
 
+    var TIMEOUT_DALAY = 500;
+
     angular.element($window).bind('resize', function(){
         if($window.innerWidth < 992){
             $scope.data.viewMode = 'list';
@@ -235,21 +354,41 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
 
     $scope.$watch('timeSlider.model.min', function(){
         $scope.startsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.min * 15).format('H:mm');
-        $scope.populateEntities();
+
+        if(timeouts.timeSlider)
+            $timeout.cancel(timeouts.timeSlider);
+
+        timeouts.timeSlider = $timeout(function(){
+            $scope.populateEntities();
+        }, TIMEOUT_DALAY);
     });
 
     $scope.$watch('timeSlider.model.max', function(){
         $scope.endsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.max * 15).format('H:mm');
-        $scope.populateEntities();
+
+        if(timeouts.timeSlider)
+            $timeout.cancel(timeouts.timeSlider);
+
+        timeouts.timeSlider = $timeout(function(){
+            $scope.populateEntities();
+        }, TIMEOUT_DALAY);
     });
 
     $scope.$watch('data', function(oldValue, newValue){
-        if(oldValue.searchText !== newValue.searchText){
-            $scope.populateEntities();
-        }else{
-            page = 0;
-            $scope.renderList();
-        }
+        if(timeouts.setHash)
+            $timeout.cancel(timeouts.setHash);
+
+        timeouts.setHash = $timeout(function(){
+            $location.hash($scope.data.searchText);
+
+
+            if(oldValue.searchText !== newValue.searchText){
+                $scope.populateEntities();
+            }else{
+                page = 0;
+                $scope.renderList();
+            }
+        }, TIMEOUT_DALAY);
     }, true);
 
     /**
@@ -378,8 +517,8 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
             var searchResult = [];
 
             $scope.eventIndex.forEach(function(event){
-                if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0) && (event.startsAt <= searchEndsAt  &&  event.startsAt >= searchStartsAt || event.duration === '24h00')){
-                    if(!$scope.filters.spaces || $scope.spacesById[event.entity.spaceId].selected)
+                if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0) && (event.startsAt <= searchEndsAt  &&  event.startsAt >= searchStartsAt || event.entity.duration === '24h00')){
+                    if(!$scope.filters.spaces || ($scope.spacesById[event.entity.spaceId] && $scope.spacesById[event.entity.spaceId].selected))
                         events.push(event.entity);
                 }
             });
@@ -429,9 +568,8 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
 
     var renderingList = false;
     $scope.renderList = function(){
-        if(renderingList)
+        if(renderingList || (!$scope.spaces || !$scope.events))
             return;
-
         timeouts.renderList = $timeout(function(){
             renderingList = true;
             var spacesPerPage = 8;
@@ -455,7 +593,11 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                     appendEntitiesToContainer(eventTemplate, space.events, $eventsContainer);
 
                     if($scope.data.viewMode === 'grid'){
-                        hl.carrousel.init($eventsContainer.parents('.hl-carrousel'));
+                        if(hl.isMobile()){
+                            hl.scrollCarrousel.init($eventsContainer.parents('.hl-carrousel'));
+                        }else{
+                            hl.carrousel.init($eventsContainer.parents('.hl-carrousel'));
+                        }
                     }
                 });
             }else{
@@ -466,27 +608,14 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                 appendEntitiesToContainer(eventTemplate, events.slice(offset, offset + eventsPerPage), $container);
             }
 
+            jQuery('#programacao-loading').hide();
 
-            function fadeInImages($element, delay){
-                $element.find('img').each(function(){
-                    var $this = jQuery(this);
-                    if(this.complete){
-                        $this.hide();
-                        setTimeout(function(){ $this.fadeIn('fast'); }, delay);
-                        delay = delay + 10;
-                    }else{
-                        $this.hide().load(function(){
-                            $this.fadeIn('fast');
-                        });
-                    }
-                });
-            }
+            minhaVirada.atualizaEstrelas();
 
             var grid_width,
                 grid_height;
 
             function appendEntitiesToContainer(template, entities, $container){
-                var delay = 0;
                 entities.forEach(function(entity){
                     var $element = jQuery(Resig.renderElement(template, entity));
 
@@ -496,13 +625,8 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
                         grid_width = grid_width || parseInt(jQuery('#main-section').outerWidth(true) * .2);
                         grid_height = grid_height || parseInt(grid_width * .66667);
 
-                        fadeInImages($element, delay);
-                        delay += 10;
-
                         jQuery('article.event').css({ height: grid_height + 34 });
                     }
-
-
                 });
             }
 
@@ -516,7 +640,7 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
 
             renderingList = false;
 
-        },20);
+        });
     };
 
     jQuery(window).scroll(function(){
@@ -524,6 +648,11 @@ app.controller('programacao', function($scope, $http, $location, $timeout, $wind
             $scope.renderList();
     });
     jQuery(window).scroll();
+
+
+
+
+
 });
 
 app.controller('minha-virada', function($rootScope, $scope, $http, $location, $timeout, DataService){
@@ -534,6 +663,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
     $scope.connected = false;
     $scope.home = true; // não estou vendo perfil de ninguém
     $scope.itsme = false;
+    $scope.user_picture = '';
 
     $rootScope.$on('fb_connected', function(ev, uid) {
         $scope.connected = true;
@@ -560,16 +690,31 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
 
     });
 
+    $rootScope.$on('fb_not_connected', function(ev, uid) {
+
+        jQuery('#programacao-loading').hide();
+        if (!$location.$$hash)
+            jQuery('.user-photo').hide();
+
+    });
+
     $scope.loadUserData = function(uid) {
         $http.get($scope.conf.templateURL + '/includes/minha-virada-ajax.php?action=minhavirada_getJSON&uid='+uid).success(function(data){
             $scope.populateUserInfo(data);
         });
-    }
+    };
 
     $scope.populateUserInfo = function(data) {
 
-        $scope.user_picture = data.picture;
-        $scope.user_name = data.name;
+
+        if ( typeof(data.user_picture) != 'undefined' ) {
+
+            $scope.user_picture = "background-image: url(" + data.picture + ");";
+            $scope.user_name = data.name;
+
+        } else {
+            jQuery('.user-photo').hide();
+        }
 
         $http.get($scope.conf.templateURL+'/app/events.json').success(function(allEvents){
 
@@ -585,6 +730,9 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
                 }
 
             });
+
+            jQuery('#programacao-loading').hide();
+            minhaVirada.atualizaEstrelas();
 
         });
 

@@ -10,7 +10,8 @@ function get_theme_default_options() {
             'twitter' => 'http://twitter.com/viradacultural',
             'googleplus' => 'http://googleplus.com/viradacultural',
         ),
-        'hashtag' => 'viradacultural'
+        'hashtag' => 'viradacultural',
+        'programacao_published' => false
     );
 }
 
@@ -60,7 +61,15 @@ function theme_options_page_callback_function() {
     <?php $options = wp_parse_args(get_option('theme_options'), get_theme_default_options()); ?>
 
             <div class="span-20 ">
-
+                
+                <h3>Redes Sociais</h3>
+                
+                <p>Se isto estiver marcado, qualquer visitante poderá ver o site. Caso contrário, apenas usuários conectados poderão vê-la.</p>
+                
+                <input type="checkbox" id="programacao_published" class="text" name="theme_options[programacao_published]" value="1" <?php checked(true, get_theme_option('programacao_published'), true); ?>/>
+                <label for="programacao_published"><strong>Tornar a programação pública</strong></label><br/>
+                
+                
                 <h3>Redes Sociais</h3>
                 <p>Insira os links (com http) para as páginas da Virada nas Redes Sociais</p>
                 <div class="span-6 last">
@@ -101,6 +110,7 @@ function theme_options_page_callback_function() {
                     
 
                 </div>
+                
                 
                 
             </div>

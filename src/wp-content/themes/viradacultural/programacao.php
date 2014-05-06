@@ -39,6 +39,8 @@
                                 ng-class="{'active': !midgetDevice}"
                                 >
 
+
+
                             <marker ng-repeat="space in spaces"
                                     coords="space.location"
                                     icon="space.selected ? marker.icon.selected : marker.icon.default"
@@ -51,9 +53,13 @@
                                         options="infowindow.options"
                                         closeClick="hideSpaceInfo(space)">
                                     <h5 class="map-space-title">{{space.name}}</h5>
-                                    <p class="textcenter"><a class="btn btn-primary btn-xs" fl-space-id="{{space.id}}">selecionar</a></p>
+                                    <p class="text-center"><a class="btn btn-primary btn-xs" fl-space-id="{{space.id}}">selecionar</a></p>
                                 </window>
                             </marker>
+
+
+
+
                         </div>
                     </div>
                 </div>
@@ -72,15 +78,14 @@
         <!-- .modal-dialog -->
     </div>
     <!-- #map-modal -->
-    <!-- LARGE DEVICES -->
     <nav id="programacao-navbar" class="collapse navbar-collapse virada-navbar navbar navbar-fixed-top">
         <div class="container-fluid container-menu-minified">
             <div class="row">
                 <h1 class="programacao-navbar-item visible-md visible-lg">Programação
-                <a class="icon icon_download" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Baixar a programação"></a></h1>
+                <a class="icon icon_download" title="Baixar a programação"></a></h1>
                 <div id="programacao-search" class="programacao-navbar-item" role="search">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='data.searchText' ng-change='populateEntities()'>
+                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='data.searchText'>
                         <span class="input-group-btn">
                             <button class="btn btn-primary" type="button"><span class="icon icon_search" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Encontrar eventos por palavra-chave"></span></button>
                         </span>
@@ -103,7 +108,7 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="icon icon_pin"></span> <span class="hidden-md">Filtrar locais </span></button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Próximo a mim</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#map-modal" ng-click="nearMe()">Próximo a mim</a></li>
                             <li><a href="#" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true">Selecionar locais</a></li>
                         </ul>
                     </div>
@@ -112,7 +117,7 @@
                     <div class="time-filter-group clearfix">
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="icon icon_clock" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Filtrar horário"></span>
+                                <span class="icon icon_clock" title="teste horário"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
@@ -143,11 +148,9 @@
         <!-- .container-fluid -->
     </nav>
     <!-- #programacao-navbar -->
-
-
-
     <div id="programacao-container" class="container-fluid container-menu-minified">
         <div class="row">
+            <section id='programacao-loading'></section>
             <section id="main-section" class="panel-group">
 
             </section>
@@ -201,8 +204,15 @@
 </script>
 
 <script type="text/html" id="template-event-grid">
-    <article class="event clearfix event-grid <% if (!defaultImageThumb) { %> no-thumb <% } %>">
-        <span class="event-time"><span class="icon icon_clock"></span> <time><%=startsAt%></time></span>
+    <article class="event clearfix event-grid <% if(duration === '24h00') { %> evento-24h <% } %> <% if (!defaultImageThumb) { %> no-thumb <% } %>">
+        <span class="event-time">
+            <span class="icon icon_clock"></span>
+            <% if(duration === '24h00') { %>
+                <time>24 horas</time>
+            <% } else { %>
+                <time><%=startsAt%></time>
+            <% } %>
+        </span>
 
         <img src="<%=defaultImageThumb%>"/>
 
@@ -218,8 +228,15 @@
 
 
 <script type="text/html" id="template-event-list">
-    <article class="event clearfix event-list">
-        <span class="event-time"><span class="icon icon_clock"></span> <time><%=startsAt%></time></span>
+    <article class="event clearfix event-list <% if(duration === '24h00') { %> evento-24h <% } %>">
+        <span class="event-time">
+            <span class="icon icon_clock"></span>
+            <% if(duration === '24h00') { %>
+                <time>24 horas</time>
+            <% } else { %>
+                <time><%=startsAt%></time>
+            <% } %>
+        </span>
 
         <div class="event-content clearfix">
 

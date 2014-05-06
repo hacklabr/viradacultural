@@ -1,8 +1,11 @@
 <!-- .container-fluid -->
 
 <?php get_header(); ?>
+
 <div ng-controller="espaco">
+
     <div class="container-fluid container-menu-large">
+        <section id='programacao-loading'></section>
         <section id="main-section" class="row">
             <article id="space-00" class="space-single">
                 <header>
@@ -11,8 +14,9 @@
                 <img class="center-block" ng-src="{{conf.templateURL}}/img/virada-icon-2x.png">
                 <div class="timeline clearfix">
                     <div class="event-group" ng-repeat="event in spaceEvents">
-                        <div class="timeline-time">{{event.startsAt}}</div>
-                        <article class="event clearfix event-grid" ng-class="{'no-thumb' : !event.defaultImageThumb}">
+                        <div class="timeline-time" ng-if="event.duration === '24h00'">24 horas</div>
+                        <div class="timeline-time" ng-if="event.duration !== '24h00'">{{event.startsAt}}</div>
+                        <article class="event clearfix event-grid" ng-class="{'no-thumb' : !event.defaultImageThumb, 'evento-24h': event.duration === '24h00'}">
                             <img ng-src="{{event.defaultImageThumb}}"/>
                             <div class="event-content clearfix">
                                 <h1><a href="{{event.url}}">{{event.name}}</a></h1>
@@ -26,14 +30,13 @@
                     <p>
                         <span><span>Endereço:</span> {{space.endereco}}<br></span>
                         <span><span>Telefone:</span> {{space.telefonePublico}}<br></span>
-                        <span><span>Acessibilidade:</span> {{space.acessibilidade}}<br></span>
+                        <span ng-if='space.acessibilidade'><span>Acessibilidade:</span> Sim<br></span>
                     </p>
 
                     <iframe width="100%" height="220" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
                             ng-src="{{getTrustedURI(mapUrl)}}"></iframe>
-
-                    <p>
-                        <a class="btn btn-primary btn-xs" target="_blank" href="http://maps.google.com/maps?q=teatro municipal de sao paulo, Praça Ramos de Azevedo, s/n, São Paulo&hl=pt-BR&ll=-23.5451833,-46.6397523&z=17z">
+                    <p class="hidden-md hidden-lg">
+                        <a class="btn btn-primary btn-xs" target="_blank" href="{{mapUrl}}">
                             <span class="icon icon_pin"></span> Ver no mapa
                         </a>
                     </p>

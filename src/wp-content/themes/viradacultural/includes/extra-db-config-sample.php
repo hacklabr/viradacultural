@@ -8,7 +8,7 @@ $db_config = array(
         'pass' => '',
         'host' => 'localhost'
     ),
-    'nas_redes' => array(
+    'virada_nas_redes' => array(
         'name' => 'nas_redes',
         'user' => 'root',
         'pass' => '',
@@ -21,8 +21,8 @@ $db_config = array(
 No banco minha_virada:
 
 CREATE TABLE IF NOT EXISTS users (
-user_id INT NOT NULL PRIMARY KEY,
-data VARCHAR(2048)
+    user_id INT NOT NULL PRIMARY KEY,
+    data VARBINARY(65000)
 );
 
 No banco nas_redes:
@@ -39,3 +39,6 @@ CREATE TABLE `items` (
     `link` varchar(255) DEFAULT NULL,
     PRIMARY KEY (`id`)
 );
+
+create index date on items (date);
+create index type_ref_id on items (type, ref_id);

@@ -16,7 +16,7 @@ Template Name: 10 anos
 
                     <header>
                         <div class="block">
-                            <div class="centered textcenter">
+                            <div class="centered text-center">
                                 <?php html::image("logo-roxo-1024.png", "", array("class" => "img-responsive")); ?>
                             </div>
                         </div>
@@ -24,7 +24,7 @@ Template Name: 10 anos
 
                     <section>
                         <div class="block">
-                            <div class="centered textcenter" style="width: 90%;">
+                            <div class="centered text-center" style="width: 90%;">
                                 <div class="content col-md-8 col-md-offset-2"><?php the_content(); ?></div>
                             </div>
                         </div>
@@ -74,19 +74,16 @@ Template Name: 10 anos
                     ?>
                     </script>
                     <article id="post-<?php the_ID(); ?>" data-id="<?php the_ID(); ?>" data-nav='#nav-<?php the_ID(); ?>' <?php post_class('row children');?>>
-                        <figure id='figure-<?php the_ID(); ?>'></figure>
-                        <section class="block js-content" style="z-index:10001;">
+                        <header class="js-article-header">
+                            <h1><?php the_title(); ?></h1>
+                        </header>
+                        <section class="block js-content">
                             <div class="centered text-left">
                                 <?php the_content(); ?>
-                                <p class="text-right"><button class="btn btn-large btn-success">Baixar programação</button></p>
+                                <p class="text-right"><a href="<?php echo get_post_meta($post->ID, 'url_do_pdf', true);?>" class="btn btn-large btn-success">Baixar programação</a></p>
                             </div>
                         </section>
-                        <div class="js-article-header" style="z-index:10000;">
-                            <hr>
-                            <header>
-                                <h1><?php the_title(); ?></h1>
-                            </header>
-                        </div>
+                        <figure id='figure-<?php the_ID(); ?>'></figure>
                     </article>
 
                 <?php endwhile; endif; ?>
@@ -134,7 +131,7 @@ Template Name: 10 anos
 
         $("#main-section > article").css({'position': 'fixed', 'top': 1000});
         $("#main-section > article figure").css({'position': 'fixed', 'top': 0});
-        $(".js-article-header").css({'position': 'fixed', 'top': navbar_height, height: $(".js-article-header h1").height()});
+        $(".js-article-header").css({'position': 'fixed', 'top': navbar_height});
 
         function resize() {
             area_util = win_height - navbar_height;

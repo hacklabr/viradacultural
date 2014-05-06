@@ -2,3 +2,5 @@
 define('API_URL', "http://mapasculturais.hacklab.com.br/api/");
 define('PROJECT_ID', 4);
 define('AGENT_ID', 428);
+define('REPLACE_IMAGES_URL_FROM', 'http://mapasculturais.hacklab.com.br//files/');
+define('REPLACE_IMAGES_URL_TO', 'http://viradacultural.prefeitura.sp.gov.br/imagens/');

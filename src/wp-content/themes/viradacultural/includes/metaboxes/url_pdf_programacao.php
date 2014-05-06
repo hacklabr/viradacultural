@@ -1,14 +1,14 @@
 <?php
 
-// SUBSTITUA  _SLUG_ pelo slug do metabox
+// SUBSTITUA  url_pdf_ pelo slug do metabox
 
-class _SLUG_Metabox {
+class url_pdf_Metabox {
 
     protected static $metabox_config = array(
-        '_SLUG_', // slug do metabox
-        'Título do metabox _SLUG_', // título do metabox
-        'post', // array('post','page','etc'), // post types
-        'side' // onde colocar o metabox
+        'url_pdf_', // slug do metabox
+        'Programação', // título do metabox
+        'page', // array('post','page','etc'), // post types
+        'normal' // onde colocar o metabox
     );
 
     static function init() {
@@ -51,8 +51,7 @@ class _SLUG_Metabox {
         $metadata = get_metadata('post', $post->ID);
         
         ?>
-        <label> metadata 1: <input type="text" name="<?php echo __CLASS__ ?>[metadata_1]" value="<?php echo $metadata['metadata_1'][0]; ?>" /></label>
-        <label> OUTRO DADO: <input type="text" name="<?php echo __CLASS__ ?>[outro_dado]" value="<?php echo $metadata['outro_dado'][0]; ?>" /></label>
+        <label> URL do PDF: <input type="text" name="<?php echo __CLASS__ ?>[url_do_pdf]" value="<?php echo $metadata['url_do_pdf'][0]; ?>" /></label>
         <?php
     }
 
@@ -90,4 +89,4 @@ class _SLUG_Metabox {
 }
 
 
-_SLUG_Metabox::init();
+url_pdf_Metabox::init();
