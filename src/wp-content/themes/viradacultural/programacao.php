@@ -85,7 +85,7 @@
                 <a class="icon icon_download" title="Baixar a programação"></a></h1>
                 <div id="programacao-search" class="programacao-navbar-item" role="search">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='data.searchText' ng-change='populateEntities()'>
+                        <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='data.searchText'>
                         <span class="input-group-btn">
                             <button class="btn btn-primary" type="button"><span class="icon icon_search" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Encontrar eventos por palavra-chave"></span></button>
                         </span>

@@ -63,7 +63,7 @@ foreach ($occurrences as $occ) {
 
     if (property_exists($e, $small_image_property)) {
         $e->defaultImage = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$big_image_property->url);
-        $e->defaultImageThumb = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$big_image_property->url);
+        $e->defaultImageThumb = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$small_image_property->url);
     } else {
         $e->defaultImage = '';
         $e->defaultImageThumb = '';

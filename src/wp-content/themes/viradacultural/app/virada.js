@@ -340,6 +340,8 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
         }
     };
 
+    var TIMEOUT_DALAY = 500;
+
     angular.element($window).bind('resize', function(){
         if($window.innerWidth < 992){
             $scope.data.viewMode = 'list';
@@ -352,28 +354,41 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
     $scope.$watch('timeSlider.model.min', function(){
         $scope.startsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.min * 15).format('H:mm');
-        $scope.populateEntities();
+
+        if(timeouts.timeSlider)
+            $timeout.cancel(timeouts.timeSlider);
+
+        timeouts.timeSlider = $timeout(function(){
+            $scope.populateEntities();
+        }, TIMEOUT_DALAY);
     });
 
     $scope.$watch('timeSlider.model.max', function(){
         $scope.endsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.max * 15).format('H:mm');
-        $scope.populateEntities();
+
+        if(timeouts.timeSlider)
+            $timeout.cancel(timeouts.timeSlider);
+
+        timeouts.timeSlider = $timeout(function(){
+            $scope.populateEntities();
+        }, TIMEOUT_DALAY);
     });
 
     $scope.$watch('data', function(oldValue, newValue){
         if(timeouts.setHash)
             $timeout.cancel(timeouts.setHash);
 
-        $timeout(function(){
+        timeouts.setHash = $timeout(function(){
             $location.hash($scope.data.searchText);
-        },750);
 
-        if(oldValue.searchText !== newValue.searchText){
-            $scope.populateEntities();
-        }else{
-            page = 0;
-            $scope.renderList();
-        }
+
+            if(oldValue.searchText !== newValue.searchText){
+                $scope.populateEntities();
+            }else{
+                page = 0;
+                $scope.renderList();
+            }
+        }, TIMEOUT_DALAY);
     }, true);
 
     /**
@@ -597,26 +612,10 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
             minhaVirada.atualizaEstrelas();
 
-            function fadeInImages($element, delay){
-                $element.find('img').each(function(){
-                    var $this = jQuery(this);
-                    if(this.complete){
-                        $this.hide();
-                        setTimeout(function(){ $this.fadeIn('fast'); }, delay);
-                        delay = delay + 10;
-                    }else{
-                        $this.hide().load(function(){
-                            $this.fadeIn('fast');
-                        });
-                    }
-                });
-            }
-
             var grid_width,
                 grid_height;
 
             function appendEntitiesToContainer(template, entities, $container){
-                var delay = 0;
                 entities.forEach(function(entity){
                     var $element = jQuery(Resig.renderElement(template, entity));
 
@@ -626,13 +625,8 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
                         grid_width = grid_width || parseInt(jQuery('#main-section').outerWidth(true) * .2);
                         grid_height = grid_height || parseInt(grid_width * .66667);
 
-                        fadeInImages($element, delay);
-                        delay += 10;
-
                         jQuery('article.event').css({ height: grid_height + 34 });
                     }
-
-
                 });
             }
 
