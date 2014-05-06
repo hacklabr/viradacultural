@@ -38,34 +38,36 @@
         return data ? fn(data) : fn;
     };
 
-    Resig.render = function (template, data){
-        if(data.id && Resig.htmlCache[template] && Resig.htmlCache[template][data.id])
+    Resig.render = function (template, data, useCache){
+        if(useCache && data.id && Resig.htmlCache[template] && Resig.htmlCache[template][data.id])
             return Resig.htmlCache[template][data.id];
 
-        Resig.htmlCache[template] = Resig.htmlCache[template] || {};
+        if(useCache)
+            Resig.htmlCache[template] = Resig.htmlCache[template] || {};
 
         var html = this.tmpl(template, data);
 
-        if(data.id)
+        if(useCache && data.id)
             Resig.htmlCache[template][data.id] = html;
 
-        return Resig.htmlCache[template][data.id];
+        return html;
     };
 
-    Resig.renderElement = function(template, data){
-        if(data.id && Resig.elementCache[template] && Resig.elementCache[template][data.id])
+    Resig.renderElement = function(template, data, useCache){
+        if(useCache && data.id && Resig.elementCache[template] && Resig.elementCache[template][data.id])
             return Resig.elementCache[template][data.id];
 
-        Resig.elementCache[template] = Resig.elementCache[template] || {};
+        if(useCache)
+            Resig.elementCache[template] = Resig.elementCache[template] || {};
 
         var div = document.createElement('div');
 
         div.innerHTML = Resig.render(template, data);
 
-        if(data.id)
+        if(useCache && data.id)
             Resig.elementCache[template][data.id] = div.firstElementChild;
 
-        return Resig.elementCache[template][data.id];
+        return div.firstElementChild;
     };
 
 })();
