@@ -56,6 +56,8 @@
             <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angular.js" ></script>
             <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/underscore-min.js" ></script>
             <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angular-google-maps.js" ></script>
+            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angulartics.min.js" ></script>
+            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angulartics-ga.min.js" ></script>
             <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/virada.js" ></script>
             <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/directives.js" ></script>
             <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/controllers.js" ></script>
@@ -81,9 +83,24 @@
         <script src="<?php bloginfo( 'template_url' ) ?>/js/fastclick.js"></script>
 
         <script src="<?php bloginfo( 'template_url' ) ?>/js/viradacultural.js"></script>
+
+        <?php
+        if ( function_exists( 'yoast_analytics' ) && get_query_var('virada_tpl') !== 'programacao' ) {
+          yoast_analytics();
+        }else{
+            ?>
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+                ga('create', 'UA-50698028-1', { 'cookieDomain': 'none' });
+            </script>
+            <?php
+        }
+        ?>
     </head>
     <body <?php body_class(); ?> ng-controller="main">
-        
         <?php if(get_query_var('virada_tpl')) MinhaVirada::add_JS(); ?>
         <?php if (is_single()) { ?>
             <div id="fb-root"></div>

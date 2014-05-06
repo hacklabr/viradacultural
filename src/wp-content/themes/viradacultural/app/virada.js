@@ -29,7 +29,7 @@ var getMapUrl = function (spaceEntity){
     return "https://maps.google.com/maps?hl=pt-BR&geocode=&daddr=" + e.location.latitude + "," + e.location.longitude +"&sll=" + e.location.latitude + "," + e.location.longitude + "&ie=UTF8&hq=" + e.endereco + ",+São+Paulo,+SP,+Brasil&hnear=" + e.endereco + ",+São+Paulo,+SP,+Brasil&radius=15000&t=m&ll=" + e.location.latitude + "," + e.location.longitude + "&z=17&output=embed&iwloc=near&language=pt-BR&region=br";
 };
 
-var app = angular.module('virada', ['google-maps','ui-rangeSlider']);
+var app = angular.module('virada', ['google-maps','ui-rangeSlider', 'angulartics', 'angulartics.google.analytics']);
 
 (function getThemeDir(){
     var scripts = document.getElementsByTagName('script');
@@ -184,7 +184,7 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
 });
 
 
-app.controller('programacao', function($scope, $rootScope, $http, $location, $timeout, $window, DataService){
+app.controller('programacao', function($scope, $rootScope, $http, $location, $timeout, $window, DataService, $analytics){
     var page = 0,
         timeouts = {};
 
@@ -359,6 +359,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             $timeout.cancel(timeouts.timeSlider);
 
         timeouts.timeSlider = $timeout(function(){
+            $analytics.eventTrack('Filtrando slider de horário inicial', {  category: 'Commands' });
             $scope.populateEntities();
         }, TIMEOUT_DALAY);
     });
@@ -370,6 +371,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             $timeout.cancel(timeouts.timeSlider);
 
         timeouts.timeSlider = $timeout(function(){
+            $analytics.eventTrack('Filtrando slider de horário final', {  category: 'Commands' });
             $scope.populateEntities();
         }, TIMEOUT_DALAY);
     });
@@ -383,6 +385,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
 
             if(oldValue.searchText !== newValue.searchText){
+                $analytics.eventTrack('Filtrando por palavra-chave', {  category: 'Commands' });
                 $scope.populateEntities();
             }else{
                 page = 0;

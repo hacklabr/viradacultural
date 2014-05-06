@@ -87,37 +87,37 @@
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='data.searchText'>
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button"><span class="icon icon_search" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Encontrar eventos por palavra-chave"></span></button>
+                            <button class="btn btn-primary" type="button" analytics-on="click" analytics-event="Encontrar eventos por palavra chave clicado" analytics-category="Commands"><span class="icon icon_search" data-toggle="tooltip" data-container="body" data-placement="bottom" title="Encontrar eventos por palavra-chave"></span></button>
                         </span>
                     </div>
                 </div>
                 <div id="by-group" class="programacao-navbar-item">
                     <span class="hidden-md">Por:</span>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" analytics-on="click" analytics-event="Ver por clicado" analytics-category="Commands">
                             {{viewByLabels[data.viewBy]}}  <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" ng-click="data.viewBy = 'space'">Por Local</a></li>
-                            <li><a href="#" ng-click="data.viewBy = 'name'">Por Atração</a></li>
-                            <li><a href="#" ng-click="data.viewBy = 'time'">Por Horário</a></li>
+                            <li><a href="#" ng-click="data.viewBy = 'space'" analytics-on="click" analytics-event="Ver por Local selecionado" analytics-category="Commands">Por Local</a></li>
+                            <li><a href="#" ng-click="data.viewBy = 'name'" analytics-on="click" analytics-event="Ver por Atração selecionado" analytics-category="Commands">Por Atração</a></li>
+                            <li><a href="#" ng-click="data.viewBy = 'time'" analytics-on="click" analytics-event="Ver por Horário selecionado" analytics-category="Commands">Por Horário</a></li>
                         </ul>
                     </div>
                 </div>
                 <div id="space-filter" class="programacao-navbar-item">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="icon icon_pin"></span> <span class="hidden-md">Filtrar locais </span></button>
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" analytics-on="click" analytics-event="Filtrar Locais clicado" analytics-category="Commands"><span class="icon icon_pin"></span> <span class="hidden-md">Filtrar locais </span></button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" data-toggle="modal" data-target="#map-modal" ng-click="nearMe()">Próximo a mim</a></li>
-                            <li><a href="#" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true">Selecionar locais</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#map-modal" ng-click="nearMe()" analytics-on="click" analytics-event="Próximo a Mim clicado" analytics-category="Commands">Próximo a mim</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true" analytics-on="click" analytics-event="Selecionar Locais clicado" analytics-category="Commands">Selecionar locais</a></li>
                         </ul>
                     </div>
                 </div>
                 <div id="time-filter-item" class="programacao-navbar-item">
                     <div class="time-filter-group clearfix">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="icon icon_clock" title="teste horário"></span>
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" analytics-on="click" analytics-event="Filtro de Horários clicado" analytics-category="Commands">
+                                <span class="icon icon_clock"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
@@ -139,8 +139,8 @@
                     </div>
                 </div>
                 <div id="view-group" class="visible-md visible-lg">
-                    <a id="grid-view" ng-class='{"active": data.viewMode === "grid"}' ng-click="data.viewMode = 'grid'"><div class="icon icon_grid-2x2"></div></a>
-                    <a id="list-view" ng-class='{"active": data.viewMode === "list"}' ng-click="data.viewMode = 'list'"><div class="icon icon_menu-square_alt"></div></a>
+                    <a id="grid-view" ng-class='{"active": data.viewMode === "grid"}' ng-click="data.viewMode = 'grid'" analytics-on="click" analytics-event="Modo Grade clicado" analytics-category="Commands"><div class="icon icon_grid-2x2"></div></a>
+                    <a id="list-view" ng-class='{"active": data.viewMode === "list"}' ng-click="data.viewMode = 'list'" analytics-on="click" analytics-event="Modo Lista clicado" analytics-category="Commands"><div class="icon icon_menu-square_alt"></div></a>
                 </div>
             </div>
             <!-- .row -->
