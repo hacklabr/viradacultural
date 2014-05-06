@@ -186,7 +186,7 @@ Template Name: 10 anos
 
                 $(this).data('top', tops[this.id]);
 
-                if(isMobile()){
+                if(hl.isMobile()){
                     for(var size in imgs[id]){
                         if(size >= win_height && size * 1.777778 >= win_width && url)
                             break;
