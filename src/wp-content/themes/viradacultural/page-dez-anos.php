@@ -199,11 +199,19 @@ Template Name: 10 anos
                         height: win_height
                     });
                 } else {
-                    $(this).find('figure').css({
-                        background: 'url(' + url + ') center center no-repeat',
-                        width: win_width - 115,
-                        height: win_height
-                    });
+                    if (win_height > win_width) {
+                        $(this).find('figure').css({
+                            background: 'url(' + url + ') center center no-repeat',
+                            width: win_width,
+                            height: win_height
+                        });
+                    } else {
+                        $(this).find('figure').css({
+                            background: 'url(' + url + ') center center no-repeat',
+                            width: win_width - 115,
+                            height: win_height
+                        });
+                    }
                 }
 
             });
