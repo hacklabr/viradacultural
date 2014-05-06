@@ -77,13 +77,13 @@ Template Name: 10 anos
                         <header class="js-article-header">
                             <h1><?php the_title(); ?></h1>
                         </header>
+                        <figure id='figure-<?php the_ID(); ?>'></figure>
                         <section class="block js-content">
                             <div class="centered text-left">
                                 <?php the_content(); ?>
                                 <p class="text-right"><a href="<?php echo get_post_meta($post->ID, 'url_do_pdf', true);?>" class="btn btn-large btn-success">Baixar programação</a></p>
                             </div>
                         </section>
-                        <figure id='figure-<?php the_ID(); ?>'></figure>
                     </article>
 
                 <?php endwhile; endif; ?>
@@ -94,7 +94,7 @@ Template Name: 10 anos
             <?php endif; ?>
         </section>
         <!-- #main-section -->
-        <nav id="years-nav">
+        <nav id="years-nav" class="visible-lg">
             <div id='nav-home' class="year block">
                 <div class="centered"><span class="icon icon_house"></span></div>
             </div>
@@ -129,9 +129,12 @@ Template Name: 10 anos
             tops             = {},
             last;
 
-        $("#main-section > article").css({'position': 'fixed', 'top': 1000});
-        $("#main-section > article figure").css({'position': 'fixed', 'top': 0});
-        $(".js-article-header").css({'position': 'fixed', 'top': navbar_height});
+
+        if (!hl.isMobile()) {
+            $("#main-section > article").css({'position': 'fixed', 'top': 1000});
+            $("#main-section > article figure").css({'position': 'fixed', 'top': 0});
+            $(".js-article-header").css({'position': 'fixed', 'top': navbar_height});
+        }
 
         function resize() {
             area_util = win_height - navbar_height;
@@ -139,18 +142,21 @@ Template Name: 10 anos
             win_width  = $win.width();
             navbar_height = $navBar.is(':visible') ? $navBar.height() : 0;
 
-            // Altura da seção principal
-            $("#main-section").height(area_util)
-            // Altura e largura dos artigos
-            $("#main-section > article").height(area_util).width(win_width - header_width);
             // Altura do artigo pai
             $("#main-section > article.parent").height(area_util * 2);
-            // Margem do header do artigo pai
-            $("#main-section > article.parent > header").css({ marginTop: navbar_height });
             // Altura da seção do artigo pai
             $("#main-section > article.parent .block").height(area_util);
-            // Altura da imagem do artigo pai
-            $("#main-section > article.parent .block > .centered > img").css({height: win_height - navbar_height * 2, width: "auto"});
+
+            if (!hl.isMobile()) {
+                // Altura da seção principal
+                $("#main-section").height(area_util)
+                // Altura e largura dos artigos
+                $("#main-section > article").height(area_util).width(win_width - header_width);
+                // Altura da imagem do artigo pai
+                $("#main-section > article.parent .block > .centered > img").css({height: win_height - navbar_height * 2, width: "auto"});
+                // Margem do header do artigo pai
+                $("#main-section > article.parent > header").css({ marginTop: navbar_height });
+            }
 
             // Ano
             $("#years-nav").css({height: area_util, top: navbar_height});
@@ -186,11 +192,19 @@ Template Name: 10 anos
                         break;
                 }
 
-                $(this).find('figure').css({
-                    background: 'url(' + url + ') center center no-repeat',
-                    width: win_width,
-                    height: win_height
-                });
+                if (!hl.isMobile()) {
+                    $(this).find('figure').css({
+                        background: 'url(' + url + ') center center no-repeat',
+                        width: win_width,
+                        height: win_height
+                    });
+                } else {
+                    $(this).find('figure').css({
+                        background: 'url(' + url + ') center center no-repeat',
+                        width: win_width - 115,
+                        height: win_height
+                    });
+                }
 
             });
 
@@ -200,6 +214,10 @@ Template Name: 10 anos
 
         $win.resize(resize).trigger("resize");
         $win.load(resize);
+
+        if (hl.isMobile()) {
+            return;
+        }
 
         $(window).scroll(function(){
             var st = $(window).scrollTop();
