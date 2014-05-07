@@ -50,8 +50,6 @@
         <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/img/favicon.png" type="image/x-icon" />
         <?php wp_head(); ?>
 
-        <script src='//maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry'></script>
-
         <?php if(defined('VIRADA_TEMPLATE') && VIRADA_TEMPLATE): ?>
             <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angular.js" ></script>
             <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/underscore-min.js" ></script>
@@ -81,6 +79,30 @@
         <script src="<?php bloginfo( 'template_url' ) ?>/js/fastclick.js"></script>
 
         <script src="<?php bloginfo( 'template_url' ) ?>/js/viradacultural.js"></script>
+
+
+        <script>
+        //Google maps async
+        function initialize() {
+          var mapOptions = {
+            zoom: 8,
+            center: new google.maps.LatLng(-34.397, 150.644)
+          };
+
+          var map = new google.maps.Map(document.getElementById('map-canvas'),
+              mapOptions);
+        }
+
+        function loadScript() {
+          var script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' +
+              'callback=initialize';
+          document.body.appendChild(script);
+        }
+
+        window.onload = loadScript;
+        </script>
     </head>
     <body <?php body_class(); ?> ng-controller="main">
         
