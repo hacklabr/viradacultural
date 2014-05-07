@@ -40,20 +40,20 @@
 						<div class="share-buttons col-md-4 col-lg-3">
 							<ul>
 								<li class="facebook">
-									<a href="https://www.facebook.com/sharer/sharer.php?u=<?php the_permalink(); ?>" class="btn btn-default popup">
+									<a href="https://www.facebook.com/sharer/sharer.php?u=<?php the_share_url(); ?>" class="btn btn-default popup">
 										<span class="icon social_facebook"></span>
 										<span class="text">facebook</span>
 									</a>
 								</li>
 								<li class="twitter">
-									<a href="http://twitter.com/home?status=<?php the_permalink(); ?>" class="btn btn-default popup">
+									<a href="http://twitter.com/home?status=<?php the_share_url(); ?>" class="btn btn-default popup">
 										<span class="icon social_twitter"></span>
 										<span class="text">twitter</span>
 									</a>
 								</li>
 
 								<li class="googleplus">
-									<a href="https://plus.google.com/share?url=<?php the_permalink(); ?>" class="btn btn-default popup">
+									<a href="https://plus.google.com/share?url=<?php the_share_url(); ?>" class="btn btn-default popup">
 										<span class="icon social_googleplus"></span>
 										<span class="text">google+</span>
 									</a>

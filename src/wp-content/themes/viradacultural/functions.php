@@ -243,3 +243,15 @@ function mostrar_programacao() {
     return get_theme_option('programacao_published');
     
 }
+
+function the_share_url() {
+
+    if (get_query_var('virada_tpl')) {
+        echo '{{current_share_url}}';
+    } elseif (is_singular()) {
+        the_permalink();
+    } else {
+        echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    }
+
+}
