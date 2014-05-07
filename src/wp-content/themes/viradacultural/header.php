@@ -49,60 +49,7 @@
         <![endif]-->
         <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/img/favicon.png" type="image/x-icon" />
         <?php wp_head(); ?>
-
-        <?php if(defined('VIRADA_TEMPLATE') && VIRADA_TEMPLATE): ?>
-            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angular.js" ></script>
-            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/underscore-min.js" ></script>
-            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angular-google-maps.js" ></script>
-            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/virada.js" ></script>
-            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/directives.js" ></script>
-            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/controllers.js" ></script>
-            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/services.js" ></script>
-
-            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/angular-rangeslider-master/angular.rangeSlider.js" ></script>
-            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/resig.js" ></script>
-        <?php endif; ?>
-
-        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/jquery.lazyload.min.js" ></script>
-        <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/js/jquery.animascroll.js" ></script>
-
-        <script src="<?php bloginfo( 'template_url' ) ?>/js/moment.min.js"></script>
-        <script src="<?php bloginfo( 'template_url' ) ?>/js/moment.lang.pt-br.js"></script>
-        <script src="<?php bloginfo( 'template_url' ) ?>/js/countdown.min.js"></script>
-        <script src="<?php bloginfo( 'template_url' ) ?>/js/moment-countdown.min.js"></script>
-
-        <script src="<?php bloginfo( 'template_url' ) ?>/js/jquery.knob.js"></script>
-
-        <script src="<?php bloginfo( 'template_url' ) ?>/js/rrssb.js"></script>
-
-        <script src="<?php bloginfo( 'stylesheet_directory' ) ?>/js/scrollmagic/_mobile/iscroll.js" type="text/javascript" charset="utf-8"></script>
-        <script src="<?php bloginfo( 'template_url' ) ?>/js/fastclick.js"></script>
-
-        <script src="<?php bloginfo( 'template_url' ) ?>/js/viradacultural.js"></script>
-
-
-        <script>
-        //Google maps async
-        function initialize() {
-          var mapOptions = {
-            zoom: 8,
-            center: new google.maps.LatLng(-34.397, 150.644)
-          };
-
-          var map = new google.maps.Map(document.getElementById('map-canvas'),
-              mapOptions);
-        }
-
-        function loadScript() {
-          var script = document.createElement('script');
-          script.type = 'text/javascript';
-          script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' +
-              'callback=initialize';
-          document.body.appendChild(script);
-        }
-
-        window.onload = loadScript;
-        </script>
+        
     </head>
     <body <?php body_class(); ?> ng-controller="main">
         
