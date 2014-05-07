@@ -48,12 +48,15 @@ function viradacultural_addJS() {
     if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' );
     wp_enqueue_script('jquery');
     wp_enqueue_script('bootstrap', get_stylesheet_directory_uri().'/js/bootstrap.min.js', 'jquery');
-
+    
+    $facebookAppId = $_SERVER['SERVER_NAME'] =='localhost' ? '1470242596543011' : '1460336737533597';
+    
     wp_localize_script('jquery', 'GlobalConfiguration', array(
         'baseURL' => get_bloginfo("url"),
         'templateURL' => get_bloginfo("template_url"),
         'pdfURL' => get_theme_option('pdf-programacao'),
         'ajaxurl' => admin_url('admin-ajax.php'),
+        'facebookAppId' => $facebookAppId
     ));
 
     if(get_query_var('virada_tpl')) {

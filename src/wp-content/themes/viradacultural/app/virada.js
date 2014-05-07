@@ -81,7 +81,7 @@ app.controller('main', function($scope, $rootScope, $window, $sce){
 
     window.fbAsyncInit = function() {
         FB.init({
-        appId      : '1460336737533597',
+        appId      : GlobalConfiguration.facebookAppId,
         status     : false,
         xfbml      : true
         });
