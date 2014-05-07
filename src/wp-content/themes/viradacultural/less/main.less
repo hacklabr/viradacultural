@@ -446,8 +446,40 @@ body {
 #front-page-carousel {
     border: 1px solid @body-bg;
     border-top: none;
+    @media (min-width: @screen-phone) {
+        .carousel-control {
+            display: none;
+        }
+    }
     .carousel-control {
-        display: none;
+        background-image: none;
+        .opacity(1);
+        text-shadow: none;
+        font-size: 32px;
+        width: 32px;
+        &.left {
+            left: 6px;
+        }
+        &.right {
+            right: 6px;
+        }
+        .icon {
+            position: absolute;
+            top: 50%;
+            margin-top: -28px;
+            z-index: 5;
+            display: inline-block;
+            color: @rosa;
+            &:hover {
+                color: @roxo;
+            }            
+        }
+        .arrow_carrot-left_alt {
+            left: 0;
+        }
+        .arrow_carrot-right_alt {
+            right: 0;
+        }
     }
     .carousel-caption {
         text-shadow: none;
@@ -467,6 +499,19 @@ body {
         &:hover {
             background: @roxo;
         }
+        @media (max-width: @screen-phone) {
+            left: 0;
+            bottom: 0;
+            text-align: center;
+            padding: 6px;          
+            h1 {
+                font-size: 16px;
+                line-height: 24px;
+                height: 24px;
+                overflow: hidden;
+            }
+        }
+
     }
     .carousel-indicators {
         left: initial;
@@ -478,6 +523,9 @@ body {
             &.active{
                  background-color: @rosa;
             }
+        }
+        @media (max-width: @screen-phone) {
+            display: none;
         }
     }
 }
@@ -777,7 +825,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
                     display: inline-block;
                     height: 100%;
                     vertical-align: middle;
-                    // margin-right: -0.25em; /* Adjusts for spacing */
+                    margin-right: -0.25em; /* Adjusts for spacing */
                 }
                 &.program-nav-left {
                     left: 0;
@@ -966,7 +1014,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
                 display: inline-block;
                 height: 100%;
                 vertical-align: middle;
-                // margin-right: -0.25em; /* Adjusts for spacing */
+                margin-right: -0.25em; /* Adjusts for spacing */
             }
             h1 {
                 height: auto;

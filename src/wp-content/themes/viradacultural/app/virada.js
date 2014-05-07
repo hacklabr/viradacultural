@@ -55,6 +55,7 @@ app.directive('onLastRepeat', function() {
 
 app.controller('main', function($scope, $rootScope, $window, $sce){
     $scope.conf = GlobalConfiguration;
+    $scope.current_share_url = document.URL;
 
     $scope.getTrustedURI = function (URI){
         return $sce.trustAsResourceUrl(URI);
@@ -78,10 +79,15 @@ app.controller('main', function($scope, $rootScope, $window, $sce){
         });
         return result.map(function(e){return parseInt(e.id)})
     };
+    
+    $rootScope.$on('minhavirada_hashchanged', function(ev, newurl) {
+        $scope.current_share_url = newurl;
 
+    });
+    
     window.fbAsyncInit = function() {
         FB.init({
-        appId      : '1460336737533597',
+        appId      : GlobalConfiguration.facebookAppId,
         status     : false,
         xfbml      : true
         });
@@ -685,7 +691,10 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
         $scope.$apply();
 
         $scope.loadUserData(uid);
+        var curUlr = document.URL;
         $location.hash(uid);
+        $scope.$emit('minhavirada_hashchanged', curUlr + '##' + $location.$$hash);
+        
 
 
     });
@@ -706,8 +715,8 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
 
     $scope.populateUserInfo = function(data) {
 
-
-        if ( typeof(data.user_picture) != 'undefined' ) {
+        
+        if ( typeof(data.picture) != 'undefined' ) {
 
             $scope.user_picture = "background-image: url(" + data.picture + ");";
             $scope.user_name = data.name;

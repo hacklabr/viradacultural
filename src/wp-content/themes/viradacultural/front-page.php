@@ -28,10 +28,10 @@
 
 				<!-- Controls -->
 				<a class="left carousel-control" href="#front-page-carousel" data-slide="prev">
-				<span class="glyphicon glyphicon-chevron-left"></span>
+				<span class="icon arrow_carrot-left_alt"></span>
 				</a>
 				<a class="right carousel-control" href="#front-page-carousel" data-slide="next">
-				<span class="glyphicon glyphicon-chevron-right"></span>
+				<span class="icon arrow_carrot-right_alt"></span>
 				</a>
 			<?php endif; ?>
 		</div>
