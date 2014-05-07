@@ -21,7 +21,7 @@ $db_config = array(
 No banco minha_virada:
 
 CREATE TABLE IF NOT EXISTS users (
-    user_id INT NOT NULL PRIMARY KEY,
+    user_id bigint(20) NOT NULL PRIMARY KEY,
     data VARBINARY(65000)
 );
 
