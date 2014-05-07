@@ -49,7 +49,7 @@
         <![endif]-->
         <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/img/favicon.png" type="image/x-icon" />
         <?php wp_head(); ?>
-        
+
     </head>
     <body <?php body_class(); ?> ng-controller="main">
         

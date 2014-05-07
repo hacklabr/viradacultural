@@ -3,8 +3,28 @@
     var app = angular.module('virada');
     var conf = GlobalConfiguration;
 
-    app.controller('SpacesFilter',[ '$scope', '$rootScope', 'THEME_DIR',
-        function SpacesFilterCtrl($scope, $rootScope, THEME_DIR) {
+    app.directive('onLastRepeat', function() {
+        return function(scope, element, attrs) {
+            if (scope.$last) setTimeout(function(){
+                scope.$emit('onRepeatLast', element, attrs);
+            }, 1);
+        };
+    })
+
+    app.controller('SpacesFilter',[ '$scope', '$rootScope', '$timeout', 'THEME_DIR',
+        function SpacesFilterCtrl($scope, $rootScope, $timeout, THEME_DIR) {
+            $scope.spaces = [];
+            $scope.plottingMap = true;
+
+            $scope.$watch('filters.spaces', function(){
+                if($scope.spaces && $scope.spaces.length > 0) return;
+                $scope.spaces = $scope.$parent.spaces;
+            });
+
+            $scope.$on('onRepeatLast', function(scope, element, attrs){
+                $scope.plottingMap = false;
+            });
+
             $scope.map = {
                 center: {
                     latitude: -23.524001004591987,
