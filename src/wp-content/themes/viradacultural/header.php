@@ -165,7 +165,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand">
+                        <a class="navbar-brand" href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>">
                             <span class="sr-only"><?php bloginfo( 'name' ); ?></span>
                             <span class="verde">Virada</span> <span class="rosa">Cultural</span>
                         </a>
