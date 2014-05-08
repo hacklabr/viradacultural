@@ -920,12 +920,10 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
 /* =Eventos
 -------------------------------------------------------------- */
 .event {
-    .event-content {
-        h1 {
-            margin: 0;
-            font-size: 16px;
-            line-height: 1.5;
-        }
+    h1 {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.5;
     }
     time {
         .secondary-font();
@@ -1049,35 +1047,12 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     @media (max-width: @screen-xs-max) {
         padding: 5px 15px;
     }
-
     img {
         display: none;
     }
-    .event-content {
-        width: 85%;
-        float: left;
-        h1 {
-            float: left;
-            width: 85%;
-            padding-left: 15px;
-            padding-right: 15px;
-            border-left: 1px solid @gray-light;
-            border-right: 1px solid @gray-light;
-            @media (max-width: @screen-xs-max) {
-                font-size: 14px;
-                line-height: 1.5;
-            }
-        }
-        .favorite {
-            float: right;
-            width: 15%;
-            padding-left: 15px;
-            color: @amarelo;
-        }
-    }
     .event-time {
         float: left;
-        width: 15%;
+        width: 10%;
         padding-right: 15px;
         color: @verde;
         @media (max-width: @screen-xs-max) {
@@ -1085,8 +1060,46 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
             line-height: 1.5;
             text-align: center;
         }
+        .icon {
+            vertical-align: middle;
+            margin-right: 5px;
+        }
     }
-
+    h1 {
+        float: left;
+        width: 85%;
+        padding-left: 15px;
+        padding-right: 15px;
+        border-left: 1px solid @gray-light;
+        border-right: 1px solid @gray-light;
+        @media (max-width: @screen-xs-max) {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+    }
+    .event-space {
+        display: none;
+        float: left;
+        width: 20%;
+        padding-left: 15px;
+        padding-right: 15px;
+        .secondary-font();
+    }
+    .favorite {
+        float: right;
+        width: 5%;
+        padding-left: 15px;
+        text-align: center;
+        color: @amarelo;
+    }
+    &.not-by-space {
+        h1 {
+            width: 60%;
+        }
+        .event-space {
+            display: block;
+        }
+    }
     &:hover {
         background: #fff;
     }

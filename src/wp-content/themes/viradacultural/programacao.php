@@ -262,16 +262,14 @@
                 <time><%=startsAt%></time>
             <% } %>
         </span>
-
-        <div class="event-content clearfix">
-
-            <h1>
-                <a href="<%=url%>"><%=name%></a>
-                    <small class="alignright hidden js-edit" data-e="eventos|<%=id%>"></small>
-            </h1>
-            <a class="icon favorite favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
-
+        <h1>
+            <a href="<%=url%>"><%=name%></a>
+                <small class="alignright hidden js-edit" data-e="eventos|<%=id%>"></small>
+        </h1>
+        <div class="event-space">
+            <a href="#">Nome do Espaço</a>
         </div>
+        <a class="icon favorite favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
     </article>
 </script>
 <script>
