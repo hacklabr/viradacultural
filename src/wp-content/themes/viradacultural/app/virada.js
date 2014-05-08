@@ -183,7 +183,11 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
 
 app.controller('programacao', function($scope, $rootScope, $http, $location, $timeout, $window, DataService){
     var page = 0,
-        timeouts = {};
+        timeouts = {},
+        counters = {
+            renderList: 0,
+            populateEntities: 0
+        };
 
     $scope.conf = GlobalConfiguration;
 
@@ -353,22 +357,31 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     });
 
     $scope.$watch('timeSlider.model.min', function(){
+        if(counters.populateEntities === 0)
+            return;
+
         $scope.startsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.min * 15).format('H:mm');
 
         if(timeouts.timeSlider)
             $timeout.cancel(timeouts.timeSlider);
 
-        timeouts.timeSlider = $timeout(function(){
-            $scope.eventTrack('Filtrando slider de horário inicial', {  category: 'Commands' });
-            $scope.populateEntities();
-        }, TIMEOUT_DALAY);
+
+        if(counters.populateEntities > 0)
+            timeouts.timeSlider = $timeout(function(){
+                $scope.populateEntities();
+                $scope.eventTrack('Filtrando slider de horário inicial', {  category: 'Commands' });
+            }, TIMEOUT_DALAY);
+
     });
 
     $scope.$watch('timeSlider.model.max', function(){
+        if(counters.populateEntities === 0)
+            return;
         $scope.endsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.max * 15).format('H:mm');
 
         if(timeouts.timeSlider)
             $timeout.cancel(timeouts.timeSlider);
+
 
         timeouts.timeSlider = $timeout(function(){
             $scope.eventTrack('Filtrando slider de horário final', {  category: 'Commands' });
@@ -377,6 +390,9 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     });
 
     $scope.$watch('data', function(oldValue, newValue){
+        if(counters.populateEntities === 0)
+            return;
+
         if(timeouts.setHash)
             $timeout.cancel(timeouts.setHash);
 
@@ -493,12 +509,13 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     $scope.searchResultEventsByTime = [];
     $scope.searchResultEventsByName = [];
 
-    $scope.$watch('searchResult', function(){
+    $scope.$watch('searchResult', function(o,n){
         $scope.renderList();
     });
 
 
     $scope.populateEntities = function(delay){
+
         if(!$scope.events || !$scope.spaces)
             return;
 
@@ -528,9 +545,12 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
             events.forEach(function(event){
                 var space = $scope.spacesById[event.spaceId];
+
+                event.spaceName = space ? space.name : '';
+                event.spaceUrl = space ? spaceUrl(space.id) : '';
+
                 if(!space) return;
-                event.spaceName = space.name;
-                event.spaceUrl = spaceUrl(space.id);
+
                 if(spaces.indexOf(space) < 0)
                     spaces.push(space);
             });
@@ -568,14 +588,18 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             RESULTS = {searchResult: $scope.searchResult, searchResultEventsByTime: $scope.searchResultEventsByTime, searchResultEventsByName: $scope.searchResultEventsByName};
 
             page = 0;
+
+            counters.populateEntities++;
         }, 100);
 
     };
 
     var renderingList = false;
+
     $scope.renderList = function(){
-        if(renderingList || (!$scope.spaces || !$scope.events))
+        if(renderingList || counters.populateEntities === 0)
             return;
+
         timeouts.renderList = $timeout(function(){
             renderingList = true;
             var spacesPerPage = 8;
@@ -649,6 +673,8 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
             renderingList = false;
 
+            counters.renderList++;
+
 
             var virtualPath = '/programacao/'+$scope.data.viewMode+'/by-'+$scope.data.viewBy;
 
@@ -659,6 +685,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             if($scope.endsAt != '18:00') virtualPath += '/ends-'+$scope.endsAt;
 
             $scope.pageTrack(virtualPath);
+
 
         });
     };

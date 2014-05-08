@@ -103,7 +103,7 @@
         <!-- .modal-dialog -->
     </div>
     <!-- #map-modal -->
-    <nav id="programacao-navbar" class="collapse navbar-collapse virada-navbar navbar" ng-class="{'navbar-fixed-top': !isMobile}">
+    <nav id="programacao-navbar" class="collapse navbar-collapse virada-navbar navbar" ng-class="{'navbar-fixed-top': !isMobile || !smallDevice}">
         <div class="container-fluid container-menu-minified">
             <div class="row">
                 <h1 class="programacao-navbar-item visible-md visible-lg">Programação
