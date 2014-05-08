@@ -37,7 +37,7 @@
                                 zoom="map.zoom"
                                 draggable="true"
                                 refresh="true"
-                                
+
                                 >
 
 	                            <marker ng-repeat="space in spaces"
@@ -83,7 +83,7 @@
 	                                        vertical-align: middle;
 	                                        color: #ffc20e;
 	                                        text-align: center;">Carregando Mapa</div>
-	                        </div>	                        
+	                        </div>
                 		</div>
 
                     </div>
@@ -103,7 +103,7 @@
         <!-- .modal-dialog -->
     </div>
     <!-- #map-modal -->
-    <nav id="programacao-navbar" class="collapse navbar-collapse virada-navbar navbar" ng-class="{'navbar-fixed-top': !isMobile}">
+    <nav id="programacao-navbar" class="collapse navbar-collapse virada-navbar navbar" ng-class="{'navbar-fixed-top': !isMobile || !smallDevice}">
         <div class="container-fluid container-menu-minified">
             <div class="row">
                 <h1 class="programacao-navbar-item visible-md visible-lg">Programação
@@ -209,7 +209,7 @@
 </script>
 
 <script type="text/html" id="template-space-list">
-    <div id="programacao-list" class="panel panel-default">
+    <div class="grouped-by-space panel panel-default">
         <div class="hl-ref"></div>
         <div class="panel-heading clearfix">
             <h4 class="alignleft panel-title">
@@ -268,7 +268,7 @@
         </h1>
         <div class="event-space">
             <span class="icon icon_pin"></span>
-            <a href="#">Nome do Espaço</a>
+            <a href="<%=spaceUrl%>"><%=spaceName%></a>
         </div>
         <a class="icon favorite favorite-wait favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
     </article>

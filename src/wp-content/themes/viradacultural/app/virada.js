@@ -170,7 +170,11 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
 
 app.controller('programacao', function($scope, $rootScope, $http, $location, $timeout, $window, DataService){
     var page = 0,
-        timeouts = {};
+        timeouts = {},
+        counters = {
+            renderList: 0,
+            populateEntities: 0
+        };
 
     $scope.conf = GlobalConfiguration;
 
@@ -339,21 +343,28 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     });
 
     $scope.$watch('timeSlider.model.min', function(){
+        if(counters.populateEntities === 0)
+            return;
+
         $scope.startsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.min * 15).format('H:mm');
 
         if(timeouts.timeSlider)
             $timeout.cancel(timeouts.timeSlider);
 
-        timeouts.timeSlider = $timeout(function(){
-            $scope.populateEntities();
-        }, TIMEOUT_DALAY);
+        if(counters.populateEntities > 0)
+            timeouts.timeSlider = $timeout(function(){
+                $scope.populateEntities();
+            }, TIMEOUT_DALAY);
     });
 
     $scope.$watch('timeSlider.model.max', function(){
+        if(counters.populateEntities === 0)
+            return;
         $scope.endsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.max * 15).format('H:mm');
 
         if(timeouts.timeSlider)
             $timeout.cancel(timeouts.timeSlider);
+
 
         timeouts.timeSlider = $timeout(function(){
             $scope.populateEntities();
@@ -361,6 +372,9 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     });
 
     $scope.$watch('data', function(oldValue, newValue){
+        if(counters.populateEntities === 0)
+            return;
+
         if(timeouts.setHash)
             $timeout.cancel(timeouts.setHash);
 
@@ -476,12 +490,13 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     $scope.searchResultEventsByTime = [];
     $scope.searchResultEventsByName = [];
 
-    $scope.$watch('searchResult', function(){
+    $scope.$watch('searchResult', function(o,n){
         $scope.renderList();
     });
 
 
     $scope.populateEntities = function(delay){
+
         if(!$scope.events || !$scope.spaces)
             return;
 
@@ -509,6 +524,15 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
                 }
             });
 
+            events.forEach(function(event){
+                var space = $scope.spacesById[event.spaceId];
+                if(!space) return;
+                event.spaceName = space.name;
+                event.spaceUrl = spaceUrl(space.id);
+                if(spaces.indexOf(space) < 0)
+                    spaces.push(space);
+            });
+
             $scope.searchResultEventsByTime = events;
 
             $scope.searchResultEventsByName = events.slice().sort(function(a,b){
@@ -518,12 +542,6 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
                     return -1;
                 else
                     return 0;
-            });
-
-            events.forEach(function(event){
-                var space = $scope.spacesById[event.spaceId];
-                if(space && spaces.indexOf(space) < 0)
-                    spaces.push(space);
             });
 
             $scope.spaces.forEach(function(s){
@@ -548,14 +566,18 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             RESULTS = {searchResult: $scope.searchResult, searchResultEventsByTime: $scope.searchResultEventsByTime, searchResultEventsByName: $scope.searchResultEventsByName};
 
             page = 0;
+
+            counters.populateEntities++;
         }, 100);
 
     };
 
     var renderingList = false;
+
     $scope.renderList = function(){
-        if(renderingList || (!$scope.spaces || !$scope.events))
+        if(renderingList || counters.populateEntities === 0)
             return;
+
         timeouts.renderList = $timeout(function(){
             renderingList = true;
             var spacesPerPage = 8;
@@ -626,6 +648,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
             renderingList = false;
 
+            counters.renderList++;
         });
     };
 
