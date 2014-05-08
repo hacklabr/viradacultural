@@ -344,6 +344,9 @@ body {
 .programacao-home #main-footer {
     margin-left: 115px;
     margin-right: 0;
+    @media (max-width: @screen-phone) {
+        margin-left: 0;
+    }
 }
 
 
@@ -643,7 +646,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     background-color: #fff;
     font-family: @font-family-secondary;
     @media (max-width: @screen-tablet) {
-        margin-top: 50px;
+
         &.navbar-collapse.in {
             overflow-y: visible;
         }
@@ -930,6 +933,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     .favorite {
         display: none;
         cursor: pointer;
+        color: @amarelo !important;
     }
     .favorite:before {
         content: "\e031";
