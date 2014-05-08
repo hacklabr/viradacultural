@@ -240,14 +240,14 @@
         </span>
 
         <img src="<%=defaultImageThumb%>"/>
-
-        <div class="event-content clearfix">
-
-            <h1>
-                <a href="<%=url%>"><%=name%></a>
-            </h1>
-            <a class="icon favorite favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
-        </div>
+        <a href="<%=url%>">
+            <div class="event-content clearfix">
+                <h1>
+                    <%=name%>
+                </h1>
+            </div>
+        </a>
+        <a class="icon favorite favorite-wait favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
     </article>
 </script>
 
@@ -262,16 +262,15 @@
                 <time><%=startsAt%></time>
             <% } %>
         </span>
-
-        <div class="event-content clearfix">
-
-            <h1>
-                <a href="<%=url%>"><%=name%></a>
-                    <small class="alignright hidden js-edit" data-e="eventos|<%=id%>"></small>
-            </h1>
-            <a class="icon favorite favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
-
+        <h1>
+            <a href="<%=url%>"><%=name%></a>
+                <small class="alignright hidden js-edit" data-e="eventos|<%=id%>"></small>
+        </h1>
+        <div class="event-space">
+            <span class="icon icon_pin"></span>
+            <a href="#">Nome do Espaço</a>
         </div>
+        <a class="icon favorite favorite-wait favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
     </article>
 </script>
 <script>

@@ -57,12 +57,12 @@ app.controller('main', function($scope, $rootScope, $window, $sce){
         });
         return result.map(function(e){return parseInt(e.id)})
     };
-    
+
     $rootScope.$on('minhavirada_hashchanged', function(ev, newurl) {
         $scope.current_share_url = newurl;
 
     });
-    
+
     window.fbAsyncInit = function() {
         FB.init({
         appId      : GlobalConfiguration.facebookAppId,
@@ -189,7 +189,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     $scope.nearMe = function(){
 
         $scope.filters.spaces = true;
-            
+
         var getFilterRadius = function (distance){
             if(distance < 500) return 300; else
             if(distance < 1000) return 500; else
@@ -674,7 +674,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
         var curUlr = document.URL;
         $location.hash(uid);
         $scope.$emit('minhavirada_hashchanged', curUlr + '##' + $location.$$hash);
-        
+
 
 
     });
@@ -695,7 +695,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
 
     $scope.populateUserInfo = function(data) {
 
-        
+
         if ( typeof(data.picture) != 'undefined' ) {
 
             $scope.user_picture = "background-image: url(" + data.picture + ");";
@@ -713,6 +713,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
                     for (var i = 0; i < data.events.length; i++) {
                         if(e.id == data.events[i]) {
                             $scope.userEvents.push(e);
+                            e.url = eventUrl(e.id);
                             break;
                         }
                     }

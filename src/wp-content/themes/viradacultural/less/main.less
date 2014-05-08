@@ -920,18 +920,15 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
 /* =Eventos
 -------------------------------------------------------------- */
 .event {
-    .event-content {
-        h1 {
-            margin: 0;
-            font-size: 16px;
-            line-height: 1.5;
-        }
+    h1 {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.5;
     }
     time {
         .secondary-font();
     }
     .favorite {
-        display: none;
         cursor: pointer;
         color: @amarelo !important;
     }
@@ -963,7 +960,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
         bottom: 0;
         width: 100%;
         height: 34px;
-        padding: 5px 15px;
+        padding: 5px 36px;
         background-color: @rosa;
         .transition(all linear .3s);
         @media (max-width: @screen-phone) {
@@ -982,14 +979,17 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
                 height: auto;
             }
         }
-        .favorite {
-            display: none;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            padding: 4px;
-            background-color: @verde;
-        }
+    }
+    .favorite.favorite-wait {
+        display:none;
+    }
+    .favorite {
+        position: absolute;
+        z-index: 100;
+        bottom: 0;
+        left: 0;
+        padding: 9px;
+        background-color: @verde;
     }
     .event-time {
         position: absolute;
@@ -1003,16 +1003,16 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     &.evento-24h {
         .event-content {
             background-color: @amarelo;
-            a {
-                color: @rosa;
-            }
+        }
+        a {
+            color: @rosa;
         }
     }
     &:hover, &.no-thumb {
         .event-content {
             bottom: 0;
             height: 100%;
-            padding: 15px;            
+            padding: 15px 36px;            
             &:before {
                 content: '';
                 display: inline-block;
@@ -1022,7 +1022,6 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
             }
             h1 {
                 height: auto;
-
             }
         }
     }
@@ -1051,35 +1050,12 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     @media (max-width: @screen-xs-max) {
         padding: 5px 15px;
     }
-
     img {
         display: none;
     }
-    .event-content {
-        width: 85%;
-        float: left;
-        h1 {
-            float: left;
-            width: 85%;
-            padding-left: 15px;
-            padding-right: 15px;
-            border-left: 1px solid @gray-light;
-            border-right: 1px solid @gray-light;
-            @media (max-width: @screen-xs-max) {
-                font-size: 14px;
-                line-height: 1.5;
-            }
-        }
-        .favorite {
-            float: right;
-            width: 15%;
-            padding-left: 15px;
-            color: @amarelo;
-        }
-    }
     .event-time {
         float: left;
-        width: 15%;
+        width: 10%;
         padding-right: 15px;
         color: @verde;
         @media (max-width: @screen-xs-max) {
@@ -1087,8 +1063,52 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
             line-height: 1.5;
             text-align: center;
         }
+        .icon {
+            vertical-align: middle;
+            margin-right: 3px;
+        }
     }
-
+    h1 {
+        float: left;
+        width: 85%;
+        padding-left: 15px;
+        padding-right: 15px;
+        border-left: 1px solid @gray-light;
+        border-right: 1px solid @gray-light;
+        @media (max-width: @screen-xs-max) {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+    }
+    .event-space {
+        display: none;
+        float: left;
+        width: 20%;
+        padding-left: 15px;
+        padding-right: 15px;
+        .secondary-font();
+        .icon {
+            color: @verde;
+            font-size: 16px;
+            vertical-align: middle;
+            margin-right: 3px;
+        }
+    }
+    .favorite {
+        float: right;
+        width: 5%;
+        padding-left: 15px;
+        text-align: center;
+        color: @amarelo;
+    }
+    &.not-by-space {
+        h1 {
+            width: 60%;
+        }
+        .event-space {
+            display: block;
+        }
+    }
     &:hover {
         background: #fff;
     }
