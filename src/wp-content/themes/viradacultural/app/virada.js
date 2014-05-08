@@ -57,12 +57,12 @@ app.controller('main', function($scope, $rootScope, $window, $sce){
         });
         return result.map(function(e){return parseInt(e.id)})
     };
-    
+
     $rootScope.$on('minhavirada_hashchanged', function(ev, newurl) {
         $scope.current_share_url = newurl;
 
     });
-    
+
     window.fbAsyncInit = function() {
         FB.init({
         appId      : GlobalConfiguration.facebookAppId,
@@ -170,7 +170,11 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
 
 app.controller('programacao', function($scope, $rootScope, $http, $location, $timeout, $window, DataService){
     var page = 0,
-        timeouts = {};
+        timeouts = {},
+        counters = {
+            renderList: 0,
+            populateEntities: 0
+        };
 
     $scope.conf = GlobalConfiguration;
 
@@ -189,7 +193,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     $scope.nearMe = function(){
 
         $scope.filters.spaces = true;
-            
+
         var getFilterRadius = function (distance){
             if(distance < 500) return 300; else
             if(distance < 1000) return 500; else
@@ -339,21 +343,28 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     });
 
     $scope.$watch('timeSlider.model.min', function(){
+        if(counters.populateEntities === 0)
+            return;
+
         $scope.startsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.min * 15).format('H:mm');
 
         if(timeouts.timeSlider)
             $timeout.cancel(timeouts.timeSlider);
 
-        timeouts.timeSlider = $timeout(function(){
-            $scope.populateEntities();
-        }, TIMEOUT_DALAY);
+        if(counters.populateEntities > 0)
+            timeouts.timeSlider = $timeout(function(){
+                $scope.populateEntities();
+            }, TIMEOUT_DALAY);
     });
 
     $scope.$watch('timeSlider.model.max', function(){
+        if(counters.populateEntities === 0)
+            return;
         $scope.endsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.max * 15).format('H:mm');
 
         if(timeouts.timeSlider)
             $timeout.cancel(timeouts.timeSlider);
+
 
         timeouts.timeSlider = $timeout(function(){
             $scope.populateEntities();
@@ -361,6 +372,9 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     });
 
     $scope.$watch('data', function(oldValue, newValue){
+        if(counters.populateEntities === 0)
+            return;
+
         if(timeouts.setHash)
             $timeout.cancel(timeouts.setHash);
 
@@ -476,12 +490,13 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     $scope.searchResultEventsByTime = [];
     $scope.searchResultEventsByName = [];
 
-    $scope.$watch('searchResult', function(){
+    $scope.$watch('searchResult', function(o,n){
         $scope.renderList();
     });
 
 
     $scope.populateEntities = function(delay){
+
         if(!$scope.events || !$scope.spaces)
             return;
 
@@ -548,14 +563,18 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             RESULTS = {searchResult: $scope.searchResult, searchResultEventsByTime: $scope.searchResultEventsByTime, searchResultEventsByName: $scope.searchResultEventsByName};
 
             page = 0;
+
+            counters.populateEntities++;
         }, 100);
 
     };
 
     var renderingList = false;
+
     $scope.renderList = function(){
-        if(renderingList || (!$scope.spaces || !$scope.events))
+        if(renderingList || counters.populateEntities === 0)
             return;
+
         timeouts.renderList = $timeout(function(){
             renderingList = true;
             var spacesPerPage = 8;
@@ -626,6 +645,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
             renderingList = false;
 
+            counters.renderList++;
         });
     };
 
@@ -674,7 +694,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
         var curUlr = document.URL;
         $location.hash(uid);
         $scope.$emit('minhavirada_hashchanged', curUlr + '##' + $location.$$hash);
-        
+
 
 
     });
@@ -695,7 +715,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
 
     $scope.populateUserInfo = function(data) {
 
-        
+
         if ( typeof(data.picture) != 'undefined' ) {
 
             $scope.user_picture = "background-image: url(" + data.picture + ");";

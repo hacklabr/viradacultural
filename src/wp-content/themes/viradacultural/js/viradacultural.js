@@ -17,7 +17,7 @@ var hl = {
 };
 
 (function($){
-    
+
     $(document).ready(function() {
         if (hl.isMobile()) {
             $('body').addClass('mobile');
@@ -177,15 +177,10 @@ var hl = {
 
     hl.carrousel = {
         init: function(selector){
-
             selector = selector || '.hl-carrousel';
 
-            if($(selector).data('hl-carrousel-ready'))
-                return false;
-            
-            setTimeout(function(){
-                $(selector).data('hl-carrousel-ready', true);
 
+            setTimeout(function(){
                 $(selector).css({
                     position: 'relative',
                     overflow: 'hidden'
@@ -194,6 +189,11 @@ var hl = {
                 });
 
                 $(selector).each(function(){
+                    if($(this).data('hl-carrousel-ready'))
+                        return false;
+
+                    $(this).data('hl-carrousel-ready', true);
+
                     var $this       = $(this),
                         $wrap       = $this.find('.hl-wrap'),
                         $items      = $this.find('.hl-wrap>*'),
