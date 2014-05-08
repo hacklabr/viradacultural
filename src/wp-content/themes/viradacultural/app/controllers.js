@@ -12,7 +12,7 @@
                 $scope.plottingMap = false;
                 $scope.redrawMap();
             });
-          
+
             $scope.map = {
                 center: {
                     latitude: -23.524001004591987,
@@ -53,7 +53,9 @@
             $scope.redrawMap = function(){
                 var gmap = $scope.map.control.getGMap();
                 google.maps.event.trigger(gmap, 'resize');
-                
+
+                $scope.pageTrack('/programacao/filters-space/');
+
                 if($scope.spaces && $scope.spaces.length > 0) return;
                 $scope.spaces = $scope.$parent.spaces;
             };

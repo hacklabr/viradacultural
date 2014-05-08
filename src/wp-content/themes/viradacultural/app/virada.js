@@ -31,9 +31,19 @@ var getMapUrl = function (spaceEntity){
 
 var app = angular.module('virada', ['google-maps','ui-rangeSlider', 'angulartics', 'angulartics.google.analytics']);
 
-app.controller('main', function($scope, $rootScope, $window, $sce){
+app.controller('main', function($scope, $rootScope, $window, $sce, $analytics){
     $scope.conf = GlobalConfiguration;
     $scope.current_share_url = document.URL;
+
+    $scope.eventTrack = function(label, options){
+            $analytics.eventTrack(label, options);
+            console.log('EVENT TRACK ' , label, options);
+    };
+
+    $scope.pageTrack = function(virtualPath){
+            $analytics.pageTrack(virtualPath);
+            console.log('PAGE VIEW ' , virtualPath);
+    };
 
     $scope.getTrustedURI = function (URI){
         return $sce.trustAsResourceUrl(URI);
@@ -119,6 +129,7 @@ app.controller('evento', function($scope, $http, $location, $timeout, DataServic
                         }
                     });
                     jQuery('#programacao-loading').hide();
+                    $scope.pageTrack('/programacao/atracao/##'+eventId);
                 });
                 return true;
             }
@@ -152,8 +163,10 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
 
     DataService.getSpaces().then(function(response){
         c++;
-        if(c === 2)
+        if(c === 2){
             jQuery('#programacao-loading').hide();
+            $scope.pageTrack('/programacao/local/##'+spaceId);
+        }
 
         response.data.some(function(e){
             if(e.id == spaceId){
@@ -168,7 +181,7 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
 });
 
 
-app.controller('programacao', function($scope, $rootScope, $http, $location, $timeout, $window, DataService, $analytics){
+app.controller('programacao', function($scope, $rootScope, $http, $location, $timeout, $window, DataService){
     var page = 0,
         timeouts = {};
 
@@ -189,6 +202,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     $scope.nearMe = function(){
 
         $scope.filters.spaces = true;
+        $scope.pageTrack('/programacao/filter-near');
 
         var getFilterRadius = function (distance){
             if(distance < 500) return 300; else
@@ -345,7 +359,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             $timeout.cancel(timeouts.timeSlider);
 
         timeouts.timeSlider = $timeout(function(){
-            $analytics.eventTrack('Filtrando slider de horário inicial', {  category: 'Commands' });
+            $scope.eventTrack('Filtrando slider de horário inicial', {  category: 'Commands' });
             $scope.populateEntities();
         }, TIMEOUT_DALAY);
     });
@@ -357,7 +371,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             $timeout.cancel(timeouts.timeSlider);
 
         timeouts.timeSlider = $timeout(function(){
-            $analytics.eventTrack('Filtrando slider de horário final', {  category: 'Commands' });
+            $scope.eventTrack('Filtrando slider de horário final', {  category: 'Commands' });
             $scope.populateEntities();
         }, TIMEOUT_DALAY);
     });
@@ -371,7 +385,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
 
             if(oldValue.searchText !== newValue.searchText){
-                $analytics.eventTrack('Filtrando por palavra-chave', {  category: 'Commands' });
+                $scope.eventTrack('Filtrando por palavra-chave', {  category: 'Commands' });
                 $scope.populateEntities();
             }else{
                 page = 0;
@@ -575,6 +589,9 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             if(page === 0)
                 $container.html('');
 
+            //$analytics.pageTrack('/programacao/viewMode/'+$scope.data.viewMode);
+            //$analytics.pageTrack('/viewBy/'+$scope.data.viewBy+/'viewMode/'+$scope.data.viewMode);
+
             if($scope.data.viewBy === 'space'){
                 offset = page * spacesPerPage;
                 $scope.searchResult.slice(offset, offset + spacesPerPage).forEach(function(space){
@@ -631,6 +648,17 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             page++;
 
             renderingList = false;
+
+
+            var virtualPath = '/programacao/'+$scope.data.viewMode+'/by-'+$scope.data.viewBy;
+
+            virtualPath += '/page-'+page;
+
+            if($scope.data.searchText) virtualPath += '/q-'+$scope.data.searchText;
+            if($scope.startsAt != '18:00') virtualPath += '/starts-'+$scope.startsAt;
+            if($scope.endsAt != '18:00') virtualPath += '/ends-'+$scope.endsAt;
+
+            $scope.pageTrack(virtualPath);
 
         });
     };
