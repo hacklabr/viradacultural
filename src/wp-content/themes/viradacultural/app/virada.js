@@ -186,6 +186,8 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     $rootScope.filterNearMe = {showMarker:false, coords : {}};
     $scope.nearMe = function(){
 
+        $scope.filters.spaces = true;
+            
         var getFilterRadius = function (distance){
             if(distance < 500) return 300; else
             if(distance < 1000) return 500; else
@@ -211,9 +213,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
             var saoPauloCenter = new google.maps.LatLng(-23.5466623,-46.643183);
             var distanceFromSaoPauloCenter = google.maps.geometry.spherical.computeDistanceBetween(saoPauloCenter,position);
-            console.log('DISTANCIA DO CENTRO DE SAO PAULO: '+distanceFromSaoPauloCenter);
             var filterRadius = getFilterRadius(distanceFromSaoPauloCenter);
-            console.log('RAIO CONSIDERADO: '+filterRadius);
 
             $scope.spaces.forEach(function(s){
                 var spacePosition = new google.maps.LatLng(s.location.latitude, s.location.longitude);
