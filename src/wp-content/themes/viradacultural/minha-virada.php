@@ -18,7 +18,7 @@
                             <div class="timeline-time" ng-if="event.duration !== '24h00'">{{event.startsAt}}</div>
                             <article class="event clearfix event-grid" ng-class="{'no-thumb' : !event.defaultImageThumb, 'evento-24h': event.duration === '24h00'}">
                                 <img ng-src="{{event.defaultImageThumb}}"/>
-                                <a href="{{eventUrl(event.id)}}">
+                                <a href="{{event.url}}">
                                     <div class="event-content clearfix">
                                         <h1>{{event.name}}</h1>
                                     </div>
@@ -35,7 +35,7 @@
                 <?php if ( have_posts()) : while ( have_posts()) : the_post(); ?>
                     <article id="post-<?php the_ID(); ?>" ng-if="(!hasEvents && connected && itsme) || home " <?php post_class('clearfix col-md-8 col-md-offset-2');?>>
                         <header>
-                            
+
                             <p><?php edit_post_link( __( 'Edit', 'viradacultural' ), '', '' ); ?></p>
                         </header>
 
