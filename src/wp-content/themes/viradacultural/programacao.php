@@ -16,7 +16,7 @@
                         <li class="active"><a href="#modal-list" data-toggle="pill">Lista</a></li>
                         <li><a href="#modal-map" data-toggle="pill">Mapa</a></li>
                     </ul>
-                    <div class="tab-content clearfix">
+                    <div class="tab-content clearfix" style="position:relative">
                         <nav id="modal-list" class="modal-nav tab-pane active">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Encontre um local" ng-model="filterSpace">
@@ -30,6 +30,7 @@
                                    ng-click="toggleSelectSpace(space)">{{space.name}}</a>
                             </div>
                         </nav>
+
                         <div id="modal-map" class="mapa google-map tab-pane"
                                 center="map.center"
                                 control="map.control"
@@ -40,13 +41,13 @@
                                 >
 
 
-
                             <marker ng-repeat="space in spaces"
                                     coords="space.location"
                                     icon="space.selected ? marker.icon.selected : marker.icon.default"
                                     options="marker.options"
                                     events="marker.events"
-                                    click="showSpaceInfo(space)">
+                                    click="showSpaceInfo(space)"
+                                    on-last-repeat>
 
                                 <window show="space.showInfo"
                                         isIconVisibleOnClick="true"
@@ -57,9 +58,19 @@
                                 </window>
                             </marker>
 
+                        </div>
+                        <div ng-show="plottingMap"
+                             style="height: 400px;
+                                    display: table;
+                                    width: 75%;
+                                    margin-left:25%;
+                                    position:absolute;
+                                    background-color: #893494;">
 
-
-
+                            <div style="display: table-cell;
+                                        vertical-align: middle;
+                                        color: #ffc20e;
+                                        text-align: center;">Carregando Mapa</div>
                         </div>
                     </div>
                 </div>
