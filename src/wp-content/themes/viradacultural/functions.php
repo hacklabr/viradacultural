@@ -46,23 +46,64 @@ add_filter( 'show_admin_bar' , 'remove_admin_bar');
 add_action('wp_print_scripts', 'viradacultural_addJS');
 function viradacultural_addJS() {
     if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' );
+    global $wp_query;
+    
     wp_enqueue_script('jquery');
     wp_enqueue_script('bootstrap', get_stylesheet_directory_uri().'/js/bootstrap.min.js', 'jquery');
     
     $facebookAppId = $_SERVER['SERVER_NAME'] =='localhost' ? '1470242596543011' : '1460336737533597';
     
     wp_localize_script('jquery', 'GlobalConfiguration', array(
-        'baseURL' => get_bloginfo("url"),
-        'templateURL' => get_bloginfo("template_url"),
-        'pdfURL' => get_theme_option('pdf-programacao'),
-        'ajaxurl' => admin_url('admin-ajax.php'),
-        'facebookAppId' => $facebookAppId
+        'baseURL' =>        get_bloginfo("url"),
+        'templateURL' =>    get_bloginfo("template_url"),
+        'pdfURL' =>         get_theme_option('pdf-programacao'),
+        'ajaxurl' =>        admin_url('admin-ajax.php'),
+        'facebookAppId' =>  $facebookAppId
     ));
 
-    if(get_query_var('virada_tpl')) {
-		wp_enqueue_script('minha-virada', get_stylesheet_directory_uri().'/js/minha-virada.js', 'jquery');
+
+    wp_enqueue_script('viradacultural', get_stylesheet_directory_uri().'/js/viradacultural.js', array('jquery'));
+
+
+    if(@$wp_query->query['pagename'] === '10-anos'){
+        wp_enqueue_script('jquery.animascroll', get_stylesheet_directory_uri().'/js/jquery.animascroll.js', array('jquery'));
+
+    }else if($tpl = get_query_var('virada_tpl')) {
+        
+        wp_enqueue_script('google-maps', '//maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry');
+        wp_enqueue_script('angular', get_stylesheet_directory_uri().'/js/angular.min.js');
+        wp_enqueue_script('underscore', get_stylesheet_directory_uri().'/js/underscore-min.js');
+        wp_enqueue_script('angular-google-maps', get_stylesheet_directory_uri().'/js/angular-google-maps.js', array('google-maps', 'underscore', 'angular'));
+
+		wp_enqueue_script('minha-virada', get_stylesheet_directory_uri().'/js/minha-virada.js', array('jquery', 'angular'));
+
+        wp_enqueue_script('app-virada', get_stylesheet_directory_uri().'/app/virada.js', array('moment', 'angular', 'angular-rangeslider', 'minha-virada'));
+
+        wp_enqueue_script('app-services', get_stylesheet_directory_uri().'/app/services.js', array('angular', 'app-virada'));
+
+        if($tpl === 'programacao'){
+            wp_enqueue_script('resig', get_stylesheet_directory_uri().'/js/resig.js');
+            wp_enqueue_script('angular-rangeslider', get_stylesheet_directory_uri().'/js/angular-rangeslider-master/angular.rangeSlider.js', array('angular'));
+
+            wp_enqueue_script('app-directives', get_stylesheet_directory_uri().'/app/directives.js', array('angular', 'app-virada'));
+            wp_enqueue_script('app-controllers', get_stylesheet_directory_uri().'/app/controllers.js', array('angular', 'app-services', 'app-virada'));
+        }
+
 	}
 
+
+    wp_enqueue_script('moment', get_stylesheet_directory_uri().'/js/moment.min.js');
+    wp_enqueue_script('moment-lang-pt-br', get_stylesheet_directory_uri().'/js/moment.lang.pt-br.js', array('moment'));
+    wp_enqueue_script('countdown', get_stylesheet_directory_uri().'/js/countdown.min.js');
+    wp_enqueue_script('moment-countdown', get_stylesheet_directory_uri().'/js/moment-countdown.min.js', array('moment', 'countdown'));
+    wp_enqueue_script('jquery-knob', get_stylesheet_directory_uri().'/js/jquery.knob.js', array('jquery'));
+
+    wp_enqueue_script('fastclick', get_stylesheet_directory_uri().'/js/fastclick.js');
+
+    wp_enqueue_script('rrssb', get_stylesheet_directory_uri().'/js/rrssb.js');
+
+
+    // wp_enqueue_script('iscroll', get_stylesheet_directory_uri().'/js/scrollmagic/_mobile/iscroll.js');
 }
 
 // CUSTOM MENU

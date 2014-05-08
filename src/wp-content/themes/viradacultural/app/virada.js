@@ -31,28 +31,6 @@ var getMapUrl = function (spaceEntity){
 
 var app = angular.module('virada', ['google-maps','ui-rangeSlider']);
 
-(function getThemeDir(){
-    var scripts = document.getElementsByTagName('script');
-    if(scripts.length === 0) return;
-
-    var index = scripts.length - 1;
-    var viradajs = scripts[index];
-
-    if(viradajs) {
-        var themeDir = viradajs.src.replace(/app\/virada\.js$/, '');
-        app.constant('THEME_DIR', themeDir);
-    }
-})();
-
-app.directive('onLastRepeat', function() {
-    return function(scope, element, attrs) {
-        if (scope.$last) setTimeout(function(){
-            scope.$emit('onRepeatLast', element, attrs);
-        }, 1);
-    };
-});
-
-
 app.controller('main', function($scope, $rootScope, $window, $sce){
     $scope.conf = GlobalConfiguration;
     $scope.current_share_url = document.URL;
@@ -208,6 +186,8 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     $rootScope.filterNearMe = {showMarker:false, coords : {}};
     $scope.nearMe = function(){
 
+        $scope.filters.spaces = true;
+            
         var getFilterRadius = function (distance){
             if(distance < 500) return 300; else
             if(distance < 1000) return 500; else
@@ -233,9 +213,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
             var saoPauloCenter = new google.maps.LatLng(-23.5466623,-46.643183);
             var distanceFromSaoPauloCenter = google.maps.geometry.spherical.computeDistanceBetween(saoPauloCenter,position);
-            console.log('DISTANCIA DO CENTRO DE SAO PAULO: '+distanceFromSaoPauloCenter);
             var filterRadius = getFilterRadius(distanceFromSaoPauloCenter);
-            console.log('RAIO CONSIDERADO: '+filterRadius);
 
             $scope.spaces.forEach(function(s){
                 var spacePosition = new google.maps.LatLng(s.location.latitude, s.location.longitude);
