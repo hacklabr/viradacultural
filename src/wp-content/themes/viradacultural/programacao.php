@@ -209,7 +209,7 @@
 </script>
 
 <script type="text/html" id="template-space-list">
-    <div id="programacao-list" class="panel panel-default">
+    <div class="grouped-by-space panel panel-default">
         <div class="hl-ref"></div>
         <div class="panel-heading clearfix">
             <h4 class="alignleft panel-title">
@@ -247,7 +247,7 @@
                 </h1>
             </div>
         </a>
-        <a class="icon favorite favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
+        <a class="icon favorite favorite-wait favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
     </article>
 </script>
 
@@ -268,9 +268,9 @@
         </h1>
         <div class="event-space">
             <span class="icon icon_pin"></span>
-            <a href="#">Nome do Espaço</a>
+            <a href="<%=spaceUrl%>"><%=spaceName%></a>
         </div>
-        <a class="icon favorite favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
+        <a class="icon favorite favorite-wait favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
     </article>
 </script>
 <script>

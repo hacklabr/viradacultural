@@ -524,6 +524,15 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
                 }
             });
 
+            events.forEach(function(event){
+                var space = $scope.spacesById[event.spaceId];
+                if(!space) return;
+                event.spaceName = space.name;
+                event.spaceUrl = spaceUrl(space.id);
+                if(spaces.indexOf(space) < 0)
+                    spaces.push(space);
+            });
+
             $scope.searchResultEventsByTime = events;
 
             $scope.searchResultEventsByName = events.slice().sort(function(a,b){
@@ -533,12 +542,6 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
                     return -1;
                 else
                     return 0;
-            });
-
-            events.forEach(function(event){
-                var space = $scope.spacesById[event.spaceId];
-                if(space && spaces.indexOf(space) < 0)
-                    spaces.push(space);
             });
 
             $scope.spaces.forEach(function(s){
@@ -733,6 +736,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
                     for (var i = 0; i < data.events.length; i++) {
                         if(e.id == data.events[i]) {
                             $scope.userEvents.push(e);
+                            e.url = eventUrl(e.id);
                             break;
                         }
                     }

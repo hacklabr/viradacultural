@@ -475,7 +475,7 @@ body {
             color: @rosa;
             &:hover {
                 color: @roxo;
-            }            
+            }
         }
         .arrow_carrot-left_alt {
             left: 0;
@@ -506,7 +506,7 @@ body {
             left: 0;
             bottom: 0;
             text-align: center;
-            padding: 6px;          
+            padding: 6px;
             h1 {
                 font-size: 16px;
                 line-height: 24px;
@@ -980,6 +980,9 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
             }
         }
     }
+    .favorite.favorite-wait {
+        display:none;
+    }
     .favorite {
         position: absolute;
         z-index: 100;
@@ -1009,7 +1012,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
         .event-content {
             bottom: 0;
             height: 100%;
-            padding: 15px 36px;            
+            padding: 15px 36px;
             &:before {
                 content: '';
                 display: inline-block;
@@ -1024,7 +1027,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     }
     &:hover {
         .event-content {
-            background-color: @roxo; 
+            background-color: @roxo;
         }
         &.evento-24h {
             a {
@@ -1067,7 +1070,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     }
     h1 {
         float: left;
-        width: 85%;
+        width: 60%;
         padding-left: 15px;
         padding-right: 15px;
         border-left: 1px solid @gray-light;
@@ -1078,7 +1081,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
         }
     }
     .event-space {
-        display: none;
+        display: block;
         float: left;
         width: 20%;
         padding-left: 15px;
@@ -1098,18 +1101,18 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
         text-align: center;
         color: @amarelo;
     }
-    &.not-by-space {
-        h1 {
-            width: 60%;
-        }
-        .event-space {
-            display: block;
-        }
-    }
     &:hover {
         background: #fff;
     }
 
+}
+.grouped-by-space {
+    h1 {
+        width: 85%;
+    }
+    .event-space {
+        display: none;
+    }
 }
 .space-single {
     .timeline {

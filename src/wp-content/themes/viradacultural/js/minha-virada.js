@@ -116,7 +116,7 @@ minhaVirada = {
 
     atualizaEstrelas: function() {
         if(minhaVirada.initialized) {
-            jQuery('.favorite').show();
+            jQuery('.favorite').removeClass('favorite-wait');
         }
 
         if (!minhaVirada.connected)
