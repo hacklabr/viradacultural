@@ -240,14 +240,14 @@
         </span>
 
         <img src="<%=defaultImageThumb%>"/>
-
-        <div class="event-content clearfix">
-
-            <h1>
-                <a href="<%=url%>"><%=name%></a>
-            </h1>
-            <a class="icon favorite favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
-        </div>
+        <a href="<%=url%>">
+            <div class="event-content clearfix">
+                <h1>
+                    <%=name%>
+                </h1>
+            </div>
+        </a>
+        <a class="icon favorite favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
     </article>
 </script>
 

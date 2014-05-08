@@ -18,10 +18,12 @@
                         <div class="timeline-time" ng-if="event.duration !== '24h00'">{{event.startsAt}}</div>
                         <article class="event clearfix event-grid" ng-class="{'no-thumb' : !event.defaultImageThumb, 'evento-24h': event.duration === '24h00'}">
                             <img ng-src="{{event.defaultImageThumb}}"/>
-                            <div class="event-content clearfix">
-                                <h1><a href="{{event.url}}">{{event.name}}</a></h1>
-                                <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
-                            </div>
+                            <a href="{{event.url}}">
+                                <div class="event-content clearfix">
+                                    <h1>{{event.name}}</h1>
+                                </div>
+                            </a>
+                            <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
                         </article>
                     </div>
                 </div>
