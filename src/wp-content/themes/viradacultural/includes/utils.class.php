@@ -83,6 +83,13 @@ class utils {
         else
             return null;
     }
+    
+    static function htmlentities($text){
+        if((PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION >= 4) || PHP_MAJOR_VERSION > 5)
+            return htmlentities ($text);
+        else
+            return htmlentities (utf8_decode ($text));
+    }
 
 }
 
