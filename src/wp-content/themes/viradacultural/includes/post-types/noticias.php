@@ -139,7 +139,7 @@ class Noticias {
             return $wp_query;
         
         if (is_front_page()) 
-            $wp_query->query_vars['post_type'] = array('post', 'noticias');
+            $wp_query->query_vars['post_type'] = array('post', 'noticias', 'imprensa');
         
      
     }

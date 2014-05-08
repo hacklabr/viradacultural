@@ -41,25 +41,71 @@ function remove_admin_bar(){
 }
 add_filter( 'show_admin_bar' , 'remove_admin_bar');
 
+function virada_get_facebook_app_id() {
+    return $_SERVER['SERVER_NAME'] =='localhost' ? '1470242596543011' : '1460336737533597';
+}
 
 // JS
 add_action('wp_print_scripts', 'viradacultural_addJS');
 function viradacultural_addJS() {
     if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' );
+    global $wp_query;
+    
     wp_enqueue_script('jquery');
     wp_enqueue_script('bootstrap', get_stylesheet_directory_uri().'/js/bootstrap.min.js', 'jquery');
-
+    
+    $facebookAppId = virada_get_facebook_app_id();
+    
     wp_localize_script('jquery', 'GlobalConfiguration', array(
-        'baseURL' => get_bloginfo("url"),
-        'templateURL' => get_bloginfo("template_url"),
-        'pdfURL' => get_theme_option('pdf-programacao'),
-        'ajaxurl' => admin_url('admin-ajax.php'),
+        'baseURL' =>        get_bloginfo("url"),
+        'templateURL' =>    get_bloginfo("template_url"),
+        'pdfURL' =>         get_theme_option('pdf-programacao'),
+        'ajaxurl' =>        admin_url('admin-ajax.php'),
+        'facebookAppId' =>  $facebookAppId
     ));
 
-    if(get_query_var('virada_tpl')) {
-		wp_enqueue_script('minha-virada', get_stylesheet_directory_uri().'/js/minha-virada.js', 'jquery');
+
+    wp_enqueue_script('viradacultural', get_stylesheet_directory_uri().'/js/viradacultural.js', array('jquery'));
+
+
+    if(@$wp_query->query['pagename'] === '10-anos'){
+        wp_enqueue_script('jquery.animascroll', get_stylesheet_directory_uri().'/js/jquery.animascroll.js', array('jquery'));
+
+    }else if($tpl = get_query_var('virada_tpl')) {
+        
+        wp_enqueue_script('google-maps', '//maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry');
+        wp_enqueue_script('angular', get_stylesheet_directory_uri().'/js/angular.min.js');
+        wp_enqueue_script('underscore', get_stylesheet_directory_uri().'/js/underscore-min.js');
+        wp_enqueue_script('angular-google-maps', get_stylesheet_directory_uri().'/js/angular-google-maps.js', array('google-maps', 'underscore', 'angular'));
+
+		wp_enqueue_script('minha-virada', get_stylesheet_directory_uri().'/js/minha-virada.js', array('jquery', 'angular'));
+
+        wp_enqueue_script('app-virada', get_stylesheet_directory_uri().'/app/virada.js', array('moment', 'angular', 'angular-rangeslider', 'minha-virada'));
+
+        wp_enqueue_script('app-services', get_stylesheet_directory_uri().'/app/services.js', array('angular', 'app-virada'));
+        
+        wp_enqueue_script('resig', get_stylesheet_directory_uri().'/js/resig.js');
+        wp_enqueue_script('angular-rangeslider', get_stylesheet_directory_uri().'/js/angular-rangeslider-master/angular.rangeSlider.js', array('angular'));
+
+        wp_enqueue_script('app-directives', get_stylesheet_directory_uri().'/app/directives.js', array('angular', 'app-virada'));
+        wp_enqueue_script('app-controllers', get_stylesheet_directory_uri().'/app/controllers.js', array('angular', 'app-services', 'app-virada'));
+    
+
 	}
 
+
+    wp_enqueue_script('moment', get_stylesheet_directory_uri().'/js/moment.min.js');
+    wp_enqueue_script('moment-lang-pt-br', get_stylesheet_directory_uri().'/js/moment.lang.pt-br.js', array('moment'));
+    wp_enqueue_script('countdown', get_stylesheet_directory_uri().'/js/countdown.min.js');
+    wp_enqueue_script('moment-countdown', get_stylesheet_directory_uri().'/js/moment-countdown.min.js', array('moment', 'countdown'));
+    wp_enqueue_script('jquery-knob', get_stylesheet_directory_uri().'/js/jquery.knob.js', array('jquery'));
+
+    wp_enqueue_script('fastclick', get_stylesheet_directory_uri().'/js/fastclick.js');
+
+    wp_enqueue_script('rrssb', get_stylesheet_directory_uri().'/js/rrssb.js');
+
+
+    // wp_enqueue_script('iscroll', get_stylesheet_directory_uri().'/js/scrollmagic/_mobile/iscroll.js');
 }
 
 // CUSTOM MENU
@@ -240,3 +286,113 @@ function mostrar_programacao() {
     return get_theme_option('programacao_published');
     
 }
+
+function the_share_url() {
+
+    if (get_query_var('virada_tpl')) {
+        echo '{{current_share_url}}';
+    } elseif (is_singular()) {
+        the_permalink();
+    } else {
+        echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    }
+
+}
+
+
+
+
+add_action('wp_head', 'virada_meta_tags');
+function virada_meta_tags() {
+
+    global $post, $wp;
+
+    $obj = get_queried_object();
+    
+    $name = array();
+    $property = array(
+        'og:type' => 'article',
+        'og:url' => home_url( $wp->request ),
+        'og:locale' => 'pt_BR'
+    );
+
+    // Não executa htmlentities nestes campos
+    $no_entities = array( 'og:image', 'og:url' );
+
+    // keywords news_keywords
+    /*
+    $name['keywords'] = get_option( 'seo_keywords' );
+    if ( is_single() ) {
+        if ( $ts = get_the_tags() ) {
+            foreach( $ts as $t ) $tags[] = $t->name;
+            $name['keywords'] = implode( $tags );
+        }
+        if ( $t = get_post_meta( $post->ID, 'gnews_tags', true ) )
+            $name['news_keywords'] = $t;
+    } elseif ( is_category() || is_tax( 'agenda' ) ) {
+        if ( $t = get_option( 'cl_seo_keywords_' . $obj->term_id . '_' . $site_code ) )
+            $name['keywords'] = $t;
+    }
+    */
+    
+    // description og:description
+    
+    $name['description'] = $property['og:description'] = get_bloginfo('description');
+
+    if ( is_singular() && $e = get_the_excerpt() ) {
+        $property['og:description'] = $property['og:description'] = $e;
+    } elseif ( isset($obj->description) && !empty( $obj->description ) ) {
+        $property['og:description'] = $property['og:description'] = $obj->description;
+    } elseif ( get_query_var('virada_tpl') == 'minha-virada' )
+        $property['og:description'] = 'Minha seleção pessoal da programação da Virada!';
+
+    // og:site_name
+    $property['og:site_name'] = get_bloginfo('name');
+
+    // og:title
+
+    if ( is_singular() )
+        $property['og:title'] = esc_html($post->post_title);
+    elseif ( is_category() || is_tax( 'agenda' ) )
+        $property['og:title'] = $obj->name;
+    elseif ( get_query_var('virada_tpl') == 'minha-virada' )
+        $property['og:title'] = 'Minha Virada';
+    else
+        $property['og:title'] = get_bloginfo('name');
+
+    // og:image
+    
+    if ( is_singular() && has_post_thumbnail( $post->ID ) ) {
+        $image = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'full' );
+        if ( !empty( $image[0] ) )
+            $property['og:image'] = $image[0];
+        else
+            $property['og:image'] = get_stylesheet_directory_uri() . '/img/logo.png';
+    } else {
+        $property['og:image'] = get_stylesheet_directory_uri() . '/img/logo.png';
+    }
+
+    // comentários do Facebook
+    
+    
+        $property = $property + array(
+            'fb:app_id' => virada_get_facebook_app_id(),
+            'fb:admins' => 'leogermani'
+        );
+    
+    foreach( $name as $n => $c ) {
+        if ( !in_array( $n, $no_entities ) )
+            $c = utils::htmlentities( $c );
+        echo sprintf( "<meta name=\"{$n}\" content=\"%s\" />\n", $c );
+    }
+
+    foreach( $property as $p => $c ) {
+        if ( !in_array( $p, $no_entities ) )
+            $c = utils::htmlentities( $c );
+        echo sprintf( "<meta property=\"{$p}\" content=\"%s\" />\n", $c );
+    }
+
+}
+
+
+

@@ -3,8 +3,16 @@
     var app = angular.module('virada');
     var conf = GlobalConfiguration;
 
-    app.controller('SpacesFilter',[ '$scope', '$rootScope', 'THEME_DIR',
-        function SpacesFilterCtrl($scope, $rootScope, THEME_DIR) {
+    app.controller('SpacesFilter',[ '$scope', '$rootScope', '$timeout',
+        function SpacesFilterCtrl($scope, $rootScope, $timeout) {
+            $scope.spaces = [];
+            $scope.plottingMap = true;
+
+            $scope.$on('onRepeatLast', function(scope, element, attrs){
+                $scope.plottingMap = false;
+                $scope.redrawMap();
+            });
+          
             $scope.map = {
                 center: {
                     latitude: -23.524001004591987,
@@ -16,12 +24,12 @@
 
             $scope.marker = {
                 icon: {
-                    'default': THEME_DIR + 'img/pin.png',
-                    'selected': THEME_DIR + 'img/pin-selected.png',
-                    'nearMe' :  THEME_DIR + 'img/pin-mim.png'
+                    'default': GlobalConfiguration.templateURL + '/img/pin.png',
+                    'selected': GlobalConfiguration.templateURL + '/img/pin-selected.png',
+                    'nearMe' :  GlobalConfiguration.templateURL + '/img/pin-mim.png'
                 },
                 options: {
-                    'shadow': THEME_DIR + 'img/pin-shadow.png'
+                    'shadow': GlobalConfiguration.templateURL + '/img/pin-shadow.png'
                 }
             };
 
@@ -45,6 +53,9 @@
             $scope.redrawMap = function(){
                 var gmap = $scope.map.control.getGMap();
                 google.maps.event.trigger(gmap, 'resize');
+                
+                if($scope.spaces && $scope.spaces.length > 0) return;
+                $scope.spaces = $scope.$parent.spaces;
             };
 
             $scope.showSpaceInfo = function(space) {

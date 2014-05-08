@@ -7,14 +7,19 @@ if(!defined('API_URL')) define('API_URL', "http://mapasculturais.hacklab.com.br/
 
 if(!defined('PROJECT_ID')) define('PROJECT_ID', 4);
 
-if(!defined('AGENT_ID')) define('AGENT_ID', 428);
+if(!defined('AGENT_IDS')) define('AGENT_IDS', '432,433,434');
 
 if(!defined('REPLACE_IMAGES_URL_FROM')) define('REPLACE_IMAGES_URL_FROM', 'http://mapasculturais.hacklab.com.br//files/');
 
 if(!defined('REPLACE_IMAGES_URL_TO')) define('REPLACE_IMAGES_URL_TO', 'http://viradacultural.prefeitura.sp.gov.br/imagens/');
 
+$agent_in = array();
+foreach(explode(',', AGENT_IDS) as $id)
+    $agent_in[] = "@Agent:{$id}";
 
-$get_spaces_url = API_URL . "space/find?@select=id,name,shortDescription,endereco,location&@files=(avatar.viradaSmall,avatar.viradaBig):url&@order=name&owner=EQ(@Agent:" . AGENT_ID .")";
+$agent_in = implode(',', $agent_in);
+
+$get_spaces_url = API_URL . "space/find?@select=id,name,shortDescription,endereco,location&@files=(avatar.viradaSmall,avatar.viradaBig):url&@order=name&owner=IN($agent_in)";
 $get_events_url = API_URL . "event/find?@select=id,name,shortDescription,description,classificacaoEtaria,terms,traducaoLibras,descricaoSonora&@files=(avatar.viradaSmall,avatar.viradaBig):url&project=EQ(@Project:" . PROJECT_ID . ")";
 
 echo "\nbaixando eventos $get_events_url\n\n";

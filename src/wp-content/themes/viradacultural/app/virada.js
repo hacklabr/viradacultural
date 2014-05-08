@@ -31,30 +31,9 @@ var getMapUrl = function (spaceEntity){
 
 var app = angular.module('virada', ['google-maps','ui-rangeSlider', 'angulartics', 'angulartics.google.analytics']);
 
-(function getThemeDir(){
-    var scripts = document.getElementsByTagName('script');
-    if(scripts.length === 0) return;
-
-    var index = scripts.length - 1;
-    var viradajs = scripts[index];
-
-    if(viradajs) {
-        var themeDir = viradajs.src.replace(/app\/virada\.js$/, '');
-        app.constant('THEME_DIR', themeDir);
-    }
-})();
-
-app.directive('onLastRepeat', function() {
-    return function(scope, element, attrs) {
-        if (scope.$last) setTimeout(function(){
-            scope.$emit('onRepeatLast', element, attrs);
-        }, 1);
-    };
-});
-
-
 app.controller('main', function($scope, $rootScope, $window, $sce){
     $scope.conf = GlobalConfiguration;
+    $scope.current_share_url = document.URL;
 
     $scope.getTrustedURI = function (URI){
         return $sce.trustAsResourceUrl(URI);
@@ -79,9 +58,14 @@ app.controller('main', function($scope, $rootScope, $window, $sce){
         return result.map(function(e){return parseInt(e.id)})
     };
 
+    $rootScope.$on('minhavirada_hashchanged', function(ev, newurl) {
+        $scope.current_share_url = newurl;
+
+    });
+
     window.fbAsyncInit = function() {
         FB.init({
-        appId      : '1460336737533597',
+        appId      : GlobalConfiguration.facebookAppId,
         status     : false,
         xfbml      : true
         });
@@ -190,6 +174,8 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
     $scope.conf = GlobalConfiguration;
 
+    $scope.isMobile = hl.isMobile();
+
     $scope.events = null;
     $scope.spaces = null;
     $scope.spacesByName = null;
@@ -201,6 +187,8 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
     $rootScope.filterNearMe = {showMarker:false, coords : {}};
     $scope.nearMe = function(){
+
+        $scope.filters.spaces = true;
 
         var getFilterRadius = function (distance){
             if(distance < 500) return 300; else
@@ -227,9 +215,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
             var saoPauloCenter = new google.maps.LatLng(-23.5466623,-46.643183);
             var distanceFromSaoPauloCenter = google.maps.geometry.spherical.computeDistanceBetween(saoPauloCenter,position);
-            console.log('DISTANCIA DO CENTRO DE SAO PAULO: '+distanceFromSaoPauloCenter);
             var filterRadius = getFilterRadius(distanceFromSaoPauloCenter);
-            console.log('RAIO CONSIDERADO: '+filterRadius);
 
             $scope.spaces.forEach(function(s){
                 var spacePosition = new google.maps.LatLng(s.location.latitude, s.location.longitude);
@@ -526,6 +512,15 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
                 }
             });
 
+            events.forEach(function(event){
+                var space = $scope.spacesById[event.spaceId];
+                if(!space) return;
+                event.spaceName = space.name;
+                event.spaceUrl = spaceUrl(space.id);
+                if(spaces.indexOf(space) < 0)
+                    spaces.push(space);
+            });
+
             $scope.searchResultEventsByTime = events;
 
             $scope.searchResultEventsByName = events.slice().sort(function(a,b){
@@ -535,12 +530,6 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
                     return -1;
                 else
                     return 0;
-            });
-
-            events.forEach(function(event){
-                var space = $scope.spacesById[event.spaceId];
-                if(space && spaces.indexOf(space) < 0)
-                    spaces.push(space);
             });
 
             $scope.spaces.forEach(function(s){
@@ -688,7 +677,10 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
         $scope.$apply();
 
         $scope.loadUserData(uid);
+        var curUlr = document.URL;
         $location.hash(uid);
+        $scope.$emit('minhavirada_hashchanged', curUlr + '##' + $location.$$hash);
+
 
 
     });
@@ -710,7 +702,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
     $scope.populateUserInfo = function(data) {
 
 
-        if ( typeof(data.user_picture) != 'undefined' ) {
+        if ( typeof(data.picture) != 'undefined' ) {
 
             $scope.user_picture = "background-image: url(" + data.picture + ");";
             $scope.user_name = data.name;
@@ -727,6 +719,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
                     for (var i = 0; i < data.events.length; i++) {
                         if(e.id == data.events[i]) {
                             $scope.userEvents.push(e);
+                            e.url = eventUrl(e.id);
                             break;
                         }
                     }

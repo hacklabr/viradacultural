@@ -56,7 +56,7 @@ function virada_get_social_feeds() {
 	$response =  $twitter->setGetfield($getfield)
 								  ->buildOauth($url, $requestMethod)
 								  ->performRequest();
-	//var_dump($response); die;
+	//error_log('RESPONSE TWEITTEWR ________________  '.print_r($response, true), 4);
 	$tweets = json_decode($response);
 
 	function virada_twitterify($ret) {
@@ -91,9 +91,9 @@ function virada_get_social_feeds() {
 	$inst_stream = callInstagram($url);
 	$instagram_fotos = json_decode($inst_stream, true);
 
-    
+
     if (is_array($instagram_fotos) && isset($instagram_fotos['data']) && is_array($instagram_fotos['data']) && sizeof($instagram_fotos['data']) > 0) {
-    
+
         foreach($instagram_fotos['data'] as $item){
             $image_link = $item['images']['standard_resolution']['url'];
             $image_tag = '<img src="'.$image_link.'" />';
@@ -104,7 +104,6 @@ function virada_get_social_feeds() {
             $exists = $db->query( 'SELECT id FROM items WHERE type = "instagram_cpt" AND ref_id = :ref_id', array( 'ref_id' => $item['id'] ) )->fetch();
 
             if ($exists){
-                //error_log('ALREADY EXISTS '.print_r($exists, true), 4);
                 continue;
             }
 
@@ -112,22 +111,24 @@ function virada_get_social_feeds() {
                 'ref_id'            => $item['id'],
                 'type'              => 'instagram_cpt',
                 'content'           => $image_tag,
-                'date'              => date('Y-m-d H:i:s', $item['created_time']),
+                'date'              => date('Y-m-d H:i:s', $item['created_time'] - 60 * 60 * 3),
                 'author_username'   => $item['user']['username'],
                 'author_fullname'   => $item['user']['full_name'],
                 'text'              => isset($item['text']) ? $item['text'] : '',
                 'link'              => $item['link']
             ));
-
         }
     }
-    
+
 	/* Twitter */
 
 	if (is_object($tweets) && isset($tweets->statuses) && is_array($tweets->statuses) && sizeof($tweets->statuses) > 0) {
-    
+
         foreach($tweets->statuses as $tweet) {
 
+        	//error_log('Twitter ________________  '.print_r($tweet, true), 4);
+
+        	//error_log('twitt ' .gmdate('Y-m-d H:i:s', strtotime($tweet->created_at . " -3 hours")) .' '.$tweet->created_at );
             // check if post exists
             //$exists = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(ID) FROM $wpdb->posts WHERE post_type = 'twitter_cpt' AND post_title = %s", $tweet->id));
             $exists = $db->query( 'SELECT id FROM items WHERE type = "twitter_cpt" AND ref_id = :ref_id', array( 'ref_id' => $tweet->id ) )->fetch();
@@ -140,7 +141,7 @@ function virada_get_social_feeds() {
                 'ref_id'            => $tweet->id,
                 'type'              => 'twitter_cpt',
                 'content'           => virada_twitterify($tweet->text),
-                'date'              => gmdate('Y-m-d H:i:s', strtotime($tweet->created_at)),
+                'date'              => gmdate('Y-m-d H:i:s', strtotime($tweet->created_at . " -3 hours")),
                 'author_username'   => $tweet->user->screen_name,
                 'author_fullname'   => $tweet->user->name
             ));

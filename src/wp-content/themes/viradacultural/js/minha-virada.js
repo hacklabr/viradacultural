@@ -51,15 +51,15 @@ minhaVirada = {
         minhaVirada.uid = response.authResponse.userID;
         minhaVirada.accessToken = response.authResponse.accessToken;
 
-        FB.api('/me', {fields: ['name', 'username', 'picture.height(200)']}, function(response) {
+        FB.api('/me', {fields: ['name', 'picture.height(200)']}, function(response) {
             //console.log(response);
-            minhaVirada.userame = response.username;
+            //minhaVirada.userame = response.username;
             minhaVirada.name = response.name;
             minhaVirada.picture = response.picture.data.url;
 
             // Pega dados do usuário
             jQuery.getJSON( GlobalConfiguration.templateURL + '/includes/minha-virada-ajax.php?action=minhavirada_getJSON&uid=' + minhaVirada.uid, function( data ) {
-
+                //console.log(data);
                 minhaVirada.debug = data;
 
                 if (!data.events)
@@ -85,7 +85,7 @@ minhaVirada = {
 
         // Dismiss modal
         jQuery('#modal-favorita-dismiss').click(function() {
-            console.log('dismissed');
+            //console.log('dismissed');
             minhaVirada.modalDismissed = true;
             jQuery('#modal-favorita-evento').modal('hide');
             minhaVirada.save();
@@ -116,12 +116,11 @@ minhaVirada = {
 
     atualizaEstrelas: function() {
         if(minhaVirada.initialized) {
-            jQuery('.favorite').show();
+            jQuery('.favorite').removeClass('favorite-wait');
         }
 
         if (!minhaVirada.connected)
             return;
-
         jQuery('.favorite').removeClass('active');
         for (var i = 0; i < minhaVirada.events.length; i++) {
             jQuery('.favorite-event-'+minhaVirada.events[i]).addClass('active');
