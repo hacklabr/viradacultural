@@ -43,6 +43,8 @@ function minha_virada_page_callback_function() {
     $viradas = $minhasViradas->get_results("SELECT * FROM users");        
     $total = $minhasViradas->get_var("SELECT COUNT(user_id) FROM users");        
     $events = 0;
+    
+    var_dump($db_config);
     ?>
     <div class="wrap span-20">
         <h2>Minhas Viradas</h2>
