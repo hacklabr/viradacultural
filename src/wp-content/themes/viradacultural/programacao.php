@@ -267,6 +267,7 @@
                 <small class="alignright hidden js-edit" data-e="eventos|<%=id%>"></small>
         </h1>
         <div class="event-space">
+            <span class="icon icon_pin"></span>
             <a href="#">Nome do Espaço</a>
         </div>
         <a class="icon favorite favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
