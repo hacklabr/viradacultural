@@ -3,26 +3,14 @@
     var app = angular.module('virada');
     var conf = GlobalConfiguration;
 
-    app.directive('onLastRepeat', function() {
-        return function(scope, element, attrs) {
-            if (scope.$last) setTimeout(function(){
-                scope.$emit('onRepeatLast', element, attrs);
-            }, 1);
-        };
-    })
-
     app.controller('SpacesFilter',[ '$scope', '$rootScope', '$timeout',
         function SpacesFilterCtrl($scope, $rootScope, $timeout) {
             $scope.spaces = [];
             $scope.plottingMap = true;
 
-            $scope.$watch('filters.spaces', function(){
-                if($scope.spaces && $scope.spaces.length > 0) return;
-                $scope.spaces = $scope.$parent.spaces;
-            });
-
             $scope.$on('onRepeatLast', function(scope, element, attrs){
                 $scope.plottingMap = false;
+                $scope.redrawMap();
             });
           
             $scope.map = {
@@ -65,6 +53,9 @@
             $scope.redrawMap = function(){
                 var gmap = $scope.map.control.getGMap();
                 google.maps.event.trigger(gmap, 'resize');
+                
+                if($scope.spaces && $scope.spaces.length > 0) return;
+                $scope.spaces = $scope.$parent.spaces;
             };
 
             $scope.showSpaceInfo = function(space) {

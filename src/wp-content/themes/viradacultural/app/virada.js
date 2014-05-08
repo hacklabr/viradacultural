@@ -174,6 +174,8 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
     $scope.conf = GlobalConfiguration;
 
+    $scope.isMobile = hl.isMobile();
+
     $scope.events = null;
     $scope.spaces = null;
     $scope.spacesByName = null;

@@ -14,9 +14,9 @@
                 <div class="modal-body clearfix">
                     <ul class="nav nav-pills visible-xs">
                         <li class="active"><a href="#modal-list" data-toggle="pill">Lista</a></li>
-                        <li><a href="#modal-map" data-toggle="pill">Mapa</a></li>
+                        <li><a href="#modal-map" data-toggle="pill" ng-click="redrawMap()">Mapa</a></li>
                     </ul>
-                    <div class="tab-content clearfix" style="position:relative">
+                    <div class="tab-content clearfix">
                         <nav id="modal-list" class="modal-nav tab-pane active">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Encontre um local" ng-model="filterSpace">
@@ -30,48 +30,62 @@
                                    ng-click="toggleSelectSpace(space)">{{space.name}}</a>
                             </div>
                         </nav>
-
-                        <div id="modal-map" class="mapa google-map tab-pane"
+                		<div id="modal-map" class="tab-pane" ng-class="{'active': !midgetDevice}" style="position:relative">
+	                        <div class="mapa google-map"
                                 center="map.center"
                                 control="map.control"
                                 zoom="map.zoom"
                                 draggable="true"
                                 refresh="true"
-                                ng-class="{'active': !midgetDevice}"
+                                
                                 >
 
+	                            <marker ng-repeat="space in spaces"
+	                                    coords="space.location"
+	                                    icon="space.selected ? marker.icon.selected : marker.icon.default"
+	                                    options="marker.options"
+	                                    events="marker.events"
+	                                    click="showSpaceInfo(space)"
+	                                    on-last-repeat>
 
-                            <marker ng-repeat="space in spaces"
-                                    coords="space.location"
-                                    icon="space.selected ? marker.icon.selected : marker.icon.default"
-                                    options="marker.options"
-                                    events="marker.events"
-                                    click="showSpaceInfo(space)"
-                                    on-last-repeat>
+	                                <window show="space.showInfo"
+	                                        isIconVisibleOnClick="true"
+	                                        options="infowindow.options"
+	                                        closeClick="hideSpaceInfo(space)">
+	                                    <h5 class="map-space-title">{{space.name}}</h5>
+	                                    <p class="text-center"><a class="btn btn-primary btn-xs" fl-space-id="{{space.id}}">selecionar</a></p>
+	                                </window>
+	                            </marker>
+                        	</div>
 
-                                <window show="space.showInfo"
-                                        isIconVisibleOnClick="true"
-                                        options="infowindow.options"
-                                        closeClick="hideSpaceInfo(space)">
-                                    <h5 class="map-space-title">{{space.name}}</h5>
-                                    <p class="text-center"><a class="btn btn-primary btn-xs" fl-space-id="{{space.id}}">selecionar</a></p>
-                                </window>
-                            </marker>
+	                        <div ng-show="plottingMap && !midgetDevice"
+	                             style="height: 400px;
+	                                    display: table;
+	                                    width: 75%;
+	                                    margin-left:25%;
+	                                    position:absolute;
+	                                    background-color: #893494;">
 
-                        </div>
-                        <div ng-show="plottingMap"
-                             style="height: 400px;
-                                    display: table;
-                                    width: 75%;
-                                    margin-left:25%;
-                                    position:absolute;
-                                    background-color: #893494;">
+	                            <div style="display: table-cell;
+	                                        vertical-align: middle;
+	                                        color: #ffc20e;
+	                                        text-align: center;">Carregando Mapa</div>
+	                        </div>
 
-                            <div style="display: table-cell;
-                                        vertical-align: middle;
-                                        color: #ffc20e;
-                                        text-align: center;">Carregando Mapa</div>
-                        </div>
+	                        <div ng-show="plottingMap && midgetDevice"
+	                             style="height: 300px;
+	                                    display: table;
+	                                    width: 100%;
+	                                    position:absolute;
+	                                    background-color: #893494;">
+
+	                            <div style="display: table-cell;
+	                                        vertical-align: middle;
+	                                        color: #ffc20e;
+	                                        text-align: center;">Carregando Mapa</div>
+	                        </div>	                        
+                		</div>
+
                     </div>
                 </div>
 
@@ -89,7 +103,7 @@
         <!-- .modal-dialog -->
     </div>
     <!-- #map-modal -->
-    <nav id="programacao-navbar" class="collapse navbar-collapse virada-navbar navbar navbar-fixed-top">
+    <nav id="programacao-navbar" class="collapse navbar-collapse virada-navbar navbar" ng-class="{'navbar-fixed-top': !isMobile}">
         <div class="container-fluid container-menu-minified">
             <div class="row">
                 <h1 class="programacao-navbar-item visible-md visible-lg">Programação
