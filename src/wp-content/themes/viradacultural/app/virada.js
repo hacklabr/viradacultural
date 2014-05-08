@@ -526,9 +526,12 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
             events.forEach(function(event){
                 var space = $scope.spacesById[event.spaceId];
+
+                event.spaceName = space ? space.name : '';
+                event.spaceUrl = space ? spaceUrl(space.id) : '';
+
                 if(!space) return;
-                event.spaceName = space.name;
-                event.spaceUrl = spaceUrl(space.id);
+
                 if(spaces.indexOf(space) < 0)
                     spaces.push(space);
             });
