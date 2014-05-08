@@ -93,7 +93,7 @@
         <div class="container-fluid container-menu-minified">
             <div class="row">
                 <h1 class="programacao-navbar-item visible-md visible-lg">Programação
-                <a class="icon icon_download" title="Baixar a programação"></a></h1>
+                <a class="icon icon_download" title="Baixar a programação" href="{{conf.pdfURL}}" ng-if="conf.pdfURL !== ''"></a></h1>
                 <div id="programacao-search" class="programacao-navbar-item" role="search">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Buscar eventos" ng-model='data.searchText'>
