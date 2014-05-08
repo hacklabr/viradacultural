@@ -247,7 +247,7 @@
                 </h1>
             </div>
         </a>
-        <a class="icon favorite favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
+        <a class="icon favorite favorite-wait favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
     </article>
 </script>
 
@@ -270,7 +270,7 @@
             <span class="icon icon_pin"></span>
             <a href="#">Nome do Espaço</a>
         </div>
-        <a class="icon favorite favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
+        <a class="icon favorite favorite-wait favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
     </article>
 </script>
 <script>

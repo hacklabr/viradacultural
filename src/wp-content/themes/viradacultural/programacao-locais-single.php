@@ -23,7 +23,7 @@
                                     <h1>{{event.name}}</h1>
                                 </div>
                             </a>
-                            <a class="icon favorite favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
+                            <a class="icon favorite favorite-wait favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
                         </article>
                     </div>
                 </div>
