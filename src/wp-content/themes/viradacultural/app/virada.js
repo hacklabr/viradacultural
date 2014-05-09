@@ -687,12 +687,14 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
             if ($location.$$hash == uid) {
 
                 $scope.itsme = true;
+                minhaVirada.inMyPage = true;
                 $scope.$apply();
             }
             return;
         }
 
         $scope.itsme = true;
+        minhaVirada.inMyPage = true;
 
         $scope.$apply();
 

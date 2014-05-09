@@ -11,6 +11,7 @@ minhaVirada = {
     modalDismissed: false,
     data: false,
     initialized: false,
+    inMyPage: false,
 
     connect: function(callback) {
         var callback = 'minhaVirada.' + callback + '()';
@@ -158,7 +159,7 @@ minhaVirada = {
                     minhaVirada.events.splice(has_event, 1);
 
                     // Se estiver editando a pagina minha virada, exclui o evento da página
-                    if (jQuery('div.js-page-minha-virada').size() > 0)
+                    if (minhaVirada.inMyPage)
                         jQuery('#event-group-' + minhaVirada.eventId).fadeOut(function() {
                             jQuery(this).remove();
                         });
