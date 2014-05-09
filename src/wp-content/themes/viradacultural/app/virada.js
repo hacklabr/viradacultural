@@ -33,7 +33,7 @@ var app = angular.module('virada', ['google-maps','ui-rangeSlider']);
 
 app.controller('main', function($scope, $rootScope, $window, $sce){
     $scope.conf = GlobalConfiguration;
-    $scope.current_share_url = document.URL;
+    $scope.current_share_url = document.URL.replace('##', '');
 
     $scope.getTrustedURI = function (URI){
         return $sce.trustAsResourceUrl(URI);
@@ -59,7 +59,7 @@ app.controller('main', function($scope, $rootScope, $window, $sce){
     };
 
     $rootScope.$on('minhavirada_hashchanged', function(ev, newurl) {
-        $scope.current_share_url = newurl;
+        $scope.current_share_url = newurl.replace('##', '');
 
     });
 
