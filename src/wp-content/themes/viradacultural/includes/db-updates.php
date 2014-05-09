@@ -14,5 +14,3 @@ if (congelado_db_update('db-update-nas-redes-time')) {
 
 	$db->query( "UPDATE items SET date = SUBTIME(date, '03:00:00')", array());
 }
-
-?>
