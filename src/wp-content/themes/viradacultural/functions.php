@@ -319,9 +319,10 @@ function virada_meta_tags() {
     $obj = get_queried_object();
 
     $name = array();
+
     $property = array(
         'og:type' => 'article',
-        'og:url' => home_url( $wp->request ),
+        'og:url' => trailingslashit(home_url( $wp->request )),
         'og:locale' => 'pt_BR'
     );
 
