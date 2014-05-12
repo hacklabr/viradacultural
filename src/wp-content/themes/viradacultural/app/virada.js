@@ -31,6 +31,11 @@ var getMapUrl = function (spaceEntity){
 
 var app = angular.module('virada', ['google-maps','ui-rangeSlider', 'angulartics', 'angulartics.google.analytics']);
 
+// app.config(function ($analyticsProvider) {
+//     // turn off automatic tracking
+//     $analyticsProvider.virtualPageviews(false);
+// });
+
 app.controller('main', function($scope, $rootScope, $window, $sce, $analytics){
     $scope.conf = GlobalConfiguration;
     $scope.current_share_url = document.URL;
@@ -41,8 +46,8 @@ app.controller('main', function($scope, $rootScope, $window, $sce, $analytics){
     };
 
     $scope.pageTrack = function(virtualPath){
-            $analytics.pageTrack(virtualPath);
-            console.log('PAGE VIEW ' , virtualPath);
+            $analytics.pageTrack(encodeURI(virtualPath));
+            console.log('PAGE VIEW ' , encodeURI(virtualPath));
     };
 
     $scope.getTrustedURI = function (URI){
@@ -129,7 +134,7 @@ app.controller('evento', function($scope, $http, $location, $timeout, DataServic
                         }
                     });
                     jQuery('#programacao-loading').hide();
-                    $scope.pageTrack('/programacao/atracao/##'+eventId);
+                    $scope.pageTrack('/programacao/atracao/##'+eventId+'|'+e.name);
                 });
                 return true;
             }
@@ -165,7 +170,6 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
         c++;
         if(c === 2){
             jQuery('#programacao-loading').hide();
-            $scope.pageTrack('/programacao/local/##'+spaceId);
         }
 
         response.data.some(function(e){
@@ -173,6 +177,7 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
                 e.url = spaceUrl(e.id);
                 $scope.space = e;
                 $scope.mapUrl = getMapUrl(e);
+                $scope.pageTrack('/programacao/local/##'+spaceId+'|'+e.name);
                 return true;
             }
         });
@@ -202,11 +207,25 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     $scope.smallDevice = $window.innerWidth < 992;
     $scope.midgetDevice = $window.innerWidth < 768;
 
+    $scope.clearNearMe = function(){
+        if($rootScope.filterNearMe.marker)
+            $rootScope.filterNearMe.marker.setMap(null);
+        if($rootScope.filterNearMe.circle)
+            $rootScope.filterNearMe.circle.setMap(null);
+    };
+    $scope.filterSpaces = function(){
+        $scope.filters.spaces=true;
+        $scope.pageTrack('/programacao/filter-spaces');
+        $scope.clearNearMe();
+        //$rootScope.filterNearMe.showMarker
+    };
+
     $rootScope.filterNearMe = {showMarker:false, coords : {}};
     $scope.nearMe = function(){
 
         $scope.filters.spaces = true;
         $scope.pageTrack('/programacao/filter-near');
+        $scope.clearNearMe();
 
         var getFilterRadius = function (distance){
             if(distance < 500) return 300; else
@@ -265,6 +284,10 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             });
             nearMeCircle.bindTo('center', nearMeMarker, 'position');
 
+            $rootScope.filterNearMe.marker = nearMeMarker;
+            $rootScope.filterNearMe.circle = nearMeCircle;
+            $rootScope.filterNearMe.infoWindow = nearMeInfoWindow;
+
             setTimeout( function () {
                 gmap.setCenter(position);
                 nearMeInfoWindow.open(gmap,nearMeMarker);
@@ -272,6 +295,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             },500);
 
         };
+
 
         var onError = function (error) {
             //CATCH ERRORS
@@ -676,13 +700,13 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             counters.renderList++;
 
 
-            var virtualPath = '/programacao/'+$scope.data.viewMode+'/by-'+$scope.data.viewBy;
+            var virtualPath = '/programacao/'+$scope.data.viewMode+'-mode/by-'+$scope.data.viewBy;
 
             virtualPath += '/page-'+page;
 
-            if($scope.data.searchText) virtualPath += '/q-'+$scope.data.searchText;
-            if($scope.startsAt != '18:00') virtualPath += '/starts-'+$scope.startsAt;
-            if($scope.endsAt != '18:00') virtualPath += '/ends-'+$scope.endsAt;
+            if($scope.data.searchText) virtualPath += '/text|'+$scope.data.searchText;
+            if($scope.startsAt != '18:00') virtualPath += '/starts|'+$scope.startsAt;
+            if($scope.endsAt != '18:00') virtualPath += '/ends|'+$scope.endsAt;
 
             $scope.pageTrack(virtualPath);
 
@@ -736,6 +760,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
         $location.hash(uid);
         $scope.$emit('minhavirada_hashchanged', curUlr + '##' + $location.$$hash);
 
+        $scope.pageTrack('/minha-virada/');
 
 
     });

@@ -134,7 +134,7 @@
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" analytics-on="click" analytics-event="Filtrar Locais clicado" analytics-category="Commands"><span class="icon icon_pin"></span> <span class="hidden-md">Filtrar locais </span></button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#" data-toggle="modal" data-target="#map-modal" ng-click="nearMe()" analytics-on="click" analytics-event="Próximo a Mim clicado" analytics-category="Commands">Próximo a mim</a></li>
-                            <li><a href="#" data-toggle="modal" data-target="#map-modal" ng-click="filters.spaces=true" analytics-on="click" analytics-event="Selecionar Locais clicado" analytics-category="Commands">Selecionar locais</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#map-modal" ng-click="filterSpaces()" analytics-on="click" analytics-event="Selecionar Locais clicado" analytics-category="Commands">Selecionar locais</a></li>
                         </ul>
                     </div>
                 </div>
