@@ -37,10 +37,7 @@
 
         <link rel="profile" href="http://gmpg.org/xfn/11" />
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-        <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_directory' ); ?>/elegant-font.css" />
-        <!-- Bootstrap -->
-        <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_directory' ) ?>/main.css" />
-        <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_directory' ) ?>/js/angular-rangeslider-master/angular.rangeSlider.css" />
+
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -52,7 +49,7 @@
 
     </head>
     <body <?php body_class(); ?> ng-controller="main">
-        
+
         <?php if(get_query_var('virada_tpl')) MinhaVirada::add_JS(); ?>
         <?php if (is_single()) { ?>
             <div id="fb-root"></div>
