@@ -4,7 +4,9 @@
 						<div class="col-md-4 col-lg-6">
 							<h1>
 							<?php // títulos ?>
-							<?php if ('noticias' == get_post_type() || is_post_type_archive('noticias')) { ?>
+                            <?php if (is_front_page()) { ?>
+                            
+							<?php } else if ('noticias' == get_post_type() || is_post_type_archive('noticias')) { ?>
 								Notícias
 							<?php } else if ('imprensa' == get_post_type() || is_post_type_archive('imprensa')) { ?>
 								Imprensa <a class="btn btn-primary btn-sm" href="<?php bloginfo( 'url' ); ?>/credenciamento">Credenciamento</a>
