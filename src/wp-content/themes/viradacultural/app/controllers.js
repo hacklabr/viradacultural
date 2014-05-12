@@ -12,7 +12,7 @@
                 $scope.plottingMap = false;
                 $scope.redrawMap();
             });
-          
+
             $scope.map = {
                 center: {
                     latitude: -23.524001004591987,
@@ -53,7 +53,7 @@
             $scope.redrawMap = function(){
                 var gmap = $scope.map.control.getGMap();
                 google.maps.event.trigger(gmap, 'resize');
-                
+
                 if($scope.spaces && $scope.spaces.length > 0) return;
                 $scope.spaces = $scope.$parent.spaces;
             };
@@ -61,6 +61,8 @@
             $scope.showSpaceInfo = function(space) {
                 $scope.spaces.forEach(function(s){ s.showInfo = false; });
                 space.showInfo = true;
+                if($rootScope.filterNearMe.infoWindow)
+                    $rootScope.filterNearMe.infoWindow.setMap(null);
             };
 
             $scope.hideSpaceInfo = function(space) {

@@ -50,18 +50,28 @@ add_action('wp_print_scripts', 'viradacultural_addJS');
 function viradacultural_addJS() {
     if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' );
     global $wp_query;
-    
+
+
+    wp_enqueue_style('elegant-font', get_stylesheet_directory_uri().'/elegant-font.css');
+    wp_enqueue_style('virada-main', get_stylesheet_directory_uri().'/main.css', array('elegant-font'));
+    wp_enqueue_style('range-slider', get_stylesheet_directory_uri().'/js/angular-rangeslider-master/angular.rangeSlider.css', array('virada-main'));
+
     wp_enqueue_script('jquery');
     wp_enqueue_script('bootstrap', get_stylesheet_directory_uri().'/js/bootstrap.min.js', 'jquery');
-    
+
     $facebookAppId = virada_get_facebook_app_id();
-    
+
     wp_localize_script('jquery', 'GlobalConfiguration', array(
         'baseURL' =>        get_bloginfo("url"),
         'templateURL' =>    get_bloginfo("template_url"),
         'pdfURL' =>         get_theme_option('pdf-programacao'),
         'ajaxurl' =>        admin_url('admin-ajax.php'),
-        'facebookAppId' =>  $facebookAppId
+        'facebookAppId' =>  $facebookAppId,
+        'md5' => array(
+            'events' => md5_file(realpath(__DIR__.'/app/events.json')),
+            'spaces' => md5_file(realpath(__DIR__.'/app/spaces.json')),
+            'spaces-order' => md5_file(realpath(__DIR__.'/app/spaces-order.json')),
+        )
     ));
 
 
@@ -72,24 +82,27 @@ function viradacultural_addJS() {
         wp_enqueue_script('jquery.animascroll', get_stylesheet_directory_uri().'/js/jquery.animascroll.js', array('jquery'));
 
     }else if($tpl = get_query_var('virada_tpl')) {
-        
+
         wp_enqueue_script('google-maps', '//maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry');
         wp_enqueue_script('angular', get_stylesheet_directory_uri().'/js/angular.min.js');
+
+        wp_enqueue_script('angulartics', get_stylesheet_directory_uri().'/js/angulartics.min.js', array('angular'));
+        wp_enqueue_script('angulartics-ga', get_stylesheet_directory_uri().'/js/angulartics-ga.min.js', array('angulartics'));
+
         wp_enqueue_script('underscore', get_stylesheet_directory_uri().'/js/underscore-min.js');
         wp_enqueue_script('angular-google-maps', get_stylesheet_directory_uri().'/js/angular-google-maps.js', array('google-maps', 'underscore', 'angular'));
 
-		wp_enqueue_script('minha-virada', get_stylesheet_directory_uri().'/js/minha-virada.js', array('jquery', 'angular'));
+        wp_enqueue_script('minha-virada', get_stylesheet_directory_uri().'/js/minha-virada.js', array('jquery', 'angulartics'));
 
         wp_enqueue_script('app-virada', get_stylesheet_directory_uri().'/app/virada.js', array('moment', 'angular', 'angular-rangeslider', 'minha-virada'));
 
         wp_enqueue_script('app-services', get_stylesheet_directory_uri().'/app/services.js', array('angular', 'app-virada'));
-        
+
         wp_enqueue_script('resig', get_stylesheet_directory_uri().'/js/resig.js');
         wp_enqueue_script('angular-rangeslider', get_stylesheet_directory_uri().'/js/angular-rangeslider-master/angular.rangeSlider.js', array('angular'));
 
         wp_enqueue_script('app-directives', get_stylesheet_directory_uri().'/app/directives.js', array('angular', 'app-virada'));
         wp_enqueue_script('app-controllers', get_stylesheet_directory_uri().'/app/controllers.js', array('angular', 'app-services', 'app-virada'));
-    
 
 	}
 
@@ -247,10 +260,10 @@ function virada_template_redirect_intercept() {
     global $wp_query;
 
     if ( $wp_query->get('virada_tpl') ) {
-        
+
         if (!mostrar_programacao())
             die('Página não encontrada');
-        
+
         if (file_exists( TEMPLATEPATH . '/' . $wp_query->get('virada_tpl') . '.php' )) {
             define('VIRADA_TEMPLATE', true);
             include( TEMPLATEPATH . '/' . $wp_query->get('virada_tpl') . '.php' );
@@ -279,12 +292,12 @@ add_filter('body_class', function($classes) {
 });
 
 function mostrar_programacao() {
-    
+
     if (is_user_logged_in())
         return true;
-    
+
     return get_theme_option('programacao_published');
-    
+
 }
 
 function the_share_url() {
@@ -308,11 +321,12 @@ function virada_meta_tags() {
     global $post, $wp;
 
     $obj = get_queried_object();
-    
+
     $name = array();
+
     $property = array(
         'og:type' => 'article',
-        'og:url' => home_url( $wp->request ),
+        'og:url' => trailingslashit(home_url( $wp->request )),
         'og:locale' => 'pt_BR'
     );
 
@@ -334,9 +348,9 @@ function virada_meta_tags() {
             $name['keywords'] = $t;
     }
     */
-    
+
     // description og:description
-    
+
     $name['description'] = $property['og:description'] = get_bloginfo('description');
 
     if ( is_singular() && $e = get_the_excerpt() ) {
@@ -361,7 +375,7 @@ function virada_meta_tags() {
         $property['og:title'] = get_bloginfo('name');
 
     // og:image
-    
+
     if ( is_singular() && has_post_thumbnail( $post->ID ) ) {
         $image = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'full' );
         if ( !empty( $image[0] ) )
@@ -373,13 +387,13 @@ function virada_meta_tags() {
     }
 
     // comentários do Facebook
-    
-    
+
+
         $property = $property + array(
             'fb:app_id' => virada_get_facebook_app_id(),
             'fb:admins' => 'leogermani'
         );
-    
+
     foreach( $name as $n => $c ) {
         if ( !in_array( $n, $no_entities ) )
             $c = utils::htmlentities( $c );

@@ -29,11 +29,26 @@ var getMapUrl = function (spaceEntity){
     return "https://maps.google.com/maps?hl=pt-BR&geocode=&daddr=" + e.location.latitude + "," + e.location.longitude +"&sll=" + e.location.latitude + "," + e.location.longitude + "&ie=UTF8&hq=" + e.endereco + ",+São+Paulo,+SP,+Brasil&hnear=" + e.endereco + ",+São+Paulo,+SP,+Brasil&radius=15000&t=m&ll=" + e.location.latitude + "," + e.location.longitude + "&z=17&output=embed&iwloc=near&language=pt-BR&region=br";
 };
 
-var app = angular.module('virada', ['google-maps','ui-rangeSlider']);
+var app = angular.module('virada', ['google-maps','ui-rangeSlider', 'angulartics', 'angulartics.google.analytics']);
 
-app.controller('main', function($scope, $rootScope, $window, $sce){
+// app.config(function ($analyticsProvider) {
+//     // turn off automatic tracking
+//     $analyticsProvider.virtualPageviews(false);
+// });
+
+app.controller('main', function($scope, $rootScope, $window, $sce, $analytics){
     $scope.conf = GlobalConfiguration;
     $scope.current_share_url = document.URL.replace('##', '');
+
+    $scope.eventTrack = function(label, options){
+            $analytics.eventTrack(label, options);
+            //console.log('EVENT TRACK ' , label, options);
+    };
+
+    $scope.pageTrack = function(virtualPath){
+            $analytics.pageTrack(encodeURI(virtualPath));
+            //console.log('PAGE VIEW ' , encodeURI(virtualPath));
+    };
 
     $scope.getTrustedURI = function (URI){
         return $sce.trustAsResourceUrl(URI);
@@ -103,7 +118,7 @@ app.controller('evento', function($scope, $http, $location, $timeout, DataServic
     $scope.mapUrl = null
     var eventId = parseInt($location.$$hash);
 
-    $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
+    $http.get($scope.conf.templateURL+'/app/events.json?v=' + GlobalConfiguration.md5['events']).success(function(data){
         data.some(function(e){
             if(e.id == eventId){
                 $scope.event = e;
@@ -119,6 +134,7 @@ app.controller('evento', function($scope, $http, $location, $timeout, DataServic
                         }
                     });
                     jQuery('#programacao-loading').hide();
+                    $scope.pageTrack('/programacao/atracao/##'+eventId+'|'+e.name);
                 });
                 return true;
             }
@@ -137,7 +153,7 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
 
     var c = 0;
 
-    $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
+    $http.get($scope.conf.templateURL+'/app/events.json?v=' + GlobalConfiguration.md5['events']).success(function(data){
         c++;
         if(c === 2)
             jQuery('#programacao-loading').hide();
@@ -152,14 +168,16 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
 
     DataService.getSpaces().then(function(response){
         c++;
-        if(c === 2)
+        if(c === 2){
             jQuery('#programacao-loading').hide();
+        }
 
         response.data.some(function(e){
             if(e.id == spaceId){
                 e.url = spaceUrl(e.id);
                 $scope.space = e;
                 $scope.mapUrl = getMapUrl(e);
+                $scope.pageTrack('/programacao/local/##'+spaceId+'|'+e.name);
                 return true;
             }
         });
@@ -189,10 +207,25 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     $scope.smallDevice = $window.innerWidth < 992;
     $scope.midgetDevice = $window.innerWidth < 768;
 
+    $scope.clearNearMe = function(){
+        if($rootScope.filterNearMe.marker)
+            $rootScope.filterNearMe.marker.setMap(null);
+        if($rootScope.filterNearMe.circle)
+            $rootScope.filterNearMe.circle.setMap(null);
+    };
+    $scope.filterSpaces = function(){
+        $scope.filters.spaces=true;
+        $scope.pageTrack('/programacao/filter-spaces');
+        $scope.clearNearMe();
+        //$rootScope.filterNearMe.showMarker
+    };
+
     $rootScope.filterNearMe = {showMarker:false, coords : {}};
     $scope.nearMe = function(){
 
         $scope.filters.spaces = true;
+        $scope.pageTrack('/programacao/filter-near');
+        $scope.clearNearMe();
 
         var getFilterRadius = function (distance){
             if(distance < 500) return 300; else
@@ -251,6 +284,10 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             });
             nearMeCircle.bindTo('center', nearMeMarker, 'position');
 
+            $rootScope.filterNearMe.marker = nearMeMarker;
+            $rootScope.filterNearMe.circle = nearMeCircle;
+            $rootScope.filterNearMe.infoWindow = nearMeInfoWindow;
+
             setTimeout( function () {
                 gmap.setCenter(position);
                 nearMeInfoWindow.open(gmap,nearMeMarker);
@@ -258,6 +295,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             },500);
 
         };
+
 
         var onError = function (error) {
             //CATCH ERRORS
@@ -351,10 +389,13 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
         if(timeouts.timeSlider)
             $timeout.cancel(timeouts.timeSlider);
 
+
         if(counters.populateEntities > 0)
             timeouts.timeSlider = $timeout(function(){
                 $scope.populateEntities();
+                $scope.eventTrack('Filtrando slider de horário inicial', {  category: 'Commands' });
             }, TIMEOUT_DALAY);
+
     });
 
     $scope.$watch('timeSlider.model.max', function(){
@@ -367,6 +408,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
 
         timeouts.timeSlider = $timeout(function(){
+            $scope.eventTrack('Filtrando slider de horário final', {  category: 'Commands' });
             $scope.populateEntities();
         }, TIMEOUT_DALAY);
     });
@@ -383,6 +425,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
 
             if(oldValue.searchText !== newValue.searchText){
+                $scope.eventTrack('Filtrando por palavra-chave', {  category: 'Commands' });
                 $scope.populateEntities();
             }else{
                 page = 0;
@@ -415,7 +458,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
 
     DataService.getSpaces().then(function(response){
-        $http.get($scope.conf.templateURL+'/app/spaces-order.json').success(function(order){
+        $http.get($scope.conf.templateURL+'/app/spaces-order.json?v=' + GlobalConfiguration.md5['spaces-order']).success(function(order){
             var data = [];
             order.forEach(function(o){
 
@@ -457,7 +500,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
         });
     });
 
-    $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
+    $http.get($scope.conf.templateURL+'/app/events.json?v=' + GlobalConfiguration.md5['events']).success(function(data){
         $scope.eventsById = {};
 
         $scope.events = data;
@@ -467,7 +510,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             $scope.eventsById[e.id] = e;
 
             return {
-                text: $scope.unaccent(e.name + e.shortDescription),
+                text: $scope.unaccent(e.name + ' ' + e.terms.tag.join(' ') + ' ' + e.terms.linguagem.join(' ') ),
                 startsAt : getTime(e.startsAt),
                 entity: e
             };
@@ -518,7 +561,8 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             var searchResult = [];
 
             $scope.eventIndex.forEach(function(event){
-                if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0) && (event.startsAt <= searchEndsAt  &&  event.startsAt >= searchStartsAt || event.entity.duration === '24h00')){
+                var space = $scope.spacesById[event.entity.spaceId];
+                if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0 || (space && $scope.unaccent(space.name).indexOf(txt) >=0 ) ) && (event.startsAt <= searchEndsAt  &&  event.startsAt >= searchStartsAt || event.entity.duration === '24h00')){
                     if(!$scope.filters.spaces || ($scope.spacesById[event.entity.spaceId] && $scope.spacesById[event.entity.spaceId].selected))
                         events.push(event.entity);
                 }
@@ -594,6 +638,9 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             if(page === 0)
                 $container.html('');
 
+            //$analytics.pageTrack('/programacao/viewMode/'+$scope.data.viewMode);
+            //$analytics.pageTrack('/viewBy/'+$scope.data.viewBy+/'viewMode/'+$scope.data.viewMode);
+
             if($scope.data.viewBy === 'space'){
                 offset = page * spacesPerPage;
                 $scope.searchResult.slice(offset, offset + spacesPerPage).forEach(function(space){
@@ -652,6 +699,19 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             renderingList = false;
 
             counters.renderList++;
+
+
+            var virtualPath = '/programacao/'+$scope.data.viewMode+'-mode/by-'+$scope.data.viewBy;
+
+            virtualPath += '/page-'+page;
+
+            if($scope.data.searchText) virtualPath += '/text|'+$scope.data.searchText;
+            if($scope.startsAt != '18:00') virtualPath += '/starts|'+$scope.startsAt;
+            if($scope.endsAt != '18:00') virtualPath += '/ends|'+$scope.endsAt;
+
+            $scope.pageTrack(virtualPath);
+
+
         });
     };
 
@@ -703,6 +763,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
         $location.hash(uid);
         $scope.$emit('minhavirada_hashchanged', curUlr + '##' + $location.$$hash);
 
+        $scope.pageTrack('/minha-virada/');
 
 
     });
@@ -733,7 +794,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
             jQuery('.user-photo').hide();
         }
 
-        $http.get($scope.conf.templateURL+'/app/events.json').success(function(allEvents){
+        $http.get($scope.conf.templateURL+'/app/events.json?v=' + GlobalConfiguration.md5['events']).success(function(allEvents){
 
             allEvents.forEach(function(e){
                 if (data.events && data.events.length > 0) {
