@@ -762,10 +762,9 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
         var curUlr = document.URL;
         $location.hash(uid);
         $scope.$emit('minhavirada_hashchanged', curUlr + '##' + $location.$$hash);
-
-        $scope.pageTrack('/minha-virada/');
-
-
+        
+        $scope.pageTrack('/minha-virada/' + $location.$$hash);
+        
     });
 
     $rootScope.$on('fb_not_connected', function(ev, uid) {
@@ -773,7 +772,9 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
         jQuery('#programacao-loading').hide();
         if (!$location.$$hash)
             jQuery('.user-photo').hide();
-
+        
+        $scope.pageTrack('/minha-virada/');
+        
     });
 
     $scope.loadUserData = function(uid) {
@@ -819,6 +820,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
 
     if ($location.$$hash) {
         $scope.home = false;
+        $scope.pageTrack('/minha-virada/' + $location.$$hash);
         $scope.loadUserData($location.$$hash);
     }
 
