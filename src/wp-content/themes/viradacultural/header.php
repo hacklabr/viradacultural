@@ -51,18 +51,16 @@
         <?php wp_head(); ?>
 
         <?php
-        if ( function_exists( 'yoast_analytics' ) && get_query_var('virada_tpl') !== 'programacao' ) {
+        if ( function_exists( 'yoast_analytics' ) && !get_query_var('virada_tpl') ) {
           yoast_analytics();
         }else{
             ?>
-            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angulartics.min.js" ></script>
-            <script type="text/javascript" src="<?php bloginfo( 'template_url' ) ?>/app/angulartics-ga.min.js" ></script>
             <script>
                 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
                 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-                ga('create', 'UA-50698028-1', { 'cookieDomain': 'none' });
+                ga('create', 'UA-50858535-1', { 'cookieDomain': 'none' });
             </script>
             <?php
         }
