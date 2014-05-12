@@ -103,7 +103,7 @@ app.controller('evento', function($scope, $http, $location, $timeout, DataServic
     $scope.mapUrl = null
     var eventId = parseInt($location.$$hash);
 
-    $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
+    $http.get($scope.conf.templateURL+'/app/events.json?v=' + GlobalConfiguration.md5['events']).success(function(data){
         data.some(function(e){
             if(e.id == eventId){
                 $scope.event = e;
@@ -137,7 +137,7 @@ app.controller('espaco', function($scope, $rootScope, $http, $location, $timeout
 
     var c = 0;
 
-    $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
+    $http.get($scope.conf.templateURL+'/app/events.json?v=' + GlobalConfiguration.md5['events']).success(function(data){
         c++;
         if(c === 2)
             jQuery('#programacao-loading').hide();
@@ -415,7 +415,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
 
     DataService.getSpaces().then(function(response){
-        $http.get($scope.conf.templateURL+'/app/spaces-order.json').success(function(order){
+        $http.get($scope.conf.templateURL+'/app/spaces-order.json?v=' + GlobalConfiguration.md5['spaces-order']).success(function(order){
             var data = [];
             order.forEach(function(o){
 
@@ -457,7 +457,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
         });
     });
 
-    $http.get($scope.conf.templateURL+'/app/events.json').success(function(data){
+    $http.get($scope.conf.templateURL+'/app/events.json?v=' + GlobalConfiguration.md5['events']).success(function(data){
         $scope.eventsById = {};
 
         $scope.events = data;
@@ -733,7 +733,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
             jQuery('.user-photo').hide();
         }
 
-        $http.get($scope.conf.templateURL+'/app/events.json').success(function(allEvents){
+        $http.get($scope.conf.templateURL+'/app/events.json?v=' + GlobalConfiguration.md5['events']).success(function(allEvents){
 
             allEvents.forEach(function(e){
                 if (data.events && data.events.length > 0) {

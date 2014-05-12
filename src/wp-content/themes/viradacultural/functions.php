@@ -65,7 +65,12 @@ function viradacultural_addJS() {
         'templateURL' =>    get_bloginfo("template_url"),
         'pdfURL' =>         get_theme_option('pdf-programacao'),
         'ajaxurl' =>        admin_url('admin-ajax.php'),
-        'facebookAppId' =>  $facebookAppId
+        'facebookAppId' =>  $facebookAppId,
+        'md5' => array(
+            'events' => md5_file(realpath(__DIR__.'/app/events.json')),
+            'spaces' => md5_file(realpath(__DIR__.'/app/spaces.json')),
+            'spaces-order' => md5_file(realpath(__DIR__.'/app/spaces-order.json')),
+        )
     ));
 
 
@@ -82,7 +87,7 @@ function viradacultural_addJS() {
         wp_enqueue_script('underscore', get_stylesheet_directory_uri().'/js/underscore-min.js');
         wp_enqueue_script('angular-google-maps', get_stylesheet_directory_uri().'/js/angular-google-maps.js', array('google-maps', 'underscore', 'angular'));
 
-		wp_enqueue_script('minha-virada', get_stylesheet_directory_uri().'/js/minha-virada.js', array('jquery', 'angular'));
+	wp_enqueue_script('minha-virada', get_stylesheet_directory_uri().'/js/minha-virada.js', array('jquery', 'angular'));
 
         wp_enqueue_script('app-virada', get_stylesheet_directory_uri().'/app/virada.js', array('moment', 'angular', 'angular-rangeslider', 'minha-virada'));
 
