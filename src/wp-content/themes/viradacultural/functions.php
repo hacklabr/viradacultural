@@ -50,13 +50,7 @@ add_action('wp_print_scripts', 'viradacultural_addJS');
 function viradacultural_addJS() {
     if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' );
     global $wp_query;
-
-    if (!is_admin()) {
-        wp_enqueue_style('elegant-font', get_stylesheet_directory_uri().'/elegant-font.css');
-        wp_enqueue_style('virada-main', get_stylesheet_directory_uri().'/main.css', array('elegant-font'));
-        wp_enqueue_style('range-slider', get_stylesheet_directory_uri().'/js/angular-rangeslider-master/angular.rangeSlider.css', array('virada-main'));
-    }
-    
+  
     wp_enqueue_script('jquery');
     wp_enqueue_script('bootstrap', get_stylesheet_directory_uri().'/js/bootstrap.min.js', 'jquery');
 
@@ -120,6 +114,15 @@ function viradacultural_addJS() {
 
 
     // wp_enqueue_script('iscroll', get_stylesheet_directory_uri().'/js/scrollmagic/_mobile/iscroll.js');
+}
+
+add_action('wp_print_styles', 'viradacultural_addCSS');
+function viradacultural_addCSS() {
+
+        wp_enqueue_style('elegant-font', get_stylesheet_directory_uri().'/elegant-font.css');
+        wp_enqueue_style('virada-main', get_stylesheet_directory_uri().'/main.css', array('elegant-font'));
+        wp_enqueue_style('range-slider', get_stylesheet_directory_uri().'/js/angular-rangeslider-master/angular.rangeSlider.css', array('virada-main'));
+
 }
 
 // CUSTOM MENU
