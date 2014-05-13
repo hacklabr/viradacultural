@@ -42,12 +42,12 @@ app.controller('main', function($scope, $rootScope, $window, $sce, $analytics){
 
     $scope.eventTrack = function(label, options){
             $analytics.eventTrack(label, options);
-            console.log('EVENT TRACK ' , label, options);
+            //console.log('EVENT TRACK ' , label, options);
     };
 
     $scope.pageTrack = function(virtualPath){
             $analytics.pageTrack(encodeURI(virtualPath));
-            console.log('PAGE VIEW ' , encodeURI(virtualPath));
+            //console.log('PAGE VIEW ' , encodeURI(virtualPath));
     };
 
     $scope.getTrustedURI = function (URI){
