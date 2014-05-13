@@ -426,6 +426,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
             if(oldValue.searchText !== newValue.searchText){
                 $scope.eventTrack('Filtrando por palavra-chave: "'+$scope.data.searchText+'"', {  category: 'Commands' });
+                $scope.eventTrack('"'+$scope.data.searchText+'"', {  category: 'Keyword Search' });
                 $scope.populateEntities();
             }else{
                 page = 0;
