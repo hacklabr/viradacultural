@@ -34,7 +34,7 @@ var app = angular.module('virada', ['google-maps','ui-rangeSlider', 'angulartics
 // app.config(function ($analyticsProvider) {
 //     // turn off automatic tracking
 //     $analyticsProvider.virtualPageviews(false);
-// });
+// });  |
 
 app.controller('main', function($scope, $rootScope, $window, $sce, $analytics){
     $scope.conf = GlobalConfiguration;
@@ -42,12 +42,12 @@ app.controller('main', function($scope, $rootScope, $window, $sce, $analytics){
 
     $scope.eventTrack = function(label, options){
             $analytics.eventTrack(label, options);
-            //console.log('EVENT TRACK ' , label, options);
+            console.log('EVENT TRACK ' , label, options);
     };
 
     $scope.pageTrack = function(virtualPath){
             $analytics.pageTrack(encodeURI(virtualPath));
-            //console.log('PAGE VIEW ' , encodeURI(virtualPath));
+            console.log('PAGE VIEW ' , encodeURI(virtualPath));
     };
 
     $scope.getTrustedURI = function (URI){
@@ -425,7 +425,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
 
             if(oldValue.searchText !== newValue.searchText){
-                $scope.eventTrack('Filtrando por palavra-chave', {  category: 'Commands' });
+                $scope.eventTrack('Filtrando por palavra-chave: "'+$scope.data.searchText+'"', {  category: 'Commands' });
                 $scope.populateEntities();
             }else{
                 page = 0;
@@ -762,9 +762,9 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
         var curUlr = document.URL;
         $location.hash(uid);
         $scope.$emit('minhavirada_hashchanged', curUlr + '##' + $location.$$hash);
-        
+
         $scope.pageTrack('/minha-virada/' + $location.$$hash);
-        
+
     });
 
     $rootScope.$on('fb_not_connected', function(ev, uid) {
@@ -772,9 +772,9 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
         jQuery('#programacao-loading').hide();
         if (!$location.$$hash)
             jQuery('.user-photo').hide();
-        
+
         $scope.pageTrack('/minha-virada/');
-        
+
     });
 
     $scope.loadUserData = function(uid) {
