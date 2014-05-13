@@ -315,27 +315,27 @@ body {
 /* =Main footer
 -------------------------------------------------------------- */
 #main-footer {
+    .secondary-font();
     background-color: @gray;
     clear: both;
-    font-size: 12px;
+    font-size: 9px !important;
     min-height: 200px;
     line-height: 2 !important;
     margin-left: -15px;
     margin-right: -15px;
     padding: 24px;
-    .secondary-font();
     img {
       margin: 0 auto;
       &.hacklab {
         display: inline-block;
-        height: 14px;
+        height: 9px;
         margin: -6px 5px 0 5px;
         vertical-align: middle;
         width: auto;
       }
       &.instituto-tim {
         display: inline-block;
-        height: 16px;
+        height: 11px;
         margin: -3px 5px 0 5px;
         vertical-align: middle;
       }
@@ -452,6 +452,11 @@ body {
     @media (min-width: @screen-phone) {
         .carousel-control {
             display: none;
+        }
+    }
+    .carousel-inner {
+        .item {
+            overflow:hidden;
         }
     }
     .carousel-control {

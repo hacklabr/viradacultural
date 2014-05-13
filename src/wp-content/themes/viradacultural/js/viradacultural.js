@@ -17,6 +17,11 @@ var hl = {
 };
 
 (function($){
+    function adjustCarrousselHome(){
+        $('#front-page-carousel .item').each(function(){
+            $(this).css('height', Math.floor($("#front-page-carousel").width() * (4/6) - 75));
+        });
+    }
 
     $(document).ready(function() {
         if (hl.isMobile()) {
@@ -24,7 +29,10 @@ var hl = {
         } else {
             $('body').addClass('desktop');
         }
+        adjustCarrousselHome();
     });
+
+    $(window).resize(adjustCarrousselHome);
 
     /*** Ajustando altura fixa dos posts em grid ****/
     window.adustGridHeight = function (ent) {
