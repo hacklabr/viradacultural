@@ -1,3 +1,5 @@
+document.location.hash = document.location.hash.replace('%23', '#');
+
 var hl = {
     isMobile: function(){
         if (navigator.userAgent.match(/Android/i)
@@ -30,6 +32,11 @@ var hl = {
             $('body').addClass('desktop');
         }
         adjustCarrousselHome();
+        if(!$('body').hasClass('programacao')){
+            $.get(GlobalConfiguration.templateURL + '/app/events.json?v=' + GlobalConfiguration.md5['events']);
+            $.get(GlobalConfiguration.templateURL + '/app/spaces.json?v=' + GlobalConfiguration.md5['spaces']);
+            $.get(GlobalConfiguration.templateURL + '/app/spaces-order.json?v=' + GlobalConfiguration.md5['spaces-order']);
+        }
     });
 
     $(window).resize(adjustCarrousselHome);
