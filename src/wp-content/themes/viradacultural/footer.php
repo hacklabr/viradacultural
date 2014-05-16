@@ -32,6 +32,7 @@
             <?php html::image("logos-320.png", "", array("class" => "img-responsive visible-xs")); ?>
         </p>
         <p class="text-center">Desenvolvido por <a id="hacklab" href="http://www.hacklab.com.br" title="hacklab/" target="_blank"><?php html::image("hacklab.png", "", array("class" => "hacklab")); ?></a> utilizando a API de dados do SP CUltura - plataforma desenvolvida em uma parceria entre o <a href="http://institutotim.org.br" title="Instituto TIM" target="_blank"><?php html::image("instituto-tim-white.png", "", array("class" => "instituto-tim")); ?></a> e a Secretaria Municipal de Cultura</p>
+        <p class="text-center">Contato: <a href="mailto:smcimprensa@prefeitura.sp.gov.br">smcimprensa@prefeitura.sp.gov.br</a></p>
     </footer>
     <!-- #main-footer -->
 <?php wp_footer(); ?>
