@@ -39,35 +39,39 @@ function minha_virada_page_callback_function() {
         $db_config['minha_virada']['name'], 
         $db_config['minha_virada']['host'] );
     
-            
-    $viradas = $minhasViradas->get_results("SELECT * FROM users");        
-    $total = $minhasViradas->get_var("SELECT COUNT(user_id) FROM users");        
+    $total = $minhasViradas->get_var("SELECT COUNT(user_id) FROM users");   
+    
+    
+    if (isset($_GET['show']) && $_GET['show'] == 'all')
+        $viradas = $minhasViradas->get_results("SELECT * FROM users");        
+             
     $events = 0;
     ?>
     <div class="wrap span-20">
         <h2>Minhas Viradas</h2>
         <h3>Total de <?php echo $total; ?> pessoas</h3>
         <ul>
-        <?php foreach ($viradas as $v): $user = json_decode($v->data);  ?>
-        
-            <li>
-                <a href="<?php echo site_url('minha-virada/##'), $v->user_id; ?>"><?php echo $user->name; ?></a> - 
-                <?php if (isset($user->events) && is_array($user->events) && sizeof($user->events) > 0): ?>
-                    
-                    <?php foreach ($user->events as $e): $events++;?>
+        <?php if (isset($_GET['show']) && $_GET['show'] == 'all'): ?>
+            <?php foreach ($viradas as $v): $user = json_decode($v->data);  ?>
+            
+                <li>
+                    <a href="<?php echo site_url('minha-virada/##'), $v->user_id; ?>"><?php echo $user->name; ?></a> - 
+                    <?php if (isset($user->events) && is_array($user->events) && sizeof($user->events) > 0): ?>
                         
-                        <a href="<?php echo site_url('programacao/atracao/##'), $e; ?>"><?php echo $e; ?></a>
+                        <?php foreach ($user->events as $e): $events++;?>
+                            
+                            <a href="<?php echo site_url('programacao/atracao/##'), $e; ?>"><?php echo $e; ?></a>
+                            
+                        <?php endforeach; ?>
                         
-                    <?php endforeach; ?>
-                    
-                <?php endif; ?>
-            </li>
-        
-        <?php endforeach; ?>
-        </ul>
-        
-        <h3>Total de <?php echo $events; ?> eventos marcados</h3>
-        
+                    <?php endif; ?>
+                </li>
+            
+            <?php endforeach; ?>
+            </ul>
+            
+            <h3>Total de <?php echo $events; ?> eventos marcados</h3>
+        <?php endif; ?>
     </div>
 
 <?php } 
