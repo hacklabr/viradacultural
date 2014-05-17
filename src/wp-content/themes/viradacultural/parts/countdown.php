@@ -122,5 +122,6 @@ jQuery(document).ready(function() {
 <script type="text/html" id="proximas-atracoes-template">
     <article class="event clearfix event-list">
         <small><a href="<%=url%>"><%=name%></a></small>
+        <a href="<%=spaceUrl(spaceId)%>"><%=spaceName%></a>
     </article>
 </script>
