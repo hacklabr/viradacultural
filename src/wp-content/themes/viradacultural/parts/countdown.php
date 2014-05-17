@@ -121,6 +121,7 @@ jQuery(document).ready(function() {
 
 <script type="text/html" id="proximas-atracoes-template">
     <article class="event event-list">
-    <a href="<%=url%>"><%=name%></a>
+        <a href="<%=url%>"><%=name%></a>
+        <a href="<%=spaceUrl(spaceId)%>"><%=spaceName%></a>
     </article>
 </script>
