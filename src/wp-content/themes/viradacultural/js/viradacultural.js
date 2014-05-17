@@ -1,5 +1,14 @@
 document.location.hash = document.location.hash.replace('%23', '#');
 
+var eventUrl = function(eventId){
+    return GlobalConfiguration.baseURL + '/programacao/atracao/##' + eventId;
+};
+
+var spaceUrl = function(spaceId){
+    return GlobalConfiguration.baseURL + '/programacao/local/##' + spaceId;
+};
+
+
 var hl = {
     isMobile: function(){
         if (navigator.userAgent.match(/Android/i)
@@ -32,10 +41,78 @@ var hl = {
             $('body').addClass('desktop');
         }
         adjustCarrousselHome();
-        if(!$('body').hasClass('programacao')){
-            $.get(GlobalConfiguration.templateURL + '/app/events.json?v=' + GlobalConfiguration.md5['events']);
-            $.get(GlobalConfiguration.templateURL + '/app/spaces.json?v=' + GlobalConfiguration.md5['spaces']);
-            $.get(GlobalConfiguration.templateURL + '/app/spaces-order.json?v=' + GlobalConfiguration.md5['spaces-order']);
+
+        function replaceCountdown(){
+            var start = moment('2014-05-17 18:00');
+            var now = moment();
+            if (!window.$footer)
+                $footer = $('#countdown footer');
+
+            if(now > start){
+                $('#countdown').replaceWith('<div id="proximas-atracoes" class="event-list col-md-2 hidden-sm hidden-xs">');
+            }
+
+            if(now > start && window.jsons['events'] && window.jsons['spaces'] && window.jsons['spaces-order']){
+                var template = $('#proximas-atracoes-template').text();
+                var events = {};
+                var space_ids = window.jsons['spaces-order'].slice(0,10).map(function(e){ return parseInt(e.id); });
+                var counter = 0;
+                var $atracoes = $('#proximas-atracoes');
+
+                $atracoes.html('');
+                $.each(window.jsons.events, function(i,e){
+                    if(space_ids.indexOf(parseInt(e.spaceId)) >= 0 && e.duration !== '24h00' && moment(e.startsOn + ' ' + e.startsAt) > moment().subtract('minutes', 15)){
+                        events[e.startsAt] = events[e.startsAt] ? events[e.startsAt] : [];
+                        events[e.startsAt].push(e);
+                        //if (counter ==0)
+                        //    $('#proximas-atracoes').prepend(e.startsAt);
+                        counter++;
+                        if (counter >= 5)
+                                return false;
+                    }
+                });
+
+
+
+                $.each(events, function(hora, eventos){
+                    $atracoes.append('<div class="comecando"><span class="icon icon_clock"></span>' + hora + '</div>');
+                    $.each(eventos, function(i, e){
+                        e.url = eventUrl(e.id);
+                        e.spaceName = window.entitiesById.spaces[e.spaceId] ? window.entitiesById.spaces[e.spaceId].name : '';
+                        var html = Resig.render(template, e);
+                        $('#proximas-atracoes').append(html);
+                    });
+                    //return false;
+                });
+
+                $('#proximas-atracoes').append('<p class="programacao-completa"><a class="btn btn-primary btn-xs" href="' + GlobalConfiguration.baseURL + '/programacao/">Programação completa</a></p>');
+                $('#proximas-atracoes').append($footer);
+
+            }
+        }
+
+        if($('#countdown').length){
+            window.jsons = {};
+
+            window.entitiesById = {
+                'events': {},
+                'spaces': {},
+                'spaces-order': {}
+            };
+
+            $.each(['spaces-order', 'events', 'spaces'], function(i,entity){
+                $.get(GlobalConfiguration.templateURL + '/app/' + entity + '.json?v=' + GlobalConfiguration.md5[entity], function(response){
+                    $.each(response, function(i,e){
+                        window.entitiesById[entity][e.id] = e;
+                    });
+                    window.jsons[entity] = response;
+                    replaceCountdown();
+                });
+            });
+
+            replaceCountdown();
+
+            setInterval(replaceCountdown, 10000);
         }
     });
 
