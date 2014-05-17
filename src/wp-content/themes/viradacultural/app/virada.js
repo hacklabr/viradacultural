@@ -371,17 +371,20 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
         }
         $scope.$apply();
     });
+    var startTimeSetted = false;
 
     $scope.$watch('timeSlider.model.min', function(){
-        if(counters.populateEntities === 0)
+        if(counters.populateEntities === 0 && startTimeSetted)
             return;
+
+        startTimeSetted = true;
 
         $scope.startsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.min * 15).format('H:mm');
 
         if(timeouts.timeSlider)
             $timeout.cancel(timeouts.timeSlider);
 
-
+        startTimeSetted = true;
         if(counters.populateEntities > 0)
             timeouts.timeSlider = $timeout(function(){
                 $scope.populateEntities();
@@ -389,6 +392,14 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             }, TIMEOUT_DALAY);
 
     });
+
+
+    if(!startTimeSetted){
+        if(moment() >= moment('2014-05-17 18:00') && moment() < moment('2014-05-18 18:00')){
+            var now = moment().subtract('minutes', 15);
+            $scope.timeSlider.model.min = parseInt(parseInt(now.diff(moment('2014-05-17 18:00')) / 1000) / 60 / 60 * 4);
+        }
+    }
 
     $scope.$watch('timeSlider.model.max', function(){
         if(counters.populateEntities === 0)
@@ -530,7 +541,6 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
         $scope.renderList();
     });
 
-
     $scope.populateEntities = function(delay){
 
         if(!$scope.events || !$scope.spaces)
@@ -608,6 +618,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             page = 0;
 
             counters.populateEntities++;
+
         }, 100);
 
     };
