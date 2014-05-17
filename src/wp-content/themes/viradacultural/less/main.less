@@ -352,7 +352,7 @@ body {
 
 /* =Countdown
 -------------------------------------------------------------- */
-#countdown, #proximas-atracoes {
+#countdown {
     .fixed-bars();
     .box-shadow(0 0 6px 0 rgba(0,0,0,.3));
     right: 0;
@@ -1113,14 +1113,36 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
 }
 
 #proximas-atracoes {
+    .fixed-bars();
+    .box-shadow(0 0 6px 0 rgba(0,0,0,.3));
+    right: 0;
+    padding: 0;
+    font-size: 14px;
+    width: 225px;
     text-align: left;
     text-transform: none;
     .comecando {
-        background: #fff;
-        color: @roxo;
+        background: @rosa;
+        color: @amarelo;
         padding: 6px;
     }
-
+    footer {
+        display: none;
+    }
+    .event-list .event-space {
+            display: block;
+            float: none;
+            width: auto;
+            padding-left: 0;
+            padding-right: 0;
+            .secondary-font();
+            .icon {
+                color: @verde;
+                font-size: 16px;
+                vertical-align: middle;
+                margin-right: 3px;
+            }
+        }
 }
 .grouped-by-space {
     h1 {

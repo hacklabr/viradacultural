@@ -75,7 +75,7 @@ var hl = {
 
 
                 $.each(events, function(hora, eventos){
-                    $atracoes.append('<div class="comecando">' + hora + '</div>');
+                    $atracoes.append('<div class="comecando"><span class="icon icon_clock"></span>' + hora + '</div>');
                     $.each(eventos, function(i, e){
                         e.url = eventUrl(e.id);
                         e.spaceName = window.entitiesById.spaces[e.spaceId];
