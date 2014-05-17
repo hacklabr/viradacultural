@@ -120,7 +120,7 @@ jQuery(document).ready(function() {
 </script>
 
 <script type="text/html" id="proximas-atracoes-template">
-    <article class="event clearfix event-list">
-        <small><a href="<%=url%>"><%=name%></a></small>
+    <article class="event event-list">
+    <a href="<%=url%>"><%=name%></a>
     </article>
 </script>

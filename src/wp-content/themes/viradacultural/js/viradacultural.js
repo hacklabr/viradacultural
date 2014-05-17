@@ -65,7 +65,7 @@ var hl = {
                         events[e.startsAt] = events[e.startsAt] ? events[e.startsAt] : [];
                         events[e.startsAt].push(e);
                         //if (counter ==0)
-                        //    $('#proximas-atracoes').prepend('Começando as ' + e.startsAt);
+                        //    $('#proximas-atracoes').prepend(e.startsAt);
                         counter++;
                         if (counter > 3)
                                 return false;
@@ -75,7 +75,7 @@ var hl = {
 
 
                 $.each(events, function(hora, eventos){
-                    $atracoes.append('<span class="comecando">Começando as ' + hora + '</span>');
+                    $atracoes.append('<div class="comecando">' + hora + '</div>');
                     $.each(eventos, function(i, e){
                         e.url = eventUrl(e.id);
                         e.spaceName = window.entitiesById.spaces[e.spaceId];
