@@ -78,7 +78,7 @@ var hl = {
                     $atracoes.append('<div class="comecando">' + hora + '</div>');
                     $.each(eventos, function(i, e){
                         e.url = eventUrl(e.id);
-                        e.spaceName = window.entitiesById.spaces[e.spaceId];
+                        e.spaceName = window.entitiesById.spaces[e.spaceId] ? window.entitiesById.spaces[e.spaceId].name : '';
                         var html = Resig.render(template, e);
                         $('#proximas-atracoes').append(html);
                     });
