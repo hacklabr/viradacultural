@@ -112,7 +112,7 @@ var hl = {
 
             replaceCountdown();
 
-            setInterval(replaceCountdown, 100);
+            setInterval(replaceCountdown, 10000);
         }
     });
 
