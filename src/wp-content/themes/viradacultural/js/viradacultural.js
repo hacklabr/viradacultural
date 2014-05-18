@@ -67,7 +67,7 @@ var hl = {
                         //if (counter ==0)
                         //    $('#proximas-atracoes').prepend(e.startsAt);
                         counter++;
-                        if (counter > 3)
+                        if (counter >= 5)
                                 return false;
                     }
                 });
@@ -112,7 +112,7 @@ var hl = {
 
             replaceCountdown();
 
-            setInterval(replaceCountdown, 10000);
+            setInterval(replaceCountdown, 100);
         }
     });
 
