@@ -85,7 +85,7 @@ var hl = {
                     //return false;
                 });
 
-                $('#proximas-atracoes').append('<article class="programacao-completa"><a href="' + GlobalConfiguration.baseURL + '/programacao/">Programação completa</a></article>');
+                $('#proximas-atracoes').append('<p class="programacao-completa"><a class="btn btn-primary btn-xs" href="' + GlobalConfiguration.baseURL + '/programacao/">Programação completa</a></p>');
                 $('#proximas-atracoes').append($footer);
 
             }

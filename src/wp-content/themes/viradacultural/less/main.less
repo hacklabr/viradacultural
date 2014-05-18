@@ -1125,24 +1125,35 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
         background: @rosa;
         color: @amarelo;
         padding: 6px;
+        .icon {
+            margin-right: 5px;
+        }
     }
     footer {
         display: none;
     }
     .event-list .event-space {
-            display: block;
-            float: none;
-            width: auto;
-            padding-left: 0;
-            padding-right: 0;
-            .secondary-font();
-            .icon {
-                color: @verde;
-                font-size: 16px;
-                vertical-align: middle;
-                margin-right: 3px;
-            }
+        display: block;
+        float: none;
+        width: auto;
+        padding-left: 0;
+        padding-right: 0;
+        .secondary-font();
+        a {
+            color: @verde;
         }
+        .icon {
+            color: @verde;
+            font-size: 16px;
+            vertical-align: middle;
+            margin-right: 3px;
+        }
+    }
+    .programacao-completa {
+        text-align: center;
+        padding: 6px 0;
+        margin-bottom: 0;
+    }
 }
 .grouped-by-space {
     h1 {
