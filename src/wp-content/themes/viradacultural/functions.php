@@ -50,7 +50,7 @@ add_action('wp_print_scripts', 'viradacultural_addJS');
 function viradacultural_addJS() {
     if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' );
     global $wp_query;
-  
+
     wp_enqueue_script('jquery');
     wp_enqueue_script('bootstrap', get_stylesheet_directory_uri().'/js/bootstrap.min.js', 'jquery');
 
@@ -93,13 +93,14 @@ function viradacultural_addJS() {
 
         wp_enqueue_script('app-services', get_stylesheet_directory_uri().'/app/services.js', array('angular', 'app-virada'));
 
-        wp_enqueue_script('resig', get_stylesheet_directory_uri().'/js/resig.js');
         wp_enqueue_script('angular-rangeslider', get_stylesheet_directory_uri().'/js/angular-rangeslider-master/angular.rangeSlider.js', array('angular'));
 
         wp_enqueue_script('app-directives', get_stylesheet_directory_uri().'/app/directives.js', array('angular', 'app-virada'));
         wp_enqueue_script('app-controllers', get_stylesheet_directory_uri().'/app/controllers.js', array('angular', 'app-services', 'app-virada'));
 
 	}
+
+    wp_enqueue_script('resig', get_stylesheet_directory_uri().'/js/resig.js');
 
 
     wp_enqueue_script('moment', get_stylesheet_directory_uri().'/js/moment.min.js');

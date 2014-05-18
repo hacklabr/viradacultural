@@ -16,14 +16,6 @@ document.addEventListener('keyup', function(e){
     }
 });
 
-var eventUrl = function(eventId){
-    return GlobalConfiguration.baseURL + '/programacao/atracao/##' + eventId;
-};
-
-var spaceUrl = function(spaceId){
-    return GlobalConfiguration.baseURL + '/programacao/local/##' + spaceId;
-};
-
 var getMapUrl = function (spaceEntity){
     var e = spaceEntity;
     return "https://maps.google.com/maps?hl=pt-BR&geocode=&daddr=" + e.location.latitude + "," + e.location.longitude +"&sll=" + e.location.latitude + "," + e.location.longitude + "&ie=UTF8&hq=" + e.endereco + ",+São+Paulo,+SP,+Brasil&hnear=" + e.endereco + ",+São+Paulo,+SP,+Brasil&radius=15000&t=m&ll=" + e.location.latitude + "," + e.location.longitude + "&z=17&output=embed&iwloc=near&language=pt-BR&region=br";
