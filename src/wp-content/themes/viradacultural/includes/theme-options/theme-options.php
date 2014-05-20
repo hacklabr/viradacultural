@@ -9,6 +9,8 @@ function get_theme_default_options() {
             'facebook' => 'http://facebook.com/viradacultura',
             'twitter' => 'http://twitter.com/viradacultural',
             'googleplus' => 'http://googleplus.com/viradacultural',
+            'youtube' => 'https://www.youtube.com/channel/UC3YGHwBrBVurwJ7bbwWAS2A',
+            'flickr' => 'https://www.flickr.com/photos/viradacultural2014',
         ),
         'hashtag' => 'viradacultural',
         'programacao_published' => false
@@ -83,6 +85,12 @@ function theme_options_page_callback_function() {
                     <br/><br/>
                     <label for="googleplus"><strong><?php _e("Google +", "viradacultural"); ?></strong></label><br/>
                     <input type="text" id="googleplus" class="text" name="theme_options[social_networks][googleplus]" value="<?php echo htmlspecialchars($options['social_networks']['googleplus']); ?>" style="width: 80%"/>
+                    <br/><br/>
+                    <label for="youtube"><strong><?php _e("youtube", "viradacultural"); ?></strong></label><br/>
+                    <input type="text" id="youtube" class="text" name="theme_options[social_networks][youtube]" value="<?php echo htmlspecialchars($options['social_networks']['youtube']); ?>" style="width: 80%"/>
+                    <br/><br/>
+                    <label for="flickr"><strong><?php _e("flickr", "viradacultural"); ?></strong></label><br/>
+                    <input type="text" id="flickr" class="text" name="theme_options[social_networks][flickr]" value="<?php echo htmlspecialchars($options['social_networks']['flickr']); ?>" style="width: 80%"/>
                     <br/><br/>
 
 
