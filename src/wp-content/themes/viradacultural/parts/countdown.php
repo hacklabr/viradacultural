@@ -14,7 +14,7 @@
         </time>
         <div class="rede-sociais">
 
-            <?php $redes = get_theme_option('social_networks'); $redesbuttons = array('facebook', 'twitter', 'googleplus'); ?>
+            <?php $redes = get_theme_option('social_networks'); $redesbuttons = array('facebook', 'twitter', 'googleplus', 'youtube', 'flickr'); ?>
 
             <?php foreach ($redesbuttons as $button): ?>
                 <?php if (isset($redes[$button]) && $redes[$button]): ?>
