@@ -106,13 +106,17 @@ var hl = {
                         window.entitiesById[entity][e.id] = e;
                     });
                     window.jsons[entity] = response;
-                    replaceCountdown();
+                    //replaceCountdown(); comentando essa linha depois que a virada acabou
                 });
             });
 
+            /* Desativando replaceCountdown depois que a virada acabou
             replaceCountdown();
 
             setInterval(replaceCountdown, 10000);
+            */
+            $('#countdown').html($('#countdown footer')); // depois que a virada acabou
+            
         }
     });
 
