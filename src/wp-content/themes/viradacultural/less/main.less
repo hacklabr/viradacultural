@@ -260,6 +260,18 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
     .secondary-font();
 }
 
+/* =Tables
+-------------------------------------------------------------- */
+table {
+    font-size: 12px;
+    font-family: @font-family-secondary;
+}
+article.page table, article.post table {
+    .table();
+    .table-condensed();
+    .table-striped();
+}
+
 /* =Layout
 -------------------------------------------------------------- */
 
@@ -302,6 +314,25 @@ img, body:not(.page-template-page-dez-anos-php) article.page img {
     @media (min-width: @screen-lg-min) {
         margin-left: 225px;
         margin-right: 225px;
+    }
+}
+
+.container-no-countdown {
+    @media (max-width: @screen-xs-max) {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+        margin-left: 225px;
+        margin-right: 0;
+    }
+    @media (min-width: @screen-lg-min) {
+        margin-left: 225px;
+        margin-right: 0;
     }
 }
 
