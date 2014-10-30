@@ -32,7 +32,7 @@ foreach (json_decode($events_json) as $e) {
 
 $event_ids = implode(',', $event_ids);
 
-$occurrences_json = file_get_contents(API_URL . "eventOccurrence/find?@select=id,eventId,rule&event=IN($event_ids)&@order=_startsAt");
+$occurrences_json = file_get_contents(API_URL . "eventOccurrence/find?@select=id,space.id,eventId,rule&event=IN($event_ids)&@order=_startsAt");
 
 $occurrences = json_decode($occurrences_json);
 
@@ -42,8 +42,7 @@ $count = 0;
 foreach ($occurrences as $occ) {
     $rule = $occ->rule;
     $e = $events_by_id[$occ->eventId];
-    $e->spaceId = $rule->spaceId;
-
+    $e->spaceId = $occ->space->id;
     $e->startsAt = $rule->startsAt;
     $e->startsOn = $rule->startsOn;
     $e->duration = @$rule->duration;
@@ -65,7 +64,7 @@ foreach ($occurrences as $occ) {
         $e->defaultImage = '';
         $e->defaultImageThumb = '';
     }
-
+    
     $result_events[] = $e;
 }
 
