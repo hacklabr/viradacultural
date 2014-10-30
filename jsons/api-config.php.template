@@ -1,6 +1,6 @@
 <?php
-define('API_URL', "http://mapasculturais.hacklab.com.br/api/");
+define('API_URL', "http://spcultura.prefeitura.sp.gov.br/api/");
 define('PROJECT_ID', 4);
 define('AGENT_IDS', '432,433,434');
-define('REPLACE_IMAGES_URL_FROM', 'http://mapasculturais.hacklab.com.br//files/');
+define('REPLACE_IMAGES_URL_FROM', 'http://spcultura.prefeitura.sp.gov.br//files/');
 define('REPLACE_IMAGES_URL_TO', 'http://viradacultural.prefeitura.sp.gov.br/imagens/');
