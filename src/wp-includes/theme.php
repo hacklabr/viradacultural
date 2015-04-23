@@ -137,7 +137,7 @@ function is_child_theme() {
  * The theme name that the administrator has currently set the front end theme
  * as.
  *
- * For all extensive purposes, the template name and the stylesheet name are
+ * For all intents and purposes, the template name and the stylesheet name are
  * going to be the same for most cases.
  *
  * @since 1.5.0
@@ -271,7 +271,6 @@ function get_locale_stylesheet_uri() {
  * Retrieve name of the current theme.
  *
  * @since 1.5.0
- * @uses apply_filters() Calls 'template' filter on template option.
  *
  * @return string Template name.
  */
@@ -370,11 +369,19 @@ function register_theme_directory( $directory ) {
 		// Try prepending as the theme directory could be relative to the content directory
 		$directory = WP_CONTENT_DIR . '/' . $directory;
 		// If this directory does not exist, return and do not register
-		if ( ! file_exists( $directory ) )
+		if ( ! file_exists( $directory ) ) {
 			return false;
+		}
 	}
 
-	$wp_theme_directories[] = $directory;
+	if ( ! is_array( $wp_theme_directories ) ) {
+		$wp_theme_directories = array();
+	}
+
+	$untrailed = untrailingslashit( $directory );
+	if ( ! empty( $untrailed ) && ! in_array( $untrailed, $wp_theme_directories ) ) {
+		$wp_theme_directories[] = $untrailed;
+	}
 
 	return true;
 }
@@ -796,9 +803,9 @@ function switch_theme( $stylesheet ) {
 		add_option( "theme_mods_$stylesheet", $default_theme_mods );
 	} else {
 		/*
-		 * Since retrieve_widgets() is called when initializing the customizer theme,
+		 * Since retrieve_widgets() is called when initializing a theme in the Customizer,
 		 * we need to to remove the theme mods to avoid overwriting changes made via
-		 * the widget customizer when accessing wp-admin/widgets.php.
+		 * the Customizer when accessing wp-admin/widgets.php.
 		 */
 		if ( 'wp_ajax_customize_save' === current_action() ) {
 			remove_theme_mod( 'sidebars_widgets' );
@@ -864,7 +871,7 @@ function validate_current_theme() {
  *
  * @since 3.1.0
  *
- * @return array Theme modifications.
+ * @return array|null Theme modifications.
  */
 function get_theme_mods() {
 	$theme_slug = get_option( 'stylesheet' );
@@ -902,7 +909,7 @@ function get_theme_mod( $name, $default = false ) {
 		/**
 		 * Filter the theme modification, or 'theme_mod', value.
 		 *
-		 * The dynamic portion of the hook name, $name, refers to
+		 * The dynamic portion of the hook name, `$name`, refers to
 		 * the key name of the modification array. For example,
 		 * 'header_textcolor', 'header_image', and so on depending
 		 * on the theme options.
@@ -936,7 +943,7 @@ function set_theme_mod( $name, $value ) {
 	/**
 	 * Filter the theme mod value on save.
 	 *
-	 * The dynamic portion of the hook name, $name, refers to the key name of
+	 * The dynamic portion of the hook name, `$name`, refers to the key name of
 	 * the modification array. For example, 'header_textcolor', 'header_image',
 	 * and so on depending on the theme options.
 	 *
@@ -1357,7 +1364,7 @@ body.custom-background { <?php echo trim( $style ); ?> }
  *
  * @since 3.0.0
  *
- * @param mixed $stylesheet Optional. Stylesheet name or array thereof, relative to theme root.
+ * @param array|string $stylesheet Optional. Stylesheet name or array thereof, relative to theme root.
  * 	Defaults to 'editor-style.css'
  */
 function add_editor_style( $stylesheet = 'editor-style.css' ) {
@@ -1395,6 +1402,54 @@ function remove_editor_styles() {
 }
 
 /**
+ * Retrieve any registered editor stylesheets
+ *
+ * @since 4.0.0
+ *
+ * @global $editor_styles Registered editor stylesheets
+ *
+ * @return array If registered, a list of editor stylesheet URLs.
+ */
+function get_editor_stylesheets() {
+	$stylesheets = array();
+	// load editor_style.css if the current theme supports it
+	if ( ! empty( $GLOBALS['editor_styles'] ) && is_array( $GLOBALS['editor_styles'] ) ) {
+		$editor_styles = $GLOBALS['editor_styles'];
+
+		$editor_styles = array_unique( array_filter( $editor_styles ) );
+		$style_uri = get_stylesheet_directory_uri();
+		$style_dir = get_stylesheet_directory();
+
+		// Support externally referenced styles (like, say, fonts).
+		foreach ( $editor_styles as $key => $file ) {
+			if ( preg_match( '~^(https?:)?//~', $file ) ) {
+				$stylesheets[] = esc_url_raw( $file );
+				unset( $editor_styles[ $key ] );
+			}
+		}
+
+		// Look in a parent theme first, that way child theme CSS overrides.
+		if ( is_child_theme() ) {
+			$template_uri = get_template_directory_uri();
+			$template_dir = get_template_directory();
+
+			foreach ( $editor_styles as $key => $file ) {
+				if ( $file && file_exists( "$template_dir/$file" ) ) {
+					$stylesheets[] = "$template_uri/$file";
+				}
+			}
+		}
+
+		foreach ( $editor_styles as $file ) {
+			if ( $file && file_exists( "$style_dir/$file" ) ) {
+				$stylesheets[] = "$style_uri/$file";
+			}
+		}
+	}
+	return $stylesheets;
+}
+
+/**
  * Allows a theme to register its support of a certain feature
  *
  * Must be called in the theme's functions.php file to work.
@@ -1416,8 +1471,12 @@ function add_theme_support( $feature ) {
 
 	switch ( $feature ) {
 		case 'post-formats' :
-			if ( is_array( $args[0] ) )
-				$args[0] = array_intersect( $args[0], array_keys( get_post_format_slugs() ) );
+			if ( is_array( $args[0] ) ) {
+				$post_formats = get_post_format_slugs();
+				unset( $post_formats['standard'] );
+
+				$args[0] = array_intersect( $args[0], array_keys( $post_formats ) );
+			}
 			break;
 
 		case 'html5' :
@@ -1426,7 +1485,7 @@ function add_theme_support( $feature ) {
 				// Build an array of types for back-compat.
 				$args = array( 0 => array( 'comment-list', 'comment-form', 'search-form' ) );
 			} elseif ( ! is_array( $args[0] ) ) {
-				_doing_it_wrong( "add_theme_support( 'html5' )", 'You need to pass an array of types.', '3.6.1' );
+				_doing_it_wrong( "add_theme_support( 'html5' )", __( 'You need to pass an array of types.' ), '3.6.1' );
 				return false;
 			}
 
@@ -1437,7 +1496,6 @@ function add_theme_support( $feature ) {
 
 		case 'custom-header-uploads' :
 			return add_theme_support( 'custom-header', array( 'uploads' => true ) );
-			break;
 
 		case 'custom-header' :
 			if ( ! is_array( $args ) )
@@ -1552,6 +1610,17 @@ function add_theme_support( $feature ) {
 				define( 'BACKGROUND_IMAGE', $args[0]['default-image'] );
 
 			break;
+
+		// Ensure that 'title-tag' is accessible in the admin.
+		case 'title-tag' :
+			// Can be called in functions.php but must happen before wp_loaded, i.e. not in header.php.
+			if ( did_action( 'wp_loaded' ) ) {
+				/* translators: 1: Theme support 2: hook name */
+				_doing_it_wrong( "add_theme_support( 'title-tag' )", sprintf( __( 'Theme support for %1$s should be registered before the %2$s hook.' ),
+					'<code>title-tag</code>', '<code>wp_loaded</code>' ), '4.1' );
+
+				return false;
+			}
 	}
 
 	$_wp_theme_features[ $feature ] = $args;
@@ -1601,7 +1670,7 @@ add_action( 'wp_loaded', '_custom_header_background_just_in_time' );
  * @since 3.1.0
  *
  * @param string $feature the feature to check
- * @return array The array of extra arguments
+ * @return mixed The array of extra arguments or the value for the registered feature.
  */
 function get_theme_support( $feature ) {
 	global $_wp_theme_features;
@@ -1618,10 +1687,9 @@ function get_theme_support( $feature ) {
 			if ( isset( $_wp_theme_features[ $feature ][0][ $args[0] ] ) )
 				return $_wp_theme_features[ $feature ][0][ $args[0] ];
 			return false;
-			break;
+
 		default :
 			return $_wp_theme_features[ $feature ];
-			break;
 	}
 }
 
@@ -1634,7 +1702,7 @@ function get_theme_support( $feature ) {
  * @since 3.0.0
  * @see add_theme_support()
  * @param string $feature the feature being added
- * @return bool Whether feature was removed.
+ * @return null|bool Whether feature was removed.
  */
 function remove_theme_support( $feature ) {
 	// Blacklist: for internal registrations not used directly by themes.
@@ -1649,6 +1717,7 @@ function remove_theme_support( $feature ) {
  *
  * @access private
  * @since 3.1.0
+ * @param string $feature
  */
 function _remove_theme_support( $feature ) {
 	global $_wp_theme_features;
@@ -1705,6 +1774,14 @@ function current_theme_supports( $feature ) {
 	if ( !isset( $_wp_theme_features[$feature] ) )
 		return false;
 
+	if ( 'title-tag' == $feature ) {
+		// Don't confirm support unless called internally.
+		$trace = debug_backtrace();
+		if ( ! in_array( $trace[1]['function'], array( '_wp_render_title_tag', 'wp_title' ) ) ) {
+			return false;
+		}
+	}
+
 	// If no args passed then no extra checks need be performed
 	if ( func_num_args() <= 1 )
 		return true;
@@ -1720,7 +1797,6 @@ function current_theme_supports( $feature ) {
 				return true;
 			$content_type = $args[0];
 			return in_array( $content_type, $_wp_theme_features[$feature][0] );
-			break;
 
 		case 'html5':
 		case 'post-formats':
@@ -1731,7 +1807,6 @@ function current_theme_supports( $feature ) {
 
 			$type = $args[0];
 			return in_array( $type, $_wp_theme_features[$feature][0] );
-			break;
 
 		case 'custom-header':
 		case 'custom-background' :
@@ -1739,16 +1814,14 @@ function current_theme_supports( $feature ) {
 			// an array to add_theme_support()
 			$header_support = $args[0];
 			return ( isset( $_wp_theme_features[$feature][0][$header_support] ) && $_wp_theme_features[$feature][0][$header_support] );
-			break;
 	}
 
 	/**
 	 * Filter whether the current theme supports a specific feature.
 	 *
-	 * The dynamic portion of the hook name, $feature, refers to
-	 * the specific theme feature. Possible values include 'post-formats',
-	 * 'post-thumbnails', 'custom-background', 'custom-header', 'menus',
-	 * 'automatic-feed-links', and 'html5'.
+	 * The dynamic portion of the hook name, `$feature`, refers to the specific theme
+	 * feature. Possible values include 'post-formats', 'post-thumbnails', 'custom-background',
+	 * 'custom-header', 'menus', 'automatic-feed-links', and 'html5'.
 	 *
 	 * @since 3.4.0
 	 *
@@ -1879,9 +1952,12 @@ function _wp_customize_loader_settings() {
 		'url'           => esc_url( admin_url( 'customize.php' ) ),
 		'isCrossDomain' => $cross_domain,
 		'browser'       => $browser,
+		'l10n'          => array(
+			'saveAlert' => __( 'The changes you made will be lost if you navigate away from this page.' ),
+		),
 	);
 
-	$script = 'var _wpCustomizeLoaderSettings = ' . json_encode( $settings ) . ';';
+	$script = 'var _wpCustomizeLoaderSettings = ' . wp_json_encode( $settings ) . ';';
 
 	$data = $wp_scripts->get_data( 'customize-loader', 'data' );
 	if ( $data )
@@ -1892,7 +1968,7 @@ function _wp_customize_loader_settings() {
 add_action( 'admin_enqueue_scripts', '_wp_customize_loader_settings' );
 
 /**
- * Returns a URL to load the theme customizer.
+ * Returns a URL to load the Customizer.
  *
  * @since 3.4.0
  *
@@ -1907,7 +1983,7 @@ function wp_customize_url( $stylesheet = null ) {
 }
 
 /**
- * Prints a script to check whether or not the customizer is supported,
+ * Prints a script to check whether or not the Customizer is supported,
  * and apply either the no-customize-support or customize-support class
  * to the body.
  *
@@ -1942,4 +2018,19 @@ function wp_customize_support_script() {
 		}());
 	</script>
 	<?php
+}
+
+/**
+ * Whether the site is being previewed in the Customizer.
+ *
+ * @since 4.0.0
+ *
+ * @global WP_Customize_Manager $wp_customize Customizer instance.
+ *
+ * @return bool True if the site is being previewed in the Customizer, false otherwise.
+ */
+function is_customize_preview() {
+	global $wp_customize;
+
+	return is_a( $wp_customize, 'WP_Customize_Manager' ) && $wp_customize->is_preview();
 }

@@ -116,7 +116,7 @@ final class WP_Customize_Widgets {
 	/**
 	 * Set up widget addition previews.
 	 *
-	 * Since the widgets get registered on 'widgets_init' before the customizer
+	 * Since the widgets get registered on 'widgets_init' before the Customizer
 	 * settings are set up on 'customize_register', we have to filter the options
 	 * similarly to how the setting previewer will filter the options later.
 	 *
@@ -146,7 +146,7 @@ final class WP_Customize_Widgets {
 			return;
 		}
 
-		// Input from customizer preview.
+		// Input from Customizer preview.
 		if ( isset( $_POST['customized'] ) ) {
 			$this->_customized = json_decode( $this->get_post_value( 'customized' ), true );
 		} else { // Input from ajax widget update request.
@@ -201,7 +201,7 @@ final class WP_Customize_Widgets {
 	/**
 	 * Ensure that newly-added widgets will appear in the widgets_sidebars.
 	 *
-	 * This is necessary because the customizer's setting preview filters
+	 * This is necessary because the Customizer's setting preview filters
 	 * are added after the widgets_init action, which is too late for the
 	 * widgets to be set up properly.
 	 *
@@ -225,7 +225,7 @@ final class WP_Customize_Widgets {
 	 * Ensure newly-added widgets have empty instances so they
 	 * will be recognized.
 	 *
-	 * This is necessary because the customizer's setting preview
+	 * This is necessary because the Customizer's setting preview
 	 * filters are added after the widgets_init action, which is
 	 * too late for the widgets to be set up properly.
 	 *
@@ -287,7 +287,7 @@ final class WP_Customize_Widgets {
 	/**
 	 * Override sidebars_widgets for theme switch.
 	 *
-	 * When switching a theme via the customizer, supply any previously-configured
+	 * When switching a theme via the Customizer, supply any previously-configured
 	 * sidebars_widgets from the target theme as the initial sidebars_widgets
 	 * setting. Also store the old theme's existing settings so that they can
 	 * be passed along for storing in the sidebars_widgets theme_mod when the
@@ -313,7 +313,7 @@ final class WP_Customize_Widgets {
 	}
 
 	/**
-	 * Filter old_sidebars_widgets_data customizer setting.
+	 * Filter old_sidebars_widgets_data Customizer setting.
 	 *
 	 * When switching themes, filter the Customizer setting
 	 * old_sidebars_widgets_data to supply initial $sidebars_widgets before they
@@ -325,7 +325,7 @@ final class WP_Customize_Widgets {
 	 * @since 3.9.0
 	 * @access public
 	 *
-	 * @param array $sidebars_widgets
+	 * @param array $old_sidebars_widgets
 	 */
 	public function filter_customize_value_old_sidebars_widgets_data( $old_sidebars_widgets ) {
 		return $this->old_sidebars_widgets;
@@ -388,7 +388,7 @@ final class WP_Customize_Widgets {
 	}
 
 	/**
-	 * Register customizer settings and controls for all sidebars and widgets.
+	 * Register Customizer settings and controls for all sidebars and widgets.
 	 *
 	 * @since 3.9.0
 	 * @access public
@@ -433,6 +433,12 @@ final class WP_Customize_Widgets {
 			$this->manager->add_setting( $setting_id, $setting_args );
 		}
 
+		$this->manager->add_panel( 'widgets', array(
+			'title'       => __( 'Widgets' ),
+			'description' => __( 'Widgets are independent sections of content that can be placed into widgetized areas provided by your theme (commonly called sidebars).' ),
+			'priority'    => 110,
+		) );
+
 		foreach ( $sidebars_widgets as $sidebar_id => $sidebar_widget_ids ) {
 			if ( empty( $sidebar_widget_ids ) ) {
 				$sidebar_widget_ids = array();
@@ -458,10 +464,11 @@ final class WP_Customize_Widgets {
 				if ( $is_active_sidebar ) {
 
 					$section_args = array(
-						/* translators: %s: sidebar name */
-						'title' => sprintf( __( 'Widgets: %s' ), $GLOBALS['wp_registered_sidebars'][$sidebar_id]['name'] ),
-						'description' => $GLOBALS['wp_registered_sidebars'][$sidebar_id]['description'],
-						'priority' => 1000 + array_search( $sidebar_id, array_keys( $wp_registered_sidebars ) ),
+						'title' => $GLOBALS['wp_registered_sidebars'][ $sidebar_id ]['name'],
+						'description' => $GLOBALS['wp_registered_sidebars'][ $sidebar_id ]['description'],
+						'priority' => array_search( $sidebar_id, array_keys( $wp_registered_sidebars ) ),
+						'panel' => 'widgets',
+						'sidebar_id' => $sidebar_id,
 					);
 
 					/**
@@ -475,7 +482,8 @@ final class WP_Customize_Widgets {
 					 */
 					$section_args = apply_filters( 'customizer_widgets_section_args', $section_args, $section_id, $sidebar_id );
 
-					$this->manager->add_section( $section_id, $section_args );
+					$section = new WP_Customize_Sidebar_Section( $this->manager, $section_id, $section_args );
+					$this->manager->add_section( $section );
 
 					$control = new WP_Widget_Area_Customize_Control( $this->manager, $setting_id, array(
 						'section'    => $section_id,
@@ -528,7 +536,7 @@ final class WP_Customize_Widgets {
 	}
 
 	/**
-	 * Covert a widget_id into its corresponding customizer setting ID (option name).
+	 * Covert a widget_id into its corresponding Customizer setting ID (option name).
 	 *
 	 * @since 3.9.0
 	 * @access public
@@ -550,9 +558,9 @@ final class WP_Customize_Widgets {
 	 * Determine whether the widget is considered "wide".
 	 *
 	 * Core widgets which may have controls wider than 250, but can
-	 * still be shown in the narrow customizer panel. The RSS and Text
+	 * still be shown in the narrow Customizer panel. The RSS and Text
 	 * widgets in Core, for example, have widths of 400 and yet they
-	 * still render fine in the customizer panel. This method will
+	 * still render fine in the Customizer panel. This method will
 	 * return all Core widgets as being not wide, but this can be
 	 * overridden with the is_wide_widget_in_customizer filter.
 	 *
@@ -658,7 +666,7 @@ final class WP_Customize_Widgets {
 	}
 
 	/**
-	 * Enqueue scripts and styles for customizer panel and export data to JavaScript.
+	 * Enqueue scripts and styles for Customizer panel and export data to JavaScript.
 	 *
 	 * @since 3.9.0
 	 * @access public
@@ -720,6 +728,8 @@ final class WP_Customize_Widgets {
 				'removeBtnLabel'   => __( 'Remove' ),
 				'removeBtnTooltip' => __( 'Trash widget by moving it to the inactive widgets sidebar.' ),
 				'error'            => __( 'An error has occurred. Please reload the page and try again.' ),
+				'widgetMovedUp'    => __( 'Widget moved up' ),
+				'widgetMovedDown'  => __( 'Widget moved down' ),
 			),
 			'tpl' => array(
 				'widgetReorderNav' => $widget_reorder_nav_tpl,
@@ -734,7 +744,7 @@ final class WP_Customize_Widgets {
 		$wp_scripts->add_data(
 			'customize-widgets',
 			'data',
-			sprintf( 'var _wpCustomizeWidgetsSettings = %s;', json_encode( $settings ) )
+			sprintf( 'var _wpCustomizeWidgetsSettings = %s;', wp_json_encode( $settings ) )
 		);
 	}
 
@@ -958,7 +968,7 @@ final class WP_Customize_Widgets {
 	}
 
 	/**
-	 * Add hooks for the customizer preview.
+	 * Add hooks for the Customizer preview.
 	 *
 	 * @since 3.9.0
 	 * @access public
@@ -976,7 +986,7 @@ final class WP_Customize_Widgets {
 	 * Because wp_get_sidebars_widgets() gets called early at init
 	 * (via wp_convert_widget_settings()) and can set global variable
 	 * $_wp_sidebars_widgets to the value of get_option( 'sidebars_widgets' )
-	 * before the customizer preview filter is added, we have to reset
+	 * before the Customizer preview filter is added, we have to reset
 	 * it after the filter has been added.
 	 *
 	 * @since 3.9.0
@@ -1033,7 +1043,7 @@ final class WP_Customize_Widgets {
 	 */
 	public function export_preview_data() {
 
-		// Prepare customizer settings to pass to Javascript.
+		// Prepare Customizer settings to pass to JavaScript.
 		$settings = array(
 			'renderedSidebars'   => array_fill_keys( array_unique( $this->rendered_sidebars ), true ),
 			'renderedWidgets'    => array_fill_keys( array_keys( $this->rendered_widgets ), true ),
@@ -1049,7 +1059,7 @@ final class WP_Customize_Widgets {
 
 		?>
 		<script type="text/javascript">
-			var _wpWidgetCustomizerPreviewSettings = <?php echo json_encode( $settings ); ?>;
+			var _wpWidgetCustomizerPreviewSettings = <?php echo wp_json_encode( $settings ); ?>;
 		</script>
 		<?php
 	}
@@ -1063,7 +1073,33 @@ final class WP_Customize_Widgets {
 	 * @param array $widget Rendered widget to tally.
 	 */
 	public function tally_rendered_widgets( $widget ) {
-		$this->rendered_widgets[$widget['id']] = true;
+		$this->rendered_widgets[ $widget['id'] ] = true;
+	}
+
+	/**
+	 * Determine if a widget is rendered on the page.
+	 *
+	 * @since 4.0.0
+	 * @access public
+	 *
+	 * @param string $widget_id Widget ID to check.
+	 * @return bool Whether the widget is rendered.
+	 */
+	public function is_widget_rendered( $widget_id ) {
+		return in_array( $widget_id, $this->rendered_widgets );
+	}
+
+	/**
+	 * Determine if a sidebar is rendered on the page.
+	 *
+	 * @since 4.0.0
+	 * @access public
+	 *
+	 * @param string $sidebar_id Sidebar ID to check.
+	 * @return bool Whether the sidebar is rendered.
+	 */
+	public function is_sidebar_rendered( $sidebar_id ) {
+		return in_array( $sidebar_id, $this->rendered_sidebars );
 	}
 
 	/**
@@ -1077,8 +1113,8 @@ final class WP_Customize_Widgets {
 	 * @since 3.9.0
 	 * @access public
 	 *
-	 * @param bool    $is_active  Whether the sidebar is active.
-	 * @pasram string $sidebar_id Sidebar ID.
+	 * @param bool   $is_active  Whether the sidebar is active.
+	 * @param string $sidebar_id Sidebar ID.
 	 */
 	public function tally_sidebars_via_is_active_sidebar_calls( $is_active, $sidebar_id ) {
 		if ( isset( $GLOBALS['wp_registered_sidebars'][$sidebar_id] ) ) {
@@ -1119,22 +1155,19 @@ final class WP_Customize_Widgets {
 	}
 
 	/**
-	 * Get a widget instance's hash key.
+	 * Get MAC for a serialized widget instance string.
 	 *
-	 * Serialize an instance and hash it with the AUTH_KEY; when a JS value is
-	 * posted back to save, this instance hash key is used to ensure that the
-	 * serialized_instance was not tampered with, but that it had originated
-	 * from WordPress and so is sanitized.
+	 * Allows values posted back from JS to be rejected if any tampering of the
+	 * data has occurred.
 	 *
 	 * @since 3.9.0
 	 * @access protected
 	 *
-	 * @param array $instance Widget instance.
-	 * @return string Widget instance's hash key.
+	 * @param string $serialized_instance Widget instance.
+	 * @return string MAC for serialized widget instance.
 	 */
-	protected function get_instance_hash_key( $instance ) {
-		$hash = md5( AUTH_KEY . serialize( $instance ) );
-		return $hash;
+	protected function get_instance_hash_key( $serialized_instance ) {
+		return wp_hash( $serialized_instance );
 	}
 
 	/**
@@ -1162,18 +1195,19 @@ final class WP_Customize_Widgets {
 		}
 
 		$decoded = base64_decode( $value['encoded_serialized_instance'], true );
-
 		if ( false === $decoded ) {
 			return null;
 		}
-		$instance = unserialize( $decoded );
 
+		if ( $this->get_instance_hash_key( $decoded ) !== $value['instance_hash_key'] ) {
+			return null;
+		}
+
+		$instance = unserialize( $decoded );
 		if ( false === $instance ) {
 			return null;
 		}
-		if ( $this->get_instance_hash_key( $instance ) !== $value['instance_hash_key'] ) {
-			return null;
-		}
+
 		return $instance;
 	}
 
@@ -1194,7 +1228,7 @@ final class WP_Customize_Widgets {
 				'encoded_serialized_instance'   => base64_encode( $serialized ),
 				'title'                         => empty( $value['title'] ) ? '' : $value['title'],
 				'is_widget_customizer_js_value' => true,
-				'instance_hash_key'             => $this->get_instance_hash_key( $value ),
+				'instance_hash_key'             => $this->get_instance_hash_key( $serialized ),
 			);
 		}
 		return $value;

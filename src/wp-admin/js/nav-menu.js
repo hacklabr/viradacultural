@@ -57,6 +57,8 @@ var wpNavMenu;
 			this.initAccessibility();
 
 			this.initToggles();
+
+			this.initPreviewing();
 		},
 
 		jQueryExtensions : function() {
@@ -451,14 +453,14 @@ var wpNavMenu;
 				if ( ! isPrimaryMenuItem ) {
 					thisLink = menuItem.find( '.menus-move-left' ),
 					thisLinkText = menus.outFrom.replace( '%s', prevItemNameLeft );
-					thisLink.prop( 'title', menus.moveOutFrom.replace( '%s', prevItemNameLeft ) ).html( thisLinkText ).css( 'display', 'inline' );
+					thisLink.prop( 'title', menus.moveOutFrom.replace( '%s', prevItemNameLeft ) ).text( thisLinkText ).css( 'display', 'inline' );
 				}
 
 				if ( 0 !== position ) {
 					if ( menuItem.find( '.menu-item-data-parent-id' ).val() !== menuItem.prev().find( '.menu-item-data-db-id' ).val() ) {
 						thisLink = menuItem.find( '.menus-move-right' ),
 						thisLinkText = menus.under.replace( '%s', prevItemNameRight );
-						thisLink.prop( 'title', menus.moveUnder.replace( '%s', prevItemNameRight ) ).html( thisLinkText ).css( 'display', 'inline' );
+						thisLink.prop( 'title', menus.moveUnder.replace( '%s', prevItemNameRight ) ).text( thisLinkText ).css( 'display', 'inline' );
 					}
 				}
 
@@ -480,7 +482,7 @@ var wpNavMenu;
 					title = menus.subMenuFocus.replace( '%1$s', itemName ).replace( '%2$d', itemPosition ).replace( '%3$s', parentItemName );
 				}
 
-				$this.prop('title', title).html( title );
+				$this.prop('title', title).text( title );
 			});
 		},
 
@@ -528,6 +530,21 @@ var wpNavMenu;
 					return false;
 				});
 			});
+		},
+
+		initPreviewing : function() {
+			// Update the item handle title when the navigation label is changed.
+			$( '#menu-to-edit' ).on( 'change input', '.edit-menu-item-title', function(e) {
+				var input = $( e.currentTarget ), title, titleEl;
+				title = input.val();
+				titleEl = input.closest( '.menu-item' ).find( '.menu-item-title' );
+				// Don't update to empty title.
+				if ( title ) {
+					titleEl.text( title ).removeClass( 'no-title' );
+				} else {
+					titleEl.text( navMenuL10n.untitled ).addClass( 'no-title' );
+				}
+			} );
 		},
 
 		initToggles : function() {

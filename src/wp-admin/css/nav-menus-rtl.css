@@ -471,6 +471,7 @@ ul.add-menu-item-tabs li {
 	position: relative;
 	padding: 10px 15px;
 	height: auto;
+	min-height: 20px;
 	width: 382px;
 	line-height: 30px;
 	overflow: hidden;
@@ -507,6 +508,10 @@ ul.add-menu-item-tabs li {
 	margin-left: 13em;
 }
 
+.menu-item-handle .menu-item-title.no-title {
+	color: #999;
+}
+
 /* Sortables */
 li.menu-item.ui-sortable-helper dl {
 	margin-top: 0;
@@ -522,7 +527,7 @@ li.menu-item.ui-sortable-helper .menu-item-transport dl {
 	margin-top: 13px;
 }
 
-/* WARNING: The factor of 30px is hardcoded into the nav-menus javascript. */
+/* WARNING: The factor of 30px is hardcoded into the nav-menus JavaScript. */
 .menu-item-depth-0 { margin-right: 0px; }
 .menu-item-depth-1 { margin-right: 30px; }
 .menu-item-depth-2 { margin-right: 60px; }

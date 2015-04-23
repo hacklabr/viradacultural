@@ -16,13 +16,13 @@
 
 // ** Configurações do MySQL - Você pode pegar essas informações com o serviço de hospedagem ** //
 /** O nome do banco de dados do WordPress */
-define('DB_NAME', 'viradacultural');
+define('DB_NAME', 'nomedoBD');
 
 /** Usuário do banco de dados MySQL */
-define('DB_USER', 'root');
+define('DB_USER', 'username_here');
 
 /** Senha do banco de dados MySQL */
-define('DB_PASSWORD', '');
+define('DB_PASSWORD', 'password_here');
 
 /** nome do host do MySQL */
 define('DB_HOST', 'localhost');
@@ -33,8 +33,6 @@ define('DB_CHARSET', 'utf8');
 /** O tipo de collate do banco de dados. Não altere isso se tiver dúvidas. */
 define('DB_COLLATE', '');
 
-define('DOMAIN_CURRENT_SITE', 'localhost/viradacultural');
-
 /**#@+
  * Chaves únicas de autenticação e salts.
  *
@@ -44,14 +42,14 @@ define('DOMAIN_CURRENT_SITE', 'localhost/viradacultural');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         'f9Mc =ZD#{=AUjO6Z+wyQ`$]fuw%%=UZ7_vVw>3FhS{FS-XLp<Xk^LY!F8@Fe0%C');
-define('SECURE_AUTH_KEY',  '-q-{lawEBwLW}h75|D?; $Q6W2w =*5[--@sEn.k~_!2?e*l~(?5KW97$#<:9KR6');
-define('LOGGED_IN_KEY',    'ZIf>EiYCdwo#0i2n**~tfaI~J=OUA y+4[JQ,4sv+?Meb:84Hc|-gw6O|dXbB{=p');
-define('NONCE_KEY',        ':4yhOjQ8,4u3ccrL)RzPGd_|&h>O@d1[d.cTr%{[V-v+|uAJ=e`r0%/qw]r~Ej@*');
-define('AUTH_SALT',        '9oY2j0A7?oS=>ShI1.j=h`HF.$eqN={|Fwj4>@Pfpc$koFWbA#,+?#^FIi;F-TrP');
-define('SECURE_AUTH_SALT', '-DJ{l.fyNAL @?q/e>eiP7^+vRyj:Bt&VB%fFTS8CtQ!yD7%jz>q1{Zt2Q++;}3/');
-define('LOGGED_IN_SALT',   ',Xg,0-%y6t4@fVDDe2xZ&^Y 9Td?|ye3gW<h_sja?JE1ZzT[W*+/;Aj;QLB{YOQe');
-define('NONCE_SALT',       'H|}Q wc5@Zbh,?KZb2-%zsn4%uk!QQ}n=#I^!6vX<6b+XBy=zx+VxOODvO[kUI+X');
+define('AUTH_KEY',         'put your unique phrase here');
+define('SECURE_AUTH_KEY',  'put your unique phrase here');
+define('LOGGED_IN_KEY',    'put your unique phrase here');
+define('NONCE_KEY',        'put your unique phrase here');
+define('AUTH_SALT',        'put your unique phrase here');
+define('SECURE_AUTH_SALT', 'put your unique phrase here');
+define('LOGGED_IN_SALT',   'put your unique phrase here');
+define('NONCE_SALT',       'put your unique phrase here');
 
 /**#@-*/
 
@@ -63,15 +61,6 @@ define('NONCE_SALT',       'H|}Q wc5@Zbh,?KZb2-%zsn4%uk!QQ}n=#I^!6vX<6b+XBy=zx+V
  */
 $table_prefix  = 'wp_';
 
-/**
- * O idioma localizado do WordPress é o inglês por padrão.
- *
- * Altere esta definição para localizar o WordPress. Um arquivo MO correspondente ao
- * idioma escolhido deve ser instalado em wp-content/languages. Por exemplo, instale
- * pt_BR.mo em wp-content/languages e altere WPLANG para 'pt_BR' para habilitar o suporte
- * ao português do Brasil.
- */
-define('WPLANG', 'pt_BR');
 
 /**
  * Para desenvolvedores: Modo debugging WordPress.

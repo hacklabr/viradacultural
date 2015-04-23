@@ -71,7 +71,6 @@ function bloginfo_rss($show = '') {
  * 'default_feed' filter.
  *
  * @since 2.5.0
- * @uses apply_filters() Calls 'default_feed' hook on the default feed string.
  *
  * @return string Default feed, or for example 'rss2', 'atom', etc.
  */
@@ -93,13 +92,20 @@ function get_default_feed() {
  *
  * @since 2.2.0
  *
- * @param string $sep Optional.How to separate the title. See wp_title() for more info.
+ * @param string $sep Optional. How to separate the title. See wp_title() for more info.
  * @return string Error message on failure or blog title on success.
  */
-function get_wp_title_rss($sep = '&#187;') {
-	$title = wp_title($sep, false);
-	if ( is_wp_error( $title ) )
+function get_wp_title_rss( $sep = '&#187;' ) {
+	$title = wp_title( $sep, false );
+
+	if ( is_wp_error( $title ) ) {
 		return $title->get_error_message();
+	}
+
+	if ( $title && $sep && ' ' !== substr( $title, 0, 1 ) ) {
+		$title = " $sep " . $title;
+	}
+
 	/**
 	 * Filter the blog title for use as the feed title.
 	 *
@@ -158,7 +164,6 @@ function get_the_title_rss() {
  * Display the post title in the feed.
  *
  * @since 0.71
- * @uses get_the_title_rss() Used to retrieve current post title.
  */
 function the_title_rss() {
 	echo get_the_title_rss();
@@ -177,7 +182,7 @@ function get_the_content_feed($feed_type = null) {
 	if ( !$feed_type )
 		$feed_type = get_default_feed();
 
-	/** This filter is documented in wp-admin/post-template.php */
+	/** This filter is documented in wp-includes/post-template.php */
 	$content = apply_filters( 'the_content', get_the_content() );
 	$content = str_replace(']]>', ']]&gt;', $content);
 	/**
@@ -196,8 +201,6 @@ function get_the_content_feed($feed_type = null) {
  * Display the post content for feeds.
  *
  * @since 2.9.0
- * @uses apply_filters() Calls 'the_content_feed' on the content before processing.
- * @see get_the_content()
  *
  * @param string $feed_type The type of feed. rss2 | atom | rss | rdf
  */
@@ -273,7 +276,7 @@ function comment_guid($comment_id = null) {
  * @since 2.5.0
  *
  * @param int|object $comment_id Optional comment object or id. Defaults to global comment object.
- * @return bool|string false on failure or guid for comment on success.
+ * @return false|string false on failure or guid for comment on success.
  */
 function get_comment_guid($comment_id = null) {
 	$comment = get_comment($comment_id);
@@ -306,7 +309,6 @@ function comment_link() {
  * Retrieve the current comment author for use in the feeds.
  *
  * @since 2.0.0
- * @uses get_comment_author()
  *
  * @return string Comment Author
  */
@@ -336,7 +338,6 @@ function comment_author_rss() {
  * Display the current comment content for use in the feeds.
  *
  * @since 1.0.0
- * @uses get_comment_text()
  */
 function comment_text_rss() {
 	$comment_text = get_comment_text();
@@ -389,8 +390,7 @@ function get_the_category_rss($type = null) {
 		if ( 'rdf' == $type )
 			$the_list .= "\t\t<dc:subject><![CDATA[$cat_name]]></dc:subject>\n";
 		elseif ( 'atom' == $type )
-			/** This filter is documented in wp-includes/feed.php */
-			$the_list .= sprintf( '<category scheme="%1$s" term="%2$s" />', esc_attr( apply_filters( 'get_bloginfo_rss', get_bloginfo( 'url' ) ) ), esc_attr( $cat_name ) );
+			$the_list .= sprintf( '<category scheme="%1$s" term="%2$s" />', esc_attr( get_bloginfo_rss( 'url' ) ), esc_attr( $cat_name ) );
 		else
 			$the_list .= "\t\t<category><![CDATA[" . @html_entity_decode( $cat_name, ENT_COMPAT, get_option('blog_charset') ) . "]]></category>\n";
 	}
@@ -448,7 +448,6 @@ function html_type_rss() {
  * attributes.
  *
  * @since 1.5.0
- * @uses get_post_custom() To get the current post enclosure metadata.
  */
 function rss_enclosure() {
 	if ( post_password_required() )
@@ -488,7 +487,6 @@ function rss_enclosure() {
  * enclosure(s) consist of link HTML tag(s) with a URI and other attributes.
  *
  * @since 2.2.0
- * @uses get_post_custom() To get the current post enclosure metadata.
  */
 function atom_enclosure() {
 	if ( post_password_required() )

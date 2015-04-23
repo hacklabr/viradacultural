@@ -133,7 +133,7 @@ if ( $action ) {
 
 					// If the user doesn't already belong to the blog, bail.
 					if ( !is_user_member_of_blog( $user_id ) )
-						wp_die(__('Cheatin&#8217; uh?'));
+						wp_die( __( 'Cheatin&#8217; uh?' ), 403 );
 
 					$user = get_userdata( $user_id );
 					$user->set_role( $_REQUEST['new_role'] );
@@ -176,7 +176,7 @@ if ( ! wp_is_large_network( 'users' ) && apply_filters( 'show_network_site_users
 
 require( ABSPATH . 'wp-admin/admin-header.php' ); ?>
 
-<script type='text/javascript'>
+<script type="text/javascript">
 /* <![CDATA[ */
 var current_site_id = <?php echo $id; ?>;
 /* ]]> */

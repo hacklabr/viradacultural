@@ -71,7 +71,7 @@ if ( !defined('ABSPATH') )
 
 <div id="postbox-container-1" class="postbox-container">
 <div id="submitdiv" class="stuffbox" >
-<h3><span class='hndle'><?php _e('Status') ?></span></h3>
+<h3><span class="hndle"><?php _e('Status') ?></span></h3>
 <div class="inside">
 <div class="submitbox" id="submitcomment">
 <div id="minor-publishing">
@@ -155,6 +155,8 @@ do_meta_boxes(null, 'normal', $comment);
 </div>
 </form>
 
+<?php if ( ! wp_is_mobile() ) : ?>
 <script type="text/javascript">
 try{document.post.name.focus();}catch(e){}
 </script>
+<?php endif;

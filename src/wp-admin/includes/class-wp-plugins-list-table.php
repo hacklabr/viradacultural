@@ -9,7 +9,17 @@
  */
 class WP_Plugins_List_Table extends WP_List_Table {
 
-	function __construct( $args = array() ) {
+	/**
+	 * Constructor.
+	 *
+	 * @since 3.1.0
+	 * @access public
+	 *
+	 * @see WP_List_Table::__construct() for more information on default arguments.
+	 *
+	 * @param array $args An associative array of arguments.
+	 */
+	public function __construct( $args = array() ) {
 		global $status, $page;
 
 		parent::__construct( array(
@@ -27,15 +37,15 @@ class WP_Plugins_List_Table extends WP_List_Table {
 		$page = $this->get_pagenum();
 	}
 
-	function get_table_classes() {
+	protected function get_table_classes() {
 		return array( 'widefat', $this->_args['plural'] );
 	}
 
-	function ajax_user_can() {
+	public function ajax_user_can() {
 		return current_user_can('activate_plugins');
 	}
 
-	function prepare_items() {
+	public function prepare_items() {
 		global $status, $plugins, $totals, $page, $orderby, $order, $s;
 
 		wp_reset_vars( array( 'orderby', 'order', 's' ) );
@@ -109,7 +119,16 @@ class WP_Plugins_List_Table extends WP_List_Table {
 			update_option( 'recently_activated', $recently_activated );
 		}
 
+		$plugin_info = get_site_transient( 'update_plugins' );
+
 		foreach ( (array) $plugins['all'] as $plugin_file => $plugin_data ) {
+			// Extra info if known. array_merge() ensures $plugin_data has precedence if keys collide.
+			if ( isset( $plugin_info->response[ $plugin_file ] ) ) {
+				$plugins['all'][ $plugin_file ] = $plugin_data = array_merge( (array) $plugin_info->response[ $plugin_file ], $plugin_data );
+			} elseif ( isset( $plugin_info->no_update[ $plugin_file ] ) ) {
+				$plugins['all'][ $plugin_file ] = $plugin_data = array_merge( (array) $plugin_info->no_update[ $plugin_file ], $plugin_data );
+			}
+
 			// Filter into individual sections
 			if ( is_multisite() && ! $screen->in_admin( 'network' ) && is_network_only_plugin( $plugin_file ) && ! is_plugin_active( $plugin_file ) ) {
 				// On the non-network screen, filter out network-only plugins as long as they're not individually activated
@@ -172,7 +191,12 @@ class WP_Plugins_List_Table extends WP_List_Table {
 		) );
 	}
 
-	function _search_callback( $plugin ) {
+	/**
+	 * @staticvar string $term
+	 * @param array $plugin
+	 * @return boolean
+	 */
+	public function _search_callback( $plugin ) {
 		static $term;
 		if ( is_null( $term ) )
 			$term = wp_unslash( $_REQUEST['s'] );
@@ -186,7 +210,14 @@ class WP_Plugins_List_Table extends WP_List_Table {
 		return false;
 	}
 
-	function _order_callback( $plugin_a, $plugin_b ) {
+	/**
+	 * @global string $orderby
+	 * @global string $order
+	 * @param array $plugin_a
+	 * @param array $plugin_b
+	 * @return int
+	 */
+	public function _order_callback( $plugin_a, $plugin_b ) {
 		global $orderby, $order;
 
 		$a = $plugin_a[$orderby];
@@ -201,7 +232,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 			return ( $a < $b ) ? -1 : 1;
 	}
 
-	function no_items() {
+	public function no_items() {
 		global $plugins;
 
 		if ( !empty( $plugins['all'] ) )
@@ -210,7 +241,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 			_e( 'You do not appear to have any plugins available at this time.' );
 	}
 
-	function get_columns() {
+	public function get_columns() {
 		global $status;
 
 		return array(
@@ -220,11 +251,11 @@ class WP_Plugins_List_Table extends WP_List_Table {
 		);
 	}
 
-	function get_sortable_columns() {
+	protected function get_sortable_columns() {
 		return array();
 	}
 
-	function get_views() {
+	protected function get_views() {
 		global $totals, $status;
 
 		$status_links = array();
@@ -268,7 +299,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 		return $status_links;
 	}
 
-	function get_bulk_actions() {
+	protected function get_bulk_actions() {
 		global $status;
 
 		$actions = array();
@@ -289,16 +320,26 @@ class WP_Plugins_List_Table extends WP_List_Table {
 		return $actions;
 	}
 
-	function bulk_actions() {
+	/**
+	 * @global string $status
+	 * @param string $which
+	 * @return null
+	 */
+	public function bulk_actions( $which = '' ) {
 		global $status;
 
 		if ( in_array( $status, array( 'mustuse', 'dropins' ) ) )
 			return;
 
-		parent::bulk_actions();
+		parent::bulk_actions( $which );
 	}
 
-	function extra_tablenav( $which ) {
+	/**
+	 * @global string $status
+	 * @param string $which
+	 * @return null
+	 */
+	protected function extra_tablenav( $which ) {
 		global $status;
 
 		if ( ! in_array($status, array('recently_activated', 'mustuse', 'dropins') ) )
@@ -316,14 +357,14 @@ class WP_Plugins_List_Table extends WP_List_Table {
 		echo '</div>';
 	}
 
-	function current_action() {
+	public function current_action() {
 		if ( isset($_POST['clear-recent-list']) )
 			return 'clear-recent-list';
 
 		return parent::current_action();
 	}
 
-	function display_rows() {
+	public function display_rows() {
 		global $status;
 
 		if ( is_multisite() && ! $this->screen->in_admin( 'network' ) && in_array( $status, array( 'mustuse', 'dropins' ) ) )
@@ -333,17 +374,25 @@ class WP_Plugins_List_Table extends WP_List_Table {
 			$this->single_row( array( $plugin_file, $plugin_data ) );
 	}
 
-	function single_row( $item ) {
+	/**
+	 * @global string $status
+	 * @global int $page
+	 * @global string $s
+	 * @global array $totals
+	 * @param array $item
+	 */
+	public function single_row( $item ) {
 		global $status, $page, $s, $totals;
 
 		list( $plugin_file, $plugin_data ) = $item;
 		$context = $status;
 		$screen = $this->screen;
 
-		// preorder
+		// Pre-order.
 		$actions = array(
 			'deactivate' => '',
 			'activate' => '',
+			'details' => '',
 			'edit' => '',
 			'delete' => '',
 		);
@@ -392,6 +441,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 					if ( ! is_multisite() && current_user_can('delete_plugins') )
 						$actions['delete'] = '<a href="' . wp_nonce_url('plugins.php?action=delete-selected&amp;checked[]=' . $plugin_file . '&amp;plugin_status=' . $context . '&amp;paged=' . $page . '&amp;s=' . $s, 'bulk-plugins') . '" title="' . esc_attr__('Delete this plugin') . '" class="delete">' . __('Delete') . '</a>';
 				} // end if $is_active
+
 			 } // end if $screen->in_admin( 'network' )
 
 			if ( ( ! is_multisite() || $screen->in_admin( 'network' ) ) && current_user_can('edit_plugins') && is_writable(WP_PLUGIN_DIR . '/' . $plugin_file) )
@@ -403,7 +453,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 		/**
 		 * Filter the action links displayed for each plugin in the Plugins list table.
 		 *
-		 * The dynamic portion of the hook name, $prefix, refers to the context the
+		 * The dynamic portion of the hook name, `$prefix`, refers to the context the
 		 * action links are displayed in. The 'network_admin_' prefix is used if the
 		 * current screen is the Network plugins list table. The prefix is empty ('')
 		 * if the current screen is the site plugins list table.
@@ -494,11 +544,25 @@ class WP_Plugins_List_Table extends WP_List_Table {
 					if ( !empty( $plugin_data['Author'] ) ) {
 						$author = $plugin_data['Author'];
 						if ( !empty( $plugin_data['AuthorURI'] ) )
-							$author = '<a href="' . $plugin_data['AuthorURI'] . '" title="' . esc_attr__( 'Visit author homepage' ) . '">' . $plugin_data['Author'] . '</a>';
+							$author = '<a href="' . $plugin_data['AuthorURI'] . '">' . $plugin_data['Author'] . '</a>';
 						$plugin_meta[] = sprintf( __( 'By %s' ), $author );
 					}
-					if ( ! empty( $plugin_data['PluginURI'] ) )
-						$plugin_meta[] = '<a href="' . $plugin_data['PluginURI'] . '" title="' . esc_attr__( 'Visit plugin site' ) . '">' . __( 'Visit plugin site' ) . '</a>';
+
+					// Details link using API info, if available
+					if ( isset( $plugin_data['slug'] ) && current_user_can( 'install_plugins' ) ) {
+						$plugin_meta[] = sprintf( '<a href="%s" class="thickbox" aria-label="%s" data-title="%s">%s</a>',
+							esc_url( network_admin_url( 'plugin-install.php?tab=plugin-information&plugin=' . $plugin_data['slug'] .
+								'&TB_iframe=true&width=600&height=550' ) ),
+							esc_attr( sprintf( __( 'More information about %s' ), $plugin_name ) ),
+							esc_attr( $plugin_name ),
+							__( 'View details' )
+						);
+					} elseif ( ! empty( $plugin_data['PluginURI'] ) ) {
+						$plugin_meta[] = sprintf( '<a href="%s">%s</a>',
+							esc_url( $plugin_data['PluginURI'] ),
+							__( 'Visit plugin site' )
+						);
+					}
 
 					/**
 					 * Filter the array of row meta for each plugin in the Plugins list table.
@@ -554,7 +618,7 @@ class WP_Plugins_List_Table extends WP_List_Table {
 		/**
 		 * Fires after each specific row in the Plugins list table.
 		 *
-		 * The dynamic portion of the hook name, $plugin_file, refers to the path
+		 * The dynamic portion of the hook name, `$plugin_file`, refers to the path
 		 * to the plugin file, relative to the plugins directory.
 		 *
 		 * @since 2.7.0

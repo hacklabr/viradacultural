@@ -211,7 +211,7 @@ window.autosave = function() {
 				var postData, compareString,
 					result = false;
 
-				if ( isSuspended ) {
+				if ( isSuspended || ! hasStorage ) {
 					return false;
 				}
 
@@ -286,7 +286,7 @@ window.autosave = function() {
 						});
 					}
 
-					wpCookies.set( 'wp-saving-post-' + post_id, 'check' );
+					wpCookies.set( 'wp-saving-post', post_id + '-check', 24 * 60 * 60 );
 				});
 			}
 
@@ -309,20 +309,17 @@ window.autosave = function() {
 			function checkPost() {
 				var content, post_title, excerpt, $notice,
 					postData = getSavedPostData(),
-					cookie = wpCookies.get( 'wp-saving-post-' + post_id );
+					cookie = wpCookies.get( 'wp-saving-post' );
 
-				if ( ! postData ) {
+				if ( cookie === post_id + '-saved' ) {
+					wpCookies.remove( 'wp-saving-post' );
+					// The post was saved properly, remove old data and bail
+					setData( false );
 					return;
 				}
 
-				if ( cookie ) {
-					wpCookies.remove( 'wp-saving-post-' + post_id );
-
-					if ( cookie === 'saved' ) {
-						// The post was saved properly, remove old data and bail
-						setData( false );
-						return;
-					}
+				if ( ! postData ) {
+					return;
 				}
 
 				// There is a newer autosave. Don't show two "restore" notices at the same time.
@@ -334,9 +331,8 @@ window.autosave = function() {
 				post_title = $( '#title' ).val() || '';
 				excerpt = $( '#excerpt' ).val() || '';
 
-				// cookie == 'check' means the post was not saved properly, always show #local-storage-notice
-				if ( cookie !== 'check' && compare( content, postData.content ) &&
-					compare( post_title, postData.post_title ) && compare( excerpt, postData.excerpt ) ) {
+				if ( compare( content, postData.content ) && compare( post_title, postData.post_title ) &&
+					compare( excerpt, postData.excerpt ) ) {
 
 					return;
 				}
@@ -349,7 +345,7 @@ window.autosave = function() {
 				};
 
 				$notice = $( '#local-storage-notice' );
-				$('.wrap h2').first().after( $notice.addClass( 'updated' ).show() );
+				$('.wrap h2').first().after( $notice.addClass( 'notice-warning' ).show() );
 
 				$notice.on( 'click.autosave-local', function( event ) {
 					var $target = $( event.target );
@@ -358,10 +354,12 @@ window.autosave = function() {
 						restorePost( restorePostData );
 						$target.parent().hide();
 						$(this).find( 'p.undo-restore' ).show();
+						$notice.removeClass( 'notice-warning' ).addClass( 'notice-success' );
 					} else if ( $target.hasClass( 'undo-restore-backup' ) ) {
 						restorePost( undoPostData );
 						$target.parent().hide();
 						$(this).find( 'p.local-restore' ).show();
+						$notice.removeClass( 'notice-success' ).addClass( 'notice-warning' );
 					}
 
 					event.preventDefault();
@@ -399,20 +397,14 @@ window.autosave = function() {
 				return false;
 			}
 
-			// Initialize and run checkPost() on loading the script (before TinyMCE init)
 			blog_id = typeof window.autosaveL10n !== 'undefined' && window.autosaveL10n.blog_id;
 
-			// Check if the browser supports sessionStorage and it's not disabled
-			if ( ! checkStorage() ) {
-				return;
-			}
-
+			// Check if the browser supports sessionStorage and it's not disabled,
+			// then initialize and run checkPost().
 			// Don't run if the post type supports neither 'editor' (textarea#content) nor 'excerpt'.
-			if ( ! blog_id || ( ! $('#content').length && ! $('#excerpt').length ) ) {
-				return;
+			if ( checkStorage() && blog_id && ( $('#content').length || $('#excerpt').length ) ) {
+				$document.ready( run );
 			}
-
-			$document.ready( run );
 
 			return {
 				hasStorage: hasStorage,

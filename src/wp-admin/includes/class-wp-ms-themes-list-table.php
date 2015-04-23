@@ -9,10 +9,20 @@
  */
 class WP_MS_Themes_List_Table extends WP_List_Table {
 
-	var $site_id;
-	var $is_site_themes;
+	public $site_id;
+	public $is_site_themes;
 
-	function __construct( $args = array() ) {
+	/**
+	 * Constructor.
+	 *
+	 * @since 3.1.0
+	 * @access public
+	 *
+	 * @see WP_List_Table::__construct() for more information on default arguments.
+	 *
+	 * @param array $args An associative array of arguments.
+	 */
+	public function __construct( $args = array() ) {
 		global $status, $page;
 
 		parent::__construct( array(
@@ -32,18 +42,19 @@ class WP_MS_Themes_List_Table extends WP_List_Table {
 			$this->site_id = isset( $_REQUEST['id'] ) ? intval( $_REQUEST['id'] ) : 0;
 	}
 
-	function get_table_classes() {
-		return array( 'widefat', 'plugins' );	// todo: remove and add CSS for .themes
+	protected function get_table_classes() {
+		// todo: remove and add CSS for .themes
+		return array( 'widefat', 'plugins' );
 	}
 
-	function ajax_user_can() {
+	public function ajax_user_can() {
 		if ( $this->is_site_themes )
 			return current_user_can( 'manage_sites' );
 		else
 			return current_user_can( 'manage_network_themes' );
 	}
 
-	function prepare_items() {
+	public function prepare_items() {
 		global $status, $totals, $page, $orderby, $order, $s;
 
 		wp_reset_vars( array( 'orderby', 'order', 's' ) );
@@ -131,7 +142,12 @@ class WP_MS_Themes_List_Table extends WP_List_Table {
 		) );
 	}
 
-	function _search_callback( $theme ) {
+	/**
+	 * @staticvar string $term
+	 * @param WP_Theme $theme
+	 * @return bool
+	 */
+	public function _search_callback( $theme ) {
 		static $term;
 		if ( is_null( $term ) )
 			$term = wp_unslash( $_REQUEST['s'] );
@@ -152,7 +168,14 @@ class WP_MS_Themes_List_Table extends WP_List_Table {
 	}
 
 	// Not used by any core columns.
-	function _order_callback( $theme_a, $theme_b ) {
+	/**
+	 * @global string $orderby
+	 * @global string $order
+	 * @param array $theme_a
+	 * @param array $theme_b
+	 * @return int
+	 */
+	public function _order_callback( $theme_a, $theme_b ) {
 		global $orderby, $order;
 
 		$a = $theme_a[ $orderby ];
@@ -167,14 +190,14 @@ class WP_MS_Themes_List_Table extends WP_List_Table {
 			return ( $a < $b ) ? -1 : 1;
 	}
 
-	function no_items() {
+	public function no_items() {
 		if ( ! $this->has_items )
 			_e( 'No themes found.' );
 		else
 			_e( 'You do not appear to have any themes available at this time.' );
 	}
 
-	function get_columns() {
+	public function get_columns() {
 		global $status;
 
 		return array(
@@ -184,13 +207,13 @@ class WP_MS_Themes_List_Table extends WP_List_Table {
 		);
 	}
 
-	function get_sortable_columns() {
+	protected function get_sortable_columns() {
 		return array(
 			'name'         => 'name',
 		);
 	}
 
-	function get_views() {
+	protected function get_views() {
 		global $totals, $status;
 
 		$status_links = array();
@@ -233,7 +256,7 @@ class WP_MS_Themes_List_Table extends WP_List_Table {
 		return $status_links;
 	}
 
-	function get_bulk_actions() {
+	protected function get_bulk_actions() {
 		global $status;
 
 		$actions = array();
@@ -250,12 +273,19 @@ class WP_MS_Themes_List_Table extends WP_List_Table {
 		return $actions;
 	}
 
-	function display_rows() {
+	public function display_rows() {
 		foreach ( $this->items as $theme )
 			$this->single_row( $theme );
 	}
 
-	function single_row( $theme ) {
+	/**
+	 * @global string $status
+	 * @global int $page
+	 * @global string $s
+	 * @global array $totals
+	 * @param WP_Theme $theme
+	 */
+	public function single_row( $theme ) {
 		global $status, $page, $s, $totals;
 
 		$context = $status;
@@ -268,7 +298,7 @@ class WP_MS_Themes_List_Table extends WP_List_Table {
 			$allowed = $theme->is_allowed( 'network' );
 		}
 
-		// preorder
+		// Pre-order.
 		$actions = array(
 			'enable' => '',
 			'disable' => '',
@@ -320,7 +350,7 @@ class WP_MS_Themes_List_Table extends WP_List_Table {
 		 * Filter the action links of a specific theme in the Multisite themes
 		 * list table.
 		 *
-		 * The dynamic portion of the hook name, $stylesheet, refers to the
+		 * The dynamic portion of the hook name, `$stylesheet`, refers to the
 		 * directory name of the theme, which in most cases is synonymous
 		 * with the template name.
 		 *
@@ -433,7 +463,7 @@ class WP_MS_Themes_List_Table extends WP_List_Table {
 		/**
 		 * Fires after each specific row in the Multisite themes list table.
 		 *
-		 * The dynamic portion of the hook name, $stylesheet, refers to the
+		 * The dynamic portion of the hook name, `$stylesheet`, refers to the
 		 * directory name of the theme, most often synonymous with the template
 		 * name of the theme.
 		 *

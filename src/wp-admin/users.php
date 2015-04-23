@@ -10,7 +10,7 @@
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! current_user_can( 'list_users' ) )
-	wp_die( __( 'Cheatin&#8217; uh?' ) );
+	wp_die( __( 'Cheatin&#8217; uh?' ), 403 );
 
 $wp_list_table = _get_list_table('WP_Users_List_Table');
 $pagenum = $wp_list_table->get_pagenum();
@@ -128,7 +128,7 @@ case 'promote':
 
 		// If the user doesn't already belong to the blog, bail.
 		if ( is_multisite() && !is_user_member_of_blog( $id ) )
-			wp_die(__('Cheatin&#8217; uh?'));
+			wp_die( __( 'Cheatin&#8217; uh?' ), 403 );
 
 		$user = get_userdata( $id );
 		$user->set_role($_REQUEST['new_role']);
@@ -136,8 +136,6 @@ case 'promote':
 
 	wp_redirect(add_query_arg('update', $update, $redirect));
 	exit();
-
-break;
 
 case 'dodelete':
 	if ( is_multisite() )
@@ -187,8 +185,6 @@ case 'dodelete':
 	$redirect = add_query_arg( array('delete_count' => $delete_count, 'update' => $update), $redirect);
 	wp_redirect($redirect);
 	exit();
-
-break;
 
 case 'delete':
 	if ( is_multisite() )
@@ -248,6 +244,16 @@ case 'delete':
 		<?php echo '<label for="delete_option1">' . __( 'Attribute all content to:' ) . '</label> ';
 		wp_dropdown_users( array( 'name' => 'reassign_user', 'exclude' => array_diff( $userids, array($current_user->ID) ) ) ); ?></li>
 	</ul></fieldset>
+	<?php
+	/**
+	 * Fires at the end of the delete users form prior to the confirm button.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param WP_User $current_user WP_User object for the user being deleted.
+	 */
+	do_action( 'delete_user_form', $current_user );
+	?>
 	<input type="hidden" name="action" value="dodelete" />
 	<?php submit_button( __('Confirm Deletion'), 'secondary' ); ?>
 <?php else : ?>
@@ -292,8 +298,6 @@ case 'doremove':
 	$redirect = add_query_arg( array('update' => $update), $redirect);
 	wp_redirect($redirect);
 	exit;
-
-break;
 
 case 'remove':
 
@@ -340,6 +344,7 @@ case 'remove':
 		}
  	}
  	?>
+</ul>
 <?php if ( $go_remove ) : ?>
 		<input type="hidden" name="action" value="doremove" />
 		<?php submit_button( __('Confirm Removal'), 'secondary' ); ?>
