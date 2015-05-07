@@ -14,8 +14,9 @@ add_action('wp_print_scripts', function () {
 
 <?php
 
-    include ('includes/Simple-Database-PHP-Class/Db.php');
-    include ('includes/extra-db-config.php');
+    require ('includes/Simple-Database-PHP-Class/Db.php');
+    require ('includes/extra-db-config.php');
+    
     $db = new Db('mysql',
         $db_config['virada_nas_redes']['host'],
         $db_config['virada_nas_redes']['name'],
