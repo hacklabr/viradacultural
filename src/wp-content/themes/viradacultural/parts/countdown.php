@@ -8,13 +8,13 @@
     <div>min</div>
     <footer>
         <time>
-            <div>17-18</div>
-            <div>maio</div>
-            <div>2014</div>
+            <div>20-21</div>
+            <div>junho</div>
+            <div>2015</div>
         </time>
         <div class="rede-sociais">
 
-            <?php $redes = get_theme_option('social_networks'); $redesbuttons = array('facebook', 'twitter', 'googleplus', 'youtube', 'flickr'); ?>
+            <?php $redes = get_theme_option('social_networks'); $redesbuttons = array('facebook', 'twitter', 'googleplus', 'youtube', 'flickr', 'instagram'); ?>
 
             <?php foreach ($redesbuttons as $button): ?>
                 <?php if (isset($redes[$button]) && $redes[$button]): ?>
