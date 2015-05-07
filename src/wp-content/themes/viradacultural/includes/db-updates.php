@@ -26,7 +26,7 @@ if(congelado_db_update('create minha virada table')){
 }
 
 
-if(congelado_db_update('create nas redes table')){
+if(congelado_db_update('recreate nas redes table')){
     global $wpdb;
 
     $wpdb->query("
@@ -43,6 +43,8 @@ if(congelado_db_update('create nas redes table')){
             PRIMARY KEY (`id`)
         );
 
-        create index date on items (date);
-        create index type_ref_id on items (type, ref_id);");
+        ");
+
+    $wpdb->query("create index date on items (date);");
+    $wpdb->query("create index type_ref_id on items (type, ref_id);");
 }
