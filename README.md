@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/hacklabr/viradacultural.png?label=ready&title=Ready)](https://waffle.io/hacklabr/viradacultural)
 viradacultural
 ==============
 
