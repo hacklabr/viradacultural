@@ -8,6 +8,8 @@
                             <a class="btn btn-primary btn-sm" href="<?php echo site_url( 'transparencia-virada-cultural-2014' ); ?>">Transparência</a>
 							<?php } else if ('noticias' == get_post_type() || is_post_type_archive('noticias')) { ?>
 								Notícias
+							<?php } else if (is_home()) { ?>
+								Blog
 							<?php } else if ('imprensa' == get_post_type() || is_post_type_archive('imprensa')) { ?>
 								Imprensa <a class="btn btn-primary btn-sm" href="<?php bloginfo( 'url' ); ?>/credenciamento">Credenciamento</a>
 							<?php } else if (is_page_template('page-credenciamento-imprensa.php')) { ?>
@@ -67,7 +69,7 @@
                                             <?php if (mostrar_programacao()): ?>
                                                 <form id="pages-search" class="pages-navbar-item col-md-4 col-lg-3" role="search" action="<?php echo site_url(); ?>">
                                                     <div class="input-group">
-                                                        <input type="text" name="s" id="search-term" class="form-control" placeholder="Digite uma palavra-chave" ng-model='searchText' ng-change='unaccentSearchText = unaccent(searchText)'>
+                                                        <input type="text" name="s" id="search-term" class="form-control" placeholder="Busca" ng-model='searchText' ng-change='unaccentSearchText = unaccent(searchText)'>
 
                                                         <div class="input-group-btn">
                                                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -85,7 +87,7 @@
                                             <?php else: ?>
                                                 <form id="pages-search" class="pages-navbar-item col-md-4 col-lg-3" role="search" action="<?php echo site_url(); ?>">
                                                     <div class="input-group">
-                                                        <input type="text" name="s" class="form-control" placeholder="Digite uma palavra-chave" ng-model='searchText' ng-change='unaccentSearchText = unaccent(searchText)'>
+                                                        <input type="text" name="s" class="form-control" placeholder="Busca" ng-model='searchText' ng-change='unaccentSearchText = unaccent(searchText)'>
 
                                                         <div class="input-group-btn">
                                                             <button type="button" class="btn btn-primary">
