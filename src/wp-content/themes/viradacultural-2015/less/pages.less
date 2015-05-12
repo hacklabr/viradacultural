@@ -1,0 +1,146 @@
+.favorita-evento {
+	h4 {
+		padding-left: 35px;
+		margin: 0;
+		.img-retina("img/minha-virada-icon-1x.png", "img/minha-virada-icon-2x.png", 27px, 25px);
+		background-position: 0 center;
+		background-repeat: no-repeat;
+	}
+
+	.modal-body {
+		overflow: hidden;
+	}
+}
+
+.js-page-minha-virada {
+	.user-photo {
+		.img-circle;
+		margin: 0 auto;
+		width: 150px;
+		height: 150px;
+		background-size: cover;
+	}
+
+	.space-single {
+	    .timeline {
+	        .event-group {
+
+	            &:nth-child(odd){
+	                padding-top: 20px;
+	                .timeline-time {
+                    	top: 26px;
+                	}
+	            }
+	        }
+	    }
+	}
+}
+
+#site-navbar {
+	.share-buttons {
+		margin-top: 20px;
+	}
+
+	.pages-navbar-item {
+	    float: right;
+	    margin: 20px 0;
+	}
+
+	#pages-search {
+		.btn .caret {
+			margin-left: 5px;
+		}
+		.dropdown-menu {
+			left: initial;
+			right: 0;
+			width: 100%;
+			background-color: @brand-auxiliar;
+		}
+	}
+
+	.share-buttons {
+		ul {
+			float: right;
+			.list-unstyled;
+			.list-inline;
+			.text {
+				.sr-only;
+			}
+
+			@media (max-width: @screen-md-max) {
+				li {
+					padding: 0;
+				}
+		    	.btn {
+		    		padding: 6px 10px;
+		    	}
+		    }
+		}
+	}
+}
+
+.page, .single {
+	article {
+		margin-bottom: 48px;
+		#author-info {
+			position: relative;
+			margin-bottom: 48px;
+			padding-top: 23px;
+			padding-left: 70px;
+			border-top: 1px solid @gray-light;
+			text-transform: none;
+			font-size: 14px;
+			line-height: 24px;
+			.author-photo {
+				position: absolute;
+				top: 23px;
+				left: 0;
+			}
+		}
+	}
+}
+
+.comments {
+ 	text-align: center;
+}
+
+.blog, .archive {
+	#posts-nav {
+		clear: both;
+		overflow: hidden;
+		margin: 0;
+		a {
+			display: block;
+			width: 36px;
+			height: 36px;
+			color: @brand-auxiliar;
+			background-color: @brand-accent;
+			&:hover {
+				background-color: @brand-primary;
+			}
+		}
+
+		.icon {
+			display: block;
+			width: 36px;
+			height: 36px;
+			font-size: 34px;
+		}
+
+		.label {
+			.sr-only;
+		}
+	}
+}
+
+.page {
+	.btn-show-more {
+		margin-top: 40px;
+		margin-bottom: 40px;
+	}
+}
+
+#posts-nav {
+	margin-bottom: 48px;
+	.secondary-font();
+}
