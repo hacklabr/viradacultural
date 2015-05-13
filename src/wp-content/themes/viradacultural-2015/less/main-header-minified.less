@@ -1,11 +1,11 @@
 #main-header-minified {
     margin-top: -76px;
     .navbar.navbar-default {
-        background-color: @gray-lighter;
+        background-color: @brand-primary;
         margin-bottom: 0;
     }
     .navbar-header {
-        background-color: @roxo;
+        background-color: @brand-primary;
         height: 50px;
         a.navbar-brand {
             left: 40px;
@@ -13,30 +13,20 @@
             right: 40px;
             text-align: center;
             text-transform: uppercase;
-            span {
-                display: inline;
-                font-size: 18px;
-                font-weight: bold;
-            }
-            span.verde {
-                color: @gray;
-            }
-            span.rosa {
-                color: @brand-primary;
+            font-weight: bold;
+            color: @brand-auxiliar;
+            span.v {
+                color: @brand-accent;
             }
         }
         button {
-            background-color: @amarelo;
-            border-color: darken(@amarelo, 20%);
             margin: 8px 0 0 0;
-            .icon-bar {
-                background-color: darken(@amarelo, 20%);
-            }
+            background-color: transparent;
             &.pull-left {
                 margin-left: 10px;
             }
             &.pull-right {
-                color: darken(@amarelo, 20%);
+                color: @brand-accent;
                 font-size: 20px;
                 height: 34px;
                 margin-right: 10px;
@@ -53,6 +43,7 @@
     .collapsing.navbar-collapse {
         margin: 0;
         padding: 0;
+        border-color: transparent;
     }
 
     ul.nav.navbar-nav {
@@ -63,12 +54,11 @@
             padding: 0;
         }
         a {
-            background-color: @gray-lighter;
             background-position: 10px center;
             background-repeat: no-repeat;
-            border-bottom: 1px solid @body-bg;
-            border-right: 1px solid @body-bg;
-            color: @brand-primary;
+            border-bottom: 1px solid @gray-darker;
+            border-right: 1px solid @gray-darker;
+            color: @brand-auxiliar;
             display: block;
             height: 48px;
             line-height: 48px;
@@ -77,31 +67,53 @@
             white-space: nowrap;
             z-index: 30;
             .secondary-font();
+            &:hover {
+                color: @brand-primary;
+                background-color: @brand-auxiliar;
+            }
         }
     }
 
     .a-virada {
-        .img-retina("img/virada-icon-1x.png", "img/virada-icon-2x.png", 27px, 25px);
-    }
-    .anos-10 {
-        .img-retina("img/10-icon-1x.png", "img/10-icon-2x.png", 27px, 25px);
+        .img-retina("img/virada-icon-1x.png", "img/virada-icon-2x.png", 29px, 25px);
+        &:hover {
+            .img-retina("img/virada-icon-active-1x.png", "img/virada-icon-active-2x.png", 29px, 25px);
+        }
     }
     .programacao {
-        .img-retina("img/programacao-icon-1x.png", "img/programacao-icon-2x.png", 27px, 25px);
+        .img-retina("img/programacao-icon-1x.png", "img/programacao-icon-2x.png", 29px, 16px);
+        &:hover {
+            .img-retina("img/programacao-icon-active-1x.png", "img/programacao-icon-active-2x.png", 29px, 16px);
+        }
     }
     .noticias {
-        .img-retina("img/noticias-icon-1x.png", "img/noticias-icon-2x.png", 27px, 25px);
+        .img-retina("img/noticias-icon-1x.png", "img/noticias-icon-2x.png", 29px, 16px);
+            &:hover {
+        .img-retina("img/noticias-icon-active-1x.png", "img/noticias-icon-active-2x.png", 29px, 16px);
+        }
     }
     .blog {
-        .img-retina("img/blog-icon-1x.png", "img/blog-icon-2x.png", 27px, 25px);
+        .img-retina("img/blog-icon-1x.png", "img/blog-icon-2x.png", 29px, 16px);
+        &:hover {
+            .img-retina("img/blog-icon-active-1x.png", "img/blog-icon-active-2x.png", 29px, 16px);
+        }
     }
     .imprensa {
-        .img-retina("img/imprensa-icon-1x.png", "img/imprensa-icon-2x.png", 27px, 25px);
+        .img-retina("img/imprensa-icon-1x.png", "img/imprensa-icon-2x.png", 29px, 20px);
+        &:hover {
+            .img-retina("img/imprensa-icon-active-1x.png", "img/imprensa-icon-active-2x.png", 29px, 20px);
+        }
     }
     .nas-redes {
-        .img-retina("img/nas-redes-icon-1x.png", "img/nas-redes-icon-2x.png", 27px, 25px);
+        .img-retina("img/nas-redes-icon-1x.png", "img/nas-redes-icon-2x.png", 29px, 16px);
+        &:hover {
+            .img-retina("img/nas-redes-icon-active-1x.png", "img/nas-redes-icon-active-2x.png", 29px, 16px);
+        }
     }
     .minha-virada {
-        .img-retina("img/minha-virada-icon-1x.png", "img/minha-virada-icon-2x.png", 27px, 25px);
+        .img-retina("img/minha-virada-icon-1x.png", "img/minha-virada-icon-2x.png", 29px, 16px);
+        &:hover {
+            .img-retina("img/minha-virada-icon-active-1x.png", "img/minha-virada-icon-active-2x.png", 29px, 16px);
+        }
     }
 }

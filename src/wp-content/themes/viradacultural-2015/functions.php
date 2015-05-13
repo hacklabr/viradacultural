@@ -221,11 +221,11 @@ function virada_the_post_type_icon($post_type = null) {
 
 
     if ($post_type == 'post')
-		$icon_name = 'blog-icon-2x.png';
+		$icon_name = 'blog-icon-1x.png';
 	elseif ($post_type == 'noticias')
-		$icon_name = 'noticias-icon-2x.png';
+		$icon_name = 'noticias-icon-1x.png';
 	elseif ($post_type == 'imprensa')
-		$icon_name = 'imprensa-icon-2x.png';
+		$icon_name = 'imprensa-icon-1x.png';
 
     echo '<div class="post-type-icon">';
     html::image($icon_name, $post_type);

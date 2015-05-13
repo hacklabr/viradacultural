@@ -149,7 +149,7 @@
                         </button>
                         <a class="navbar-brand" href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'name' ); ?>">
                             <span class="sr-only"><?php bloginfo( 'name' ); ?></span>
-                            <span class="verde">Virada</span> <span class="rosa">Cultural</span>
+                            <span class="v">V</span>irada Cultur<span class="v">a</span>l
                         </a>
                         <?php if($paginaprogramacao == 'programacao'): ?>
                             <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target="#programacao-navbar">
@@ -170,7 +170,7 @@
                         <li class="col-sm-6 col-xs-6"><a class="imprensa" href="<?php echo get_post_type_archive_link( 'imprensa' ); ?>" title="Imprensa"><span>Imprensa</span></a></li>
                         <?php if (mostrar_programacao()): ?>
                             <li class="col-sm-6 col-xs-6"><a class="nas-redes" href="<?php bloginfo( 'url' ); ?>/nas-redes/" title="Nas redes"><span>Nas redes</span></a></li>
-                            <li class="col-sm-6 col-xs-6"><a class="anos-10" href="<?php bloginfo( 'url' ); ?>/10-anos/" title="10 anos"><span>10 anos</span></a></li>
+                            <!--<li class="col-sm-6 col-xs-6"><a class="anos-10" href="<?php bloginfo( 'url' ); ?>/10-anos/" title="10 anos"><span>10 anos</span></a></li>-->
                             <li class="col-sm-6 col-xs-6"><a class="minha-virada" href="<?php bloginfo( 'url' ); ?>/minha-virada/" title="Minha Virada"><span>Minha Virada</span></a></li>
                         <?php endif; ?>
                     </ul>

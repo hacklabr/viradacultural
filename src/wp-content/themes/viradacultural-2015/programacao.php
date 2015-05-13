@@ -64,11 +64,10 @@
 	                                    width: 75%;
 	                                    margin-left:25%;
 	                                    position:absolute;
-	                                    background-color: #893494;">
+	                                    background-color: #dedede;">
 
 	                            <div style="display: table-cell;
 	                                        vertical-align: middle;
-	                                        color: #ffc20e;
 	                                        text-align: center;">Carregando Mapa</div>
 	                        </div>
 
@@ -77,11 +76,10 @@
 	                                    display: table;
 	                                    width: 100%;
 	                                    position:absolute;
-	                                    background-color: #893494;">
+	                                    background-color: #dedede;">
 
 	                            <div style="display: table-cell;
 	                                        vertical-align: middle;
-	                                        color: #ffc20e;
 	                                        text-align: center;">Carregando Mapa</div>
 	                        </div>
                 		</div>
@@ -124,7 +122,7 @@
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#" ng-click="data.viewBy = 'space'" analytics-on="click" analytics-event="Ver por Local selecionado" analytics-category="Commands">Por Local</a></li>
-                            <li><a href="#" ng-click="data.viewBy = 'name'" analytics-on="click" analytics-event="Ver por Atração selecionado" analytics-category="Commands">Por Atração</a></li>
+                            <li><a href="#" ng-click="data.viewBy = 'name'" analytics-on="click" analytics-event="Ver por Atração selecionada" analytics-category="Commands">Por Atração</a></li>
                             <li><a href="#" ng-click="data.viewBy = 'time'" analytics-on="click" analytics-event="Ver por Horário selecionado" analytics-category="Commands">Por Horário</a></li>
                         </ul>
                     </div>

@@ -1,10 +1,10 @@
-<div id="countdown" style="visibility:hidden" class="col-md-2 hidden-sm hidden-xs">
+<div id="countdown" class="col-md-2 hidden-sm hidden-xs">
     <div>Faltam</div>
-    <input class="knob days" data-displayfield="days" data-field="hours" data-min="0" data-max="24" data-fgcolor="#ee2c72"/>
+    <input class="knob days" data-displayfield="days" data-field="hours" data-min="0" data-max="24" data-fgcolor="#fb3f2a"/>
     <div>dias</div>
-    <input class="knob hours" data-displayfield="hours" data-field="m" data-min="0" data-max="60" data-fgcolor="#ffc20e"/>
+    <input class="knob hours" data-displayfield="hours" data-field="m" data-min="0" data-max="60" data-fgcolor="#fb3f2a"/>
     <div>horas</div>
-    <input class="knob minutes" data-displayfield="minutes" data-field="s" data-min="0" data-max="600" data-fgcolor="#893494"/>
+    <input class="knob minutes" data-displayfield="minutes" data-field="s" data-min="0" data-max="600" data-fgcolor="#fb3f2a"/>
     <div>min</div>
     <footer>
         <time>
@@ -32,7 +32,7 @@
 jQuery(document).ready(function() {
 
     var strCurrentDate, //TODO get from server
-    strEventDate = '2014-05-17 18:00',
+    strEventDate = '2015-06-20 18:00',
     $countdownElement = jQuery('#countdown'),
     $knobMinutes = jQuery('.knob.minutes');
 
