@@ -43,12 +43,14 @@ var hl = {
         adjustCarrousselHome();
 
         function replaceCountdown(){
-            var start = moment('2014-05-17 18:00');
+
+            var start = moment('2015-06-20 18:00');
             var now = moment();
             if (!window.$footer)
                 $footer = $('#countdown footer');
 
             if(now > start){
+
                 $('#countdown').replaceWith('<div id="proximas-atracoes" class="event-list col-md-2 hidden-sm hidden-xs">');
             }
 
@@ -110,13 +112,15 @@ var hl = {
                 });
             });
 
-            /* Desativando replaceCountdown depois que a virada acabou
+            /* Desativando replaceCountdown depois que a virada acabou */
             replaceCountdown();
 
             setInterval(replaceCountdown, 10000);
-            */
-            $('#countdown').html($('#countdown footer')); // depois que a virada acabou
-            
+            // */
+
+
+//            $('#countdown').html($('#countdown footer')); // depois que a virada acabou
+
         }
     });
 

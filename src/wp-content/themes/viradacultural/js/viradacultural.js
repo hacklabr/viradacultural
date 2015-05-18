@@ -116,7 +116,7 @@ var hl = {
             setInterval(replaceCountdown, 10000);
             */
             $('#countdown').html($('#countdown footer')); // depois que a virada acabou
-            
+
         }
     });
 
