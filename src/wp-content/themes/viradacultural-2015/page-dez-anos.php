@@ -17,7 +17,7 @@ Template Name: 10 anos
                     <header>
                         <div class="block">
                             <div class="centered text-center">
-                                <?php html::image("logo-roxo-1024.png", "", array("class" => "img-responsive")); ?>
+                                <?php html::image("logo-large.png", "", array("class" => "img-responsive")); ?>
                             </div>
                         </div>
                     </header>
@@ -200,7 +200,7 @@ Template Name: 10 anos
                             break;
                     }
                 }
-                
+
 
                 if (!hl.isMobile()) {
                     $(this).find('figure').css({

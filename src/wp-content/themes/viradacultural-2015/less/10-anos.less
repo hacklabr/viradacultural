@@ -21,7 +21,7 @@ body.desktop {
             margin-bottom: 0 !important;
             position: relative;
             header {
-                background-color: @verde;
+                background-color: @brand-auxiliar;
             }
             section {
                 .content {
@@ -30,7 +30,7 @@ body.desktop {
                 }
             }
             img {
-                height: initial;
+                height: initial !important;
                 max-height: 380px;
                 max-width: 380px;
                 width: initial;
@@ -69,6 +69,9 @@ body.desktop {
                 > div {
                     padding-left: 200px;
                     padding-right: 80px;
+                }
+                .btn-success {
+                    background-color: @vermelho;
                 }
             }
         }
@@ -140,18 +143,18 @@ body.mobile {
     right: 0;
     z-index: 100;
     .year {
-        background-color: @roxo;
-        color: @amarelo;
+        background-color: @vermelho;
+        color: @brand-auxiliar;
         cursor: pointer;
         font-weight: bold;
         margin-bottom: 1px;
         padding: 10px;
         .transition(background-color ease-in-out .5s);
         &:hover {
-            background-color: @verde;
+            background-color: @preto;
         }
         &.active {
-            background-color: @verde;
+            background-color: @preto;
         }
     }
 }
