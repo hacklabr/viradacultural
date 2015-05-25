@@ -1,11 +1,11 @@
 #main-header-minified {
     margin-top: -76px;
     .navbar.navbar-default {
-        background-color: @brand-primary;
+        background-color: @brand-auxiliar;
         margin-bottom: 0;
     }
     .navbar-header {
-        background-color: @brand-primary;
+        background-color: @brand-accent;
         height: 50px;
         a.navbar-brand {
             left: 40px;
@@ -16,7 +16,7 @@
             font-weight: bold;
             color: @brand-auxiliar;
             span.v {
-                color: @brand-accent;
+                color: @brand-primary;
             }
         }
         button {
@@ -24,9 +24,12 @@
             background-color: transparent;
             &.pull-left {
                 margin-left: 10px;
+                .icon-bar {
+                    background-color: @brand-auxiliar;
+                }
             }
             &.pull-right {
-                color: @brand-accent;
+                color: @brand-primary;
                 font-size: 20px;
                 height: 34px;
                 margin-right: 10px;
@@ -56,9 +59,9 @@
         a {
             background-position: 10px center;
             background-repeat: no-repeat;
-            border-bottom: 1px solid @gray-darker;
-            border-right: 1px solid @gray-darker;
-            color: @brand-auxiliar;
+            border-bottom: 1px solid @gray-lighter;
+            border-right: 1px solid @gray-lighter;
+            color: @brand-primary;
             display: block;
             height: 48px;
             line-height: 48px;
@@ -68,58 +71,58 @@
             z-index: 30;
             .secondary-font();
             &:hover {
-                color: @brand-primary;
-                background-color: @brand-auxiliar;
+                color: @brand-auxiliar;
+                background-color: @brand-accent;
             }
         }
     }
 
     .a-virada {
-        .img-retina("img/virada-icon-1x.png", "img/virada-icon-2x.png", 29px, 25px);
+        .img-retina("img/virada-icon-active-1x.png", "img/virada-icon-active-2x.png", 29px, 25px);
         &:hover {
-            .img-retina("img/virada-icon-active-1x.png", "img/virada-icon-active-2x.png", 29px, 25px);
+            .img-retina("img/virada-icon-1x.png", "img/virada-icon-2x.png", 29px, 25px);
         }
     }
     .programacao {
-        .img-retina("img/programacao-icon-1x.png", "img/programacao-icon-2x.png", 29px, 16px);
+        .img-retina("img/programacao-icon-active-1x.png", "img/programacao-icon-active-2x.png", 29px, 16px);
         &:hover {
-            .img-retina("img/programacao-icon-active-1x.png", "img/programacao-icon-active-2x.png", 29px, 16px);
+            .img-retina("img/programacao-icon-1x.png", "img/programacao-icon-2x.png", 29px, 16px);
         }
     }
     .noticias {
-        .img-retina("img/noticias-icon-1x.png", "img/noticias-icon-2x.png", 29px, 16px);
-            &:hover {
         .img-retina("img/noticias-icon-active-1x.png", "img/noticias-icon-active-2x.png", 29px, 16px);
+        &:hover {
+            .img-retina("img/noticias-icon-1x.png", "img/noticias-icon-2x.png", 29px, 16px);
         }
     }
     .blog {
-        .img-retina("img/blog-icon-1x.png", "img/blog-icon-2x.png", 29px, 16px);
+        .img-retina("img/blog-icon-active-1x.png", "img/blog-icon-active-2x.png", 29px, 16px);
         &:hover {
-            .img-retina("img/blog-icon-active-1x.png", "img/blog-icon-active-2x.png", 29px, 16px);
+            .img-retina("img/blog-icon-1x.png", "img/blog-icon-2x.png", 29px, 16px);
         }
     }
     .imprensa {
-        .img-retina("img/imprensa-icon-1x.png", "img/imprensa-icon-2x.png", 29px, 20px);
+        .img-retina("img/imprensa-icon-active-1x.png", "img/imprensa-icon-active-2x.png", 29px, 20px);
         &:hover {
-            .img-retina("img/imprensa-icon-active-1x.png", "img/imprensa-icon-active-2x.png", 29px, 20px);
+            .img-retina("img/imprensa-icon-1x.png", "img/imprensa-icon-2x.png", 29px, 20px);
         }
     }
     .nas-redes {
-        .img-retina("img/nas-redes-icon-1x.png", "img/nas-redes-icon-2x.png", 29px, 16px);
+        .img-retina("img/nas-redes-icon-active-1x.png", "img/nas-redes-icon-active-2x.png", 29px, 16px);
         &:hover {
-            .img-retina("img/nas-redes-icon-active-1x.png", "img/nas-redes-icon-active-2x.png", 29px, 16px);
+            .img-retina("img/nas-redes-icon-1x.png", "img/nas-redes-icon-2x.png", 29px, 16px);
         }
     }
     .anos-10 {
-        .img-retina("img/10-anos-icon-1x.png", "img/10-anos-icon-2x.png", 29px, 16px);
+        .img-retina("img/10-anos-icon-active-1x.png", "img/10-anos-icon-active-2x.png", 29px, 16px);
         &:hover {
-            .img-retina("img/10-anos-icon-active-1x.png", "img/10-anos-icon-active-2x.png", 29px, 16px);
+            .img-retina("img/10-anos-icon-1x.png", "img/10-anos-icon-2x.png", 29px, 16px);
         }
     }
     .minha-virada {
-        .img-retina("img/minha-virada-icon-1x.png", "img/minha-virada-icon-2x.png", 29px, 16px);
+        .img-retina("img/minha-virada-icon-active-1x.png", "img/minha-virada-icon-active-2x.png", 29px, 16px);
         &:hover {
-            .img-retina("img/minha-virada-icon-active-1x.png", "img/minha-virada-icon-active-2x.png", 29px, 16px);
+            .img-retina("img/minha-virada-icon-1x.png", "img/minha-virada-icon-2x.png", 29px, 16px);
         }
     }
 }

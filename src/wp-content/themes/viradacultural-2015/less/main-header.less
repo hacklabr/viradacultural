@@ -1,15 +1,16 @@
 /* =Main header
 -------------------------------------------------------------- */
 #brand {
-  .box-shadow(6px 0 0 @brand-primary inset);
+  .box-shadow(6px 0 0 @brand-accent inset);
   height: 130px;
   margin: 0;
   padding: 15px;
   position: relative;
   z-index: 20;
+  background-color: @brand-auxiliar;
   #logo-virada {
     background-image: url(img/logo.png);
-    background-position: top center;
+    background-position: center;
     height: 100px;
     &:hover {
       background-image: url(img/logo.png);
@@ -21,12 +22,21 @@
 #main-header {
   left: 0;
   width: 225px;
-  .box-shadow(0 0 6px 0 rgba(0,0,0,.3));
+  .box-shadow(0 0 6px 0 @brand-primary);
   .fixed-bars();
   .transition(width linear .3s);
-  background-color: @brand-primary;
+  background-color: @brand-accent;
   &.minified {
     width: 115px;
+    #brand {
+      #logo-virada {
+        background-image: url(img/icone.png);
+        height: 80px;
+        &:hover {
+        background-image: url(img/icone.png);
+      }
+      }
+    }
     #main-menu>li>a {
       background-position: center;
       height: 48px;
@@ -55,20 +65,20 @@
   margin: 0;
   padding: 0;
   li {
-    .box-shadow(6px 0 0 @gray-darker inset);
+    .box-shadow(6px 0 0 @brand-primary inset);
     height: 48px;
     line-height: 48px;
     margin: 0;
     padding: 0 0 0 6px;
     position: relative;
     &:hover {
-      .box-shadow(6px 0 0 @gray-darker inset);
+      .box-shadow(6px 0 0 @brand-primary inset);
     }
     a {
       color: @brand-auxiliar;
       background-position: 30px center;
       background-repeat: no-repeat;
-      .box-shadow(-6px 0 0 @gray-darker);
+      .box-shadow(-6px 0 0 @brand-primary);
       display: block;
       height: 48px;
       padding: 0 0 0 75px;
@@ -116,10 +126,11 @@
       }
     }
     &.whitespace {
-      .box-shadow(6px 0 0 @brand-primary inset);
+      .box-shadow(6px 0 0 @brand-accent inset);
       overflow: hidden;
       position: relative;
       height: 3000px;
+      background-color: @brand-auxiliar;
       span {
         display: block;
         height: 3000px;
@@ -128,7 +139,7 @@
         z-index: 15;
       }
       &:hover {
-        .box-shadow(6px 0 0 @brand-primary inset);
+        .box-shadow(6px 0 0 @brand-accent inset);
       }
     }
   }
@@ -185,7 +196,6 @@
 
 .logo {
   background-repeat: no-repeat;
-  background-size: contain;
   margin: 0 0 0 4px;
   padding: 0;
   z-index: 30;
