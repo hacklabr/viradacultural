@@ -72,8 +72,7 @@ function viradacultural_addJS() {
 
     wp_enqueue_script('viradacultural', get_stylesheet_directory_uri().'/js/viradacultural.js', array('jquery'));
 
-
-    if(@$wp_query->query['pagename'] === '10-anos'){
+    if(is_page() && get_post_meta(get_the_ID(), '_wp_page_template', true) === 'page-dez-anos.php'){
         wp_enqueue_script('jquery.animascroll', get_stylesheet_directory_uri().'/js/jquery.animascroll.js', array('jquery'));
 
     }else if($tpl = get_query_var('virada_tpl')) {
