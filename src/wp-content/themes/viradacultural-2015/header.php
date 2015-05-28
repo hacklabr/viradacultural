@@ -119,7 +119,7 @@
                     <li><a class="blog" href="<?php echo esc_url( $blog_link ); ?>" title="Blog"><span>Blog</span></a></li>
                     */?>
                     <li><a class="imprensa" href="<?php echo get_post_type_archive_link( 'imprensa' ); ?>" title="Imprensa"><span>Imprensa</span></a></li>
-                    <li><a class="anos-10" href="<?php bloginfo( 'url' ); ?>/11-anos/" title="11 anos"><span>11 anos</span></a></li>
+                    <li><a class="anos-10" href="<?php bloginfo( 'url' ); ?>/historico/" title="Histórico"><span>Histórico</span></a></li>
                     <?php if (mostrar_programacao()): ?>
                         <li><a class="nas-redes" href="<?php bloginfo( 'url' ); ?>/nas-redes/" title="Nas redes"><span>Nas redes</span></a></li>
                         <li><a class="minha-virada" href="<?php bloginfo( 'url' ); ?>/minha-virada/" title="Minha Virada"><span>Minha Virada</span></a></li>
