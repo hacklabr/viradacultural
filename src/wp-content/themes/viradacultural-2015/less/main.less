@@ -1305,8 +1305,12 @@ footer {
                 border-right: none;
                 margin-left: 33px;
                 .event-content {
+                    background-color: @brand-primary;
                     bottom: initial;
                     top: 0;
+                    border: none;
+                    padding: 0 5px;
+                    height: 34px;
                 }
                 &:before {
                     .icon();
@@ -1321,14 +1325,22 @@ footer {
                 &.evento-24h:before {
                     color: @gray-dark;
                 }
-                &:hover {
+                &.no-thumb {
                     .event-content {
-                        bottom: initial;
-                        top: 0;
+                        height: auto;
+                        bottom: 0;
                     }
                 }
-                &:hover:before {
-                    color: @brand-auxiliar;
+                &:hover {
+                    .event-content {
+                        top: 0;
+                        opacity: 1;
+                        background-color: @brand-auxiliar;
+                        color: @brand-primary;
+                    }
+                    &:before {
+                        color: @brand-auxiliar;
+                    }
                 }
 
             }

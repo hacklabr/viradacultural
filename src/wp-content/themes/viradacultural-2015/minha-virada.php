@@ -23,6 +23,24 @@
                                         <h1>{{event.name}}</h1>
                                     </div>
                                 </a>
+                                <div class="friends-group">
+                                    <div class="friend" data-toggle="tooltip" title="Nome do amigo">
+                                        <!--aqui entra um avatar aleatório ou do último amigo a favoritar esse evento com link pra Minha Virada do amigo -->
+                                        <!--img avatar-->
+                                    </div>
+                                    <div class="friend" data-toggle="tooltip" title="Nome do amigo">
+                                        <!--aqui entra um avatar aleatório ou do penúltimo amigo a favoritar esse evento com link pra Minha Virada do amigo -->
+                                        <!--img avatar-->
+                                    </div>
+                                    <div class="friend" data-toggle="tooltip" title="Nome do amigo">
+                                        <!--aqui entra um avatar aleatório ou do antepenúltimo amigo a favoritar esse evento com link pra Minha Virada do amigo -->
+                                        <!--img avatar-->
+                                    </div>
+                                    <div class="friend friend-number" data-toggle="tooltip" title="Nomes dos outros x amigos que favoritaram esse evento">
+                                        <!--aqui entra a quantidade de amigos que favoritaram o evento, menos 3, até 999, acima de mil não sei como faz. pode ter link pra uma modal com a lista completa dos amigos que vão neste evento com link para as respectivas Minhas Viradas -->
+                                        +000
+                                    </div>
+                                </div>
                                 <a class="icon favorite favorite-wait favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
                             </article>
                         </div>
