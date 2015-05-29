@@ -29,7 +29,7 @@
                             <?php } else if (get_query_var('virada_tpl') && get_query_var('virada_tpl') == 'programacao-atracoes-single') { ?>
                                 Atração
                             <?php } else if (is_page_template('page-dez-anos.php')) { ?>
-                                10 anos
+                                <?php the_title();?>
 							<?php } else if (is_single()) { ?>
 								Blog
 							<?php } else if (is_author()) { ?>
