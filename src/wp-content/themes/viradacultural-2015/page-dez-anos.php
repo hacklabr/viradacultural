@@ -303,6 +303,13 @@ Template Name: 10 anos
                         'opacity': val,
                         //top: $.PVAL(10,-10,p)
                     });
+                    if (val <= 0) {
+                        $figure.hide();
+                    }
+                    if (val > 0) {
+                        $figure.show();
+                    }
+
                     $article_header.css('opacity', val);
                 }
             });
