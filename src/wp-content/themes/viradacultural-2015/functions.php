@@ -5,7 +5,7 @@ include dirname(__FILE__).'/includes/html.class.php';
 include dirname(__FILE__).'/includes/utils.class.php';
 include dirname(__FILE__).'/includes/form.class.php';
 include dirname(__FILE__).'/includes/hacklab_post2home/hacklab_post2home.php';
-include dirname(__FILE__).'/includes/mapasculturais2post/mapasculturais2post.php';
+//include dirname(__FILE__).'/includes/mapasculturais2post/mapasculturais2post.php';
 include dirname(__FILE__).'/includes/nas-redes-wp-cron.php';
 include dirname(__FILE__).'/includes/minha-virada.php';
 
@@ -52,7 +52,7 @@ function viradacultural_addJS() {
     global $wp_query;
 
     wp_enqueue_script('jquery');
-    wp_enqueue_script('bootstrap', get_stylesheet_directory_uri().'/js/bootstrap.min.js', 'jquery');
+    wp_enqueue_script('bootstrap', get_stylesheet_directory_uri().'/js/bootstrap.js', 'jquery');
 
     $facebookAppId = virada_get_facebook_app_id();
 

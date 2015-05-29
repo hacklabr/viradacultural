@@ -81,7 +81,9 @@ Template Name: 10 anos
                         <section class="block js-content">
                             <div class="centered text-left">
                                 <?php the_content(); ?>
-                                <p class="text-right"><a href="<?php echo get_post_meta($post->ID, 'url_do_pdf', true);?>" class="btn btn-large btn-success">Baixar programação</a></p>
+                                <?php if(get_post_meta($post->ID, 'url_do_pdf', true)): ?>
+                                    <p class="text-right"><a href="<?php echo get_post_meta($post->ID, 'url_do_pdf', true);?>" class="btn btn-large btn-success">Baixar programação</a></p>
+                                <?php endif; ?>
                             </div>
                         </section>
                     </article>
