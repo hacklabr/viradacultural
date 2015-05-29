@@ -22,13 +22,6 @@ Template Name: 10 anos
                         </div>
                     </header>
 
-                    <section>
-                        <div class="block">
-                            <div class="centered text-center" style="width: 90%;">
-                                <div class="content col-md-8 col-md-offset-2"><?php the_content(); ?></div>
-                            </div>
-                        </div>
-                    </section>
                     <script type="text/javascript">
                     imgs['<?php the_ID(); ?>'] = {};
                     <?php
@@ -145,7 +138,7 @@ Template Name: 10 anos
             navbar_height = $navBar.is(':visible') ? $navBar.height() : 0;
 
             // Altura do artigo pai
-            $("#main-section > article.parent").height(area_util * 2);
+            $("#main-section > article.parent").height(area_util);
             // Altura da seção do artigo pai
             $("#main-section > article.parent .block").height(area_util);
 
@@ -166,8 +159,8 @@ Template Name: 10 anos
             var total = 0;
 
             last = {
-                start: area_util,
-                finish: 2 * area_util
+                start: 0,
+                finish: 0
             };
 
             $("#main-section > article.children").each(function(){
@@ -295,10 +288,8 @@ Template Name: 10 anos
                     return tops[this.id].finish;
                 },
                 animation: function(p){
-                    console.log(navbar_height);
                     $this.css('top', $.PVAL(win_height, -tops[this.id].contentHeight + navbar_height, p));
                 }
-
             }).animascroll({
                 startAt: function(){
                     return tops[this.id].start;
