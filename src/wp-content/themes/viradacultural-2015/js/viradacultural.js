@@ -176,8 +176,6 @@ var hl = {
         //     }
         // );
 
-
-
         $(window).resize(function() {
             window.adustGridHeight('resize');
         });

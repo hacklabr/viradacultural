@@ -8,11 +8,25 @@
                 <h1>{{event.name}}</h1>
             </header>
             <div class="post-content clearfix">
+                <div class="post-type-icon">
+                    <?php html::image('virada-icon-1x.png') ?>
+                </div>
                 <p>{{event.shortDescription}}</p>
             </div>
             <div class="post-content clearfix">
                 <p>{{event.description}}</p>
             </div>
+            <footer>
+                <div class="friends-group">
+                    XXX amigos marcaram esta atração.
+                    <div class="friend"><!--img com link pra minha virada respectiva --></div>
+                    <div class="friend"><!--img com link pra minha virada respectiva --></div>
+                    <div class="friend"><!--img com link pra minha virada respectiva --></div>
+                    <div class="friend"><!--img com link pra minha virada respectiva --></div>
+                    <div class="friend"><!--img com link pra minha virada respectiva --></div>
+                    <div class="friend">...</div><!-- link pra modal com lista de todos amigos quando não couber numa linha-->
+                </div>
+            </footer>
             <!-- .post-content -->
             <div class="servico">
                 <p>
