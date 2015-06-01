@@ -247,19 +247,19 @@
         </a>
         <div class="friends-group">
             <div class="friend" data-toggle="tooltip" title="Nome do amigo">
-                <!--aqui entra um avatar aleatório ou do último amigo a favoritar esse evento com link pra Minha Virada do amigo -->
+                <!--aqui entra um avatar aleatório ou do último amigo a favoritar esse evento -->
                 <img src="<%=defaultImageThumb%>"/>
             </div>
             <div class="friend" data-toggle="tooltip" title="Nome do amigo">
-                <!--aqui entra um avatar aleatório ou do penúltimo amigo a favoritar esse evento com link pra Minha Virada do amigo -->
+                <!--aqui entra um avatar aleatório ou do penúltimo amigo a favoritar esse evento -->
                 <img src="<%=defaultImageThumb%>"/>
             </div>
             <div class="friend" data-toggle="tooltip" title="Nome do amigo">
-                <!--aqui entra um avatar aleatório ou do antepenúltimo amigo a favoritar esse evento com link pra Minha Virada do amigo -->
+                <!--aqui entra um avatar aleatório ou do antepenúltimo amigo a favoritar esse evento -->
                 <img src="<%=defaultImageThumb%>"/>
             </div>
             <div class="friend friend-number" data-toggle="tooltip" title="Nomes dos outros x amigos que favoritaram esse evento">
-                <!--aqui entra a quantidade de amigos que favoritaram o evento, menos 3, até 999, acima de mil não sei como faz. pode ter link pra uma modal com a lista completa dos amigos que vão neste evento com link para as respectivas Minhas Viradas -->
+                <!--aqui entra a quantidade de amigos que favoritaram o evento, menos 3, até 999, acima de mil pode mostrar apenas o texto "+xxxx amigos" -->
                 +000
             </div>
         </div>

@@ -35,6 +35,10 @@ var hl = {
     }
 
     $(document).ready(function() {
+
+        //bootstrap tooltip
+        $('[data-toggle="tooltip"]').tooltip();
+
         if (hl.isMobile()) {
             $('body').addClass('mobile');
         } else {

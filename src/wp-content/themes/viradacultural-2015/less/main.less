@@ -599,22 +599,37 @@ body {
 
 /* =Friends
 -------------------------------------------------------------- */
+.friends-group {
+    color: @brand-auxiliar;
+    .secondary-font();
+    font-size: 10px;
+    line-height: 28px;
+}
 .friend {
     display: inline-block;
     width: 28px;
     height: 28px;
     border-radius: 14px;
     background-color: @brand-accent;
-    color: @brand-auxiliar;
     overflow: hidden;
-    .secondary-font();
-    font-size: 10px;
-    line-height: 28px;
     vertical-align: middle;
     text-align: center;
     img {
         min-height: 100%;
     }
+}
+
+/* =Friends Modal
+-------------------------------------------------------------- */
+.friend-avatar {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.friend-name {
+    display: inline-block;
 }
 
 /* =Post
@@ -632,9 +647,7 @@ footer {
         margin-bottom: 4*@padding-base-horizontal;
         padding-top: @padding-base-horizontal;
         line-height: 28px;
-        height: 28px;
-        overflow: hidden;
-
+        height: 30px+@padding-base-horizontal;
     }
 }
 .post-type-icon {

@@ -1,4 +1,29 @@
 <?php get_header(); ?>
+
+<!-- friendsModal -->
+<div class="modal fade" id="friendsModal" tabindex="-1" role="dialog" aria-labelledby="friendsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">xxx amigos também marcaram essa atração</h4>
+            </div>
+            <div class="modal-body">
+                <div class="list-group">
+                    <!-- link pra página Minha Virada do amigo -->
+                    <a href="#" class="list-group-item">
+                        <!-- avatar do amigo-->
+                        <img class="friend-avatar img-circle" src="" alt="Nome do amigo" />
+                        <div class="friend-name">
+                            Nome do amigo
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container-fluid container-menu-large" ng-controller='evento'>
     <section id='programacao-loading'></section>
     <section id="main-section" class="row">
@@ -19,12 +44,10 @@
             <footer>
                 <div class="friends-group">
                     XXX amigos marcaram esta atração.
-                    <div class="friend"><!--img com link pra minha virada respectiva --></div>
-                    <div class="friend"><!--img com link pra minha virada respectiva --></div>
-                    <div class="friend"><!--img com link pra minha virada respectiva --></div>
-                    <div class="friend"><!--img com link pra minha virada respectiva --></div>
-                    <div class="friend"><!--img com link pra minha virada respectiva --></div>
-                    <div class="friend">...</div><!-- link pra modal com lista de todos amigos quando não couber numa linha-->
+                    <div class="friend" data-toggle="tooltip" data-placement="bottom" title="Nome do amigo"><!--img com link pra minha virada respectiva --></div>
+                    <div class="friend" data-toggle="tooltip" data-placement="bottom" title="Nome do amigo"><!--img com link pra minha virada respectiva --></div>
+                    <div class="friend" data-toggle="tooltip" data-placement="bottom" title="Nome do amigo"><!--img com link pra minha virada respectiva --></div>
+                    <div class="friend" data-toggle="modal" data-target="#friendsModal"><span data-toggle="tooltip" data-placement="bottom" title="Nome dos amigos">+000</span></div><!-- link pra modal com lista de todos amigos quando exceder 3 amigos-->
                 </div>
             </footer>
             <!-- .post-content -->
