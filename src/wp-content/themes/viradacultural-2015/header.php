@@ -169,7 +169,7 @@
                         <?php endif; ?>
                         <li class="col-sm-6 col-xs-6"><a class="noticias" href="<?php echo get_post_type_archive_link( 'noticias' ); ?>" title="Notícias"><span>Notícias</span></a></li>
                         <!-- <li class="col-sm-6 col-xs-6"><a class="blog" href="<?php echo esc_url( $blog_link ); ?>" title="Blog"><span>Blog</span></a></li> -->
-                        <li class="col-sm-6 col-xs-6"><a class="imprensa" href="<?php echo get_post_type_archive_link( 'imprensa' ); ?>" title="Imprensa"><span>Imprensa</span></a></li>
+                        <li class="col-sm-6 col-xs-6"><a class="imprensa" href="<?php bloginfo( 'url' ); ?>/Imprensa" title="Imprensa"><span>Imprensa</span></a></li>
                         <li class="col-sm-6 col-xs-6"><a class="anos-10" href="<?php bloginfo( 'url' ); ?>/historico/" title="Histórico"><span>Histórico</span></a></li>
                         <?php if (mostrar_programacao()): ?>
                             <li class="col-sm-6 col-xs-6"><a class="nas-redes" href="<?php bloginfo( 'url' ); ?>/nas-redes/" title="Nas redes"><span>Nas redes</span></a></li>
