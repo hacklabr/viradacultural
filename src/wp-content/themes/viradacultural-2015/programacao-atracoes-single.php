@@ -44,10 +44,10 @@
             <footer>
                 <div class="friends-group">
                     XXX amigos marcaram esta atração.
-                    <div class="friend" data-toggle="tooltip" data-placement="bottom" title="Nome do amigo"><!--img com link pra minha virada respectiva --></div>
-                    <div class="friend" data-toggle="tooltip" data-placement="bottom" title="Nome do amigo"><!--img com link pra minha virada respectiva --></div>
-                    <div class="friend" data-toggle="tooltip" data-placement="bottom" title="Nome do amigo"><!--img com link pra minha virada respectiva --></div>
-                    <div class="friend" data-toggle="modal" data-target="#friendsModal"><span data-toggle="tooltip" data-placement="bottom" title="Nome dos amigos">+000</span></div><!-- link pra modal com lista de todos amigos quando exceder 3 amigos-->
+                    <a href="#" class="friend" data-toggle="tooltip" data-placement="bottom" title="Nome do amigo"><!--img com link pra minha virada respectiva --></a>
+                    <a href="#" class="friend" data-toggle="tooltip" data-placement="bottom" title="Nome do amigo"><!--img com link pra minha virada respectiva --></a>
+                    <a href="#" class="friend" data-toggle="tooltip" data-placement="bottom" title="Nome do amigo"><!--img com link pra minha virada respectiva --></a>
+                    <a href="#" class="friend" data-toggle="modal" data-target="#friendsModal"><div data-toggle="tooltip" data-placement="bottom" title="Nome dos amigos">+000</div></a><!-- link pra modal com lista de todos amigos quando exceder 3 amigos-->
                 </div>
             </footer>
             <!-- .post-content -->

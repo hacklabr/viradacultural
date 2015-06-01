@@ -101,6 +101,29 @@
         <!-- .modal-dialog -->
     </div>
     <!-- #map-modal -->
+    <!-- friendsModal -->
+    <div class="modal fade" id="friendsModal" tabindex="-2" role="dialog" aria-labelledby="friendsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">xxx amigos também marcaram 'Nome da atração'</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                        <!-- link pra página Minha Virada do amigo -->
+                        <a href="#" class="list-group-item">
+                            <!-- avatar do amigo-->
+                            <img class="friend-avatar img-circle" src="" alt="Nome do amigo" />
+                            <div class="friend-name">
+                                Nome do amigo
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <nav id="programacao-navbar" class="collapse navbar-collapse virada-navbar navbar" ng-class="{'navbar-fixed-top': !isMobile || !smallDevice}">
         <div class="container-fluid container-menu-minified">
             <div class="row">
@@ -246,22 +269,21 @@
             </div>
         </a>
         <div class="friends-group">
-            <div class="friend" data-toggle="tooltip" title="Nome do amigo">
+            <a href="#" class="friend" data-toggle="tooltip" title="Nome do amigo">
                 <!--aqui entra um avatar aleatório ou do último amigo a favoritar esse evento -->
                 <img src="<%=defaultImageThumb%>"/>
-            </div>
-            <div class="friend" data-toggle="tooltip" title="Nome do amigo">
+            </a>
+            <a href="#" class="friend" data-toggle="tooltip" title="Nome do amigo">
                 <!--aqui entra um avatar aleatório ou do penúltimo amigo a favoritar esse evento -->
                 <img src="<%=defaultImageThumb%>"/>
-            </div>
-            <div class="friend" data-toggle="tooltip" title="Nome do amigo">
+            </a>
+            <a href="#" class="friend" data-toggle="tooltip" title="Nome do amigo">
                 <!--aqui entra um avatar aleatório ou do antepenúltimo amigo a favoritar esse evento -->
                 <img src="<%=defaultImageThumb%>"/>
-            </div>
-            <div class="friend friend-number" data-toggle="tooltip" title="Nomes dos outros x amigos que favoritaram esse evento">
-                <!--aqui entra a quantidade de amigos que favoritaram o evento, menos 3, até 999, acima de mil pode mostrar apenas o texto "+xxxx amigos" -->
-                +000
-            </div>
+            </a>
+            <a href="#" class="friend" data-toggle="modal" data-target="#friendsModal">
+                <div data-toggle="tooltip" data-placement="bottom" title="Nome dos amigos">+000</div>
+            </a><!-- link pra modal com lista de todos amigos quando exceder 3 amigos-->
         </div>
         <a class="icon favorite favorite-wait favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
 
