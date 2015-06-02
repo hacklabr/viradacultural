@@ -104,7 +104,10 @@ var hl = {
 
             $.each(['spaces-order', 'events', 'spaces'], function(i,entity){
                 $.get(GlobalConfiguration.templateURL + '/app/' + entity + '.json?v=' + GlobalConfiguration.md5[entity], function(response){
-                    response = JSON.parse(response);
+                    if(typeof response === 'string'){
+                        response = JSON.parse(response);
+                    }
+                    
                     $.each(response, function(i,e){
                         window.entitiesById[entity][e.id] = e;
                     });
