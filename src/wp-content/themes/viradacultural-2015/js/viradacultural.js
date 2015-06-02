@@ -29,10 +29,15 @@ var hl = {
 
 (function($){
     function adjustCarrousselHome(){
-        $('#front-page-carousel .item').each(function(){
-            $(this).css('height', Math.floor($("#front-page-carousel").width() * (4/6) - 75));
-        });
+            $('#front-page-carousel .item').each(function(){
+                if (!hl.isMobile()) {
+                    $(this).css('height', Math.floor($("#front-page-carousel").width() * (4/6) - 75));
+                } else {
+                    $(this).css('height', Math.floor($("#front-page-carousel").width() * (4/6) ));
+                }
+            });
     }
+
 
     $(document).ready(function() {
         if (hl.isMobile()) {
@@ -40,7 +45,7 @@ var hl = {
         } else {
             $('body').addClass('desktop');
         }
-        adjustCarrousselHome();
+        //adjustCarrousselHome();
 
         function replaceCountdown(){
 
@@ -107,7 +112,7 @@ var hl = {
                     if(typeof response === 'string'){
                         response = JSON.parse(response);
                     }
-                    
+
                     $.each(response, function(i,e){
                         window.entitiesById[entity][e.id] = e;
                     });
@@ -155,6 +160,7 @@ var hl = {
 
     $(window).load(function(){
         window.adustGridHeight();
+        adjustCarrousselHome();
     });
 
 
