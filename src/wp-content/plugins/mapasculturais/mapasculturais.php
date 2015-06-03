@@ -21,7 +21,7 @@ class MapasCulturais2Post {
     protected static $entityRelationConfig = array(
         'mc-entity-relation', // slug do metabox
         'Linkar com a entidade do Mapas Culturais' , // título do metabox
-        array('post', 'page'), // array('post','page','etc'), // post types
+        array('post', 'page', 'imprensa', 'noticias'), // array('post','page','etc'), // post types
         'normal' // onde colocar o metabox
     );
 
