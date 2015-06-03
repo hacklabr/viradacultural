@@ -42,7 +42,11 @@ function remove_admin_bar(){
 add_filter( 'show_admin_bar' , 'remove_admin_bar');
 
 function virada_get_facebook_app_id() {
-    return $_SERVER['SERVER_NAME'] =='localhost' ? '1470242596543011' : '1460336737533597';
+    if(defined('FACEBOOK_APP_ID')){
+        return FACEBOOK_APP_ID;
+    }else{
+        return '364818143726863';
+    }
 }
 
 // JS
