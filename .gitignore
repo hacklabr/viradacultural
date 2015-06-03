@@ -14,3 +14,4 @@ node_modules
 src/wp-content/cache/
 src/wp-content/advanced-cache.php
 src/wp-content/object-cache.php
+src/wp-content/uploads
