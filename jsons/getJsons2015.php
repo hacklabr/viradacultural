@@ -1,25 +1,25 @@
 <?php
-
+date_default_timezone_set('America/Sao_Paulo');
 if (file_exists(__DIR__ . '/api-config.php')) {
     include __DIR__ . '/api-config.php';
 }
 if(!defined('API_URL')) define('API_URL', "http://mapas.local/api/");
 
-if(!defined('PROJECT_ID')) define('PROJECT_ID', 632);
-
-if(!defined('REPLACE_IMAGES_URL_FROM')) define('REPLACE_IMAGES_URL_FROM', 'http://mapasculturais.hacklab.com.br//files/');
+if(!defined('REPLACE_IMAGES_URL_FROM')) define('REPLACE_IMAGES_URL_FROM', 'http://spcultura.prefeitura.sp.gov.br/files/');
 
 if(!defined('REPLACE_IMAGES_URL_TO')) define('REPLACE_IMAGES_URL_TO', 'http://viradacultural.prefeitura.sp.gov.br/imagens/');
 
-if(!defined('DATE_FROM')) define('DATE_FROM', '2015-06-20');
-if(!defined('DATE_TO')) define('DATE_TO', '2015-06-21');
+$project_id = 632;
 
-$children_project_ids = file_get_contents(API_URL . "project/getChildrenIds/" . PROJECT_ID);
-$children_project_ids[] = 632;
+$date_from = '2015-06-20';
+$date_to = '2015-06-21';
+
+$children_project_ids = json_decode(file_get_contents(API_URL . "project/getChildrenIds/{$project_id}"));
+$children_project_ids[] = $project_id;
 
 $project_ids = implode(',',$children_project_ids);
 
-$get_spaces_url = API_URL . "space/findByEvents?@select=id,name,shortDescription,endereco,location&@files=(avatar.viradaSmall,avatar.viradaBig):url&@order=name&@from=2014-05-17&@to=2014-05-18&project=IN({$project_ids})";
+$get_spaces_url = API_URL . "space/findByEvents?@select=id,name,shortDescription,endereco,location&@files=(avatar.viradaSmall,avatar.viradaBig):url&@order=name&@from={$date_from}&@to={$date_to}&project=IN({$project_ids})";
 $get_events_url = API_URL . "event/find?@select=id,name,shortDescription,description,classificacaoEtaria,terms,traducaoLibras,descricaoSonora&@files=(avatar.viradaSmall,avatar.viradaBig):url&project=IN({$project_ids})";
 
 echo "\nbaixando eventos $get_events_url\n\n";
@@ -49,11 +49,26 @@ $result_events = array();
 $count = 0;
 foreach ($occurrences as $occ) {
     $rule = $occ->rule;
-    $e = $events_by_id[$occ->eventId];
+    $e = clone $events_by_id[$occ->eventId];
+    $e->id = $occ->id;
+    $e->eventId =  $occ->eventId;
+
     $e->spaceId = $occ->space->id;
     $e->startsAt = $rule->startsAt;
     $e->startsOn = $rule->startsOn;
+
+    $datetime = new DateTime("{$rule->startsOn} {$rule->startsAt}");
+
+    $e->price = $rule->price;
+
+    $e->timestamp = $datetime->getTimestamp();
+
     $e->duration = @$rule->duration;
+
+    if($e->duration == 1440){
+        $e->duration = '24h00';
+    }
+
     $e->acessibilidade = array();
     if($e->traducaoLibras)
         $e->acessibilidade[] = 'Tradução para LIBRAS';
@@ -68,6 +83,10 @@ foreach ($occurrences as $occ) {
     if (property_exists($e, $small_image_property)) {
         $e->defaultImage = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$big_image_property->url);
         $e->defaultImageThumb = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$small_image_property->url);
+        $e->image768 = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$small_image_property->url);
+        $e->image800 = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$small_image_property->url);
+        $e->image1024 = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$small_image_property->url);
+        $e->image1280 = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$small_image_property->url);
     } else {
         $e->defaultImage = '';
         $e->defaultImageThumb = '';
