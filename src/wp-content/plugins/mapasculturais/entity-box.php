@@ -8,20 +8,48 @@ foreach ($entity->occurrences as $i => $occ) {
     $price = $occ->price;
 }
 ?>
+<style type="text/css">
+.servico {
+    overflow: hidden;
+}
+.event-data {
+    color: #333;
+}
+.event-data .event-occurrences {
+    margin-bottom: 2rem;
+}
+.event-data .event-title {
+    color: #000;
+    margin: 0 0 2rem;
+}
+.event-data .event-venue span, .event-data .event-time span {
+    color: #fb3f2a;
+    font-weight: bold;
+}
+.event-data .event-classification {
+    background-color: #27ae60;
+    color: #fff;
+    display: inline-block;
+    float: left;
+    font-size: 1.5rem;
+    line-height: 2;
+    padding: 0 1em;
+}
+.event-data .event-info {
+    display: inline-block;
+    float: right;
+}
+
+</style>
 <div class="servico event-container">
-    <?php if ($entity->files->$image): ?>
-        <figure class="event__image">
-            <img src="<?php echo $entity->files->$image ?>" alt="<?php echo $entity->name ?>" />
-        </figure>
-    <?php endif; ?>
     <div class="event-data">
-        <h1 class="event__title"><?php echo $entity->name ?> <span class="event__subtitle"><?php echo $entity->subTitle ?></span></h1>
+        <h1 class="event-title"><?php echo $entity->name ?> <span class="event__subtitle"><?php echo $entity->subTitle ?></span></h1>
         <?php foreach ($entity->occurrences as $occ): ?>
-            <div class="event__occurrences">
-                <div class="event__venue"><?php echo $occ->space->name ?></div>
-                <div class="event__time"><?php echo $occ->description ?></div>
+            <div class="event-occurrences">
+                <div class="event-venue"><span>Local:</span> <?php echo $occ->space->name ?></div>
+                <div class="event-time"><span>Data: </span><?php echo $occ->description ?></div>
                 <?php if (!$same_price && $occ->price): ?>
-                    <div class="event__price">
+                    <div class="event-price">
                         <span class="fa-stack">
                             <i class="fa fa-circle fa-stack-2x"></i>
                             <i class="fa fa-usd fa-stack-1x fa-inverse"></i>
@@ -31,9 +59,9 @@ foreach ($entity->occurrences as $i => $occ) {
                 <?php endif; ?>
             </div>
         <?php endforeach; ?>
-        <span class="event__classification"><?php echo $entity->classificacaoEtaria ?></span>
+        <span class="event-classification"><?php echo $entity->classificacaoEtaria ?></span>
         <?php if ($same_price): ?>
-            <div class="event__price">
+            <div class="event-price">
                 <span class="fa-stack">
                     <i class="fa fa-circle fa-stack-2x"></i>
                     <i class="fa fa-usd fa-stack-1x fa-inverse"></i>
@@ -41,6 +69,6 @@ foreach ($entity->occurrences as $i => $occ) {
                 <?php echo $price ? $price : __('Não informado', 'cultural') ?>
             </div>
         <?php endif; ?>
-        <a href="<?php echo $entity->singleUrl ?>" class="event__info"><?php _e('Mais informações', 'cultural'); ?></a>
+        <a href="<?php echo $entity->singleUrl ?>" class="btn btn-primary event-info"><?php _e('Mais informações', 'cultural'); ?></a>
     </div>
 </div>
