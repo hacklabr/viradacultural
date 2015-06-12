@@ -6,6 +6,7 @@
         <article id="event-00" class="event-single col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
             <header>
                 <h1>{{event.name}}</h1>
+                <h3 ng-if="event.subTitle">{{event.subTitle}}</h3>
             </header>
             <div class="post-content clearfix">
                 <p>{{event.shortDescription}}</p>
