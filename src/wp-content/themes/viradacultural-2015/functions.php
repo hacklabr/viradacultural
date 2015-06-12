@@ -359,48 +359,16 @@ function virada_meta_tags() {
 
     // description og:description
 
-    $name['description'] = $property['og:description'] = get_bloginfo('description');
+    $name['description'] =get_bloginfo('description');
 
-    if ( is_singular() && $e = get_the_excerpt() ) {
-        $property['og:description'] = $property['og:description'] = $e;
-    } elseif ( isset($obj->description) && !empty( $obj->description ) ) {
-        $property['og:description'] = $property['og:description'] = $obj->description;
-    } elseif ( get_query_var('virada_tpl') == 'minha-virada' )
-        $property['og:description'] = 'Minha seleção pessoal da programação da Virada!';
-
-    // og:site_name
-    $property['og:site_name'] = get_bloginfo('name');
-
-    // og:title
-
-    if ( is_singular() )
-        $property['og:title'] = esc_html($post->post_title);
-    elseif ( is_category() || is_tax( 'agenda' ) )
-        $property['og:title'] = $obj->name;
-    elseif ( get_query_var('virada_tpl') == 'minha-virada' )
-        $property['og:title'] = 'Minha Virada';
-    else
-        $property['og:title'] = get_bloginfo('name');
-
-    // og:image
-
-    if ( is_singular() && has_post_thumbnail( $post->ID ) ) {
-        $image = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'full' );
-        if ( !empty( $image[0] ) )
-            $property['og:image'] = $image[0];
-        else
-            $property['og:image'] = get_stylesheet_directory_uri() . '/img/logo.png';
-    } else {
-        $property['og:image'] = get_stylesheet_directory_uri() . '/img/logo.png';
-    }
 
     // comentários do Facebook
 
 
-        $property = $property + array(
-            'fb:app_id' => virada_get_facebook_app_id(),
-            'fb:admins' => 'leogermani'
-        );
+    $property = $property + array(
+        'fb:app_id' => virada_get_facebook_app_id(),
+        'fb:admins' => 'leogermani'
+    );
 
     foreach( $name as $n => $c ) {
         if ( !in_array( $n, $no_entities ) )
