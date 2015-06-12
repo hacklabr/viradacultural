@@ -32,6 +32,8 @@ $spaces = json_decode($spaces_json);
 $events = array();
 $events_by_id = array();
 
+$event_ids = [];
+
 foreach (json_decode($events_json) as $e) {
     $events[] = $e;
     $events_by_id[$e->id] = $e;
