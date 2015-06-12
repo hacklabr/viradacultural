@@ -1,7 +1,7 @@
 <?php
 
 require ('Simple-Database-PHP-Class/Db.php');
-require '../../../../wp-config-db.php';
+
 require ('extra-db-config.php');
 
 $action = $_REQUEST['action'];
