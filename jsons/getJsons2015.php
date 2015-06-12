@@ -40,61 +40,67 @@ foreach (json_decode($events_json) as $e) {
     $event_ids[] = $e->id;
 }
 
-$event_ids = implode(',', $event_ids);
-
-$occurrences_json = file_get_contents(API_URL . "eventOccurrence/find?@select=id,space.id,eventId,rule&event=IN($event_ids)&@order=_startsAt");
-
-$occurrences = json_decode($occurrences_json);
 
 $result_events = array();
 
-$count = 0;
-foreach ($occurrences as $occ) {
-    $rule = $occ->rule;
-    $e = clone $events_by_id[$occ->eventId];
-    $e->id = $occ->id;
-    $e->eventId =  $occ->eventId;
+if($event_ids){
 
-    $e->spaceId = $occ->space->id;
-    $e->startsAt = $rule->startsAt;
-    $e->startsOn = $rule->startsOn;
+    $event_ids = implode(',', $event_ids);
 
-    $datetime = new DateTime("{$rule->startsOn} {$rule->startsAt}");
+    $occurrences_json = file_get_contents(API_URL . "eventOccurrence/find?@select=id,space.id,eventId,rule&event=IN($event_ids)&@order=_startsAt");
 
-    $e->price = $rule->price;
+    $occurrences = json_decode($occurrences_json);
 
-    $e->timestamp = $datetime->getTimestamp();
 
-    $e->duration = @$rule->duration;
+    $count = 0;
+    foreach ($occurrences as $occ) {
+        $rule = $occ->rule;
+        $e = clone $events_by_id[$occ->eventId];
+        $e->id = $occ->id;
+        $e->eventId =  $occ->eventId;
 
-    if($e->duration == 1440){
-        $e->duration = '24h00';
+        $e->spaceId = $occ->space->id;
+        $e->startsAt = $rule->startsAt;
+        $e->startsOn = $rule->startsOn;
+
+        $datetime = new DateTime("{$rule->startsOn} {$rule->startsAt}");
+
+        $e->price = $rule->price;
+
+        $e->timestamp = $datetime->getTimestamp();
+
+        $e->duration = @$rule->duration;
+
+        if($e->duration == 1440){
+            $e->duration = '24h00';
+        }
+
+        $e->acessibilidade = array();
+        if($e->traducaoLibras)
+            $e->acessibilidade[] = 'Tradução para LIBRAS';
+
+        if($e->descricaoSonora)
+            $e->acessibilidade[] = 'Descrição sonora';
+
+
+        $small_image_property = '@files:avatar.viradaSmall';
+        $big_image_property = '@files:avatar.viradaBig';
+
+        if (property_exists($e, $small_image_property)) {
+            $e->defaultImage = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$big_image_property->url);
+            $e->defaultImageThumb = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$small_image_property->url);
+            $e->image768 = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$small_image_property->url);
+            $e->image800 = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$big_image_property->url);
+            $e->image1024 = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$big_image_property->url);
+            $e->image1280 = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$big_image_property->url);
+        } else {
+            $e->defaultImage = '';
+            $e->defaultImageThumb = '';
+        }
+
+        $result_events[] = $e;
     }
 
-    $e->acessibilidade = array();
-    if($e->traducaoLibras)
-        $e->acessibilidade[] = 'Tradução para LIBRAS';
-
-    if($e->descricaoSonora)
-        $e->acessibilidade[] = 'Descrição sonora';
-
-
-    $small_image_property = '@files:avatar.viradaSmall';
-    $big_image_property = '@files:avatar.viradaBig';
-
-    if (property_exists($e, $small_image_property)) {
-        $e->defaultImage = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$big_image_property->url);
-        $e->defaultImageThumb = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$small_image_property->url);
-        $e->image768 = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$small_image_property->url);
-        $e->image800 = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$big_image_property->url);
-        $e->image1024 = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$big_image_property->url);
-        $e->image1280 = str_replace(REPLACE_IMAGES_URL_FROM, REPLACE_IMAGES_URL_TO, $e->$big_image_property->url);
-    } else {
-        $e->defaultImage = '';
-        $e->defaultImageThumb = '';
-    }
-
-    $result_events[] = $e;
 }
 
 file_put_contents(__DIR__ . '/events.json', json_encode($result_events));
