@@ -783,7 +783,10 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     }
     .time-filter {
         float: left;
-        width: 99.99%;
+        width: 100%;
+        @media (max-width: @screen-tablet) {
+            width: 99.99%;
+        }
         background-color: @gray-lighter;
         border-radius: 0 3px 3px 0;
         overflow: hidden;
