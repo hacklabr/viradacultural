@@ -332,11 +332,7 @@ function virada_meta_tags() {
 
     $name = array();
 
-    $property = array(
-        'og:type' => 'article',
-        'og:url' => trailingslashit(home_url( $wp->request )),
-        'og:locale' => 'pt_BR'
-    );
+    $property = array();
 
     // Não executa htmlentities nestes campos
     $no_entities = array( 'og:image', 'og:url' );
