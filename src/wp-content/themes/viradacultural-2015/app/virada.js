@@ -379,7 +379,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
         startTimeSetted = true;
 
-        $scope.startsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.min * 15).format('H:mm');
+        $scope.startsAt = moment('2015-06-20 18:00').add('minutes', $scope.timeSlider.model.min * 15).format('H:mm');
 
         if(timeouts.timeSlider)
             $timeout.cancel(timeouts.timeSlider);
@@ -395,16 +395,16 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
 
     if(!startTimeSetted){
-        if(moment() >= moment('2014-05-17 18:00') && moment() < moment('2014-05-18 18:00')){
+        if(moment() >= moment('2015-06-20 18:00') && moment() < moment('2015-06-21 18:00')){
             var now = moment().subtract('minutes', 15);
-            $scope.timeSlider.model.min = parseInt(parseInt(now.diff(moment('2014-05-17 18:00')) / 1000) / 60 / 60 * 4);
+            $scope.timeSlider.model.min = parseInt(parseInt(now.diff(moment('2015-06-20 18:00')) / 1000) / 60 / 60 * 4);
         }
     }
 
     $scope.$watch('timeSlider.model.max', function(){
         if(counters.populateEntities === 0)
             return;
-        $scope.endsAt = moment('2014-05-17 18:00').add('minutes', $scope.timeSlider.model.max * 15).format('H:mm');
+        $scope.endsAt = moment('2015-06-20 18:00').add('minutes', $scope.timeSlider.model.max * 15).format('H:mm');
 
         if(timeouts.timeSlider)
             $timeout.cancel(timeouts.timeSlider);
@@ -513,6 +513,10 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             e.url = eventUrl(e.id);
             $scope.eventsById[e.id] = e;
 
+            if(e.startsOn === '2015-06-21' && (e.startsAt === '18:00')){
+                e.startsAt = '17:59';
+            }
+
             return {
                 text: $scope.unaccent(e.name + ' ' + e.terms.tag.join(' ') + ' ' + e.terms.linguagem.join(' ') ),
                 startsAt : getTime(e.startsAt),
@@ -558,6 +562,8 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             var searchStartsAt = getTime($scope.startsAt);
             var searchEndsAt = $scope.endsAt === '18:00' ? getTime('17:59') : getTime($scope.endsAt);
 
+            console.log(searchStartsAt, searchEndsAt);
+
             var events = [];
             var spaces = [];
 
@@ -565,6 +571,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
             $scope.eventIndex.forEach(function(event){
                 var space = $scope.spacesById[event.entity.spaceId];
+
                 if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0 || (space && $scope.unaccent(space.name).indexOf(txt) >=0 ) ) && (event.startsAt <= searchEndsAt  &&  event.startsAt >= searchStartsAt || event.entity.duration === '24h00')){
                     if(!$scope.filters.spaces || ($scope.spacesById[event.entity.spaceId] && $scope.spacesById[event.entity.spaceId].selected))
                         events.push(event.entity);
