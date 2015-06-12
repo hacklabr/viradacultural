@@ -513,13 +513,9 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             e.url = eventUrl(e.id);
             $scope.eventsById[e.id] = e;
 
-            if(e.startsOn === '2015-06-21' && (e.startsAt === '18:00')){
-                e.startsAt = '17:59';
-            }
-
             return {
                 text: $scope.unaccent(e.name + ' ' + e.terms.tag.join(' ') + ' ' + e.terms.linguagem.join(' ') ),
-                startsAt : getTime(e.startsAt),
+                startsAt : getTime(e.startsAt, e.startsOn),
                 entity: e
             };
 
@@ -529,8 +525,12 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
         $scope.populateEntities();
     });
 
-    function getTime(time){
+    function getTime(time, startsOn){
         var t = parseInt(time.replace(':', ''));
+        if(t === 1800 && startsOn && startsOn == '2015-06-21'){
+            t = 1759;
+        }
+
         if(t < 1800)
             return t + 20000;
         else
@@ -572,7 +572,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             $scope.eventIndex.forEach(function(event){
                 var space = $scope.spacesById[event.entity.spaceId];
 
-                if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0 || (space && $scope.unaccent(space.name).indexOf(txt) >=0 ) ) && (event.startsAt <= searchEndsAt  &&  event.startsAt >= searchStartsAt || event.entity.duration === '24h00')){
+                if(event && (txt.trim() === '' || event.text.indexOf(txt) >= 0 || (space && $scope.unaccent(space.name).indexOf(txt) >=0 ) ) && (event.startsAt <= searchEndsAt &&  event.startsAt >= searchStartsAt || event.entity.duration === '24h00')){
                     if(!$scope.filters.spaces || ($scope.spacesById[event.entity.spaceId] && $scope.spacesById[event.entity.spaceId].selected))
                         events.push(event.entity);
                 }
