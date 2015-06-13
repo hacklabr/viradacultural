@@ -562,8 +562,6 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             var searchStartsAt = getTime($scope.startsAt);
             var searchEndsAt = $scope.endsAt === '18:00' ? getTime('17:59') : getTime($scope.endsAt);
 
-            console.log(searchStartsAt, searchEndsAt);
-
             var events = [];
             var spaces = [];
 
