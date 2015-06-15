@@ -21,7 +21,7 @@
             global $page, $paged;
 
             wp_title( '|', true, 'right' );
-            
+
         ?></title>
 
         <link rel="profile" href="http://gmpg.org/xfn/11" />
@@ -111,9 +111,9 @@
                     <li><a class="anos-10" href="<?php bloginfo( 'url' ); ?>/historico/" title="Histórico"><span>Histórico</span></a></li>
                     <?php if (mostrar_programacao()): ?>
                         <li><a class="nas-redes" href="<?php bloginfo( 'url' ); ?>/nas-redes/" title="Nas redes"><span>Nas redes</span></a></li>
-                        <?php /*
+
                         <li><a class="minha-virada" href="<?php bloginfo( 'url' ); ?>/minha-virada/" title="Minha Virada"><span>Minha Virada</span></a></li>
-                        */?>
+                        
                     <?php endif; ?>
                     <li class="whitespace"><span></span></li>
                 </ul>

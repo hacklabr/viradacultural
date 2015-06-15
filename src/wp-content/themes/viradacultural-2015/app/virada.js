@@ -527,7 +527,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
                 '855': '19º Cultura Inglesa Festival'
             };
 
-            
+
             if(e.project && e.project.id && projetos[e.project.id]){
                 e.name += ' [' + projetos[e.project.id] + ']';
             }
@@ -806,7 +806,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
     });
 
     $scope.loadUserData = function(uid) {
-        $http.get($scope.conf.templateURL + '/includes/minha-virada-ajax.php?action=minhavirada_getJSON&uid='+uid).success(function(data){
+        $http.get(minhaVirada.baseUrl + '?uid='+uid).success(function(data){
             $scope.populateUserInfo(data);
         });
     };

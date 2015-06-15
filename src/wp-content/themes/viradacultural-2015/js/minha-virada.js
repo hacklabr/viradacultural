@@ -1,4 +1,6 @@
 minhaVirada = {
+    baseUrl: 'http://viradacultural.prefeitura.sp.gov.br/2015/api/minhavirada/',
+//    baseUrl: 'http://192.168.0.61:8000/minhavirada/',
 
     uid: false,
     accessToken: false,
@@ -59,7 +61,7 @@ minhaVirada = {
             minhaVirada.picture = response.picture.data.url;
 
             // Pega dados do usuário
-            jQuery.getJSON( GlobalConfiguration.templateURL + '/includes/minha-virada-ajax.php?action=minhavirada_getJSON&uid=' + minhaVirada.uid, function( data ) {
+            jQuery.getJSON( minhaVirada.baseUrl + '?uid=' + minhaVirada.uid, function( data ) {
                 //console.log(data);
                 minhaVirada.debug = data;
 
@@ -70,14 +72,14 @@ minhaVirada = {
 
                 if (data.modalDismissed)
                     minhaVirada.modalDismissed = data.modalDismissed;
-                    
+
                 minhaVirada.initialized = true;
                 minhaVirada.atualizaEstrelas();
-                
+
                 if (callback)
                     eval(callback);
 
-                
+
             });
 
 
@@ -107,12 +109,26 @@ minhaVirada = {
 
     save: function() {
         var userJSON = minhaVirada.prepareJSON();
-        jQuery.post( GlobalConfiguration.templateURL + '/includes/minha-virada-ajax.php', {action: 'minhavirada_updateJSON', dados: userJSON }, function( data ) {
-            // atualiza estrelas
-            minhaVirada.atualizaEstrelas();
-            if (!minhaVirada.modalDismissed)
-                jQuery('#modal-favorita-evento').modal('show');
+
+
+        jQuery.ajax(minhaVirada.baseUrl, {
+            method: 'POST',
+            data: JSON.stringify(userJSON),
+            contentType: 'application/json',
+            success: function( data ) {
+                // atualiza estrelas
+                minhaVirada.atualizaEstrelas();
+                if (!minhaVirada.modalDismissed)
+                    jQuery('#modal-favorita-evento').modal('show');
+            }
         });
+//
+//        jQuery.post( minhaVirada.baseUrl, JSON.stringify(userJSON), function( data ) {
+//            // atualiza estrelas
+//            minhaVirada.atualizaEstrelas();
+//            if (!minhaVirada.modalDismissed)
+//                jQuery('#modal-favorita-evento').modal('show');
+//        }, 'json');
     },
 
     atualizaEstrelas: function() {
