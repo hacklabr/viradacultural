@@ -25,6 +25,7 @@
                     <span ng-if='event.classificacaoEtaria'><span>Classificação:</span> {{event.classificacaoEtaria}}<br></span>
                     <span ng-if='event.acessibilidade.length > 0'><span>Acessibilidade:</span> {{event.acessibilidade.join(', ')}}<br></span>
                     <span ng-if="event.price"><span>Ingresso:</span> {{event.price}}<br></span>
+                    <span ng-if="event.project.id != 632"><span>Projeto:</span> <a href="{{event.project.singleUrl}}">{{event.project.name}}</a><br></span>
                 </p>
                 <div class="hidden">URL : {{mapUrl}}</div>
 

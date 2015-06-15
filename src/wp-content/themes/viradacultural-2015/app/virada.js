@@ -513,6 +513,25 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             e.url = eventUrl(e.id);
             $scope.eventsById[e.id] = e;
 
+            /*
+             * Virada Coral (id:865)
+             * 19º Cultural Inglesa Festival (id:)
+             * II Mostra de Teatros Independentes (id:)
+             * Viradinha 2015 (id:857)
+             */
+
+            var projetos = {
+                '865': 'Virada Coral',
+                '857': 'Viradinha',
+                '794': 'II Mostra de Teatros e Espaços Independentes',
+                '855': '19º Cultura Inglesa Festival'
+            };
+
+            
+            if(e.project && e.project.id && projetos[e.project.id]){
+                e.name += ' [' + projetos[e.project.id] + ']';
+            }
+
             return {
                 text: $scope.unaccent(e.name + ' ' + e.terms.tag.join(' ') + ' ' + e.terms.linguagem.join(' ') ),
                 startsAt : getTime(e.startsAt, e.startsOn),

@@ -20,7 +20,7 @@ $children_project_ids[] = $project_id;
 $project_ids = implode(',',$children_project_ids);
 
 $get_spaces_url = API_URL . "space/findByEvents?@select=id,name,shortDescription,endereco,location&@files=(avatar.viradaSmall,avatar.viradaBig):url&@order=name&@from={$date_from}&@to={$date_to}&project=IN({$project_ids})";
-$get_events_url = API_URL . "event/find?@select=id,name,subTitle,shortDescription,description,classificacaoEtaria,terms,traducaoLibras,descricaoSonora&@files=(avatar.viradaSmall,avatar.viradaBig):url&project=IN({$project_ids})";
+$get_events_url = API_URL . "event/find?@select=id,name,subTitle,shortDescription,description,classificacaoEtaria,terms,traducaoLibras,descricaoSonora,project.id,project.name,project.singleUrl&@files=(avatar.viradaSmall,avatar.viradaBig):url&project=IN({$project_ids})";
 
 echo "\nbaixando eventos $get_events_url\n\n";
 $events_json = file_get_contents($get_events_url);
