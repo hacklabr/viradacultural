@@ -34,6 +34,7 @@ minhaVirada = {
 
                 minhaVirada.initializeUserData(response, callback);
             } else {
+
                 // the user isn't logged in to Facebook.
                 FB.login(function(response){
                     if (response.authResponse) {
@@ -62,23 +63,44 @@ minhaVirada = {
 
             // Pega dados do usuário
             jQuery.getJSON( minhaVirada.baseUrl + '?uid=' + minhaVirada.uid, function( data ) {
-                //console.log(data);
-                minhaVirada.debug = data;
+                var cb = function(){
+                    minhaVirada.debug = data;
 
-                if (!data.events)
-                    minhaVirada.events = [];
-                else
-                    minhaVirada.events = data.events;
+                    if (!data.events){
+                        minhaVirada.events = [];
+                    }else{
+                        minhaVirada.events = data.events;
+                    }
 
-                if (data.modalDismissed)
-                    minhaVirada.modalDismissed = data.modalDismissed;
+                    if (data.modalDismissed){
+                        minhaVirada.modalDismissed = data.modalDismissed;
+                    }
 
-                minhaVirada.initialized = true;
-                minhaVirada.atualizaEstrelas();
+                    minhaVirada.initialized = true;
+                    minhaVirada.atualizaEstrelas();
 
-                if (callback)
-                    eval(callback);
+                    if (callback){
+                        eval(callback);
+                    }
 
+                    jQuery('#modal-facebook-disclaimer').modal('hide');
+                };
+
+                if(!data){
+                    jQuery('#modal-facebook-disclaimer').modal('show');
+                    jQuery('#modal-facebook-disclaimer .js-accept').click(function(){
+                        cb();
+                    });
+
+                    jQuery('#modal-facebook-disclaimer .js-cancel').click(function(){
+                        FB.api("/me/permissions","DELETE",function(response){
+                            console.log(response); //gives true on app delete success
+                        });
+                        jQuery('#modal-facebook-disclaimer').modal('hide');
+                    });
+                }else{
+                    cb();
+                }
 
             });
 

@@ -36,5 +36,13 @@
     </footer>
     <!-- #main-footer -->
 <?php wp_footer(); ?>
+
+<!-- Here is the Open AdStream PCX 2.0 Code  -->
+<script type='text/javascript'>
+OAS_rn = '001234567890'; OAS_rns = '1234567890';
+OAS_rn = new String (Math.random()); OAS_rns = OAS_rn.substring (2, 11);
+document.write("<scr"+"ipt type='text/javascript' src='http://de.realmediadigital.com/RealMedia/ads/adstream_jx.ads/pmsp/viradacultural/_on_" + location.hostname + location.pathname + "/1" + OAS_rns +"@x01!x01?'"+"><"+"\/script"+">");
+</script>
+<!-- Here is the Open AdStream PCX 2.0 Code  -->
 </body>
 </html>

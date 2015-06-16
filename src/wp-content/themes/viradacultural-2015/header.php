@@ -53,6 +53,22 @@
             <?php
         }
         ?>
+<script>(function() {
+var _fbq = window._fbq || (window._fbq = []);
+if (!_fbq.loaded) {
+var fbds = document.createElement('script');
+fbds.async = true;
+fbds.src = '//connect.facebook.net/en_US/fbds.js';
+var s = document.getElementsByTagName('script')[0];
+s.parentNode.insertBefore(fbds, s);
+_fbq.loaded = true;
+}
+_fbq.push(['addPixelId', '1382093348746310']);
+})();
+window._fbq = window._fbq || [];
+window._fbq.push(['track', 'PixelInitialized', {}]);
+</script>
+<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=1382093348746310&amp;ev=PixelInitialized" /></noscript>
 
     </head>
     <body <?php body_class(); ?> ng-controller="main">
@@ -86,6 +102,27 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
+        <div id="modal-facebook-disclaimer" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Minha Virada</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Você acaba de associar sua conta do Facebook à plataforma da Virada Cultural, tornando pública algumas informações sobre seu acesso, como <strong>em quais eventos pretende comparecer</strong>.<br><br>
+                            Para mais informações consulte nossos <a href="http://viradacultural.prefeitura.sp.gov.br/2015/termos-de-uso/"><strong>termos de uso</strong></a> e nossa <a href="http://viradacultural.prefeitura.sp.gov.br/2015/politica-de-privacidade/"><strong>política de privacidade</strong></a>.<br><br>
+                            Deseja continuar?</p><br>
+                        <p class="alignright clearfix" style="white-space: nowrap">
+                            <a class="btn btn-primary js-accept" style="display:inline-block !important;">Sim, continuar</a>
+                            <a class="btn btn-default js-cancel" style="display:inline-block !important;">Não, cancelar</a>
+                        </p>
+                        <div class="clearfix"></div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
         <!-- MEDIUM AND LARGE DEVICES -->
         <header id="main-header" <?php if (get_query_var('virada_tpl') == 'programacao' || is_page_template('page-dez-anos.php')): ?>class="minified hidden-sm hidden-xs"<?php endif; ?> class="hidden-sm hidden-xs">
             <div id="brand">
@@ -113,7 +150,7 @@
                         <li><a class="nas-redes" href="<?php bloginfo( 'url' ); ?>/nas-redes/" title="Nas redes"><span>Nas redes</span></a></li>
 
                         <li><a class="minha-virada" href="<?php bloginfo( 'url' ); ?>/minha-virada/" title="Minha Virada"><span>Minha Virada</span></a></li>
-                        
+
                     <?php endif; ?>
                     <li class="whitespace"><span></span></li>
                 </ul>
@@ -164,9 +201,9 @@
                         <li class="col-sm-6 col-xs-6"><a class="anos-10" href="<?php bloginfo( 'url' ); ?>/historico/" title="Histórico"><span>Histórico</span></a></li>
                         <?php if (mostrar_programacao()): ?>
                             <li class="col-sm-6 col-xs-6"><a class="nas-redes" href="<?php bloginfo( 'url' ); ?>/nas-redes/" title="Nas redes"><span>Nas redes</span></a></li>
-                            <?php /*
+
                             <li class="col-sm-6 col-xs-6"><a class="minha-virada" href="<?php bloginfo( 'url' ); ?>/minha-virada/" title="Minha Virada"><span>Minha Virada</span></a></li>
-                            */?>
+                            
                         <?php endif; ?>
                     </ul>
                 </div>
