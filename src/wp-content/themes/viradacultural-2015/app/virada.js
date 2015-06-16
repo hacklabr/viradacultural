@@ -72,10 +72,10 @@ app.controller('main', function($scope, $rootScope, $window, $sce, $analytics){
 
     window.fbAsyncInit = function() {
         FB.init({
-        appId      : GlobalConfiguration.facebookAppId,
-        status     : false,
-        xfbml      : true
-        });
+            appId      : GlobalConfiguration.facebookAppId,
+            xfbml      : true,
+            version    : 'v2.3'
+          });
 
         // ao carregar a pagina vemos se o usuario ja esta conectado e com o app autorizado.
         // se nao estiver, não fazemos nada. Só vamos fazer alguma coisa se ele clicar
@@ -87,6 +87,7 @@ app.controller('main', function($scope, $rootScope, $window, $sce, $analytics){
             }else{
                 minhaVirada.initialized = true;
                 minhaVirada.atualizaEstrelas();
+                minhaVirada.atualizaAmigos();
                 $scope.$emit('fb_not_connected');
             }
         });
@@ -697,6 +698,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             jQuery('#programacao-loading').hide();
 
             minhaVirada.atualizaEstrelas();
+            minhaVirada.atualizaAmigos();
 
             var grid_width,
                 grid_height;
@@ -841,6 +843,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
 
             jQuery('#programacao-loading').hide();
             minhaVirada.atualizaEstrelas();
+            minhaVirada.atualizaAmigos();
 
         });
 

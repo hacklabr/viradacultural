@@ -227,7 +227,8 @@
 </script>
 
 <script type="text/html" id="template-event-grid">
-    <article class="event clearfix event-grid <% if(duration === '24h00') { %> evento-24h <% } %> <% if (!defaultImageThumb) { %> no-thumb <% } %>">
+    <article class="js-event-<%=id%> event clearfix event-grid <% if(duration === '24h00') { %> evento-24h <% } %> <% if (!defaultImageThumb) { %> no-thumb <% } %>">
+        <div class="js-lista-amigos" style="position:absolute;"><div>
         <span class="event-time">
             <span class="icon icon_clock"></span>
             <% if(duration === '24h00') { %>
@@ -236,16 +237,17 @@
                 <time><%=startsAt%></time>
             <% } %>
         </span>
-
         <img src="<%=defaultImageThumb%>"/>
         <a href="<%=url%>">
             <div class="event-content clearfix">
                 <h1>
                     <%=name%>
                 </h1>
+
             </div>
         </a>
         <a class="icon favorite favorite-wait favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
+
     </article>
 </script>
 
@@ -271,6 +273,13 @@
         <a class="icon favorite favorite-wait favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
     </article>
 </script>
+
+<script type="text/html" id="template-lista-de-amigos">
+    <% for(var i in friends){ var friend = friends[i]; if(!friend) continue; %>
+        <a href="/minha-virada/##<%=friend.uid%>" title="<%=friend.name%>" class="alignleft" style="border-radius: 15px; display: inline-block; width:25px; height:25px; overflow: hidden"><img src="<%=friend.picture%>" style="width:25px !important; height:25px !important;"></a>
+    <% } %>
+</script>
+
 <script>
 document.addEventListener('keyup', function(e){
     if(e.ctrlKey && e.shiftKey && e.altKey && e.keyCode == 69){

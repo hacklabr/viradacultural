@@ -94,7 +94,6 @@ minhaVirada = {
 
                     jQuery('#modal-facebook-disclaimer .js-cancel').click(function(){
                         FB.api("/me/permissions","DELETE",function(response){
-                            console.log(response); //gives true on app delete success
                         });
                         jQuery('#modal-facebook-disclaimer').modal('hide');
                     });
@@ -154,6 +153,23 @@ minhaVirada = {
     },
 
     atualizaEstrelas: function() {
+        amigos = {
+            bruno: {
+                    'uid': '100000206331198',
+                    'name': 'Bruno',
+                    'picture': "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/p200x200/1235231_731956590154545_25560024_n.jpg?oh=9947b08bcd5dc6320078386085988133&oe=55EB27CC&__gda__=1441566136_1f1d2f04e490dcbcabe6c37d998376b2"
+                },
+            bo: {
+                    'uid': '100007645724114',
+                    'name': 'Bó',
+                    'picture': "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p200x200/10171798_1420933928171451_6785971541669342162_n.jpg?oh=304908ea2fe4ed651a1d80f36485d1a0&oe=55F4002E&__gda__=1441389378_e0502466155130ef71d3edf4f8bc78d1"
+                },
+            virgilio: {
+                    'uid': '10206944339469908',
+                    'name': 'Virgílio',
+                    'picture': "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xaf1/v/t1.0-1/p200x200/527684_4234015251569_1294087152_n.jpg?oh=d944d82092c8d09b3d636add756fdf16&oe=562FB9AD&__gda__=1446226107_f38b23393059eb9161502de807e699a4"
+                }
+        };
         if(minhaVirada.initialized) {
             jQuery('.favorite').removeClass('favorite-wait');
         }
@@ -163,6 +179,34 @@ minhaVirada = {
         jQuery('.favorite').removeClass('active');
         for (var i = 0; i < minhaVirada.events.length; i++) {
             jQuery('.favorite-event-'+minhaVirada.events[i]).addClass('active');
+        }
+
+    },
+
+    eventosAmigos: null,
+
+    _atualizaAmigos: function(){
+        Object.keys(minhaVirada.eventosAmigos).forEach(function(eventId){
+            var $lista = jQuery('.js-event-' + eventId + ' .js-lista-amigos');
+
+            $lista.html(Resig.render('template-lista-de-amigos', {friends: minhaVirada.eventosAmigos[eventId]}));
+        });
+    },
+
+    atualizaAmigos: function() {
+        if(!this.eventosAmigos){
+            setTimeout(function(){
+                minhaVirada.eventosAmigos = {
+                    '9500': [amigos.bo, amigos.bruno, amigos.virgilio],
+                    '9502': [amigos.bo, amigos.virgilio],
+                    '9498': [amigos.bruno, amigos.virgilio],
+                    '9515': [amigos.bo]
+                };
+
+                minhaVirada._atualizaAmigos();
+            });
+        }else{
+            minhaVirada._atualizaAmigos();
         }
     },
 
