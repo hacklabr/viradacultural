@@ -7,7 +7,7 @@
                             <?php if (is_front_page()) { ?>
                             <!--<a class="btn btn-primary btn-sm" href="<?php echo site_url( 'transparencia-virada-cultural-2014' ); ?>">Transparência</a>-->
 							<?php } else if ('noticias' == get_post_type() || is_post_type_archive('noticias')) { ?>
-								Notícias
+								Notícias <!--<a class="btn btn-primary btn-sm" href="#">Arquivo de 2014</a> -->
 							<?php } else if (is_home()) { ?>
 								Blog
 							<?php } else if ('imprensa' == get_post_type() || is_post_type_archive('imprensa')) { ?>

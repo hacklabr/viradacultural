@@ -594,6 +594,42 @@ body {
     }
 }
 
+/* =Friends
+-------------------------------------------------------------- */
+.friends-group {
+    .secondary-font();
+    font-size: 10px;
+    line-height: 28px;
+    a {
+        color: @brand-auxiliar;
+    }
+}
+.friend {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border-radius: 14px;
+    background-color: @brand-accent;
+    overflow: hidden;
+    vertical-align: middle;
+    text-align: center;
+    img {
+        min-height: 100%;
+    }
+}
+
+/* =Friends Modal
+-------------------------------------------------------------- */
+.friend-avatar {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.friend-name {
+    display: inline-block;
+}
 
 /* =Post
 -------------------------------------------------------------- */
@@ -603,6 +639,15 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
             color: @gray-dark;
         }
     header { text-align: center; }
+}
+footer {
+    .friends-group {
+        border-top: 1px solid @gray-light;
+        margin-bottom: 4*@padding-base-horizontal;
+        padding-top: @padding-base-horizontal;
+        line-height: 28px;
+        height: 30px+@padding-base-horizontal;
+    }
 }
 .post-type-icon {
     position: relative;
@@ -1024,7 +1069,7 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     border-bottom: 1px solid @body-bg;
     background-color: @gray-lighter;
     img {
-        width:100%
+        width: 100%
     }
     a {
         color: @brand-auxiliar;
@@ -1032,19 +1077,25 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
     .event-content {
         overflow: hidden;
         position: absolute;
+        top: 0;
         bottom: 0;
         width: 100%;
-        height: 34px;
-        padding: 5px 36px;
-        background-color: @brand-primary;
+        border: 34px solid transparent;
+        background-color: rgba(0,0,0, .65);
         .transition(all linear .3s);
+        &:before {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            margin-right: -0.25em; /* Adjusts for spacing */
+        }
         @media (max-width: @screen-phone) {
             overflow: visible;
             height: auto;
         }
         h1 {
             display: inline-block;
-            height: 24px;
             overflow: hidden;
             text-align: center;
             vertical-align: middle;
@@ -1054,9 +1105,10 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
                 height: auto;
             }
         }
+
     }
     .favorite.favorite-wait {
-        display:none;
+        display: none;
     }
     .favorite {
         position: absolute;
@@ -1067,6 +1119,18 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
         color: @brand-auxiliar;
         background-color: @brand-accent;
     }
+    .friends-group {
+        position: absolute;
+        z-index: 100;
+        bottom: 0;
+        right: 0;
+        height: 34px;
+        width: 100%;
+        padding: 3px 3px 3px 34px;
+        text-align: right;
+        background-color: @brand-primary;
+        color: @brand-auxiliar;
+    }
     .event-time {
         position: absolute;
         z-index: 100;
@@ -1076,41 +1140,37 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
         color: @brand-auxiliar;
         background-color: @brand-accent;
     }
+    &:hover {
+        .event-content {
+            opacity: 0;
+        }
+    }
     &.evento-24h {
         .event-content {
             background-color: @gray-dark;
         }
-    }
-    &:hover, &.no-thumb {
-        .event-content {
-            bottom: 0;
-            height: 100%;
-            padding: 15px 36px;
-            &:before {
-                content: '';
-                display: inline-block;
-                height: 100%;
-                vertical-align: middle;
-                margin-right: -0.25em; /* Adjusts for spacing */
-            }
-            h1 {
-                height: auto;
-            }
-        }
-    }
-    &:hover {
-        a {
-            color: @brand-primary;
-        }
-        .event-content {
-            background-color: @brand-auxiliar;
-        }
-        .favorite {
-            color: @brand-auxiliar;
+        &:hover {
+            opacity: 1;
         }
     }
     &.no-thumb {
         height: 178px;
+        background-color: @brand-primary;
+        .friends-group {
+            background-color: transparent;
+        }
+        &:hover {
+            a {
+                color: @brand-primary;
+            }
+            .event-content {
+                opacity: 1;
+                background-color: @brand-auxiliar;
+            }
+            .favorite {
+                color: @brand-auxiliar;
+            }
+        }
     }
 }
 .event-list {
@@ -1269,8 +1329,12 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
                 border-right: none;
                 margin-left: 33px;
                 .event-content {
-                    bottom: auto;
+                    background-color: @brand-primary;
+                    bottom: initial;
                     top: 0;
+                    border: none;
+                    padding: 0 5px;
+                    height: 34px;
                 }
                 &:before {
                     .icon();
@@ -1285,14 +1349,22 @@ article.post, article.noticias, article.imprensa, article.page, article.event-si
                 &.evento-24h:before {
                     color: @gray-dark;
                 }
-                &:hover {
+                &.no-thumb {
                     .event-content {
-                        bottom: auto;
-                        top: 0;
+                        height: auto;
+                        bottom: 0;
                     }
                 }
-                &:hover:before {
-                    color: @brand-auxiliar;
+                &:hover {
+                    .event-content {
+                        top: 0;
+                        opacity: 1;
+                        background-color: @brand-auxiliar;
+                        color: @brand-primary;
+                    }
+                    &:before {
+                        color: @brand-auxiliar;
+                    }
                 }
 
             }

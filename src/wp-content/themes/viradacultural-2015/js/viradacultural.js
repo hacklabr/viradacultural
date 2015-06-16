@@ -40,6 +40,10 @@ var hl = {
 
 
     $(document).ready(function() {
+
+        //bootstrap tooltip
+        $('[data-toggle="tooltip"]').tooltip();
+
         if (hl.isMobile()) {
             $('body').addClass('mobile');
         } else {
@@ -184,8 +188,6 @@ var hl = {
         //         $("#main-header").removeClass().addClass("col-md-2");
         //     }
         // );
-
-
 
         $(window).resize(function() {
             window.adustGridHeight('resize');
