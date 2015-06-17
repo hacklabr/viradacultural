@@ -259,7 +259,9 @@
                 <time><%=startsAt%></time>
             <% } %>
         </span>
-        <img src="<%=defaultImageThumb%>"/>
+        <% if(defaultImageThumb){ %>
+            <img src="<%=defaultImageThumb%>"/>
+        <% } %>
         <a href="<%=url%>">
             <div class="event-content clearfix">
                 <h1>
