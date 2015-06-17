@@ -118,7 +118,7 @@ minhaVirada = {
 
         // Dismiss modal
         jQuery('#modal-favorita-dismiss').click(function() {
-            
+
             minhaVirada.modalDismissed = true;
             jQuery('#modal-favorita-evento').modal('hide');
             minhaVirada.save();
@@ -178,23 +178,27 @@ minhaVirada = {
     eventosAmigos: null,
 
     _atualizaAmigos: function(){
-        Object.keys(minhaVirada.eventosAmigos).forEach(function(eventId){
-            var templateName, $lista;
+        var templateName, $lista;
+        $lista = jQuery('.js-lista-amigos');
+        if($lista.hasClass('js-lista-atracao')){
+            templateName = 'template-lista-de-amigos-single-atracao';
+            var eventId = $lista.data('eventId');
 
-            $lista = jQuery('.js-lista-amigos');
-            if($lista.hasClass('js-lista-atracao')){
-                templateName = 'template-lista-de-amigos-single-atracao';
-            }else{
-                $lista = jQuery('.js-event-' + eventId + ' .js-lista-amigos');
-                templateName = 'template-lista-de-amigos';
+            if(minhaVirada.eventosAmigos[eventId]){
+                $lista.html(Resig.render(templateName, {eventId: eventId, eventUrl: eventUrl(eventId) ,friends: minhaVirada.eventosAmigos[eventId]}));
+
+                $lista.find('[data-toggle="tooltip"]').tooltip();
             }
+        }else{
+            templateName = 'template-lista-de-amigos';
+            Object.keys(minhaVirada.eventosAmigos).forEach(function(eventId){
+                $lista = jQuery('.js-event-' + eventId + ' .js-lista-amigos');
 
-            $lista.html(Resig.render(templateName, {eventId: eventId, eventUrl: eventUrl(eventId) ,friends: minhaVirada.eventosAmigos[eventId]}));
+                $lista.html(Resig.render(templateName, {eventId: eventId, eventUrl: eventUrl(eventId) ,friends: minhaVirada.eventosAmigos[eventId]}));
 
-            $lista.find('[data-toggle="tooltip"]').tooltip();
-
-
-        });
+                $lista.find('[data-toggle="tooltip"]').tooltip();
+            });
+        }
     },
 
     atualizaAmigos: function() {

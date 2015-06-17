@@ -43,7 +43,7 @@
                 <p>{{event.description}}</p>
             </div>
             <footer>
-                <div class="friends-group js-lista-atracao js-lista-amigos"></div>
+                <div class="friends-group js-lista-atracao js-lista-amigos" data-event-id="{{event.id}}"></div>
             </footer>
             <!-- .post-content -->
             <div class="servico">
