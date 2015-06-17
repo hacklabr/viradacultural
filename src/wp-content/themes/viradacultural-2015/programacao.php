@@ -251,7 +251,6 @@
 
 <script type="text/html" id="template-event-grid">
     <article class="js-event-<%=id%> event clearfix event-grid <% if(duration === '24h00') { %> evento-24h <% } %> <% if (!defaultImageThumb) { %> no-thumb <% } %>">
-        <div class="js-lista-amigos" style="position:absolute;"><div>
         <span class="event-time">
             <span class="icon icon_clock"></span>
             <% if(duration === '24h00') { %>
@@ -269,23 +268,7 @@
 
             </div>
         </a>
-        <div class="friends-group">
-            <a href="#" class="friend" data-toggle="tooltip" title="Nome do amigo">
-                <!--aqui entra um avatar aleatório ou do último amigo a favoritar esse evento -->
-                <img src="<%=defaultImageThumb%>"/>
-            </a>
-            <a href="#" class="friend" data-toggle="tooltip" title="Nome do amigo">
-                <!--aqui entra um avatar aleatório ou do penúltimo amigo a favoritar esse evento -->
-                <img src="<%=defaultImageThumb%>"/>
-            </a>
-            <a href="#" class="friend" data-toggle="tooltip" title="Nome do amigo">
-                <!--aqui entra um avatar aleatório ou do antepenúltimo amigo a favoritar esse evento -->
-                <img src="<%=defaultImageThumb%>"/>
-            </a>
-            <a href="#" class="friend" data-toggle="modal" data-target="#friendsModal">
-                <div data-toggle="tooltip" data-placement="bottom" title="Nome dos amigos">+000</div>
-            </a><!-- link pra modal com lista de todos amigos quando exceder 3 amigos-->
-        </div>
+        <div class="friends-group js-lista-amigos"></div>
         <a class="icon favorite favorite-wait favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
 
     </article>
@@ -312,12 +295,6 @@
         </div>
         <a class="icon favorite favorite-wait favorite-event-<%=id%>" onClick="minhaVirada.click(<%=id%>)"><!--qdo selecionado adicionar classe active--></a>
     </article>
-</script>
-
-<script type="text/html" id="template-lista-de-amigos">
-    <% for(var i in friends){ var friend = friends[i]; if(!friend) continue; %>
-        <a href="/minha-virada/##<%=friend.uid%>" title="<%=friend.name%>" class="alignleft" style="border-radius: 15px; display: inline-block; width:25px; height:25px; overflow: hidden"><img src="<%=friend.picture%>" style="width:25px !important; height:25px !important;"></a>
-    <% } %>
 </script>
 
 <script>

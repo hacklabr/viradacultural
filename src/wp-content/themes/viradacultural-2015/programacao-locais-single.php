@@ -40,28 +40,14 @@
                     <div class="event-group" ng-repeat="event in spaceEvents">
                         <div class="timeline-time" ng-if="event.duration === '24h00'">24 horas</div>
                         <div class="timeline-time" ng-if="event.duration !== '24h00'">{{event.startsAt}}</div>
-                        <article class="event clearfix event-grid" ng-class="{'no-thumb' : !event.defaultImageThumb, 'evento-24h': event.duration === '24h00'}">
+                        <article class="event clearfix event-grid js-event-{{event.id}}" ng-class="{'no-thumb' : !event.defaultImageThumb, 'evento-24h': event.duration === '24h00'}">
                             <img ng-src="{{event.defaultImageThumb}}"/>
                             <a href="{{event.url}}">
                                 <div class="event-content clearfix">
                                     <h1>{{event.name}}</h1>
                                 </div>
                             </a>
-                            <div class="friends-group">
-                                <a href="#" class="friend" data-toggle="tooltip" title="Nome do amigo">
-                                    <!--aqui entra um avatar aleatório ou do último amigo a favoritar e!-sse evento com link pra Minha Virada do amigo -->
-                                    <!--img avatar-->
-                                </a>
-                                <a href="#" class="friend" data-toggle="tooltip" title="Nome do amigo">
-                                    <!--aqui entra um avatar aleatório ou do penúltimo amigo a favoritar esse evento com link pra Minha Virada do amigo -->
-                                    <!--img avatar-->
-                                </a>
-                                <a href="#" class="friend" data-toggle="tooltip" title="Nome do amigo">
-                                    <!--aqui entra um avatar aleatório ou do antepenúltimo amigo a favoritar esse evento com link pra Minha Virada do amigo -->
-                                    <!--img avatar-->
-                                </a>
-                                <a href="#" class="friend" data-toggle="modal" data-target="#friendsModal"><div data-toggle="tooltip" data-placement="bottom" title="Nome dos amigos">+000</div></a><!-- link pra modal com lista de todos amigos quando exceder 3 amigos-->
-                            </div>
+                            <div class="friends-group js-lista-amigos"> </div>
                             <a class="icon favorite favorite-wait favorite-event-{{event.id}}" ng-click="favorite(event.id)"><!--qdo selecionado adicionar classe 'active'--></a>
                         </article>
                     </div>

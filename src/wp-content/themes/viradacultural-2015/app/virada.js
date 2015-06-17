@@ -2,7 +2,6 @@
 document.addEventListener('keyup', function(e){
     if(e.ctrlKey && e.keyCode == 32){
        jQuery('.panel-collapse').collapse('toggle');
-       //console.log('toggling collapsible... \n catch that fire!')
     }
 });
 
@@ -23,6 +22,19 @@ var getMapUrl = function (spaceEntity){
 
 var app = angular.module('virada', ['google-maps','ui-rangeSlider', 'angulartics', 'angulartics.google.analytics']);
 
+
+app.directive('onFinishRender', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function () {
+                    scope.$emit('ngRepeatFinished');
+                });
+            }
+        }
+    };
+});
 // app.config(function ($analyticsProvider) {
 //     // turn off automatic tracking
 //     $analyticsProvider.virtualPageviews(false);
@@ -87,7 +99,7 @@ app.controller('main', function($scope, $rootScope, $window, $sce, $analytics){
             }else{
                 minhaVirada.initialized = true;
                 minhaVirada.atualizaEstrelas();
-                minhaVirada.atualizaAmigos();
+
                 $scope.$emit('fb_not_connected');
             }
         });
@@ -644,6 +656,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
             counters.populateEntities++;
 
+
         }, 100);
 
     };
@@ -698,7 +711,10 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
             jQuery('#programacao-loading').hide();
 
             minhaVirada.atualizaEstrelas();
-            minhaVirada.atualizaAmigos();
+            if(minhaVirada.uid){
+                minhaVirada.atualizaAmigos();
+            }
+
 
             var grid_width,
                 grid_height;
@@ -751,10 +767,6 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     });
     jQuery(window).scroll();
 
-
-
-
-
 });
 
 app.controller('minha-virada', function($rootScope, $scope, $http, $location, $timeout, DataService){
@@ -766,6 +778,17 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
     $scope.home = true; // não estou vendo perfil de ninguém
     $scope.itsme = false;
     $scope.user_picture = '';
+
+    $rootScope.$on("$locationChangeSuccess", function () {
+        $scope.loadUserData($location.$$hash);
+    });
+
+    $rootScope.$on('ngRepeatFinished', function(e){
+        if($scope.connected){
+            minhaVirada.atualizaEstrelas();
+            minhaVirada.atualizaAmigos();
+        }
+    });
 
     $rootScope.$on('fb_connected', function(ev, uid) {
         $scope.connected = true;
@@ -789,9 +812,8 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
         $scope.$apply();
 
         $scope.loadUserData(uid);
-        var curUlr = document.URL;
         $location.hash(uid);
-        $scope.$emit('minhavirada_hashchanged', curUlr + '##' + $location.$$hash);
+        $scope.$emit('minhavirada_hashchanged', document.URL + '##' + $location.$$hash);
 
         $scope.pageTrack('/minha-virada/' + $location.$$hash);
 
@@ -808,13 +830,13 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
     });
 
     $scope.loadUserData = function(uid) {
-        $http.get(minhaVirada.baseUrl + '?uid='+uid).success(function(data){
+        $http.get(minhaVirada.api.getUrl('minhavirada') + '?uid='+uid).success(function(data){
             $scope.populateUserInfo(data);
         });
     };
 
     $scope.populateUserInfo = function(data) {
-
+        $scope.userEvents = [];
 
         if ( typeof(data.picture) != 'undefined' ) {
 
@@ -843,7 +865,8 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
 
             jQuery('#programacao-loading').hide();
             minhaVirada.atualizaEstrelas();
-            minhaVirada.atualizaAmigos();
+
+            $rootScope.$emit('minhavirada_userInfoPopulated');
 
         });
 

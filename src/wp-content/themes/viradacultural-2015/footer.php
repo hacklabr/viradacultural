@@ -37,6 +37,22 @@
     <!-- #main-footer -->
 <?php wp_footer(); ?>
 
+<script type="text/html" id="template-lista-de-amigos">
+
+    <% for(var i in friends){ var friend = friends[i]; if(!friend) continue; if(i >= 3) break; %>
+        <a href="<?php bloginfo('url') ?>/minha-virada/##<%=friend.uid%>" class="friend" data-toggle="tooltip" title="<%=friend.name%>">
+            <!--aqui entra um avatar aleatório ou do último amigo a favoritar esse evento -->
+            <img src="<%=friend.picture%>"/>
+        </a>
+    <% } %>
+
+    <% if(friends.length > 3) { %>
+    <a href="<%=eventUrl%>" class="friend" <?php // data-toggle="modal" data-target="#friendsModal" ?> >
+        <div <?php //data-toggle="tooltip" data-placement="bottom" ?>>+<%=friends.length - 3%></div>
+    </a><!-- link pra modal com lista de todos amigos quando exceder 3 amigos-->
+    <% } %>
+</script>
+
 <!-- Here is the Open AdStream PCX 2.0 Code  -->
 <script type='text/javascript'>
 OAS_rn = '001234567890'; OAS_rns = '1234567890';

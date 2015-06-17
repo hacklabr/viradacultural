@@ -1,6 +1,6 @@
 minhaVirada = {
-    baseUrl: 'http://viradacultural.prefeitura.sp.gov.br/2015/api/minhavirada/',
-//    baseUrl: 'http://192.168.0.61:8000/minhavirada/',
+    baseApiUrl: 'http://viradacultural.prefeitura.sp.gov.br/2015/api/',
+//    baseApiUrl: 'http://192.168.0.70:8000/',
 
     uid: false,
     accessToken: false,
@@ -15,6 +15,12 @@ minhaVirada = {
     initialized: false,
     inMyPage: false,
 
+    api: {
+        getUrl: function(action){
+            return minhaVirada.baseApiUrl + action + '/';
+        }
+    },
+
     connect: function(callback) {
         var callback = 'minhaVirada.' + callback + '()';
 
@@ -25,6 +31,7 @@ minhaVirada = {
 
 
         FB.getLoginStatus(function(response) {
+
             if (response.status === 'connected') {
                 // the user is logged in and has authenticated your
                 // app, and response.authResponse supplies
@@ -50,19 +57,21 @@ minhaVirada = {
     },
 
     initializeUserData: function(response, callback) {
-
         minhaVirada.connected = true;
         minhaVirada.uid = response.authResponse.userID;
         minhaVirada.accessToken = response.authResponse.accessToken;
 
+        setTimeout(function(){
+            minhaVirada.atualizaAmigos();
+        });
+
         FB.api('/me', {fields: ['name', 'picture.height(200)']}, function(response) {
-            //console.log(response);
-            //minhaVirada.userame = response.username;
+
             minhaVirada.name = response.name;
             minhaVirada.picture = response.picture.data.url;
 
             // Pega dados do usuário
-            jQuery.getJSON( minhaVirada.baseUrl + '?uid=' + minhaVirada.uid, function( data ) {
+            jQuery.getJSON( minhaVirada.api.getUrl('minhavirada') + '?uid=' + minhaVirada.uid, function( data ) {
                 var cb = function(){
                     minhaVirada.debug = data;
 
@@ -72,9 +81,9 @@ minhaVirada = {
                         minhaVirada.events = data.events;
                     }
 
-                    if (data.modalDismissed){
-                        minhaVirada.modalDismissed = data.modalDismissed;
-                    }
+
+                    minhaVirada.modalDismissed = true;
+
 
                     minhaVirada.initialized = true;
                     minhaVirada.atualizaEstrelas();
@@ -109,7 +118,7 @@ minhaVirada = {
 
         // Dismiss modal
         jQuery('#modal-favorita-dismiss').click(function() {
-            //console.log('dismissed');
+            
             minhaVirada.modalDismissed = true;
             jQuery('#modal-favorita-evento').modal('hide');
             minhaVirada.save();
@@ -132,7 +141,7 @@ minhaVirada = {
         var userJSON = minhaVirada.prepareJSON();
 
 
-        jQuery.ajax(minhaVirada.baseUrl, {
+        jQuery.ajax(minhaVirada.api.getUrl('minhavirada'), {
             method: 'POST',
             data: JSON.stringify(userJSON),
             contentType: 'application/json',
@@ -144,7 +153,7 @@ minhaVirada = {
             }
         });
 //
-//        jQuery.post( minhaVirada.baseUrl, JSON.stringify(userJSON), function( data ) {
+//        jQuery.post( minhaVirada.api.getUrl('minhavirada'), JSON.stringify(userJSON), function( data ) {
 //            // atualiza estrelas
 //            minhaVirada.atualizaEstrelas();
 //            if (!minhaVirada.modalDismissed)
@@ -153,23 +162,6 @@ minhaVirada = {
     },
 
     atualizaEstrelas: function() {
-        amigos = {
-            bruno: {
-                    'uid': '100000206331198',
-                    'name': 'Bruno',
-                    'picture': "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/p200x200/1235231_731956590154545_25560024_n.jpg?oh=9947b08bcd5dc6320078386085988133&oe=55EB27CC&__gda__=1441566136_1f1d2f04e490dcbcabe6c37d998376b2"
-                },
-            bo: {
-                    'uid': '100007645724114',
-                    'name': 'Bó',
-                    'picture': "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p200x200/10171798_1420933928171451_6785971541669342162_n.jpg?oh=304908ea2fe4ed651a1d80f36485d1a0&oe=55F4002E&__gda__=1441389378_e0502466155130ef71d3edf4f8bc78d1"
-                },
-            virgilio: {
-                    'uid': '10206944339469908',
-                    'name': 'Virgílio',
-                    'picture': "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xaf1/v/t1.0-1/p200x200/527684_4234015251569_1294087152_n.jpg?oh=d944d82092c8d09b3d636add756fdf16&oe=562FB9AD&__gda__=1446226107_f38b23393059eb9161502de807e699a4"
-                }
-        };
         if(minhaVirada.initialized) {
             jQuery('.favorite').removeClass('favorite-wait');
         }
@@ -187,22 +179,28 @@ minhaVirada = {
 
     _atualizaAmigos: function(){
         Object.keys(minhaVirada.eventosAmigos).forEach(function(eventId){
-            var $lista = jQuery('.js-event-' + eventId + ' .js-lista-amigos');
+            var templateName, $lista;
 
-            $lista.html(Resig.render('template-lista-de-amigos', {friends: minhaVirada.eventosAmigos[eventId]}));
+            $lista = jQuery('.js-lista-amigos');
+            if($lista.hasClass('js-lista-atracao')){
+                templateName = 'template-lista-de-amigos-single-atracao';
+            }else{
+                $lista = jQuery('.js-event-' + eventId + ' .js-lista-amigos');
+                templateName = 'template-lista-de-amigos';
+            }
+
+            $lista.html(Resig.render(templateName, {eventId: eventId, eventUrl: eventUrl(eventId) ,friends: minhaVirada.eventosAmigos[eventId]}));
+
+            $lista.find('[data-toggle="tooltip"]').tooltip();
+
+
         });
     },
 
     atualizaAmigos: function() {
         if(!this.eventosAmigos){
-            setTimeout(function(){
-                minhaVirada.eventosAmigos = {
-                    '9500': [amigos.bo, amigos.bruno, amigos.virgilio],
-                    '9502': [amigos.bo, amigos.virgilio],
-                    '9498': [amigos.bruno, amigos.virgilio],
-                    '9515': [amigos.bo]
-                };
-
+            jQuery.getJSON(minhaVirada.api.getUrl('friendsevents'), {oauth_token: minhaVirada.accessToken, fbuser_uid: minhaVirada.uid}, function(rs){
+                minhaVirada.eventosAmigos = rs;
                 minhaVirada._atualizaAmigos();
             });
         }else{
@@ -230,8 +228,6 @@ minhaVirada = {
     },
 
     doClick: function() {
-        //console.log(minhaVirada.events);
-        //console.log(minhaVirada.eventId);
         if (minhaVirada.eventId) {
             var has_event = minhaVirada.has_event(minhaVirada.eventId);
             if (has_event !== false ) { // o indice pode ser 0

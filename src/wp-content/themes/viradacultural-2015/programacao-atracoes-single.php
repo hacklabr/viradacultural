@@ -43,13 +43,7 @@
                 <p>{{event.description}}</p>
             </div>
             <footer>
-                <div class="friends-group">
-                    XXX amigos marcaram esta atração.
-                    <a href="#" class="friend" data-toggle="tooltip" data-placement="bottom" title="Nome do amigo"><!--img com link pra minha virada respectiva --></a>
-                    <a href="#" class="friend" data-toggle="tooltip" data-placement="bottom" title="Nome do amigo"><!--img com link pra minha virada respectiva --></a>
-                    <a href="#" class="friend" data-toggle="tooltip" data-placement="bottom" title="Nome do amigo"><!--img com link pra minha virada respectiva --></a>
-                    <a href="#" class="friend" data-toggle="modal" data-target="#friendsModal"><div data-toggle="tooltip" data-placement="bottom" title="Nome dos amigos">+000</div></a><!-- link pra modal com lista de todos amigos quando exceder 3 amigos-->
-                </div>
+                <div class="friends-group js-lista-atracao js-lista-amigos"></div>
             </footer>
             <!-- .post-content -->
             <div class="servico">
@@ -82,5 +76,17 @@
     <!-- #main-section -->
     <?php get_footer(); ?>
 </div>
+
+<script type="text/html" id="template-lista-de-amigos-single-atracao">
+<% if(friends.length > 0) { %>
+    <%= friends.length %> amigo<% if(friends.length > 1){ %>s<% } %> marcaram esta atração.
+<% } else{ %>
+    Nunhum amigo marcou esta atração.
+<% } %>
+<br>
+<% for(var i in friends){ var friend = friends[i]; if(!friend) continue; %>
+<a href="<?php bloginfo('url') ?>/minha-virada/##<%= friend.uid %>" class="friend" data-toggle="tooltip" title="<%=friend.name%>"><img src="<%=friend.picture%>"/></a>
+<% } %>
+</script>
 <!-- .container-fluid -->
 <?php html::part('countdown'); ?>
