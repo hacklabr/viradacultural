@@ -1326,20 +1326,21 @@ footer {
                 float: none;
                 width: 225px;
                 padding-bottom: 0;
-                padding-top: 34px;
+                /*padding-top: 34px;*/
                 border-right: none;
                 margin-left: 33px;
                 .event-content {
                     background-color: @brand-primary;
                     bottom: initial;
-                    top: 0;
+                    position:initial;
                     border: none;
-                    padding: 0 5px;
-                    height: 34px;
+                    padding: 5px;
+                    min-height: 36px;
+
                 }
                 &:before {
                     .icon();
-                    content: "\44";
+                    /*content: "\44";*/
                     left: -18px;
                     display: block;
                     position: absolute;
@@ -1352,7 +1353,7 @@ footer {
                 }
                 &.no-thumb {
                     .event-content {
-                        height: auto;
+                        height: 178px;
                         bottom: 0;
                     }
                 }
@@ -1397,7 +1398,7 @@ footer {
                         margin-right: 35px;
                         margin-left: 0;
                         &:before {
-                            content: "\45";
+/*                            content: "\45";*/
                             right: -18px;
                             left: auto;
                         }
