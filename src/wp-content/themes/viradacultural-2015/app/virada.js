@@ -836,7 +836,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
     };
 
     $scope.populateUserInfo = function(data) {
-        $scope.userEvents = [];
+
 
         if ( typeof(data.picture) != 'undefined' ) {
 
@@ -848,7 +848,7 @@ app.controller('minha-virada', function($rootScope, $scope, $http, $location, $t
         }
 
         $http.get($scope.conf.templateURL+'/app/events.json?v=' + GlobalConfiguration.md5['events']).success(function(allEvents){
-
+            $scope.userEvents = [];
             allEvents.forEach(function(e){
                 if (data.events && data.events.length > 0) {
                     $scope.hasEvents = true
