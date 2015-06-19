@@ -16,11 +16,7 @@
         <meta charset="<?php bloginfo( 'charset' ); ?>" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <?php
-        /*
-         * DESCOMENTAR LINHA ABAIXO PARA POPUP
-         *  <meta name="apple-itunes-app" content="app-id=999520281">
-         */ ?>
+        <meta name="apple-itunes-app" content="app-id=999520281">
         <meta name="google-play-app" content="app-id=br.com.lfdb.viradapp">
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
