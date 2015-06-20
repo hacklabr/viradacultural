@@ -31,7 +31,7 @@ Template Name: Leaflet
             }).addTo(map);
 
             var tileLayers = ['wifi', 'alimentacao', 'postos', 'banheiros', 'ambulancia_uti', 'ambulancia'];
-            var tileLayersReadable = ['WiFi', 'Alimentação', 'Postos', 'Banheiros', 'Ambulâncias UTIs', 'Ambulâncias Básicas'];
+            var tileLayersReadable = ['WiFi', 'Alimentação', 'Postos Médicos', 'Banheiros', 'Ambulâncias UTIs', 'Ambulâncias Básicas'];
             var controlLayers = {};
             $.each(tileLayers, function(key, item){
                 var smallIcon = new L.Icon({
