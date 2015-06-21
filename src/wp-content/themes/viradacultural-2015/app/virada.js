@@ -361,11 +361,11 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     $scope.timeSlider = {
         range: {
             min: 0,
-            max: 106
+            max: 116
         },
         model:{
             min:0,
-            max:106
+            max:116
         },
         time:{
             min: '18:00',
