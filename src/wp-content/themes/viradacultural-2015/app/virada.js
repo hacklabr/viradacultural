@@ -352,7 +352,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     });
 
     $scope.startsAt = '18:00';
-    $scope.endsAt = '18:00';
+    $scope.endsAt = '23:00';
 
     $scope.filters = {
         'spaces': false
@@ -361,15 +361,15 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
     $scope.timeSlider = {
         range: {
             min: 0,
-            max: 96
+            max: 106
         },
         model:{
             min:0,
-            max:96
+            max:106
         },
         time:{
             min: '18:00',
-            max: '17:59'
+            max: '22:59'
         }
     };
 
@@ -408,7 +408,7 @@ app.controller('programacao', function($scope, $rootScope, $http, $location, $ti
 
 
     if(!startTimeSetted){
-        if(moment() >= moment('2015-06-20 18:00') && moment() < moment('2015-06-21 18:00')){
+        if(moment() >= moment('2015-06-20 18:00') && moment() < moment('2015-06-21 23:00')){
             var now = moment().subtract('minutes', 15);
             $scope.timeSlider.model.min = parseInt(parseInt(now.diff(moment('2015-06-20 18:00')) / 1000) / 60 / 60 * 4);
         }
