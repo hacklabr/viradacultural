@@ -79,14 +79,21 @@ var hl = {
         //adjustCarrousselHome();
 
         function replaceCountdown(){
-
             var start = moment('2015-06-20 18:00');
+            var end = moment('2015-06-21 23:59');
             var now = moment();
-            if (!window.$footer)
-                $footer = $('#countdown footer');
-
-            if(now > start){
-
+            if (!window.$footer) {
+                var $footer = $('#countdown footer');
+            }
+            
+            if (now > end) {
+                if (!$footer.data('replaced')) {
+                    $footer.data("replaced", true);
+                    $('#countdown').html('');
+                    $('#countdown').append($footer);
+                }
+                return;
+            } else if (now > start) {
                 $('#countdown').replaceWith('<div id="proximas-atracoes" class="event-list col-md-2 hidden-sm hidden-xs">');
             }
 
