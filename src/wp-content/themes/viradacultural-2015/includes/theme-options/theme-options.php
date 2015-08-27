@@ -64,7 +64,12 @@ function theme_options_page_callback_function() {
     <?php $options = wp_parse_args(get_option('theme_options'), get_theme_default_options()); ?>
 
             <div>
-
+                <h3> Transparência </h3>
+                <p>
+                    <label for="transparencia_url"><strong>Url da página de transparência <em>(deixe em branco para não exibir o botão)</em></strong></label><br/>
+                    <input type="text" id="transparencia_url" class="text" name="theme_options[transparencia_url]" value="<?php echo htmlspecialchars($options['transparencia_url']) ?>"  style="width: 80%"/>
+                </p>
+                
                 <h3>Programação</h3>
 
                 <p>Se isto estiver marcado, qualquer visitante poderá ver o site. Caso contrário, apenas usuários conectados poderão vê-la.</p>
